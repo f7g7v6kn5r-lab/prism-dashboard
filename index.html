@@ -1,1 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PRISM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min-height:100vh}
+.topbar{background:#04060f;border-bottom:1px solid #0d1f3c;padding:12px 32px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;letter-spacing:8px;color:#fff}
+.logo span{color:#2d7dd2}
+.live{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;color:#2d7dd2}
+.dot{width:6px;height:6px;background:#00ff88;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
+.ts{font-family:'Space Mono',monospace;font-size:10px;color:#2a4a6b;letter-spacing:2px}
+.hero{padding:24px 32px;border-bottom:1px solid #0d1f3c;background:linear-gradient(180deg,#060d1a 0%,#04060f 100%)}
+.hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#2d7dd2;margin-bottom:12px}
+.badges{display:flex;gap:12px;margin-bottom:16px}
+.badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;padding:4px 12px;border-radius:3px}
+.bullish{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3)}
+.bearish{background:rgba(255,59,59,0.1);color:#ff3b3b;border:1px solid rgba(255,59,59,0.3)}
+.neutral{background:rgba(45,125,210,0.1);color:#2d7dd2;border:1px solid rgba(45,125,210,0.3)}
+.high{background:rgba(255,140,0,0.1);color:#ff8c00;border:1px solid rgba(255,140,0,0.3)}
+.critical{background:rgba(255,59,59,0.1);color:#ff3b3b;border:1px solid rgba(255,59,59,0.3)}
+.medium{background:rgba(255,200,0,0.1);color:#ffc800;border:1px solid rgba(255,200,0,0.3)}
+.low{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3)}
+.summary{font-size:14px;color:#8aa8c8;line-height:1.8;border-left:2px solid #2d7dd2;padding-left:16px;max-width:900px}
+.orr{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #0d1f3c}
+.ocard{background:#04060f;padding:16px 32px;border-right:1px solid #0d1f3c}
+.olabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#00ff88;margin-bottom:8px}
+.rlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#ff3b3b;margin-bottom:8px}
+.otext{font-size:13px;color:#8aa8c8;line-height:1.6}
+.stocks{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.st{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:#2d7dd2}
+.sl{flex:1;height:1px;background:#0d1f3c}
+.sa{font-size:13px;color:#8aa8c8;line-height:1.7;background:#060d1a;padding:16px;border-radius:6px;border:1px solid #0d1f3c}
+.so{margin-top:10px;font-size:12px;color:#2d7dd2;font-style:italic;border-top:1px solid #0d1f3c;padding-top:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#0d1f3c}
+.ns{background:#04060f;padding:20px 24px;border-bottom:1px solid #0d1f3c}
+.ni{padding:12px 0;border-bottom:1px solid #0a1628}
+.ni:last-child{border-bottom:none}
+.nm{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ub{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;padding:2px 6px;border-radius:2px}
+.breaking{background:rgba(255,59,59,0.2);color:#ff3b3b}
+.urgent{background:rgba(255,140,0,0.2);color:#ff8c00}
+.normal{background:rgba(45,125,210,0.1);color:#2d7dd2}
+.nr{font-size:9px;letter-spacing:2px;color:#2a4a6b}
+.nh{font-size:13px;font-weight:600;color:#e8f0f8;line-height:1.4;margin-bottom:6px}
+.nc{font-size:12px;color:#5a7a9a;line-height:1.6}
+.fw{grid-column:1/-1;background:#04060f;padding:20px 32px;border-bottom:1px solid #0d1f3c}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:14px}
+.icard{background:#060d1a;border:1px solid #2d7dd2;border-radius:6px;padding:14px}
+.footer{padding:14px 32px;display:flex;justify-content:space-between;border-top:1px solid #0d1f3c}
+.fl{font-family:'Space Mono',monospace;font-size:9px;color:#1a2a3a;letter-spacing:3px}
+.scan{height:2px;background:linear-gradient(90deg,transparent,#2d7dd2,transparent)}
+</style>
+</head>
+<body>
 
+<div class="scan"></div>
+
+<div class="topbar">
+  <div class="logo">PRI<span>S</span>M</div>
+  <div style="display:flex;align-items:center;gap:24px">
+    <div class="live"><div class="dot"></div>Live Intelligence</div>
+    <div class="ts">Fri, 22 May 2026 · 17:31 GST</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-label">◈ Executive Intelligence Briefing</div>
+  <div class="badges">
+    <div class="badge bullish">
+      BULLISH
+    </div>
+    <div class="badge high">
+      ⚡ Geo Risk: HIGH
+    </div>
+  </div>
+  <div class="summary">SpaceX Starship V3 launches today on Flight 12 while the company S-1 IPO filing confirms USD 18.7 billion in 2025 revenue and a Nasdaq listing under SPCX. Pentagon awards USD 500 million counter-drone contract to Perennial Autonomy. Iran is rebuilding military capacity faster than US expected raising regional risk. SpaceX IPO dominates investment attention this week with the potential to be the largest public listing in history.</div>
+</div>
+
+<div class="orr">
+  <div class="ocard">
+    <div class="olabel">▲ Opportunity of the Day</div>
+    <div class="otext">Loading...</div>
+  </div>
+  <div class="ocard">
+    <div class="rlabel">▼ Risk of the Day</div>
+    <div class="otext">Loading...</div>
+  </div>
+</div>
+
+<div class="stocks">
+  <div class="sh">
+    <div class="st">📈 Market Pulse</div>
+    <div class="sl"></div>
+    <div style="font-size:9px;color:#2a4a6b;letter-spacing:2px">15MIN DELAYED</div>
+  </div>
+  <div class="sa">
+    Stock data was unavailable in structured format this session. However broader sector sentiment is driven by the SpaceX S-1 filing and Starship V3 debut launch which are expected to lift space and defence equities. Counter-drone contract awards and ongoing Iran conflict are supporting defence sector valuations.
+    <div class="so">Space and defence sector momentum remains strong. The SpaceX IPO filing is a historic catalyst for the entire sector. Counter-drone demand is rising with USD 500 million in new Pentagon contracts. Geopolitical tension surrounding Iran and the Strait of Hormuz continues to sustain elevated defence spending expectations across allied nations.</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <div class="ns">
+    <div class="sh"><div class="st">🛰️ Space</div><div class="sl"></div></div>
+    
+      <div class="ni">
+        <div class="nm">
+          <span class="ub breaking">BREAKING</span>
+          <span class="nr">USA</span>
+        </div>
+        <div class="nh">SpaceX Starship V3 makes debut launch on Flight 12</div>
+        <div class="nc">SpaceX conducted the maiden flight of Starship V3 on May 21 from Starbase in Texas marking a significant upgrade in capability over prior versions. The new design features enhanced engine performance and structural improvements. For defence and space investors this test validates the heavy lift architecture underpinning future NASA Artemis missions and US military launch contracts.</div>
+      </div>
+    
+      <div class="ni">
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">USA</span>
+        </div>
+        <div class="nh">NASA budget cuts test Isaacman honeymoon on Capitol Hill</div>
+        <div class="nc">NASA Administrator Jared Isaacman maintains strong Congressional support despite a White House budget proposal that includes steep cuts to the agency. Lawmakers have signalled they may resist the deepest reductions. The outcome will affect commercial space contracts and the long-term Artemis lunar programme pipeline.</div>
+      </div>
+    
+      <div class="ni">
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">GLOBAL</span>
+        </div>
+        <div class="nh">Rocket launch emissions concerns rise but can be mitigated</div>
+        <div class="nc">New research published in Nature raises questions about metallic vapours from rocket reentries affecting the upper atmosphere. Analysts note that next-generation propulsion systems reduce many of these risks. Regulatory scrutiny of launch frequency could affect licensing timelines for commercial operators including SpaceX and Rocket Lab.</div>
+      </div>
+    
+  </div>
+
+  <div class="ns">
+    <div class="sh"><div class="st">🛡️ Defence</div><div class="sl"></div></div>
+    
+      <div class="ni">
+        <div class="nm">
+          <span class="ub breaking">BREAKING</span>
+          <span class="nr">USA</span>
+        </div>
+        <div class="nh">Pentagon awards USD 500M counter-drone contract to startup</div>
+        <div class="nc">The Department of Defense has awarded Perennial Autonomy a USD 500 million contract to accelerate procurement of counter-drone defensive systems. The California-based startup has emerged as a key player in the rapidly growing counter-UAS market. This contract signals sustained Pentagon investment in autonomous threat defeat capabilities as drone warfare intensifies globally.</div>
+      </div>
+    
+      <div class="ni">
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">USA</span>
+        </div>
+        <div class="nh">Pentagon deploys AI targeting to defeat drone threats</div>
+        <div class="nc">The Department of Defense is integrating AI-enhanced target recognition systems that can distinguish drones from non-threats such as birds faster than any human operator. The C-UAS Close-In Kinetic Defeat Enhancement project covers troops vehicles and ships. This represents a significant shift toward AI-enabled autonomous defence and will drive procurement demand for AI-integrated platforms.</div>
+      </div>
+    
+      <div class="ni">
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">INDIA</span>
+        </div>
+        <div class="nh">India pushes for Rafale tech transfer amid sovereignty drive</div>
+        <div class="nc">India is facing resistance from France over Integrated Configuration Data access for Rafale jets as it pursues domestic defence production sovereignty. Supplier states are reluctant to transfer sensitive technical data even under formal agreements. This underscores the strategic tension between arms sales and technology independence relevant to all Middle East and Asian defence buyers.</div>
+      </div>
+    
+  </div>
+
+  <div class="ns">
+    <div class="sh"><div class="st">🌍 Middle East</div><div class="sl"></div></div>
+    
+  </div>
+
+  <div class="ns">
+    <div class="sh"><div class="st">🤖 AI & Technology</div><div class="sl"></div></div>
+    
+  </div>
+
+  <div class="fw">
+    <div class="sh"><div class="st">💰 Investment & Deals</div><div class="sl"></div></div>
+    <div class="cards">
+      
+    </div>
+  </div>
+
+  <div class="fw">
+    <div class="sh"><div class="st">🚀 IPO Watch</div><div class="sl"></div></div>
+    <div class="cards">
+      
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="fl">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · DUBAI</div>
+  <div class="fl">CONFIDENTIAL · 2026</div>
+</div>
+
+<div class="scan"></div>
+
+</body>
+</html>
