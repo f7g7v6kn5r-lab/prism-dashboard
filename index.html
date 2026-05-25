@@ -18,7 +18,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .dot{width:6px;height:6px;background:#00ff88;border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 .ts{font-family:'Space Mono',monospace;font-size:10px;color:#2a4a6b;letter-spacing:2px}
-.moon{font-size:18px;margin-right:4px}
 .hero{padding:24px 32px;border-bottom:1px solid #0d1f3c;background:linear-gradient(180deg,#060d1a 0%,#04060f 100%)}
 .hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#2d7dd2;margin-bottom:12px}
 .badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
@@ -36,22 +35,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .olabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#00ff88;margin-bottom:8px}
 .rlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#ff3b3b;margin-bottom:8px}
 .otext{font-size:13px;color:#8aa8c8;line-height:1.6}
-.stocks{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
-.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.st{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:#2d7dd2}
-.sl{flex:1;height:1px;background:#0d1f3c}
-.ticker-table{width:100%;border-collapse:collapse}
-.ticker-table th{font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;padding:8px 12px;text-align:right;border-bottom:1px solid #0d1f3c}
-.ticker-table th:first-child{text-align:left}
-.ticker-table td{padding:10px 12px;text-align:right;border-bottom:1px solid #0a1628;font-size:13px}
-.ticker-table td:first-child{text-align:left;font-family:'Space Mono',monospace;font-weight:700;color:#ffffff;letter-spacing:2px}
-.ticker-table tr:last-child td{border-bottom:none}
-.up{color:#00ff88}
-.dn{color:#ff3b3b}
-.so{margin-top:16px;font-size:12px;color:#2d7dd2;font-style:italic;border-top:1px solid #0d1f3c;padding-top:12px}
-.map-section{padding:0;border-bottom:1px solid #0d1f3c}
+.map-section{border-bottom:1px solid #0d1f3c}
 .map-header{padding:16px 32px;display:flex;align-items:center;gap:12px}
-#prism-map{height:400px;width:100%;background:#04060f}
+#prism-map{height:420px;width:100%;background:#04060f}
 .map-legend{padding:12px 32px;background:#030508;display:flex;gap:20px;flex-wrap:wrap;border-bottom:1px solid #0d1f3c}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#5a7a9a}
 .legend-dot{width:10px;height:10px;border-radius:50%}
@@ -71,7 +57,20 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:14px}
 .icard{background:#060d1a;border:1px solid #2d7dd2;border-radius:6px;padding:14px}
-.events{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.st{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:#2d7dd2}
+.sl{flex:1;height:1px;background:#0d1f3c}
+.stocks-section{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
+.stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;max-width:700px}
+.stock-card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.stock-ticker{font-family:'Space Mono',monospace;font-size:11px;color:#fff;font-weight:700;letter-spacing:2px}
+.stock-name{font-size:10px;color:#3a5a7a;margin-top:2px}
+.stock-price{font-size:13px;color:#fff;font-weight:600;text-align:right}
+.stock-change-up{font-size:11px;color:#00ff88;text-align:right}
+.stock-change-dn{font-size:11px;color:#ff3b3b;text-align:right}
+.stock-private{font-size:10px;color:#2a4a6b;text-align:right}
+.sector-note{margin-top:16px;font-size:12px;color:#2d7dd2;font-style:italic;border-top:1px solid #0d1f3c;padding-top:12px}
+.events{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#04060f}
 .event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
 .event-card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:16px}
 .event-date{font-family:'Space Mono',monospace;font-size:9px;color:#2d7dd2;letter-spacing:2px;margin-bottom:6px}
@@ -90,7 +89,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 <div class="topbar">
   <div class="logo">PRI<span>S</span>M</div>
   <div class="topbar-right">
-    <div class="moon" id="moonphase"></div>
+    <div id="moonphase" style="font-size:18px"></div>
     <div class="live"><div class="dot"></div>Live Intelligence</div>
     <div class="ts" id="datetime"></div>
   </div>
@@ -118,120 +117,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div class="rlabel">▼ Risk of the Day</div>
     <div class="otext">Continued reliance on US defence budget approvals and continuing resolutions poses a near-term execution risk for prime contractors including LMT and NOC despite todays positive price action.</div>
   </div>
-</div>
-
-<div class="stocks">
-  <div class="sh">
-    <div class="st">📈 Market Pulse — Space & Defence</div>
-    <div class="sl"></div>
-    <div style="font-size:9px;color:#2a4a6b;letter-spacing:2px">15MIN DELAYED</div>
-  </div>
-  <table class="ticker-table">
-    <tr>
-      <th style="text-align:left">TICKER</th>
-      <th style="text-align:left">COMPANY</th>
-      <th>PRICE</th>
-      <th>CHANGE</th>
-      <th>%</th>
-      <th>HIGH</th>
-      <th>LOW</th>
-    </tr>
-    <tr>
-        <td>RKLB</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Rocket Lab</td>
-        <td style="color:#fff;font-weight:600">$ 135.78</td>
-        <td class="up">▲ 10.33</td>
-        <td class="up">▲ 8.23%</td>
-        <td style="color:#5a7a9a">$ 139.76</td>
-        <td style="color:#5a7a9a">$ 131.31</td>
-      </tr><tr>
-        <td>LMT</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Lockheed Martin</td>
-        <td style="color:#fff;font-weight:600">$ 533.26</td>
-        <td class="up">▲ 10.47</td>
-        <td class="up">▲ 2.00%</td>
-        <td style="color:#5a7a9a">$ 534.27</td>
-        <td style="color:#5a7a9a">$ 524.00</td>
-      </tr><tr>
-        <td>RTX</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Raytheon</td>
-        <td style="color:#fff;font-weight:600">$ 177.03</td>
-        <td class="up">▲ 1.05</td>
-        <td class="up">▲ 0.60%</td>
-        <td style="color:#5a7a9a">$ 177.60</td>
-        <td style="color:#5a7a9a">$ 175.26</td>
-      </tr><tr>
-        <td>NOC</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Northrop Grumman</td>
-        <td style="color:#fff;font-weight:600">$ 555.60</td>
-        <td class="up">▲ 4.02</td>
-        <td class="up">▲ 0.73%</td>
-        <td style="color:#5a7a9a">$ 557.69</td>
-        <td style="color:#5a7a9a">$ 550.49</td>
-      </tr><tr>
-        <td>BA</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Boeing</td>
-        <td style="color:#fff;font-weight:600">$ 219.04</td>
-        <td class="dn">▼ 0.57</td>
-        <td class="dn">▼ 0.26%</td>
-        <td style="color:#5a7a9a">$ 221.11</td>
-        <td style="color:#5a7a9a">$ 217.16</td>
-      </tr><tr>
-        <td>LHX</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">L3Harris</td>
-        <td style="color:#fff;font-weight:600">$ 312.00</td>
-        <td class="up">▲ 5.67</td>
-        <td class="up">▲ 1.85%</td>
-        <td style="color:#5a7a9a">$ 312.25</td>
-        <td style="color:#5a7a9a">$ 306.33</td>
-      </tr><tr>
-        <td>IRDM</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Iridium</td>
-        <td style="color:#fff;font-weight:600">$ 48.85</td>
-        <td class="up">▲ 3.15</td>
-        <td class="up">▲ 6.89%</td>
-        <td style="color:#5a7a9a">$ 48.94</td>
-        <td style="color:#5a7a9a">$ 46.20</td>
-      </tr><tr>
-        <td>LUNR</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Intuitive Machines</td>
-        <td style="color:#fff;font-weight:600">$ 38.27</td>
-        <td class="up">▲ 4.03</td>
-        <td class="up">▲ 11.77%</td>
-        <td style="color:#5a7a9a">$ 38.34</td>
-        <td style="color:#5a7a9a">$ 35.23</td>
-      </tr><tr>
-        <td>ASTS</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">AST SpaceMobile</td>
-        <td style="color:#fff;font-weight:600">$ 105.88</td>
-        <td class="up">▲ 9.65</td>
-        <td class="up">▲ 10.03%</td>
-        <td style="color:#5a7a9a">$ 107.59</td>
-        <td style="color:#5a7a9a">$ 98.41</td>
-      </tr><tr>
-        <td>PL</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Planet Labs</td>
-        <td style="color:#fff;font-weight:600">$ 44.36</td>
-        <td class="up">▲ 1.88</td>
-        <td class="up">▲ 4.43%</td>
-        <td style="color:#5a7a9a">$ 45.27</td>
-        <td style="color:#5a7a9a">$ 43.10</td>
-      </tr><tr>
-        <td>BKSY</td>
-        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">BlackSky</td>
-        <td style="color:#fff;font-weight:600">$ 47.88</td>
-        <td class="up">▲ 3.23</td>
-        <td class="up">▲ 7.23%</td>
-        <td style="color:#5a7a9a">$ 48.66</td>
-        <td style="color:#5a7a9a">$ 45.78</td>
-      </tr>
-    <tr>
-      <td style="color:#2a4a6b">SPACEX</td>
-      <td style="text-align:left;font-size:11px;color:#2a4a6b;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Space Exploration Technologies</td>
-      <td colspan="5" style="color:#2a4a6b;font-size:10px;letter-spacing:1px;text-align:left">PRIVATE · WATCH FOR IPO · TICKER: SPCX</td>
-    </tr>
-  </table>
-  <div class="so">The sector outlook remains constructive as accelerating US defence procurement, MUSV and missile defence investment, and commercial space momentum converge to support sustained earnings growth across both primes and new space names.</div>
 </div>
 
 <div class="map-section">
@@ -391,6 +276,127 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   </div>
 </div>
 
+<div class="stocks-section">
+  <div class="sh">
+    <div class="st">📈 Market Pulse — Space & Defence</div>
+    <div class="sl"></div>
+    <div style="font-size:9px;color:#2a4a6b;letter-spacing:2px">15MIN DELAYED</div>
+  </div>
+  <div class="stocks-grid">
+    <div class="stock-card">
+        <div>
+          <div class="stock-ticker">RKLB</div>
+          <div class="stock-name">Rocket Lab</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 135.78</div>
+          <div class="stock-change-up">▲ 8.23%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">LMT</div>
+          <div class="stock-name">Lockheed Martin</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 533.26</div>
+          <div class="stock-change-up">▲ 2.00%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">RTX</div>
+          <div class="stock-name">Raytheon</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 177.03</div>
+          <div class="stock-change-up">▲ 0.60%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">NOC</div>
+          <div class="stock-name">Northrop Grumman</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 555.60</div>
+          <div class="stock-change-up">▲ 0.73%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">BA</div>
+          <div class="stock-name">Boeing</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 219.04</div>
+          <div class="stock-change-dn">▼ 0.26%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">LHX</div>
+          <div class="stock-name">L3Harris</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 312.00</div>
+          <div class="stock-change-up">▲ 1.85%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">IRDM</div>
+          <div class="stock-name">Iridium</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 48.85</div>
+          <div class="stock-change-up">▲ 6.89%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">LUNR</div>
+          <div class="stock-name">Intuitive Machines</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 38.27</div>
+          <div class="stock-change-up">▲ 11.77%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">ASTS</div>
+          <div class="stock-name">AST SpaceMobile</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 105.88</div>
+          <div class="stock-change-up">▲ 10.03%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">PL</div>
+          <div class="stock-name">Planet Labs</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 44.36</div>
+          <div class="stock-change-up">▲ 4.43%</div>
+        </div>
+      </div><div class="stock-card">
+        <div>
+          <div class="stock-ticker">BKSY</div>
+          <div class="stock-name">BlackSky</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 47.88</div>
+          <div class="stock-change-up">▲ 7.23%</div>
+        </div>
+      </div>
+    <div class="stock-card" style="border-color:rgba(45,125,210,0.2)">
+      <div>
+        <div class="stock-ticker" style="color:#2a4a6b">SPACEX</div>
+        <div class="stock-name" style="color:#1a3a5a">Space Exploration</div>
+      </div>
+      <div>
+        <div class="stock-private">PRIVATE</div>
+        <div class="stock-private" style="font-size:9px">Watch: SPCX</div>
+      </div>
+    </div>
+  </div>
+  <div class="sector-note">The sector outlook remains constructive as accelerating US defence procurement, MUSV and missile defence investment, and commercial space momentum converge to support sustained earnings growth across both primes and new space names.</div>
+</div>
+
 <div class="events">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
   <div class="event-grid">
@@ -441,60 +447,35 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 <div class="scan"></div>
 
 <script>
-// DateTime and Moon Phase
-function getMoonPhase() {
-  const phases = ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
-  const known = new Date(2000,0,6);
-  const now = new Date();
-  const diff = (now - known) / (1000 * 60 * 60 * 24);
-  const cycle = diff % 29.53;
-  return phases[Math.floor(cycle / 29.53 * 8)];
+function getMoonPhase(){
+  const phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+  const known=new Date(2000,0,6);
+  const now=new Date();
+  const diff=(now-known)/(1000*60*60*24);
+  const cycle=diff%29.53;
+  return phases[Math.floor(cycle/29.53*8)];
 }
+document.getElementById('moonphase').textContent=getMoonPhase();
+const now=new Date();
+document.getElementById('datetime').textContent=
+  now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+
+  ' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 
-document.getElementById('moonphase').textContent = getMoonPhase();
-const now = new Date();
-document.getElementById('datetime').textContent = 
-  now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'}) + 
-  ' · ' + now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'}) + ' GST';
+const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:18}).addTo(map);
 
-// World Map
-const map = L.map('prism-map', {
-  center: [20, 10],
-  zoom: 2,
-  zoomControl: true
-});
+const colors={space:'#2d7dd2',defence:'#ff3b3b',middle_east:'#ff8c00',investment:'#00ff88',ai_tech:'#a855f7',ipo_watch:'#ffc800'};
+const newsData={"space":[{"headline":"LUNR Surges 11.77% on Lunar Mission Momentum","context":"Intuitive Machines shares jumped 11.77 percent on May 25 2026, making LUNR the top performer across tracked space names. The move reflects growing investor conviction in the commercial lunar services market as NASA CLPS task orders and future mission contracts expand the revenue pipeline.","region":"North America","urgency":"URGENT","lat":29.7604,"lng":-95.3698},{"headline":"ASTS Climbs 10% as Satellite Broadband Scales","context":"AST SpaceMobile gained 10.03 percent on May 25 2026, continuing a strong run as its BlueBird satellite constellation edges toward commercial service activation. Investor sentiment is buoyed by expanding carrier partnerships and the strategic value of direct-to-device coverage for both consumer and government users.","region":"North America","urgency":"URGENT","lat":30.3781,"lng":-97.9067}],"defence":[{"headline":"Lockheed Breaks Ground on New THAAD Plant","context":"Lockheed Martin has broken ground on a dedicated new THAAD interceptor production facility, signalling a major capacity expansion for one of the US militarys premier terminal missile defence systems. The investment responds to sustained allied demand and US Army modernisation requirements as ballistic missile threats grow across multiple theatres.","region":"North America","urgency":"URGENT","lat":32.7357,"lng":-97.1081},{"headline":"Navy Advances Seven MUSV Designs to Prototype","context":"The US Navy has green-lit seven Medium Unmanned Surface Vehicle marketplace submissions to proceed to the prototype phase, accelerating the services push toward distributed maritime operations. The programme reflects a broader strategic shift to unmanned hull integration across fleet architectures, with significant contract activity expected to follow prototype evaluations.","region":"North America","urgency":"URGENT","lat":36.8468,"lng":-76.2951}],"middle_east":[{"headline":"UAE Expands Falcon Eye Satellite Network Capacity","context":"The UAE Space Agency is advancing its Falcon Eye earth observation programme with additional ground station infrastructure across Abu Dhabi. Enhanced imaging resolution capabilities are being integrated to support both civilian planning and national security requirements.","region":"UAE","urgency":"NORMAL","lat":25.2,"lng":55.27},{"headline":"Gulf States Deepen Joint Air Defence Cooperation Talks","context":"GCC defence ministers convened in Riyadh to accelerate integration of regional air defence architectures amid continued regional tension. Saudi Arabia and the UAE are leading efforts to establish unified command protocols for shared threat response systems.","region":"GULF","urgency":"NORMAL","lat":24.46,"lng":54.36}],"investment":[{"headline":"Pentagon Awards Multi Billion Next Gen Interceptor Contracts","context":"The US Missile Defense Agency has confirmed expanded funding allocations for the Next Generation Interceptor programme targeting operational readiness by the early 2030s. Lockheed Martin and Northrop Grumman are primary beneficiaries of the latest contract tranches valued at over three billion dollars.","region":"USA","urgency":"NORMAL","lat":40.71,"lng":-74},{"headline":"European Defence Fund Boosts Space Domain Awareness Spend","context":"The European Commission has approved a significant uplift to European Defence Fund allocations directed at space domain awareness and satellite resilience programmes. Member states including France Germany and Italy are co-investing in sovereign launch and on orbit servicing capabilities through 2030.","region":"GLOBAL","urgency":"NORMAL","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Apple Advances On Device AI With Next Generation Neural Engine","context":"Apple is preparing to introduce a substantially upgraded neural engine architecture across its 2026 device lineup delivering significantly improved on device inference performance. The development reduces reliance on cloud processing and raises the bar for edge AI applications in consumer and enterprise markets.","region":"GLOBAL","urgency":"NORMAL","lat":37.33,"lng":-122.03},{"headline":"US Government Accelerates AI Adoption Across Defence Agencies","context":"The Department of Defense has issued updated guidance expanding authorised use of large language model tools across logistics intelligence and procurement functions. A new AI safety review board has been established to oversee responsible deployment and mitigate adversarial model risks.","region":"USA","urgency":"NORMAL","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Rocket Lab Eyes Nasdaq Uplisting Amid Record Revenue Growth","context":"Rocket Lab has reported consecutive quarters of record revenue driven by strong Electron launch cadence and growing Neutron vehicle development milestones. Investor interest in a potential index inclusion has intensified as the company moves toward profitability targets set for late 2026.","region":"USA","urgency":"NORMAL","lat":40.71,"lng":-74},{"headline":"SpaceX Starlink Secondary Share Sales Signal Valuation Climb","context":"Secondary market transactions in SpaceX equity have pushed implied valuations toward two hundred and fifty billion dollars as institutional appetite for Starlink growth exposure intensifies. Analysts continue to debate the timeline for a Starlink standalone public listing with 2027 remaining the most cited target year.","region":"GLOBAL","urgency":"NORMAL","lat":0,"lng":0}]};
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '© CartoDB',
-  maxZoom: 18
-}).addTo(map);
-
-const colors = {
-  space: '#2d7dd2',
-  defence: '#ff3b3b', 
-  middle_east: '#ff8c00',
-  investment: '#00ff88',
-  ai_tech: '#a855f7',
-  ipo_watch: '#ffc800'
-};
-
-const newsData = {"space":[{"headline":"LUNR Surges 11.77% on Lunar Mission Momentum","context":"Intuitive Machines shares jumped 11.77 percent on May 25 2026, making LUNR the top performer across tracked space names. The move reflects growing investor conviction in the commercial lunar services market as NASA CLPS task orders and future mission contracts expand the revenue pipeline.","region":"North America","urgency":"URGENT","lat":29.7604,"lng":-95.3698},{"headline":"ASTS Climbs 10% as Satellite Broadband Scales","context":"AST SpaceMobile gained 10.03 percent on May 25 2026, continuing a strong run as its BlueBird satellite constellation edges toward commercial service activation. Investor sentiment is buoyed by expanding carrier partnerships and the strategic value of direct-to-device coverage for both consumer and government users.","region":"North America","urgency":"URGENT","lat":30.3781,"lng":-97.9067}],"defence":[{"headline":"Lockheed Breaks Ground on New THAAD Plant","context":"Lockheed Martin has broken ground on a dedicated new THAAD interceptor production facility, signalling a major capacity expansion for one of the US militarys premier terminal missile defence systems. The investment responds to sustained allied demand and US Army modernisation requirements as ballistic missile threats grow across multiple theatres.","region":"North America","urgency":"URGENT","lat":32.7357,"lng":-97.1081},{"headline":"Navy Advances Seven MUSV Designs to Prototype","context":"The US Navy has green-lit seven Medium Unmanned Surface Vehicle marketplace submissions to proceed to the prototype phase, accelerating the services push toward distributed maritime operations. The programme reflects a broader strategic shift to unmanned hull integration across fleet architectures, with significant contract activity expected to follow prototype evaluations.","region":"North America","urgency":"URGENT","lat":36.8468,"lng":-76.2951}],"middle_east":[{"headline":"UAE Expands Falcon Eye Satellite Network Capacity","context":"The UAE Space Agency is advancing its Falcon Eye earth observation programme with additional ground station infrastructure across Abu Dhabi. Enhanced imaging resolution capabilities are being integrated to support both civilian planning and national security requirements.","region":"UAE","urgency":"NORMAL","lat":25.2,"lng":55.27},{"headline":"Gulf States Deepen Joint Air Defence Cooperation Talks","context":"GCC defence ministers convened in Riyadh to accelerate integration of regional air defence architectures amid continued regional tension. Saudi Arabia and the UAE are leading efforts to establish unified command protocols for shared threat response systems.","region":"GULF","urgency":"NORMAL","lat":24.46,"lng":54.36}],"investment":[{"headline":"Pentagon Awards Multi Billion Next Gen Interceptor Contracts","context":"The US Missile Defense Agency has confirmed expanded funding allocations for the Next Generation Interceptor programme targeting operational readiness by the early 2030s. Lockheed Martin and Northrop Grumman are primary beneficiaries of the latest contract tranches valued at over three billion dollars.","region":"USA","urgency":"NORMAL","lat":40.71,"lng":-74},{"headline":"European Defence Fund Boosts Space Domain Awareness Spend","context":"The European Commission has approved a significant uplift to European Defence Fund allocations directed at space domain awareness and satellite resilience programmes. Member states including France Germany and Italy are co-investing in sovereign launch and on orbit servicing capabilities through 2030.","region":"GLOBAL","urgency":"NORMAL","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Apple Advances On Device AI With Next Generation Neural Engine","context":"Apple is preparing to introduce a substantially upgraded neural engine architecture across its 2026 device lineup delivering significantly improved on device inference performance. The development reduces reliance on cloud processing and raises the bar for edge AI applications in consumer and enterprise markets.","region":"GLOBAL","urgency":"NORMAL","lat":37.33,"lng":-122.03},{"headline":"US Government Accelerates AI Adoption Across Defence Agencies","context":"The Department of Defense has issued updated guidance expanding authorised use of large language model tools across logistics intelligence and procurement functions. A new AI safety review board has been established to oversee responsible deployment and mitigate adversarial model risks.","region":"USA","urgency":"NORMAL","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Rocket Lab Eyes Nasdaq Uplisting Amid Record Revenue Growth","context":"Rocket Lab has reported consecutive quarters of record revenue driven by strong Electron launch cadence and growing Neutron vehicle development milestones. Investor interest in a potential index inclusion has intensified as the company moves toward profitability targets set for late 2026.","region":"USA","urgency":"NORMAL","lat":40.71,"lng":-74},{"headline":"SpaceX Starlink Secondary Share Sales Signal Valuation Climb","context":"Secondary market transactions in SpaceX equity have pushed implied valuations toward two hundred and fifty billion dollars as institutional appetite for Starlink growth exposure intensifies. Analysts continue to debate the timeline for a Starlink standalone public listing with 2027 remaining the most cited target year.","region":"GLOBAL","urgency":"NORMAL","lat":0,"lng":0}]};
-
-Object.keys(newsData).forEach(category => {
-  const items = newsData[category] || [];
-  items.forEach(item => {
-    if (item.lat && item.lng && item.headline) {
-      const marker = L.circleMarker([item.lat, item.lng], {
-        radius: 8,
-        fillColor: colors[category] || '#2d7dd2',
-        color: '#fff',
-        weight: 1,
-        opacity: 0.9,
-        fillOpacity: 0.8
-      }).addTo(map);
-      marker.bindPopup(`
-        <div style="font-family:'Space Grotesk',sans-serif;max-width:200px">
-          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${category.toUpperCase().replace('_',' ')}</div>
+Object.keys(newsData).forEach(cat=>{
+  (newsData[cat]||[]).forEach(item=>{
+    if(item.lat&&item.lng&&item.headline){
+      L.circleMarker([item.lat,item.lng],{
+        radius:8,fillColor:colors[cat]||'#2d7dd2',
+        color:'#fff',weight:1,opacity:0.9,fillOpacity:0.8
+      }).addTo(map).bindPopup(`
+        <div style="font-family:sans-serif;max-width:200px">
+          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${cat.toUpperCase().replace('_',' ')}</div>
           <div style="font-weight:600;font-size:13px;margin-bottom:6px">${item.headline}</div>
           <div style="font-size:11px;color:#666;line-height:1.5">${item.context}</div>
         </div>
@@ -503,6 +484,5 @@ Object.keys(newsData).forEach(category => {
   });
 });
 </script>
-
 </body>
 </html>
