@@ -35,8 +35,16 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .st{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:#2d7dd2}
 .sl{flex:1;height:1px;background:#0d1f3c}
-.sa{font-size:13px;color:#8aa8c8;line-height:1.7;background:#060d1a;padding:16px;border-radius:6px;border:1px solid #0d1f3c}
-.so{margin-top:10px;font-size:12px;color:#2d7dd2;font-style:italic;border-top:1px solid #0d1f3c;padding-top:10px}
+.ticker-table{width:100%;border-collapse:collapse}
+.ticker-table th{font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;padding:8px 12px;text-align:right;border-bottom:1px solid #0d1f3c}
+.ticker-table th:first-child{text-align:left}
+.ticker-table td{padding:10px 12px;text-align:right;border-bottom:1px solid #0a1628;font-size:13px}
+.ticker-table td:first-child{text-align:left;font-family:'Space Mono',monospace;font-weight:700;color:#ffffff;letter-spacing:2px}
+.ticker-table tr:last-child td{border-bottom:none}
+.up{color:#00ff88}
+.down{color:#ff3b3b}
+.private{color:#2a4a6b;font-size:11px;letter-spacing:2px}
+.so{margin-top:16px;font-size:12px;color:#2d7dd2;font-style:italic;border-top:1px solid #0d1f3c;padding-top:12px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#0d1f3c}
 .ns{background:#04060f;padding:20px 24px;border-bottom:1px solid #0d1f3c}
 .ni{padding:12px 0;border-bottom:1px solid #0a1628}
@@ -46,6 +54,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .breaking{background:rgba(255,59,59,0.2);color:#ff3b3b}
 .urgent{background:rgba(255,140,0,0.2);color:#ff8c00}
 .normal{background:rgba(45,125,210,0.1);color:#2d7dd2}
+.elevated{background:rgba(255,140,0,0.2);color:#ff8c00}
 .nr{font-size:9px;letter-spacing:2px;color:#2a4a6b}
 .nh{font-size:13px;font-weight:600;color:#e8f0f8;line-height:1.4;margin-bottom:6px}
 .nc{font-size:12px;color:#5a7a9a;line-height:1.6}
@@ -66,21 +75,21 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   <div class="logo">PRI<span>S</span>M</div>
   <div style="display:flex;align-items:center;gap:24px">
     <div class="live"><div class="dot"></div>Live Intelligence</div>
-    <div class="ts">Mon, 25 May 2026 · 12:09 GST</div>
+    <div class="ts">Mon, 25 May 2026 · 12:23 GST</div>
   </div>
 </div>
 
 <div class="hero">
   <div class="hero-label">◈ Executive Intelligence Briefing</div>
   <div class="badges">
-    <div class="badge bullish">
-      BULLISH
+    <div class="badge bearish">
+      BEARISH
     </div>
     <div class="badge high">
       ⚡ Geo Risk: HIGH
     </div>
   </div>
-  <div class="summary">Space and defence equities are surging today with small-cap space names leading the charge. LUNR is up over 11 percent, ASTS and RKLB both gaining above 8 percent, signalling strong institutional appetite for commercial space. Iran rejecting US uranium enrichment demands raises geopolitical risk in the Gulf region. Watch satellite and space infrastructure plays as the primary opportunity while Iran nuclear escalation remains the key risk to monitor.</div>
+  <div class="summary">Iran has rejected US demands to halt uranium enrichment in ongoing nuclear negotiations signalling a hardening of diplomatic positions under the Trump administration. US equity futures slumped on the news despite positive momentum from Asian markets. Geopolitical risk in the Middle East remains elevated. Defence and space sectors should monitor escalation risks closely as any breakdown in talks could accelerate regional defence procurement and satellite intelligence demand across Gulf states.</div>
 </div>
 
 <div class="orr">
@@ -96,14 +105,151 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 
 <div class="stocks">
   <div class="sh">
-    <div class="st">📈 Market Pulse</div>
+    <div class="st">📈 Market Pulse — Space & Defence</div>
     <div class="sl"></div>
     <div style="font-size:9px;color:#2a4a6b;letter-spacing:2px">15MIN DELAYED</div>
   </div>
-  <div class="sa">
-    LUNR leads the sector up 11.74 percent, followed by ASTS up 10 percent and RKLB up 8.22 percent. IRDM and BKSY also posting strong gains above 6 percent. PL up 4.4 percent. LMT and LHX rising nearly 2 percent each among the large-cap defence names. BA is the only decliner, slipping 0.27 percent. Broad sector strength is notable across both commercial space and prime defence contractors.
-    <div class="so">The space and defence sector is in strong bullish momentum today with near-universal gains across the portfolio. Small and mid-cap commercial space names are outperforming significantly, suggesting institutional rotation into higher-risk growth plays within the sector. Defence primes remain steady. If geopolitical tensions linked to Iran escalate further, prime contractors like LMT and NOC could see additional upside as defence spending expectations rise.</div>
-  </div>
+  <table class="ticker-table">
+    <tr>
+      <th style="text-align:left">TICKER</th>
+      <th>PRICE</th>
+      <th>CHANGE</th>
+      <th>%</th>
+      <th>HIGH</th>
+      <th>LOW</th>
+      <th>PREV CLOSE</th>
+    </tr>
+    <tr>
+        <td>
+          <span style="color:#ffffff">RKLB</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Rocket Lab</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 135.76</td>
+        <td class="up">▲ 10.31</td>
+        <td class="up">▲ 8.22%</td>
+        <td style="color:#5a7a9a">$ 139.76</td>
+        <td style="color:#5a7a9a">$ 131.31</td>
+        <td style="color:#5a7a9a">$ 125.45</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">LMT</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Lockheed Martin</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 533.24</td>
+        <td class="up">▲ 10.45</td>
+        <td class="up">▲ 2.00%</td>
+        <td style="color:#5a7a9a">$ 534.27</td>
+        <td style="color:#5a7a9a">$ 524.00</td>
+        <td style="color:#5a7a9a">$ 522.79</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">RTX</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Raytheon</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 177.01</td>
+        <td class="up">▲ 1.03</td>
+        <td class="up">▲ 0.59%</td>
+        <td style="color:#5a7a9a">$ 177.60</td>
+        <td style="color:#5a7a9a">$ 175.26</td>
+        <td style="color:#5a7a9a">$ 175.98</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">NOC</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Northrop Grumman</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 555.58</td>
+        <td class="up">▲ 4.00</td>
+        <td class="up">▲ 0.73%</td>
+        <td style="color:#5a7a9a">$ 557.69</td>
+        <td style="color:#5a7a9a">$ 550.49</td>
+        <td style="color:#5a7a9a">$ 551.58</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">BA</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Boeing</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 219.02</td>
+        <td class="down">▼ 0.59</td>
+        <td class="down">▼ 0.27%</td>
+        <td style="color:#5a7a9a">$ 221.11</td>
+        <td style="color:#5a7a9a">$ 217.16</td>
+        <td style="color:#5a7a9a">$ 219.61</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">LHX</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">L3Harris</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 311.98</td>
+        <td class="up">▲ 5.65</td>
+        <td class="up">▲ 1.84%</td>
+        <td style="color:#5a7a9a">$ 312.25</td>
+        <td style="color:#5a7a9a">$ 306.33</td>
+        <td style="color:#5a7a9a">$ 306.33</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">IRDM</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Iridium</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 48.84</td>
+        <td class="up">▲ 3.14</td>
+        <td class="up">▲ 6.87%</td>
+        <td style="color:#5a7a9a">$ 48.94</td>
+        <td style="color:#5a7a9a">$ 46.20</td>
+        <td style="color:#5a7a9a">$ 45.70</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">LUNR</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Intuitive Machines</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 38.26</td>
+        <td class="up">▲ 4.02</td>
+        <td class="up">▲ 11.74%</td>
+        <td style="color:#5a7a9a">$ 38.34</td>
+        <td style="color:#5a7a9a">$ 35.23</td>
+        <td style="color:#5a7a9a">$ 34.24</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">ASTS</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">AST SpaceMobile</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 105.86</td>
+        <td class="up">▲ 9.63</td>
+        <td class="up">▲ 10.01%</td>
+        <td style="color:#5a7a9a">$ 107.59</td>
+        <td style="color:#5a7a9a">$ 98.41</td>
+        <td style="color:#5a7a9a">$ 96.23</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">PL</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Planet Labs</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 44.35</td>
+        <td class="up">▲ 1.87</td>
+        <td class="up">▲ 4.40%</td>
+        <td style="color:#5a7a9a">$ 45.27</td>
+        <td style="color:#5a7a9a">$ 43.10</td>
+        <td style="color:#5a7a9a">$ 42.48</td>
+      </tr><tr>
+        <td>
+          <span style="color:#ffffff">BKSY</span>
+          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">BlackSky</span>
+        </td>
+        <td style="color:#ffffff;font-weight:600">$ 47.87</td>
+        <td class="up">▲ 3.22</td>
+        <td class="up">▲ 7.21%</td>
+        <td style="color:#5a7a9a">$ 48.66</td>
+        <td style="color:#5a7a9a">$ 45.78</td>
+        <td style="color:#5a7a9a">$ 44.65</td>
+      </tr>
+    <tr>
+      <td>
+        <span style="color:#2a4a6b">SPACEX</span>
+        <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Space Exploration Technologies</span>
+      </td>
+      <td colspan="6" class="private">PRIVATE COMPANY · WATCH FOR IPO · TICKER: SPCX</td>
+    </tr>
+  </table>
+  <div class="so">The space and defence sector maintains a structurally bullish outlook driven by sustained government spending and geopolitical demand. However short term macro headwinds including rising bond yields and diplomatic uncertainty are creating volatility. Gulf region procurement cycles remain active and represent a strong demand signal for prime contractors and technology suppliers throughout 2025 and 2026.</div>
 </div>
 
 <div class="grid">
@@ -113,29 +259,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     
       <div class="ni">
         <div class="nm">
-          <span class="ub normal">NORMAL</span>
-          <span class="nr">USA</span>
+          <span class="ub breaking">BREAKING</span>
+          <span class="nr">Middle East</span>
         </div>
-        <div class="nh">Commercial Space Stocks Surge on Broad Sector Momentum</div>
-        <div class="nc">LUNR, ASTS, RKLB, IRDM, and BKSY are all posting exceptional gains today ranging from 6 to nearly 12 percent. This broad-based rally across commercial space equities suggests institutional capital is rotating aggressively into the sector. Satellite connectivity, lunar logistics, and space-based intelligence platforms are all attracting renewed investor interest amid expanding government and commercial contracts globally.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub normal">NORMAL</span>
-          <span class="nr">USA</span>
-        </div>
-        <div class="nh">Rocket Lab Gains 8 Percent Amid Launch Pipeline Optimism</div>
-        <div class="nc">Rocket Lab shares climbed 8.22 percent today, reflecting growing confidence in its launch cadence and Neutron rocket development programme. The company has been expanding its manifest with both government and commercial customers. Investors are increasingly viewing RKLB as a credible alternative to larger launch providers, particularly for small satellite operators seeking dedicated and reliable orbital access.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub normal">NORMAL</span>
-          <span class="nr">USA</span>
-        </div>
-        <div class="nh">AST SpaceMobile Rises 10 Percent on Connectivity Demand</div>
-        <div class="nc">ASTS surged over 10 percent today as investor confidence in direct-to-device satellite connectivity continues to build. The company is advancing its commercial broadband constellation targeting mobile network operators globally. Gulf and Middle East telecom operators have been identified as key potential partners, making this particularly relevant for regional stakeholders watching next-generation connectivity infrastructure unfold.</div>
+        <div class="nh">Iran Crisis Raises Satellite Intelligence Demand in Gulf</div>
+        <div class="nc">As Iran rejects US uranium enrichment demands regional governments are accelerating investment in space-based surveillance and communications infrastructure. Gulf states including the UAE and Saudi Arabia are expanding their sovereign satellite capabilities to monitor regional threats independently. This dynamic strengthens the investment case for commercial and government space intelligence platforms operating across the Middle East.</div>
       </div>
     
   </div>
@@ -143,15 +271,42 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   <div class="ns">
     <div class="sh"><div class="st">🛡️ Defence</div><div class="sl"></div></div>
     
+      <div class="ni">
+        <div class="nm">
+          <span class="ub breaking">BREAKING</span>
+          <span class="nr">Middle East</span>
+        </div>
+        <div class="nh">Iran Rejects US Nuclear Demands Raising Gulf Defence Alert</div>
+        <div class="nc">Iran has formally rejected Trump administration demands to cease uranium enrichment marking a significant escalation in diplomatic tensions. This development raises the probability of increased US and allied naval and air defence posturing in the Persian Gulf. Gulf Cooperation Council states are likely to accelerate existing defence procurement timelines with implications for US prime contractors and regional integrators.</div>
+      </div>
+    
   </div>
 
   <div class="ns">
     <div class="sh"><div class="st">🌍 Middle East</div><div class="sl"></div></div>
     
+      <div class="ni">
+        <div class="nm">
+          <span class="ub breaking">BREAKING</span>
+          <span class="nr">Middle East</span>
+        </div>
+        <div class="nh">Iran Nuclear Talks Collapse Signals Regional Escalation Risk</div>
+        <div class="nc">The collapse of uranium enrichment negotiations between Iran and the US represents a major inflection point for Middle East security. UAE and Saudi Arabia will be closely monitoring developments as any escalation could directly affect regional stability and energy infrastructure security. Gulf defence ministries are expected to review threat assessments and fast-track procurement of air defence and intelligence systems.</div>
+      </div>
+    
   </div>
 
   <div class="ns">
     <div class="sh"><div class="st">🤖 AI & Technology</div><div class="sl"></div></div>
+    
+      <div class="ni">
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">Global</span>
+        </div>
+        <div class="nh">AI Intelligence Tools Gain Relevance Amid Iran Escalation</div>
+        <div class="nc">As Iran-US nuclear diplomacy deteriorates demand for AI-driven geospatial intelligence and threat analysis platforms is expected to rise across government and defence clients. Machine learning tools that parse satellite imagery signals intelligence and open source data are increasingly central to national security decision-making in the Gulf region. This creates immediate commercial opportunity for dual-use AI technology firms serving defence clients.</div>
+      </div>
     
   </div>
 
@@ -159,12 +314,30 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div class="sh"><div class="st">💰 Investment & Deals</div><div class="sl"></div></div>
     <div class="cards">
       
+        <div class="card">
+          <div class="nm">
+            <span class="ub normal">NORMAL</span>
+            <span class="nr">USA</span>
+          </div>
+          <div class="nh">Futures Slide as Iran Diplomacy Fails to Reach Agreement</div>
+          <div class="nc" style="margin-top:6px">US equity futures declined sharply after Iran rejected Trump administration nuclear demands erasing earlier gains linked to a strong rally in Korean semiconductor stocks. Investors are reassessing risk exposure across emerging markets and energy-linked equities. Defence and hard asset sectors are likely to attract defensive capital flows as geopolitical uncertainty increases through the near term.</div>
+        </div>
+      
     </div>
   </div>
 
   <div class="fw">
     <div class="sh"><div class="st">🚀 IPO Watch</div><div class="sl"></div></div>
     <div class="cards">
+      
+        <div class="icard">
+          <div class="nm">
+            <span class="ub normal">NORMAL</span>
+            <span class="nr">USA</span>
+          </div>
+          <div class="nh">Defence Tech IPO Pipeline Strengthens on Geopolitical Tension</div>
+          <div class="nc" style="margin-top:6px">Elevated geopolitical risk stemming from the Iran nuclear standoff historically supports stronger institutional appetite for defence technology IPOs. Companies operating in areas such as missile defence unmanned systems and space surveillance are well positioned for public market listings in the current environment. Investors in the Gulf and US are actively seeking exposure to next-generation defence platforms ahead of anticipated procurement cycles.</div>
+        </div>
       
     </div>
   </div>
