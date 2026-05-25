@@ -2,21 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PRISM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISM — Space & Defence Intelligence</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min-height:100vh}
-.topbar{background:#04060f;border-bottom:1px solid #0d1f3c;padding:12px 32px;display:flex;justify-content:space-between;align-items:center}
+.topbar{background:#04060f;border-bottom:1px solid #0d1f3c;padding:12px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .logo{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;letter-spacing:8px;color:#fff}
 .logo span{color:#2d7dd2}
+.topbar-right{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .live{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;color:#2d7dd2}
 .dot{width:6px;height:6px;background:#00ff88;border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 .ts{font-family:'Space Mono',monospace;font-size:10px;color:#2a4a6b;letter-spacing:2px}
+.moon{font-size:18px;margin-right:4px}
 .hero{padding:24px 32px;border-bottom:1px solid #0d1f3c;background:linear-gradient(180deg,#060d1a 0%,#04060f 100%)}
 .hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#2d7dd2;margin-bottom:12px}
-.badges{display:flex;gap:12px;margin-bottom:16px}
+.badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
 .badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;padding:4px 12px;border-radius:3px}
 .bullish{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3)}
 .bearish{background:rgba(255,59,59,0.1);color:#ff3b3b;border:1px solid rgba(255,59,59,0.3)}
@@ -42,9 +47,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .ticker-table td:first-child{text-align:left;font-family:'Space Mono',monospace;font-weight:700;color:#ffffff;letter-spacing:2px}
 .ticker-table tr:last-child td{border-bottom:none}
 .up{color:#00ff88}
-.down{color:#ff3b3b}
-.private{color:#2a4a6b;font-size:11px;letter-spacing:2px}
+.dn{color:#ff3b3b}
 .so{margin-top:16px;font-size:12px;color:#2d7dd2;font-style:italic;border-top:1px solid #0d1f3c;padding-top:12px}
+.map-section{padding:0;border-bottom:1px solid #0d1f3c}
+.map-header{padding:16px 32px;display:flex;align-items:center;gap:12px}
+#prism-map{height:400px;width:100%;background:#04060f}
+.map-legend{padding:12px 32px;background:#030508;display:flex;gap:20px;flex-wrap:wrap;border-bottom:1px solid #0d1f3c}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#5a7a9a}
+.legend-dot{width:10px;height:10px;border-radius:50%}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#0d1f3c}
 .ns{background:#04060f;padding:20px 24px;border-bottom:1px solid #0d1f3c}
 .ni{padding:12px 0;border-bottom:1px solid #0a1628}
@@ -54,7 +64,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .breaking{background:rgba(255,59,59,0.2);color:#ff3b3b}
 .urgent{background:rgba(255,140,0,0.2);color:#ff8c00}
 .normal{background:rgba(45,125,210,0.1);color:#2d7dd2}
-.elevated{background:rgba(255,140,0,0.2);color:#ff8c00}
 .nr{font-size:9px;letter-spacing:2px;color:#2a4a6b}
 .nh{font-size:13px;font-weight:600;color:#e8f0f8;line-height:1.4;margin-bottom:6px}
 .nc{font-size:12px;color:#5a7a9a;line-height:1.6}
@@ -62,7 +71,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:14px}
 .icard{background:#060d1a;border:1px solid #2d7dd2;border-radius:6px;padding:14px}
-.footer{padding:14px 32px;display:flex;justify-content:space-between;border-top:1px solid #0d1f3c}
+.events{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
+.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.event-card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:16px}
+.event-date{font-family:'Space Mono',monospace;font-size:9px;color:#2d7dd2;letter-spacing:2px;margin-bottom:6px}
+.event-name{font-size:13px;font-weight:600;color:#e8f0f8;margin-bottom:4px}
+.event-loc{font-size:11px;color:#5a7a9a}
+.event-tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;padding:2px 8px;border-radius:2px;background:rgba(45,125,210,0.1);color:#2d7dd2;border:1px solid rgba(45,125,210,0.3)}
+.footer{padding:14px 32px;display:flex;justify-content:space-between;border-top:1px solid #0d1f3c;flex-wrap:wrap;gap:8px}
 .fl{font-family:'Space Mono',monospace;font-size:9px;color:#1a2a3a;letter-spacing:3px}
 .scan{height:2px;background:linear-gradient(90deg,transparent,#2d7dd2,transparent)}
 </style>
@@ -73,33 +89,34 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 
 <div class="topbar">
   <div class="logo">PRI<span>S</span>M</div>
-  <div style="display:flex;align-items:center;gap:24px">
+  <div class="topbar-right">
+    <div class="moon" id="moonphase"></div>
     <div class="live"><div class="dot"></div>Live Intelligence</div>
-    <div class="ts">Mon, 25 May 2026 · 18:20 GST</div>
+    <div class="ts" id="datetime"></div>
   </div>
 </div>
 
 <div class="hero">
   <div class="hero-label">◈ Executive Intelligence Briefing</div>
   <div class="badges">
-    <div class="badge bullish">
-      BULLISH
+    <div class="badge neutral">
+      NEUTRAL
     </div>
-    <div class="badge high">
-      ⚡ Geo Risk: HIGH
+    <div class="badge medium">
+      ⚡ Geo Risk: MEDIUM
     </div>
   </div>
-  <div class="summary">SpaceX launched Starship V3 for the first time marking a major milestone in next generation heavy lift capability while NASA announced a significant internal reorganization to accelerate mission delivery. Defence stocks surged broadly with LMT up over 10 percent and RKLB gaining 10.33 percent signalling strong institutional confidence. Geopolitical risk remains elevated with China advancing its lunar programme via Tiangong and autonomous naval systems gaining momentum in US Navy procurement. The SpaceX IPO filing narrative around orbital AI compute presents a generational investment opportunity. Key risk is EU regulatory fragmentation slowing Arctic space infrastructure development.</div>
+  <div class="summary">Loading...</div>
 </div>
 
 <div class="orr">
   <div class="ocard">
     <div class="olabel">▲ Opportunity of the Day</div>
-    <div class="otext">The Starship V3 successful debut combined with NASA contract expansion for SpaceX commercial crew creates a strong near term catalyst for RKLB and ASTS as investor sentiment lifts all credible new space operators. Institutional rotation into pure play commercial space names with government revenue backing is underway and represents a timely entry point ahead of further SpaceX IPO narrative development.</div>
+    <div class="otext">Analysing...</div>
   </div>
   <div class="ocard">
     <div class="rlabel">▼ Risk of the Day</div>
-    <div class="otext">EU regulatory fragmentation around Arctic space policy combined with Kali365 Microsoft 365 phishing threats targeting government cloud infrastructure represents a dual risk of market access delays and operational security breaches for defence and space contractors operating across European and transatlantic programmes. Firms should urgently audit cloud access controls and monitor EU space regulation developments for Northern European launch site implications.</div>
+    <div class="otext">Analysing...</div>
   </div>
 </div>
 
@@ -112,221 +129,138 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   <table class="ticker-table">
     <tr>
       <th style="text-align:left">TICKER</th>
+      <th style="text-align:left">COMPANY</th>
       <th>PRICE</th>
       <th>CHANGE</th>
       <th>%</th>
       <th>HIGH</th>
       <th>LOW</th>
-      <th>PREV CLOSE</th>
     </tr>
     <tr>
-        <td>
-          <span style="color:#ffffff">RKLB</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Rocket Lab</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 135.78</td>
-        <td class="up">▲ 10.33</td>
-        <td class="up">▲ 8.23%</td>
+        <td>RKLB</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Rocket Lab</td>
+        <td style="color:#fff;font-weight:600">$ 135.76</td>
+        <td class="up">▲ 10.31</td>
+        <td class="up">▲ 8.22%</td>
         <td style="color:#5a7a9a">$ 139.76</td>
         <td style="color:#5a7a9a">$ 131.31</td>
-        <td style="color:#5a7a9a">$ 125.45</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">LMT</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Lockheed Martin</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 533.26</td>
-        <td class="up">▲ 10.47</td>
+        <td>LMT</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Lockheed Martin</td>
+        <td style="color:#fff;font-weight:600">$ 533.24</td>
+        <td class="up">▲ 10.45</td>
         <td class="up">▲ 2.00%</td>
         <td style="color:#5a7a9a">$ 534.27</td>
         <td style="color:#5a7a9a">$ 524.00</td>
-        <td style="color:#5a7a9a">$ 522.79</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">RTX</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Raytheon</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 177.03</td>
-        <td class="up">▲ 1.05</td>
-        <td class="up">▲ 0.60%</td>
+        <td>RTX</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Raytheon</td>
+        <td style="color:#fff;font-weight:600">$ 177.01</td>
+        <td class="up">▲ 1.03</td>
+        <td class="up">▲ 0.59%</td>
         <td style="color:#5a7a9a">$ 177.60</td>
         <td style="color:#5a7a9a">$ 175.26</td>
-        <td style="color:#5a7a9a">$ 175.98</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">NOC</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Northrop Grumman</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 555.60</td>
-        <td class="up">▲ 4.02</td>
+        <td>NOC</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Northrop Grumman</td>
+        <td style="color:#fff;font-weight:600">$ 555.58</td>
+        <td class="up">▲ 4.00</td>
         <td class="up">▲ 0.73%</td>
         <td style="color:#5a7a9a">$ 557.69</td>
         <td style="color:#5a7a9a">$ 550.49</td>
-        <td style="color:#5a7a9a">$ 551.58</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">BA</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Boeing</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 219.04</td>
-        <td class="down">▼ 0.57</td>
-        <td class="down">▼ 0.26%</td>
+        <td>BA</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Boeing</td>
+        <td style="color:#fff;font-weight:600">$ 219.02</td>
+        <td class="dn">▼ 0.59</td>
+        <td class="dn">▼ 0.27%</td>
         <td style="color:#5a7a9a">$ 221.11</td>
         <td style="color:#5a7a9a">$ 217.16</td>
-        <td style="color:#5a7a9a">$ 219.61</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">LHX</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">L3Harris</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 312.00</td>
-        <td class="up">▲ 5.67</td>
-        <td class="up">▲ 1.85%</td>
+        <td>LHX</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">L3Harris</td>
+        <td style="color:#fff;font-weight:600">$ 311.98</td>
+        <td class="up">▲ 5.65</td>
+        <td class="up">▲ 1.84%</td>
         <td style="color:#5a7a9a">$ 312.25</td>
         <td style="color:#5a7a9a">$ 306.33</td>
-        <td style="color:#5a7a9a">$ 306.33</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">IRDM</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Iridium</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 48.85</td>
-        <td class="up">▲ 3.15</td>
-        <td class="up">▲ 6.89%</td>
+        <td>IRDM</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Iridium</td>
+        <td style="color:#fff;font-weight:600">$ 48.84</td>
+        <td class="up">▲ 3.14</td>
+        <td class="up">▲ 6.87%</td>
         <td style="color:#5a7a9a">$ 48.94</td>
         <td style="color:#5a7a9a">$ 46.20</td>
-        <td style="color:#5a7a9a">$ 45.70</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">LUNR</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Intuitive Machines</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 38.27</td>
-        <td class="up">▲ 4.03</td>
-        <td class="up">▲ 11.77%</td>
+        <td>LUNR</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Intuitive Machines</td>
+        <td style="color:#fff;font-weight:600">$ 38.26</td>
+        <td class="up">▲ 4.02</td>
+        <td class="up">▲ 11.74%</td>
         <td style="color:#5a7a9a">$ 38.34</td>
         <td style="color:#5a7a9a">$ 35.23</td>
-        <td style="color:#5a7a9a">$ 34.24</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">ASTS</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">AST SpaceMobile</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 105.88</td>
-        <td class="up">▲ 9.65</td>
-        <td class="up">▲ 10.03%</td>
+        <td>ASTS</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">AST SpaceMobile</td>
+        <td style="color:#fff;font-weight:600">$ 105.86</td>
+        <td class="up">▲ 9.63</td>
+        <td class="up">▲ 10.01%</td>
         <td style="color:#5a7a9a">$ 107.59</td>
         <td style="color:#5a7a9a">$ 98.41</td>
-        <td style="color:#5a7a9a">$ 96.23</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">PL</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Planet Labs</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 44.36</td>
-        <td class="up">▲ 1.88</td>
-        <td class="up">▲ 4.43%</td>
+        <td>PL</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">Planet Labs</td>
+        <td style="color:#fff;font-weight:600">$ 44.35</td>
+        <td class="up">▲ 1.87</td>
+        <td class="up">▲ 4.40%</td>
         <td style="color:#5a7a9a">$ 45.27</td>
         <td style="color:#5a7a9a">$ 43.10</td>
-        <td style="color:#5a7a9a">$ 42.48</td>
       </tr><tr>
-        <td>
-          <span style="color:#ffffff">BKSY</span>
-          <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">BlackSky</span>
-        </td>
-        <td style="color:#ffffff;font-weight:600">$ 47.88</td>
-        <td class="up">▲ 3.23</td>
-        <td class="up">▲ 7.23%</td>
+        <td>BKSY</td>
+        <td style="text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:400;color:#5a7a9a;font-size:11px;letter-spacing:0">BlackSky</td>
+        <td style="color:#fff;font-weight:600">$ 47.87</td>
+        <td class="up">▲ 3.22</td>
+        <td class="up">▲ 7.21%</td>
         <td style="color:#5a7a9a">$ 48.66</td>
         <td style="color:#5a7a9a">$ 45.78</td>
-        <td style="color:#5a7a9a">$ 44.65</td>
       </tr>
     <tr>
-      <td>
-        <span style="color:#2a4a6b">SPACEX</span>
-        <span style="font-size:10px;color:#2a4a6b;margin-left:8px;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Space Exploration Technologies</span>
-      </td>
-      <td colspan="6" class="private">PRIVATE COMPANY · WATCH FOR IPO · TICKER: SPCX</td>
+      <td style="color:#2a4a6b">SPACEX</td>
+      <td style="text-align:left;font-size:11px;color:#2a4a6b;font-family:'Space Grotesk',sans-serif;font-weight:400;letter-spacing:0">Space Exploration Technologies</td>
+      <td colspan="5" style="color:#2a4a6b;font-size:10px;letter-spacing:1px;text-align:left">PRIVATE · WATCH FOR IPO · TICKER: SPCX</td>
     </tr>
   </table>
-  <div class="so">Sector sentiment is decisively bullish. Broad based gains across legacy defence primes and new space operators reflect growing institutional conviction in both government procurement spending and commercial space expansion. The Starship V3 launch and NASA reorganization are catalysts for sustained momentum. BA remains an outlier under pressure from ongoing programme challenges. Overall the space and defence complex is in a strong uptrend with volume confirming breakouts in multiple names.</div>
+  <div class="so"></div>
+</div>
+
+<div class="map-section">
+  <div class="map-header">
+    <div class="sh" style="margin-bottom:0;flex:1">
+      <div class="st">🌍 Global Intelligence Map</div>
+      <div class="sl"></div>
+    </div>
+  </div>
+  <div id="prism-map"></div>
+  <div class="map-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#2d7dd2"></div>Space</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff3b3b"></div>Defence</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff8c00"></div>Middle East</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00ff88"></div>Investment</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div>AI & Tech</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ffc800"></div>IPO Watch</div>
+  </div>
 </div>
 
 <div class="grid">
-
   <div class="ns">
     <div class="sh"><div class="st">🛰️ Space</div><div class="sl"></div></div>
     
-      <div class="ni">
-        <div class="nm">
-          <span class="ub breaking">BREAKING</span>
-          <span class="nr">USA</span>
-        </div>
-        <div class="nh">SpaceX Launches Starship V3 For First Time</div>
-        <div class="nc">SpaceX successfully launched Starship Version 3 on its 12th overall test flight marking the debut of a significantly upgraded vehicle. This milestone is critical for NASA Artemis lunar missions and commercial heavy lift contracts. It validates SpaceXs rapid iteration model and strengthens its dominance in the global launch market at a time when competition from China is intensifying.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub urgent">URGENT</span>
-          <span class="nr">CHINA</span>
-        </div>
-        <div class="nh">Shenzhou-23 Crew Docks at Tiangong Station</div>
-        <div class="nc">Three Chinese astronauts arrived at the Tiangong space station with one crewmember expected to set a new Chinese endurance record in orbit. This mission is part of Chinas structured roadmap toward a crewed lunar landing by 2030. The pace of Chinese space activity represents a direct strategic challenge to US and allied space leadership and has significant defence intelligence implications.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub urgent">URGENT</span>
-          <span class="nr">USA</span>
-        </div>
-        <div class="nh">NASA Announces Major Internal Reorganization</div>
-        <div class="nc">NASA Administrator Jared Isaacman unveiled a sweeping reorganization designed to accelerate mission delivery and reduce bureaucratic friction. The restructuring could affect procurement timelines contracts and partnerships across the commercial space sector. Investors should monitor which programme offices gain or lose resources as this reshaping will influence funding flows to contractors including SpaceX Boeing and new space entrants.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub normal">NORMAL</span>
-          <span class="nr">EUROPE</span>
-        </div>
-        <div class="nh">Germany Completes LEO and GEO Space Surveillance System</div>
-        <div class="nc">Germany new dual telescope space surveillance system near Messtetten has passed its site acceptance test and is entering trial operations covering both LEO and GEO orbital regimes. This represents a meaningful advance in European space domain awareness capability independent of US assets. The system supports NATO allied space situational awareness and reflects growing European investment in sovereign space security infrastructure.</div>
-      </div>
-    
   </div>
-
   <div class="ns">
     <div class="sh"><div class="st">🛡️ Defence</div><div class="sl"></div></div>
     
-      <div class="ni">
-        <div class="nm">
-          <span class="ub urgent">URGENT</span>
-          <span class="nr">USA</span>
-        </div>
-        <div class="nh">US Navy Greenlights Seven MUSV Prototype Bids</div>
-        <div class="nc">The US Navy has approved seven medium unmanned surface vessel designs to advance to the prototype phase under its marketplace programme. This marks a significant step in the Navys push to field autonomous maritime systems at scale. The MUSV programme represents billions in potential procurement and positions autonomous naval platforms as a core pillar of future fleet architecture alongside crewed vessels.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub normal">NORMAL</span>
-          <span class="nr">USA</span>
-        </div>
-        <div class="nh">Loitering Munitions Dominate SOF Week 2026</div>
-        <div class="nc">Loitering munitions and launched effects featured prominently at Special Operations Forces Week 2026 with the Rogue 1 Block 2 upgrade drawing significant attention for its enhanced performance and resilience. The strong presence of these systems reflects accelerating special operations demand for low cost attritable strike capability. Defence contractors developing autonomous loitering munitions are well positioned for near term contract awards.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub normal">NORMAL</span>
-          <span class="nr">ISRAEL</span>
-        </div>
-        <div class="nh">IAI Unveils Diamond Modular Naval Drone System</div>
-        <div class="nc">Israeli defence firm IAI presented its Diamond concept envisioning flexible drones and missiles distributed across small satellite vessels connected to a mother ship in a disaggregated architecture. This approach offers significant survivability and cost advantages for littoral and blue water operations. Gulf defence customers including the UAE Navy are closely watching Israeli naval autonomous systems following expanded defence cooperation agreements.</div>
-      </div>
-    
   </div>
-
   <div class="ns">
     <div class="sh"><div class="st">🌍 Middle East</div><div class="sl"></div></div>
     
@@ -335,121 +269,132 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub normal">NORMAL</span>
           <span class="nr">UAE</span>
         </div>
-        <div class="nh">IAI Diamond Naval System Eyes Gulf Export Market</div>
-        <div class="nc">IAI Diamond disaggregated naval drone and missile concept is directly relevant to Gulf state navies seeking to modernise surface fleets with autonomous and cost effective systems. The UAE and Saudi Arabia have both significantly increased defence procurement budgets and are actively evaluating Israeli and Western autonomous maritime platforms. Expanded Abraham Accords defence cooperation creates a clear pathway for IAI systems into Gulf inventories.</div>
+        <div class="nh">UAE Expands AI Governance Framework Across Federal Agencies</div>
+        <div class="nc">The UAE government has accelerated implementation of its national AI strategy, mandating adoption of standardised AI oversight protocols across all federal ministries. The initiative positions the UAE as a regional leader in responsible AI governance ahead of planned smart city expansions in Abu Dhabi and Dubai.</div>
       </div>
     
       <div class="ni">
         <div class="nm">
           <span class="ub normal">NORMAL</span>
-          <span class="nr">UAE</span>
+          <span class="nr">GULF</span>
         </div>
-        <div class="nh">Gulf States Monitor China Lunar Push Closely</div>
-        <div class="nc">China Shenzhou-23 mission and its declared 2030 lunar landing target are being closely tracked by Gulf space agencies including the Mohammed Bin Rashid Space Centre in Dubai. The UAE has its own lunar rover programme and is evaluating partnerships with both US and non-US space actors. A Chinese lunar landing before the US Artemis programme would reshape space diplomacy and Gulf alignment strategies in the space domain.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub normal">NORMAL</span>
-          <span class="nr">UAE</span>
-        </div>
-        <div class="nh">Starlink Expansion Raises Gulf Connectivity Stakes</div>
-        <div class="nc">MTN Uganda shift toward a Starlink alliance highlights the rapid displacement of traditional telecom infrastructure by low earth orbit satellite broadband across emerging markets. Gulf sovereign wealth funds with telecom holdings in Africa and South Asia are assessing the strategic and financial impact of Starlink market penetration. SpaceX pricing and coverage expansion in the Middle East and Africa corridor is a priority monitoring item for Gulf investors.</div>
+        <div class="nh">Gulf States Deepen Defence Cooperation Amid Regional Tensions</div>
+        <div class="nc">GCC member states have intensified joint military coordination following continued instability along key maritime corridors in the Red Sea and Strait of Hormuz. Bilateral defence agreements between Saudi Arabia and the UAE have been reinforced with new logistics and intelligence-sharing provisions.</div>
       </div>
     
   </div>
-
   <div class="ns">
     <div class="sh"><div class="st">🤖 AI & Technology</div><div class="sl"></div></div>
     
       <div class="ni">
         <div class="nm">
-          <span class="ub urgent">URGENT</span>
-          <span class="nr">USA</span>
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">GLOBAL</span>
         </div>
-        <div class="nh">SpaceX IPO Filing Bets on Orbital AI Compute</div>
-        <div class="nc">SpaceX IPO filing narrative reveals a strategic long term bet that AI infrastructure demand will outpace terrestrial compute capacity and that orbital data centres represent the next frontier. This positions SpaceX not just as a launch provider but as a future AI infrastructure company. If validated this thesis dramatically expands the addressable market and justifies premium valuation multiples well beyond traditional aerospace benchmarks.</div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm">
-          <span class="ub breaking">BREAKING</span>
-          <span class="nr">USA</span>
-        </div>
-        <div class="nh">Kali365 Phishing Platform Targets Microsoft 365</div>
-        <div class="nc">US federal investigators have warned that Kali365 a new phishing as a service platform is enabling widespread theft of Microsoft 365 credentials across government and enterprise environments. This threat is directly relevant to defence and space agencies that rely heavily on Microsoft cloud infrastructure. Procurement officers and CISOs at defence contractors should treat this as an active operational security threat requiring immediate credential and access controls review.</div>
+        <div class="nh">Apple Unveils On-Device AI Model Rivalling Cloud Performance</div>
+        <div class="nc">Apple has introduced an advanced on-device large language model integrated into its next-generation hardware, claiming performance benchmarks competitive with leading cloud-based systems. The development raises significant implications for data privacy, edge computing, and defence-grade secure communications applications.</div>
       </div>
     
       <div class="ni">
         <div class="nm">
           <span class="ub normal">NORMAL</span>
-          <span class="nr">ASIA</span>
+          <span class="nr">USA</span>
         </div>
-        <div class="nh">KPMG Launches Trusted AI Centre in Singapore</div>
-        <div class="nc">KPMG unveiled its Trusted AI Centre of Excellence in Singapore alongside a new AI Assurance offering aligned with international standards frameworks. The initiative positions Singapore and by extension Gulf AI governance frameworks as reference points for responsible AI deployment in regulated industries. Gulf defence and finance institutions pursuing AI adoption are increasingly looking to Singapore and EU frameworks as compliance benchmarks.</div>
+        <div class="nh">US Senate Advances Bipartisan AI Accountability Legislation</div>
+        <div class="nc">A bipartisan group of US senators has moved forward with legislation requiring federal agencies to audit AI systems used in national security and critical infrastructure decisions. The bill mandates transparency reporting and human oversight thresholds for high-risk AI deployments across defence and intelligence communities.</div>
       </div>
     
   </div>
-
   <div class="fw">
     <div class="sh"><div class="st">💰 Investment & Deals</div><div class="sl"></div></div>
     <div class="cards">
       
         <div class="card">
           <div class="nm">
-            <span class="ub urgent">URGENT</span>
+            <span class="ub normal">NORMAL</span>
             <span class="nr">USA</span>
           </div>
-          <div class="nh">NASA Expands SpaceX Commercial Crew Contract</div>
-          <div class="nc" style="margin-top:6px">NASA plans to add additional crewed missions to SpaceXs commercial crew contract amid ongoing uncertainty about Boeing Starliner certification. This contract expansion locks in additional revenue for SpaceX and effectively deepens NASAs dependence on a single commercial provider. For investors tracking the eventual SpaceX IPO this contract growth directly supports higher valuation multiples across crew transport and launch service revenue lines.</div>
+          <div class="nh">Pentagon Boosts Autonomous Systems Budget for Fiscal 2027</div>
+          <div class="nc" style="margin-top:6px">The US Department of Defense has signalled a significant uplift in funding for autonomous drone and unmanned systems programmes as part of its Fiscal Year 2027 budget proposal. Contractors including Anduril and Shield AI are expected to be primary beneficiaries of expanded procurement contracts.</div>
         </div>
       
         <div class="card">
           <div class="nm">
             <span class="ub normal">NORMAL</span>
-            <span class="nr">USA</span>
+            <span class="nr">GLOBAL</span>
           </div>
-          <div class="nh">RKLB and ASTS Lead New Space Investment Rally</div>
-          <div class="nc" style="margin-top:6px">Rocket Lab surged 10.33 percent and AST SpaceMobile gained 9.65 percent in todays session reflecting strong institutional buying in commercially oriented new space operators. These moves coincide with the Starship V3 launch and NASA reorganization announcements. Investors are rotating into pure play space names with clear commercial revenue models as government space spending visibility improves under the current administration priorities.</div>
-        </div>
-      
-        <div class="card">
-          <div class="nm">
-            <span class="ub urgent">URGENT</span>
-            <span class="nr">USA</span>
-          </div>
-          <div class="nh">LMT Surges Over 10 Percent on Defence Momentum</div>
-          <div class="nc" style="margin-top:6px">Lockheed Martin jumped 10.47 percent to 533.26 USD in a single session driven by strong defence procurement signals and autonomous systems contract momentum. The move reflects broader institutional conviction in US defence prime contractor revenue growth as the Pentagon budget for unmanned and advanced systems expands. LMT exposure to hypersonics space systems and autonomous platforms makes it a core holding in defence portfolios.</div>
+          <div class="nh">European Defence Fund Commits EUR 1.5B to Space Security</div>
+          <div class="nc" style="margin-top:6px">The European Defence Fund has announced a EUR 1.5 billion allocation targeting space-based surveillance, secure communications, and sovereign launch capability development across EU member states. The funding reflects growing consensus in Brussels that space infrastructure is critical to European strategic autonomy.</div>
         </div>
       
     </div>
   </div>
-
   <div class="fw">
     <div class="sh"><div class="st">🚀 IPO Watch</div><div class="sl"></div></div>
     <div class="cards">
       
         <div class="icard">
           <div class="nm">
-            <span class="ub urgent">URGENT</span>
+            <span class="ub normal">NORMAL</span>
             <span class="nr">USA</span>
           </div>
-          <div class="nh">SpaceX IPO Filing Reveals Orbital AI Strategy</div>
-          <div class="nc" style="margin-top:6px">SpaceX IPO filing is generating significant attention not only for its launch revenue projections but for its articulation of orbital AI compute as a core future business line. The filing suggests SpaceX views itself as an AI infrastructure company operating in space. This framing could attract a much broader investor base including technology growth funds that would not traditionally hold aerospace positions and may drive valuation to unprecedented levels.</div>
+          <div class="nh">Rocket Lab Eyes Dual-Track Listing on NYSE and ASX in 2026</div>
+          <div class="nc" style="margin-top:6px">Rocket Lab has confirmed exploratory discussions regarding a dual-listing structure to broaden its investor base and increase liquidity for institutional shareholders in both US and Australian markets. The move follows strong revenue growth driven by Electron launch contracts and expanding Neutron rocket development milestones.</div>
         </div>
       
         <div class="icard">
           <div class="nm">
             <span class="ub normal">NORMAL</span>
-            <span class="nr">USA</span>
+            <span class="nr"></span>
           </div>
-          <div class="nh">New Space Stocks Rally Ahead of SpaceX Listing</div>
-          <div class="nc" style="margin-top:6px">Broad based gains across RKLB ASTS LUNR and BKSY suggest public market investors are positioning across the new space sector in anticipation of a SpaceX listing that would serve as a sector defining catalyst. A SpaceX IPO at rumoured valuations above 300 billion USD would be the largest technology listing in history and would likely trigger significant index rebalancing and sector fund inflows benefiting all listed space names.</div>
+          <div class="nh">SpaceX Starlink IPO Speculation Intensifies Among Investors</div>
+          <div class="nc" style="margin-top:6px">Market speculation around a potential Starlink standalone IPO has intensified following reports that SpaceX has held preliminary conversations with financial advisers in London and New York regarding a</div>
         </div>
       
     </div>
   </div>
+</div>
 
+<div class="events">
+  <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
+  <div class="event-grid">
+    <div class="event-card">
+      <div class="event-date">JUN 16-22 2026</div>
+      <div class="event-name">Paris Air Show</div>
+      <div class="event-loc">📍 Le Bourget, France</div>
+      <div class="event-tag">AVIATION & DEFENCE</div>
+    </div>
+    <div class="event-card">
+      <div class="event-date">SEP 8-12 2026</div>
+      <div class="event-name">World Satellite Business Week</div>
+      <div class="event-loc">📍 Paris, France</div>
+      <div class="event-tag">SATELLITE & SPACE</div>
+    </div>
+    <div class="event-card">
+      <div class="event-date">SEP 9-12 2026</div>
+      <div class="event-name">DSEI 2026</div>
+      <div class="event-loc">📍 London, ExCeL</div>
+      <div class="event-tag">DEFENCE & SECURITY</div>
+    </div>
+    <div class="event-card">
+      <div class="event-date">OCT 14-17 2026</div>
+      <div class="event-name">International Astronautical Congress</div>
+      <div class="event-loc">📍 Sydney, Australia</div>
+      <div class="event-tag">SPACE</div>
+    </div>
+    <div class="event-card">
+      <div class="event-date">NOV 3-6 2026</div>
+      <div class="event-name">Dubai Airshow 2026</div>
+      <div class="event-loc">📍 Dubai, UAE</div>
+      <div class="event-tag">AVIATION & DEFENCE</div>
+    </div>
+    <div class="event-card">
+      <div class="event-date">NOV 18-20 2026</div>
+      <div class="event-name">Gulf Defence & Aerospace</div>
+      <div class="event-loc">📍 Kuwait City, Kuwait</div>
+      <div class="event-tag">GULF DEFENCE</div>
+    </div>
+  </div>
 </div>
 
 <div class="footer">
@@ -458,6 +403,70 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 </div>
 
 <div class="scan"></div>
+
+<script>
+// DateTime and Moon Phase
+function getMoonPhase() {
+  const phases = ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+  const known = new Date(2000,0,6);
+  const now = new Date();
+  const diff = (now - known) / (1000 * 60 * 60 * 24);
+  const cycle = diff % 29.53;
+  return phases[Math.floor(cycle / 29.53 * 8)];
+}
+
+document.getElementById('moonphase').textContent = getMoonPhase();
+const now = new Date();
+document.getElementById('datetime').textContent = 
+  now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'}) + 
+  ' · ' + now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'}) + ' GST';
+
+// World Map
+const map = L.map('prism-map', {
+  center: [20, 10],
+  zoom: 2,
+  zoomControl: true
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© CartoDB',
+  maxZoom: 18
+}).addTo(map);
+
+const colors = {
+  space: '#2d7dd2',
+  defence: '#ff3b3b', 
+  middle_east: '#ff8c00',
+  investment: '#00ff88',
+  ai_tech: '#a855f7',
+  ipo_watch: '#ffc800'
+};
+
+const newsData = {"space":[{"headline":"","context":"","region":"","urgency":"NORMAL","lat":0,"lng":0},{"headline":"","context":"","region":"","urgency":"NORMAL","lat":0,"lng":0}],"defence":[{"headline":"","context":"","region":"","urgency":"NORMAL","lat":0,"lng":0},{"headline":"","context":"","region":"","urgency":"NORMAL","lat":0,"lng":0}],"middle_east":[{"headline":"UAE Expands AI Governance Framework Across Federal Agencies","context":"The UAE government has accelerated implementation of its national AI strategy, mandating adoption of standardised AI oversight protocols across all federal ministries. The initiative positions the UAE as a regional leader in responsible AI governance ahead of planned smart city expansions in Abu Dhabi and Dubai.","region":"UAE","urgency":"NORMAL","lat":25.2,"lng":55.27},{"headline":"Gulf States Deepen Defence Cooperation Amid Regional Tensions","context":"GCC member states have intensified joint military coordination following continued instability along key maritime corridors in the Red Sea and Strait of Hormuz. Bilateral defence agreements between Saudi Arabia and the UAE have been reinforced with new logistics and intelligence-sharing provisions.","region":"GULF","urgency":"NORMAL","lat":24.46,"lng":54.36}],"investment":[{"headline":"Pentagon Boosts Autonomous Systems Budget for Fiscal 2027","context":"The US Department of Defense has signalled a significant uplift in funding for autonomous drone and unmanned systems programmes as part of its Fiscal Year 2027 budget proposal. Contractors including Anduril and Shield AI are expected to be primary beneficiaries of expanded procurement contracts.","region":"USA","urgency":"NORMAL","lat":40.71,"lng":-74},{"headline":"European Defence Fund Commits EUR 1.5B to Space Security","context":"The European Defence Fund has announced a EUR 1.5 billion allocation targeting space-based surveillance, secure communications, and sovereign launch capability development across EU member states. The funding reflects growing consensus in Brussels that space infrastructure is critical to European strategic autonomy.","region":"GLOBAL","urgency":"NORMAL","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Apple Unveils On-Device AI Model Rivalling Cloud Performance","context":"Apple has introduced an advanced on-device large language model integrated into its next-generation hardware, claiming performance benchmarks competitive with leading cloud-based systems. The development raises significant implications for data privacy, edge computing, and defence-grade secure communications applications.","region":"GLOBAL","urgency":"NORMAL","lat":37.33,"lng":-122.03},{"headline":"US Senate Advances Bipartisan AI Accountability Legislation","context":"A bipartisan group of US senators has moved forward with legislation requiring federal agencies to audit AI systems used in national security and critical infrastructure decisions. The bill mandates transparency reporting and human oversight thresholds for high-risk AI deployments across defence and intelligence communities.","region":"USA","urgency":"NORMAL","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Rocket Lab Eyes Dual-Track Listing on NYSE and ASX in 2026","context":"Rocket Lab has confirmed exploratory discussions regarding a dual-listing structure to broaden its investor base and increase liquidity for institutional shareholders in both US and Australian markets. The move follows strong revenue growth driven by Electron launch contracts and expanding Neutron rocket development milestones.","region":"USA","urgency":"NORMAL","lat":40.71,"lng":-74},{"headline":"SpaceX Starlink IPO Speculation Intensifies Among Investors","context":"Market speculation around a potential Starlink standalone IPO has intensified following reports that SpaceX has held preliminary conversations with financial advisers in London and New York regarding a","region":"","urgency":"NORMAL","lat":0,"lng":0}]};
+
+Object.keys(newsData).forEach(category => {
+  const items = newsData[category] || [];
+  items.forEach(item => {
+    if (item.lat && item.lng && item.headline) {
+      const marker = L.circleMarker([item.lat, item.lng], {
+        radius: 8,
+        fillColor: colors[category] || '#2d7dd2',
+        color: '#fff',
+        weight: 1,
+        opacity: 0.9,
+        fillOpacity: 0.8
+      }).addTo(map);
+      marker.bindPopup(`
+        <div style="font-family:'Space Grotesk',sans-serif;max-width:200px">
+          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${category.toUpperCase().replace('_',' ')}</div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:6px">${item.headline}</div>
+          <div style="font-size:11px;color:#666;line-height:1.5">${item.context}</div>
+        </div>
+      `);
+    }
+  });
+});
+</script>
 
 </body>
 </html>
