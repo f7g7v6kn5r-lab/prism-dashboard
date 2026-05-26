@@ -36,6 +36,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .rlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#ff3b3b;margin-bottom:8px}
 .otext{font-size:13px;color:#8aa8c8;line-height:1.6}
 .map-section{border-bottom:1px solid #0d1f3c}
+.map-header{padding:16px 32px;display:flex;align-items:center;gap:12px}
+#prism-map{height:420px;width:100%;background:#04060f}
+.map-legend{padding:12px 32px;background:#030508;display:flex;gap:20px;flex-wrap:wrap;border-bottom:1px solid #0d1f3c}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#5a7a9a}
+.legend-dot{width:10px;height:10px;border-radius:50%}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#0d1f3c}
 .ns{background:#04060f;padding:20px 24px;border-bottom:1px solid #0d1f3c}
 .ni{padding:12px 0;border-bottom:1px solid #0a1628}
@@ -79,7 +84,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 </style>
 </head>
 <body>
+
 <div class="scan"></div>
+
 <div class="topbar">
   <div class="logo">PRI<span>S</span>M</div>
   <div class="topbar-right">
@@ -88,6 +95,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div class="ts" id="datetime"></div>
   </div>
 </div>
+
 <div class="hero">
   <div class="hero-label">◈ Executive Intelligence Briefing</div>
   <div class="badges">
@@ -98,54 +106,40 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
       ⚡ Geo Risk: HIGH
     </div>
   </div>
-  <div class="summary">US forces launched new strikes on Iranian missile sites and boats in self-defense as senior Iranian negotiators held talks in Qatar, while Israel announced intensified strikes against Hezbollah in eastern Lebanon. Space and defense equities surged broadly, led by LUNR, ASTS, and RKLB posting double-digit gains amid elevated geopolitical risk. China advanced its lunar ambitions as the Shenzhou-23 crew docked at Tiangong, underscoring growing competition in the cislunar domain.</div>
+  <div class="summary">US forces launched fresh strikes on Iranian missile sites and vessels in self-defense, while nuclear talks continue in Qatar with no deal imminent. Israel has announced it will intensify strikes against Hezbollah targets in eastern Lebanon, raising regional tensions further. Space and defense equities surged broadly, with small-cap space names leading gains amid strong commercial launch and satellite demand signals.</div>
 </div>
+
 <div class="orr">
   <div class="ocard">
     <div class="olabel">▲ Opportunity of the Day</div>
-    <div class="otext">ASTS and RKLB present compelling momentum plays as satellite communications demand rises alongside geopolitical instability driving government procurement.</div>
+    <div class="otext">Elevated regional conflict and naval modernisation programs create near-term upside for drone, maritime, and satellite ISR companies with proven or maturing platforms.</div>
   </div>
   <div class="ocard">
     <div class="rlabel">▼ Risk of the Day</div>
-    <div class="otext">Escalation between the US and Iran beyond current strike exchanges poses the greatest single-day tail risk to regional stability and broader market sentiment.</div>
+    <div class="otext">Escalating US-Iran military exchanges risk rapid regional spillover that could disrupt Gulf operations, supply chains, and partner-nation defence commitments critical to sector growth.</div>
   </div>
 </div>
+
 <div class="map-section">
-  <div style="padding:16px 32px;display:flex;align-items:center;gap:12px">
-    <div class="st">🌍 Global Intelligence Map</div>
-    <div class="sl"></div>
-    <span id="incident-count" style="font-size:9px;color:#2d7dd2;letter-spacing:2px;font-family:'Space Mono',monospace">LIVE · 0 INCIDENTS</span>
-  </div>
-<div style="border-top:1px solid #0d1f3c;position:relative;max-width:50%"><div id="prism-map" style="height:300px;width:50%"></div>
-    <div style="display:flex;gap:0;border-top:1px solid #0d1f3c;background:#030508">
-      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
-        <div style="width:6px;height:6px;border-radius:50%;background:#2d7dd2"></div>
-        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">SPACE</span>
-      </div>
-      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
-        <div style="width:6px;height:6px;border-radius:50%;background:#ff3b3b"></div>
-        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">DEFENCE</span>
-      </div>
-      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
-        <div style="width:6px;height:6px;border-radius:50%;background:#ff8c00"></div>
-        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">MID EAST</span>
-      </div>
-      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
-        <div style="width:6px;height:6px;border-radius:50%;background:#00ff88"></div>
-        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">INVEST</span>
-      </div>
-      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
-        <div style="width:6px;height:6px;border-radius:50%;background:#a855f7"></div>
-        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">AI TECH</span>
-      </div>
-      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px">
-        <div style="width:6px;height:6px;border-radius:50%;background:#ffc800"></div>
-        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">IPO</span>
-      </div>
+  <div class="map-header">
+    <div class="sh" style="margin-bottom:0;flex:1">
+      <div class="st">🌍 Global Intelligence Map</div>
+      <div class="sl"></div>
     </div>
   </div>
+  <div id="prism-map"></div>
+  <div class="map-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#2d7dd2"></div>Space</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff3b3b"></div>Defence</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff8c00"></div>Middle East</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00ff88"></div>Investment</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div>AI & Tech</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ffc800"></div>IPO Watch</div>
+  </div>
 </div>
+
 <div class="grid">
+
   <div class="ns">
     <div class="sh"><div class="st">🛰️ Space</div><div class="sl"></div></div>
     
@@ -154,8 +148,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub normal">NORMAL</span>
           <span class="nr">East Asia</span>
         </div>
-        <div class="nh">Shenzhou-23 Crew Docks at Tiangong Station</div>
-        <div class="nc">Three Chinese astronauts arrived at the Tiangong space station on Sunday, with one crewmember expected to become Chinas first to remain in orbit for an entire year. The mission marks a significant step in Chinas path toward a crewed lunar landing by 2030.</div>
+        <div class="nh">China Shenzhou-23 Crew Docks at Tiangong Station</div>
+        <div class="nc">Three Chinese astronauts arrived at the Tiangong space station on Sunday, continuing Chinas ambitious crewed spaceflight cadence. One crew member is expected to become the first Chinese national to remain in orbit for a full year, a milestone tied to Chinas 2030 lunar landing roadmap.</div>
         <div class="nsource">▸ Space News</div>
       </div>
     
@@ -164,12 +158,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub normal">NORMAL</span>
           <span class="nr">North America</span>
         </div>
-        <div class="nh">Exolaunch and SEOPS Buy Falcon 9 Rideshare Launches</div>
-        <div class="nc">Exolaunch and SEOPS have each purchased dedicated Falcon 9 launches from SpaceX to meet growing demand for rideshare payload capacity. The move signals that brokers of smallsat launch services are scaling up to offer more direct and flexible mission options.</div>
+        <div class="nh">Exolaunch and SEOPS Buy Dedicated Falcon 9 Missions</div>
+        <div class="nc">Rideshare brokers Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launches from SpaceX to meet rising customer demand for flexible small satellite deployment. The move signals a maturing commercial launch market where aggregators are evolving into primary launch buyers in their own right.</div>
         <div class="nsource">▸ Space News</div>
       </div>
     
   </div>
+
   <div class="ns">
     <div class="sh"><div class="st">🛡️ Defence</div><div class="sl"></div></div>
     
@@ -178,8 +173,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub breaking">BREAKING</span>
           <span class="nr">Middle East</span>
         </div>
-        <div class="nh">US Strikes Iranian Missile Sites Amid Qatar Talks</div>
-        <div class="nc">US Central Command launched new strikes against Iranian missile sites and naval vessels, citing self-defense justification as the legal basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar engaged in diplomatic negotiations aimed at ending the broader conflict.</div>
+        <div class="nh">US Strikes Iranian Missile Sites Amid Qatar Negotiations</div>
+        <div class="nc">US Central Command confirmed fresh strikes on Iranian missile sites and naval vessels, citing self-defense as the legal basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar for ongoing diplomatic talks, raising the risk of negotiations collapsing.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
@@ -188,12 +183,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub breaking">BREAKING</span>
           <span class="nr">Middle East</span>
         </div>
-        <div class="nh">Israel to Intensify Strikes on Hezbollah in Lebanon</div>
-        <div class="nc">Israeli Prime Minister Netanyahu announced that Israel will intensify its strikes against Hezbollah, with the military already hitting targets across eastern Lebanon. The escalation adds a further layer of regional instability alongside the ongoing US-Iran confrontation.</div>
+        <div class="nh">Israel to Intensify Hezbollah Strikes in Eastern Lebanon</div>
+        <div class="nc">Prime Minister Netanyahu announced Israel will escalate military operations against Hezbollah, with the Israeli military already striking targets across eastern Lebanon. The announcement compounds regional instability alongside simultaneous US-Iran military exchanges further north in the Gulf.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
   </div>
+
   <div class="ns">
     <div class="sh"><div class="st">🌍 Middle East</div><div class="sl"></div></div>
     
@@ -202,8 +198,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub normal">NORMAL</span>
           <span class="nr">UAE</span>
         </div>
-        <div class="nh">US strikes Iran missile sites amid Qatar nuclear talks</div>
-        <div class="nc">US Central Command conducted strikes on Iranian missile sites and naval vessels, citing self-defense as the justification. The strikes came as senior Iranian negotiators were present in Qatar for ongoing diplomatic negotiations aimed at resolving the conflict.</div>
+        <div class="nh">US strikes Iran missile sites amid Qatar negotiations</div>
+        <div class="nc">US Central Command launched fresh strikes on Iranian missile sites and naval vessels, citing self-defense justifications as the basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar for ongoing diplomatic talks aimed at ending hostilities.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
@@ -212,12 +208,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub normal">NORMAL</span>
           <span class="nr">GULF</span>
         </div>
-        <div class="nh">Iran signals no imminent deal despite US optimism</div>
-        <div class="nc">Iran has stated that a nuclear and conflict resolution deal with the United States is not close, contradicting earlier signals from the US Secretary of State who suggested an agreement could arrive within days. Gulf states including the UAE are monitoring the diplomatic channel closely given regional security implications.</div>
+        <div class="nh">Iran says US nuclear deal remains far from finalised</div>
+        <div class="nc">Iranian officials pushed back against optimistic signals from the US Secretary of State, who had suggested a deal could materialise as early as Monday. Tehran confirmed that negotiating teams remain engaged in Qatar but cautioned that significant gaps persist between both sides.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
   </div>
+
   <div class="ns">
     <div class="sh"><div class="st">🤖 AI & Technology</div><div class="sl"></div></div>
     
@@ -226,8 +223,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub normal">NORMAL</span>
           <span class="nr">GLOBAL</span>
         </div>
-        <div class="nh">Loitering munitions and launched effects dominate SOF Week</div>
-        <div class="nc">Loitering munitions and launched effects systems were among the most prominent technologies exhibited at SOF Week 2026, reflecting accelerating demand for autonomous strike capabilities in special operations. The Rogue 1 Block 2 upgrade was highlighted for leveraging operator feedback to enhance performance, resilience, and mission capability without increasing system complexity.</div>
+        <div class="nh">Loitering munitions and launched effects dominate SOF Week 2026</div>
+        <div class="nc">Loitering munitions and launched effects systems were among the most prominent technology showcases at SOF Week 2026, reflecting the growing role of autonomous strike platforms in special operations doctrine. The Rogue 1 Block 2 upgrade was highlighted for delivering enhanced performance, resilience, and operational capability based on direct user feedback.</div>
         <div class="nsource">▸ Breaking Defense</div>
       </div>
     
@@ -236,12 +233,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
           <span class="ub normal">NORMAL</span>
           <span class="nr">USA</span>
         </div>
-        <div class="nh">AI-driven autonomy advances reshape US unmanned platforms</div>
-        <div class="nc">Artificial intelligence and autonomous decision-making capabilities are increasingly embedded in US defense procurement programs, with unmanned surface and aerial vehicles now incorporating AI-assisted targeting and mission planning functions. Defense contractors are competing to deliver systems that meet evolving operational requirements across multi-domain environments.</div>
-        <div class="nsource">▸ Prism Analysis</div>
+        <div class="nh">IAI Diamond concept links drone and missile systems on small ships</div>
+        <div class="nc">Israel Aerospace Industries unveiled its Diamond naval concept, which distributes flexible drone and missile-based defensive systems across multiple small satellite vessels networked to a central mother ship. The disaggregated architecture is designed to enhance survivability and expand defensive coverage for smaller naval platforms.</div>
+        <div class="nsource">▸ Breaking Defense</div>
       </div>
     
   </div>
+
   <div class="fw">
     <div class="sh"><div class="st">💰 Investment & Deals</div><div class="sl"></div></div>
     <div class="cards">
@@ -251,8 +249,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
             <span class="ub normal">NORMAL</span>
             <span class="nr">USA</span>
           </div>
-          <div class="nh">Navy advances seven MUSV designs to prototype phase</div>
-          <div class="nc" style="margin-top:6px">The US Navy has approved seven Medium Unmanned Surface Vehicle marketplace submissions to progress to the prototype development phase as part of its broader unmanned naval strategy. The identities of the selected companies have not been disclosed, reflecting competitive sensitivity in the maritime autonomy sector.</div>
+          <div class="nh">US Navy advances seven MUSV designs to prototype phase</div>
+          <div class="nc" style="margin-top:6px">The US Navy has selected seven medium uncrewed surface vessel designs from its marketplace programme to progress into the prototype development phase. The identities of the selected companies were not disclosed, reflecting the competitive and sensitive nature of the procurement process.</div>
           <div class="nsource">▸ Breaking Defense</div>
         </div>
       
@@ -261,13 +259,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
             <span class="ub normal">NORMAL</span>
             <span class="nr">GLOBAL</span>
           </div>
-          <div class="nh">IAI Diamond concept disperses naval weapons across small ships</div>
-          <div class="nc" style="margin-top:6px">Israel Aerospace Industries has unveiled its Diamond naval concept, which distributes defensive missiles and drone systems across multiple small satellite vessels connected to a central mother ship in a disaggregated architecture. The flexible modular design aims to increase survivability and operational reach for smaller naval forces operating in contested maritime environments.</div>
-          <div class="nsource">▸ Breaking Defense</div>
+          <div class="nh">Exolaunch and SEOPS secure dedicated Falcon 9 rideshare launches</div>
+          <div class="nc" style="margin-top:6px">Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launch contracts from SpaceX to address growing customer demand for flexible rideshare access to orbit. Both companies have historically acted as payload brokers on shared SpaceX missions and are now expanding their direct launch capacity.</div>
+          <div class="nsource">▸ Space News</div>
         </div>
       
     </div>
   </div>
+
   <div class="fw">
     <div class="sh"><div class="st">🚀 IPO Watch</div><div class="sl"></div></div>
     <div class="cards">
@@ -277,14 +276,16 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
             <span class="ub normal">NORMAL</span>
             <span class="nr">USA</span>
           </div>
-          <div class="nh">Exolaunch and SEOPS buy Falcon 9 slots for rideshare growth</div>
-          <div class="nc" style="margin-top:6px">Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launch slots to address growing customer demand for smallsat rideshare missions beyond what SpaceX directly offers. The move signals confidence in the commercial launch market and positions both brokers as independent launch service providers in their own right.</div>
-          <div class="nsource">▸ Space News</div>
+          <div class="nh">Defence autonomy firms draw investor focus ahead of listings</div>
+          <div class="nc" style="margin-top:6px">Growing momentum in uncrewed naval and aerial systems is attracting increased investor scrutiny toward defence autonomy companies that may be approaching public market listings. The US Navy MUSV prototype programme and expanded loitering munitions procurement are seen as key revenue catalysts for firms in this segment.</div>
+          <div class="nsource">▸ Prism Analysis</div>
         </div>
       
     </div>
   </div>
+
 </div>
+
 <div class="stocks-section">
   <div class="sh">
     <div class="st">📈 Market Pulse — Space & Defence</div>
@@ -403,8 +404,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
       </div>
     </div>
   </div>
-  <div class="sector-note">Elevated Middle East tensions and accelerating space program competition position defense and space equities for continued near-term upside.</div>
+  <div class="sector-note">The defence and space sector faces a high-risk but opportunity-rich environment as Middle East escalation drives defence procurement urgency and commercial space demand accelerates.</div>
 </div>
+
 <div class="events">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
   <div class="event-grid">
@@ -446,11 +448,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     </div>
   </div>
 </div>
+
 <div class="footer">
   <div class="fl">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · DUBAI</div>
   <div class="fl">CONFIDENTIAL · 2026</div>
 </div>
+
 <div class="scan"></div>
+
 <script>
 function getMoonPhase(){
   const phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
@@ -466,59 +471,29 @@ document.getElementById('datetime').textContent=
   now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+
   ' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 
-const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true,attributionControl:false});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.4}).addTo(map);
+const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:18}).addTo(map);
 
 const colors={space:'#2d7dd2',defence:'#ff3b3b',middle_east:'#ff8c00',investment:'#00ff88',ai_tech:'#a855f7',ipo_watch:'#ffc800'};
-const labels={space:'Space',defence:'Defence',middle_east:'Mid East',investment:'Investment',ai_tech:'AI Tech',ipo_watch:'IPO Watch'};
-const newsData={"space":[{"headline":"Shenzhou-23 Crew Docks at Tiangong Station","context":"Three Chinese astronauts arrived at the Tiangong space station on Sunday, with one crewmember expected to become Chinas first to remain in orbit for an entire year. The mission marks a significant step in Chinas path toward a crewed lunar landing by 2030.","region":"East Asia","urgency":"NORMAL","source":"Space News","lat":41,"lng":100},{"headline":"Exolaunch and SEOPS Buy Falcon 9 Rideshare Launches","context":"Exolaunch and SEOPS have each purchased dedicated Falcon 9 launches from SpaceX to meet growing demand for rideshare payload capacity. The move signals that brokers of smallsat launch services are scaling up to offer more direct and flexible mission options.","region":"North America","urgency":"NORMAL","source":"Space News","lat":28.5,"lng":-80.6}],"defence":[{"headline":"US Strikes Iranian Missile Sites Amid Qatar Talks","context":"US Central Command launched new strikes against Iranian missile sites and naval vessels, citing self-defense justification as the legal basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar engaged in diplomatic negotiations aimed at ending the broader conflict.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":25.9,"lng":56.3},{"headline":"Israel to Intensify Strikes on Hezbollah in Lebanon","context":"Israeli Prime Minister Netanyahu announced that Israel will intensify its strikes against Hezbollah, with the military already hitting targets across eastern Lebanon. The escalation adds a further layer of regional instability alongside the ongoing US-Iran confrontation.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":33.8,"lng":35.9}],"middle_east":[{"headline":"US strikes Iran missile sites amid Qatar nuclear talks","context":"US Central Command conducted strikes on Iranian missile sites and naval vessels, citing self-defense as the justification. The strikes came as senior Iranian negotiators were present in Qatar for ongoing diplomatic negotiations aimed at resolving the conflict.","region":"UAE","urgency":"NORMAL","source":"BBC News","lat":25.2,"lng":55.27},{"headline":"Iran signals no imminent deal despite US optimism","context":"Iran has stated that a nuclear and conflict resolution deal with the United States is not close, contradicting earlier signals from the US Secretary of State who suggested an agreement could arrive within days. Gulf states including the UAE are monitoring the diplomatic channel closely given regional security implications.","region":"GULF","urgency":"NORMAL","source":"BBC News","lat":24.46,"lng":54.36}],"investment":[{"headline":"Navy advances seven MUSV designs to prototype phase","context":"The US Navy has approved seven Medium Unmanned Surface Vehicle marketplace submissions to progress to the prototype development phase as part of its broader unmanned naval strategy. The identities of the selected companies have not been disclosed, reflecting competitive sensitivity in the maritime autonomy sector.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":40.71,"lng":-74},{"headline":"IAI Diamond concept disperses naval weapons across small ships","context":"Israel Aerospace Industries has unveiled its Diamond naval concept, which distributes defensive missiles and drone systems across multiple small satellite vessels connected to a central mother ship in a disaggregated architecture. The flexible modular design aims to increase survivability and operational reach for smaller naval forces operating in contested maritime environments.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Loitering munitions and launched effects dominate SOF Week","context":"Loitering munitions and launched effects systems were among the most prominent technologies exhibited at SOF Week 2026, reflecting accelerating demand for autonomous strike capabilities in special operations. The Rogue 1 Block 2 upgrade was highlighted for leveraging operator feedback to enhance performance, resilience, and mission capability without increasing system complexity.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":37.33,"lng":-122.03},{"headline":"AI-driven autonomy advances reshape US unmanned platforms","context":"Artificial intelligence and autonomous decision-making capabilities are increasingly embedded in US defense procurement programs, with unmanned surface and aerial vehicles now incorporating AI-assisted targeting and mission planning functions. Defense contractors are competing to deliver systems that meet evolving operational requirements across multi-domain environments.","region":"USA","urgency":"NORMAL","source":"Prism Analysis","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Exolaunch and SEOPS buy Falcon 9 slots for rideshare growth","context":"Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launch slots to address growing customer demand for smallsat rideshare missions beyond what SpaceX directly offers. The move signals confidence in the commercial launch market and positions both brokers as independent launch service providers in their own right.","region":"USA","urgency":"NORMAL","source":"Space News","lat":40.71,"lng":-74},{"headline":"","context":"","region":"","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0}]};
+const newsData={"space":[{"headline":"China Shenzhou-23 Crew Docks at Tiangong Station","context":"Three Chinese astronauts arrived at the Tiangong space station on Sunday, continuing Chinas ambitious crewed spaceflight cadence. One crew member is expected to become the first Chinese national to remain in orbit for a full year, a milestone tied to Chinas 2030 lunar landing roadmap.","region":"East Asia","urgency":"NORMAL","source":"Space News","lat":41,"lng":100},{"headline":"Exolaunch and SEOPS Buy Dedicated Falcon 9 Missions","context":"Rideshare brokers Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launches from SpaceX to meet rising customer demand for flexible small satellite deployment. The move signals a maturing commercial launch market where aggregators are evolving into primary launch buyers in their own right.","region":"North America","urgency":"NORMAL","source":"Space News","lat":28.5,"lng":-80.6}],"defence":[{"headline":"US Strikes Iranian Missile Sites Amid Qatar Negotiations","context":"US Central Command confirmed fresh strikes on Iranian missile sites and naval vessels, citing self-defense as the legal basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar for ongoing diplomatic talks, raising the risk of negotiations collapsing.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":25.9,"lng":57.1},{"headline":"Israel to Intensify Hezbollah Strikes in Eastern Lebanon","context":"Prime Minister Netanyahu announced Israel will escalate military operations against Hezbollah, with the Israeli military already striking targets across eastern Lebanon. The announcement compounds regional instability alongside simultaneous US-Iran military exchanges further north in the Gulf.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":33.8,"lng":35.9}],"middle_east":[{"headline":"US strikes Iran missile sites amid Qatar negotiations","context":"US Central Command launched fresh strikes on Iranian missile sites and naval vessels, citing self-defense justifications as the basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar for ongoing diplomatic talks aimed at ending hostilities.","region":"UAE","urgency":"NORMAL","source":"BBC News","lat":25.2,"lng":55.27},{"headline":"Iran says US nuclear deal remains far from finalised","context":"Iranian officials pushed back against optimistic signals from the US Secretary of State, who had suggested a deal could materialise as early as Monday. Tehran confirmed that negotiating teams remain engaged in Qatar but cautioned that significant gaps persist between both sides.","region":"GULF","urgency":"NORMAL","source":"BBC News","lat":24.46,"lng":54.36}],"investment":[{"headline":"US Navy advances seven MUSV designs to prototype phase","context":"The US Navy has selected seven medium uncrewed surface vessel designs from its marketplace programme to progress into the prototype development phase. The identities of the selected companies were not disclosed, reflecting the competitive and sensitive nature of the procurement process.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":40.71,"lng":-74},{"headline":"Exolaunch and SEOPS secure dedicated Falcon 9 rideshare launches","context":"Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launch contracts from SpaceX to address growing customer demand for flexible rideshare access to orbit. Both companies have historically acted as payload brokers on shared SpaceX missions and are now expanding their direct launch capacity.","region":"GLOBAL","urgency":"NORMAL","source":"Space News","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Loitering munitions and launched effects dominate SOF Week 2026","context":"Loitering munitions and launched effects systems were among the most prominent technology showcases at SOF Week 2026, reflecting the growing role of autonomous strike platforms in special operations doctrine. The Rogue 1 Block 2 upgrade was highlighted for delivering enhanced performance, resilience, and operational capability based on direct user feedback.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":37.33,"lng":-122.03},{"headline":"IAI Diamond concept links drone and missile systems on small ships","context":"Israel Aerospace Industries unveiled its Diamond naval concept, which distributes flexible drone and missile-based defensive systems across multiple small satellite vessels networked to a central mother ship. The disaggregated architecture is designed to enhance survivability and expand defensive coverage for smaller naval platforms.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Defence autonomy firms draw investor focus ahead of listings","context":"Growing momentum in uncrewed naval and aerial systems is attracting increased investor scrutiny toward defence autonomy companies that may be approaching public market listings. The US Navy MUSV prototype programme and expanded loitering munitions procurement are seen as key revenue catalysts for firms in this segment.","region":"USA","urgency":"NORMAL","source":"Prism Analysis","lat":40.71,"lng":-74},{"headline":"","context":"","region":"","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0}]};
 
-let incidentCount=0;
 Object.keys(newsData).forEach(cat=>{
   (newsData[cat]||[]).forEach(item=>{
     if(item.lat&&item.lng&&item.headline){
-      incidentCount++;
-      const col=colors[cat]||'#2d7dd2';
-      const hex=col.replace('#','');
-      const r=parseInt(hex.substring(0,2),16);
-      const g=parseInt(hex.substring(2,4),16);
-      const b=parseInt(hex.substring(4,6),16);
-      const pulsingIcon=L.divIcon({
-        className:'',
-        html:`<div style="position:relative;width:20px;height:20px">
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:${col};border:1.5px solid rgba(255,255,255,0.8);z-index:2"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.6);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite;z-index:1"></div>
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.4);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite 0.5s;z-index:1"></div>
-        </div>`,
-        iconSize:[20,20],
-        iconAnchor:[10,10]
-      });
-      L.marker([item.lat,item.lng],{icon:pulsingIcon}).addTo(map)
-        .bindPopup(`
-          <div style="font-family:'Space Grotesk',sans-serif;max-width:240px;background:#04060f;color:#c8d4e8;border:1px solid ${col};border-radius:4px;padding:12px">
-            <div style="font-size:9px;color:${col};letter-spacing:3px;margin-bottom:6px;font-family:'Space Mono',monospace">${labels[cat]||cat}</div>
-            <div style="font-weight:600;font-size:13px;margin-bottom:8px;color:#e8f0f8">${item.headline}</div>
-            <div style="font-size:11px;color:#5a7a9a;line-height:1.6;margin-bottom:6px">${item.context}</div>
-            <div style="font-size:10px;color:${col};font-family:'Space Mono',monospace">▸ ${item.source||'Prism Analysis'}</div>
-          </div>
-        `,{className:'prism-popup',maxWidth:260});
+      L.circleMarker([item.lat,item.lng],{
+        radius:8,fillColor:colors[cat]||'#2d7dd2',
+        color:'#fff',weight:1,opacity:0.9,fillOpacity:0.8
+      }).addTo(map).bindPopup(`
+        <div style="font-family:sans-serif;max-width:220px">
+          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${cat.toUpperCase().replace('_',' ')}</div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:6px">${item.headline}</div>
+          <div style="font-size:11px;color:#666;line-height:1.5;margin-bottom:6px">${item.context}</div>
+          <div style="font-size:10px;color:#2d7dd2;font-family:monospace">▸ ${item.source||'Prism Analysis'}</div>
+        </div>
+      `);
     }
   });
 });
-
-document.getElementById('incident-count').textContent=`LIVE · ${incidentCount} INCIDENTS`;
-
-const style=document.createElement('style');
-style.textContent=`
-  @keyframes ping{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}75%,100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
-  .leaflet-popup-content-wrapper{background:#04060f!important;border:none!important;border-radius:4px!important;box-shadow:none!important;padding:0!important}
-  .leaflet-popup-content{margin:0!important}
-  .leaflet-popup-tip{background:#04060f!important}
-  .leaflet-container{background:#030508!important}
-  .leaflet-control-zoom a{background:#060d1a!important;color:#2d7dd2!important;border-color:#0d1f3c!important}
-`;
-document.head.appendChild(style);
 </script>
 </body>
 </html>
