@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRISM — Space & Defence Intelligence</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
@@ -119,25 +117,34 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   <div style="padding:16px 32px;display:flex;align-items:center;gap:12px">
     <div class="st">🌍 Global Intelligence Map</div>
     <div class="sl"></div>
-    <span style="font-size:9px;color:#2a4a6b;letter-spacing:2px">LIVE</span>
+    <span id="incident-count" style="font-size:9px;color:#2d7dd2;letter-spacing:2px;font-family:'Space Mono',monospace">LIVE · 0 INCIDENTS</span>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 300px;gap:0;border-top:1px solid #0d1f3c">
-    <div id="prism-map" style="height:300px;width:100%"></div>
-    <div style="background:#030508;border-left:1px solid #0d1f3c;padding:16px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;height:300px">
-      <div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;margin-bottom:10px">ACTIVE INCIDENTS</div>
-        <div id="incident-list" style="display:flex;flex-direction:column;gap:8px"></div>
+  <div style="border-top:1px solid #0d1f3c;position:relative;background:#030508">
+    <canvas id="prism-map" style="width:100%;height:220px;display:block"></canvas>
+    <div style="display:flex;gap:0;border-top:1px solid #0d1f3c;background:#030508">
+      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
+        <div style="width:6px;height:6px;border-radius:50%;background:#2d7dd2"></div>
+        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">SPACE</span>
       </div>
-      <div style="border-top:1px solid #0d1f3c;padding-top:12px;margin-top:auto">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;margin-bottom:8px">LEGEND</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#2d7dd2"></div><span style="font-size:10px;color:#5a7a9a">Space</span></div>
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#ff3b3b"></div><span style="font-size:10px;color:#5a7a9a">Defence</span></div>
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#ff8c00"></div><span style="font-size:10px;color:#5a7a9a">Mid East</span></div>
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#00ff88"></div><span style="font-size:10px;color:#5a7a9a">Invest</span></div>
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#a855f7"></div><span style="font-size:10px;color:#5a7a9a">AI Tech</span></div>
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#ffc800"></div><span style="font-size:10px;color:#5a7a9a">IPO</span></div>
-        </div>
+      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
+        <div style="width:6px;height:6px;border-radius:50%;background:#ff3b3b"></div>
+        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">DEFENCE</span>
+      </div>
+      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
+        <div style="width:6px;height:6px;border-radius:50%;background:#ff8c00"></div>
+        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">MID EAST</span>
+      </div>
+      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
+        <div style="width:6px;height:6px;border-radius:50%;background:#00ff88"></div>
+        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">INVEST</span>
+      </div>
+      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px;border-right:1px solid #0d1f3c">
+        <div style="width:6px;height:6px;border-radius:50%;background:#a855f7"></div>
+        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">AI TECH</span>
+      </div>
+      <div style="flex:1;padding:6px 12px;display:flex;align-items:center;gap:6px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#ffc800"></div>
+        <span style="font-size:9px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">IPO</span>
       </div>
     </div>
   </div>
@@ -476,36 +483,111 @@ document.getElementById('datetime').textContent=
   now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+
   ' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 
-const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:18}).addTo(map);
-
 const colors={space:'#2d7dd2',defence:'#ff3b3b',middle_east:'#ff8c00',investment:'#00ff88',ai_tech:'#a855f7',ipo_watch:'#ffc800'};
-const labels={space:'Space',defence:'Defence',middle_east:'Mid East',investment:'Investment',ai_tech:'AI Tech',ipo_watch:'IPO Watch'};
 const newsData={"space":[{"headline":"Shenzhou-23 Crew Docks at Tiangong Station","context":"Three Chinese astronauts arrived at the Tiangong space station on Sunday, with one crewmember expected to become Chinas first to remain in orbit for an entire year. The mission marks a significant step in Chinas path toward a crewed lunar landing by 2030.","region":"East Asia","urgency":"NORMAL","source":"Space News","lat":41,"lng":100},{"headline":"Exolaunch and SEOPS Buy Falcon 9 Rideshare Launches","context":"Exolaunch and SEOPS have each purchased dedicated Falcon 9 launches from SpaceX to meet growing demand for rideshare payload capacity. The move signals that brokers of smallsat launch services are scaling up to offer more direct and flexible mission options.","region":"North America","urgency":"NORMAL","source":"Space News","lat":28.5,"lng":-80.6}],"defence":[{"headline":"US Strikes Iranian Missile Sites Amid Qatar Talks","context":"US Central Command launched new strikes against Iranian missile sites and naval vessels, citing self-defense justification as the legal basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar engaged in diplomatic negotiations aimed at ending the broader conflict.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":25.9,"lng":56.3},{"headline":"Israel to Intensify Strikes on Hezbollah in Lebanon","context":"Israeli Prime Minister Netanyahu announced that Israel will intensify its strikes against Hezbollah, with the military already hitting targets across eastern Lebanon. The escalation adds a further layer of regional instability alongside the ongoing US-Iran confrontation.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":33.8,"lng":35.9}],"middle_east":[{"headline":"US strikes Iran missile sites amid Qatar nuclear talks","context":"US Central Command conducted strikes on Iranian missile sites and naval vessels, citing self-defense as the justification. The strikes came as senior Iranian negotiators were present in Qatar for ongoing diplomatic negotiations aimed at resolving the conflict.","region":"UAE","urgency":"NORMAL","source":"BBC News","lat":25.2,"lng":55.27},{"headline":"Iran signals no imminent deal despite US optimism","context":"Iran has stated that a nuclear and conflict resolution deal with the United States is not close, contradicting earlier signals from the US Secretary of State who suggested an agreement could arrive within days. Gulf states including the UAE are monitoring the diplomatic channel closely given regional security implications.","region":"GULF","urgency":"NORMAL","source":"BBC News","lat":24.46,"lng":54.36}],"investment":[{"headline":"Navy advances seven MUSV designs to prototype phase","context":"The US Navy has approved seven Medium Unmanned Surface Vehicle marketplace submissions to progress to the prototype development phase as part of its broader unmanned naval strategy. The identities of the selected companies have not been disclosed, reflecting competitive sensitivity in the maritime autonomy sector.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":40.71,"lng":-74},{"headline":"IAI Diamond concept disperses naval weapons across small ships","context":"Israel Aerospace Industries has unveiled its Diamond naval concept, which distributes defensive missiles and drone systems across multiple small satellite vessels connected to a central mother ship in a disaggregated architecture. The flexible modular design aims to increase survivability and operational reach for smaller naval forces operating in contested maritime environments.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Loitering munitions and launched effects dominate SOF Week","context":"Loitering munitions and launched effects systems were among the most prominent technologies exhibited at SOF Week 2026, reflecting accelerating demand for autonomous strike capabilities in special operations. The Rogue 1 Block 2 upgrade was highlighted for leveraging operator feedback to enhance performance, resilience, and mission capability without increasing system complexity.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":37.33,"lng":-122.03},{"headline":"AI-driven autonomy advances reshape US unmanned platforms","context":"Artificial intelligence and autonomous decision-making capabilities are increasingly embedded in US defense procurement programs, with unmanned surface and aerial vehicles now incorporating AI-assisted targeting and mission planning functions. Defense contractors are competing to deliver systems that meet evolving operational requirements across multi-domain environments.","region":"USA","urgency":"NORMAL","source":"Prism Analysis","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Exolaunch and SEOPS buy Falcon 9 slots for rideshare growth","context":"Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launch slots to address growing customer demand for smallsat rideshare missions beyond what SpaceX directly offers. The move signals confidence in the commercial launch market and positions both brokers as independent launch service providers in their own right.","region":"USA","urgency":"NORMAL","source":"Space News","lat":40.71,"lng":-74},{"headline":"","context":"","region":"","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0}]};
-const incidentList=document.getElementById('incident-list');
 
+const canvas=document.getElementById('prism-map');
+const W=canvas.offsetWidth||window.innerWidth;
+const H=220;
+canvas.width=W;
+canvas.height=H;
+const ctx=canvas.getContext('2d');
+
+function lonLatToXY(lon,lat){
+  const x=(lon+180)/360*W;
+  const y=(90-lat)/180*H;
+  return{x,y};
+}
+
+const continents=[
+  [[0.15,0.35],[0.18,0.28],[0.22,0.25],[0.28,0.22],[0.35,0.2],[0.42,0.22],[0.45,0.28],[0.42,0.35],[0.38,0.4],[0.32,0.42],[0.25,0.42],[0.2,0.38]],
+  [[0.48,0.22],[0.55,0.18],[0.62,0.2],[0.68,0.25],[0.7,0.32],[0.65,0.38],[0.58,0.4],[0.52,0.35],[0.48,0.28]],
+  [[0.72,0.2],[0.78,0.18],[0.85,0.22],[0.88,0.3],[0.85,0.38],[0.78,0.4],[0.72,0.35],[0.7,0.28]],
+  [[0.2,0.45],[0.28,0.42],[0.32,0.48],[0.3,0.58],[0.25,0.65],[0.2,0.62],[0.16,0.55],[0.18,0.48]],
+  [[0.52,0.42],[0.58,0.4],[0.62,0.45],[0.65,0.55],[0.62,0.65],[0.55,0.68],[0.5,0.62],[0.48,0.52]],
+  [[0.3,0.7],[0.38,0.68],[0.42,0.75],[0.38,0.85],[0.32,0.88],[0.26,0.82],[0.25,0.75]],
+  [[0.75,0.75],[0.82,0.72],[0.88,0.78],[0.85,0.88],[0.78,0.9],[0.72,0.85],[0.72,0.78]]
+];
+
+const incidents=[];
 Object.keys(newsData).forEach(cat=>{
   (newsData[cat]||[]).forEach(item=>{
     if(item.lat&&item.lng&&item.headline){
-      const marker=L.circleMarker([item.lat,item.lng],{
-        radius:7,fillColor:colors[cat]||'#2d7dd2',
-        color:'#fff',weight:1,opacity:0.9,fillOpacity:0.8
-      }).addTo(map);
-      marker.bindPopup(`
-        <div style="font-family:sans-serif;max-width:220px">
-          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${labels[cat]||cat}</div>
-          <div style="font-weight:600;font-size:13px;margin-bottom:6px">${item.headline}</div>
-          <div style="font-size:11px;color:#666;line-height:1.5;margin-bottom:4px">${item.context}</div>
-          <div style="font-size:10px;color:#2d7dd2;font-family:monospace">▸ ${item.source||'Prism Analysis'}</div>
-        </div>
-      `);
-      const div=document.createElement('div');
-      div.style.cssText='display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 0;border-bottom:1px solid #0a1628';
-      div.innerHTML=`<div style="width:8px;height:8px;border-radius:50%;background:${colors[cat]};flex-shrink:0"></div><span style="font-size:11px;color:#8aa8c8;line-height:1.4">${item.headline}</span>`;
-      div.onclick=()=>{map.setView([item.lat,item.lng],4);marker.openPopup();};
-      incidentList.appendChild(div);
+      incidents.push({...item,cat});
     }
   });
+});
+
+document.getElementById('incident-count').textContent=`LIVE · ${incidents.length} INCIDENTS`;
+
+let pulse=0;
+function animate(){
+  pulse=(pulse+0.03)%1;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#030508';
+  ctx.fillRect(0,0,W,H);
+
+  ctx.strokeStyle='#0d1f3c';
+  ctx.lineWidth=0.5;
+  for(let x=0;x<=W;x+=W/12){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<=H;y+=H/6){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  ctx.strokeStyle='#1a3a5a';
+  ctx.lineWidth=0.8;
+  continents.forEach(pts=>{
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0]*W,pts[0][1]*H);
+    pts.forEach(p=>ctx.lineTo(p[0]*W,p[1]*H));
+    ctx.closePath();
+    ctx.fillStyle='#0a1628';
+    ctx.fill();
+    ctx.stroke();
+  });
+
+  incidents.forEach((item,i)=>{
+    const pos=lonLatToXY(item.lng,item.lat);
+    const col=colors[item.cat]||'#2d7dd2';
+    const hex=col.replace('#','');
+    const r=parseInt(hex.substring(0,2),16);
+    const g=parseInt(hex.substring(2,4),16);
+    const b=parseInt(hex.substring(4,6),16);
+    const offset=(i/incidents.length+pulse)%1;
+    const ringR=8+offset*16;
+    const alpha=Math.max(0,1-offset);
+    ctx.beginPath();
+    ctx.arc(pos.x,pos.y,ringR,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(${r},${g},${b},${alpha*0.6})`;
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(pos.x,pos.y,5,0,Math.PI*2);
+    ctx.fillStyle=col;
+    ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.9)';
+    ctx.lineWidth=0.8;
+    ctx.stroke();
+    if(i<5){
+      const label=item.headline.length>30?item.headline.substring(0,30)+'...':item.headline;
+      ctx.font='bold 8px monospace';
+      const tw=ctx.measureText(label).width;
+      const lx=pos.x+10;
+      const ly=pos.y-8;
+      ctx.fillStyle='rgba(3,5,8,0.85)';
+      ctx.fillRect(lx-2,ly-10,tw+6,13);
+      ctx.strokeStyle=`rgba(${r},${g},${b},0.5)`;
+      ctx.lineWidth=0.5;
+      ctx.strokeRect(lx-2,ly-10,tw+6,13);
+      ctx.fillStyle=col;
+      ctx.fillText(label,lx+1,ly);
+    }
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  canvas.width=canvas.offsetWidth;
+  animate();
 });
 </script>
 </body>
