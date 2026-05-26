@@ -36,7 +36,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .rlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#ff3b3b;margin-bottom:8px}
 .otext{font-size:13px;color:#8aa8c8;line-height:1.6}
 .map-section{border-bottom:1px solid #0d1f3c}
-.map-body{display:grid;grid-template-columns:1fr 240px;border-top:1px solid #0d1f3c}
+.map-body{display:grid;grid-template-columns:55% 45%;border-top:1px solid #0d1f3c}
 .map-legend{display:flex;border-top:1px solid #0d1f3c;background:#030508}
 .map-legend-item{flex:1;padding:5px 10px;display:flex;align-items:center;gap:5px;border-right:1px solid #0d1f3c}
 .map-legend-item:last-child{border-right:none}
@@ -80,9 +80,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .footer{padding:14px 32px;display:flex;justify-content:space-between;border-top:1px solid #0d1f3c;flex-wrap:wrap;gap:8px}
 .fl{font-family:'Space Mono',monospace;font-size:9px;color:#1a2a3a;letter-spacing:3px}
 .scan{height:2px;background:linear-gradient(90deg,transparent,#2d7dd2,transparent)}
-.incident-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #0a1628;cursor:pointer}
+.incident-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #0a1628;cursor:pointer}
 .incident-item:last-child{border-bottom:none}
-.incident-item:hover span{color:#c8d4e8}
+.incident-item:hover span{color:#e8f0f8}
 </style>
 </head>
 <body>
@@ -117,7 +117,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div class="otext">Escalation between the US and Iran beyond current strike exchanges poses the greatest single-day tail risk to regional stability and broader market sentiment.</div>
   </div>
 </div>
-
 <div class="map-section">
   <div style="padding:12px 32px;display:flex;align-items:center;gap:12px">
     <div class="st">🌍 Global Intelligence Map</div>
@@ -125,9 +124,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <span id="incident-count" style="font-size:9px;color:#2d7dd2;letter-spacing:2px;font-family:'Space Mono',monospace">LIVE · 0 INCIDENTS</span>
   </div>
   <div class="map-body">
-    <div id="prism-map" style="height:240px"></div>
-    <div style="background:#030508;border-left:1px solid #0d1f3c;padding:12px;height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:4px">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;margin-bottom:6px">ACTIVE INCIDENTS</div>
+    <div id="prism-map" style="height:260px"></div>
+    <div style="background:#030508;border-left:1px solid #0d1f3c;padding:16px;height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:4px">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;margin-bottom:8px">ACTIVE INCIDENTS</div>
       <div id="incident-list"></div>
     </div>
   </div>
@@ -140,7 +139,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#ffc800"></div><span style="font-size:8px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">IPO</span></div>
   </div>
 </div>
-
 <div class="grid">
   <div class="ns">
     <div class="sh"><div class="st">🛰️ Space</div><div class="sl"></div></div>
@@ -248,7 +246,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     </div>
   </div>
 </div>
-
 <div class="stocks-section">
   <div class="sh">
     <div class="st">📈 Market Pulse — Space & Defence</div>
@@ -297,7 +294,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   </div>
   <div class="sector-note">Elevated Middle East tensions and accelerating space program competition position defense and space equities for continued near-term upside.</div>
 </div>
-
 <div class="events">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
   <div class="event-grid">
@@ -339,13 +335,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     </div>
   </div>
 </div>
-
 <div class="footer">
   <div class="fl">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · DUBAI</div>
   <div class="fl">CONFIDENTIAL · 2026</div>
 </div>
 <div class="scan"></div>
-
 <script>
 function getMoonPhase(){
   const phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
@@ -369,7 +363,6 @@ const colors={space:'#2d7dd2',defence:'#ff3b3b',middle_east:'#ff8c00',investment
 const labels={space:'Space',defence:'Defence',middle_east:'Mid East',investment:'Investment',ai_tech:'AI Tech',ipo_watch:'IPO Watch'};
 const newsData={"space":[{"headline":"Shenzhou-23 Crew Docks at Tiangong Station","context":"Three Chinese astronauts arrived at the Tiangong space station on Sunday, with one crewmember expected to become Chinas first to remain in orbit for an entire year. The mission marks a significant step in Chinas path toward a crewed lunar landing by 2030.","region":"East Asia","urgency":"NORMAL","source":"Space News","lat":41,"lng":100},{"headline":"Exolaunch and SEOPS Buy Falcon 9 Rideshare Launches","context":"Exolaunch and SEOPS have each purchased dedicated Falcon 9 launches from SpaceX to meet growing demand for rideshare payload capacity. The move signals that brokers of smallsat launch services are scaling up to offer more direct and flexible mission options.","region":"North America","urgency":"NORMAL","source":"Space News","lat":28.5,"lng":-80.6}],"defence":[{"headline":"US Strikes Iranian Missile Sites Amid Qatar Talks","context":"US Central Command launched new strikes against Iranian missile sites and naval vessels, citing self-defense justification as the legal basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar engaged in diplomatic negotiations aimed at ending the broader conflict.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":25.9,"lng":56.3},{"headline":"Israel to Intensify Strikes on Hezbollah in Lebanon","context":"Israeli Prime Minister Netanyahu announced that Israel will intensify its strikes against Hezbollah, with the military already hitting targets across eastern Lebanon. The escalation adds a further layer of regional instability alongside the ongoing US-Iran confrontation.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":33.8,"lng":35.9}],"middle_east":[{"headline":"US strikes Iran missile sites amid Qatar nuclear talks","context":"US Central Command conducted strikes on Iranian missile sites and naval vessels, citing self-defense as the justification. The strikes came as senior Iranian negotiators were present in Qatar for ongoing diplomatic negotiations aimed at resolving the conflict.","region":"UAE","urgency":"NORMAL","source":"BBC News","lat":25.2,"lng":55.27},{"headline":"Iran signals no imminent deal despite US optimism","context":"Iran has stated that a nuclear and conflict resolution deal with the United States is not close, contradicting earlier signals from the US Secretary of State who suggested an agreement could arrive within days. Gulf states including the UAE are monitoring the diplomatic channel closely given regional security implications.","region":"GULF","urgency":"NORMAL","source":"BBC News","lat":24.46,"lng":54.36}],"investment":[{"headline":"Navy advances seven MUSV designs to prototype phase","context":"The US Navy has approved seven Medium Unmanned Surface Vehicle marketplace submissions to progress to the prototype development phase as part of its broader unmanned naval strategy. The identities of the selected companies have not been disclosed, reflecting competitive sensitivity in the maritime autonomy sector.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":40.71,"lng":-74},{"headline":"IAI Diamond concept disperses naval weapons across small ships","context":"Israel Aerospace Industries has unveiled its Diamond naval concept, which distributes defensive missiles and drone systems across multiple small satellite vessels connected to a central mother ship in a disaggregated architecture. The flexible modular design aims to increase survivability and operational reach for smaller naval forces operating in contested maritime environments.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Loitering munitions and launched effects dominate SOF Week","context":"Loitering munitions and launched effects systems were among the most prominent technologies exhibited at SOF Week 2026, reflecting accelerating demand for autonomous strike capabilities in special operations. The Rogue 1 Block 2 upgrade was highlighted for leveraging operator feedback to enhance performance, resilience, and mission capability without increasing system complexity.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":37.33,"lng":-122.03},{"headline":"AI-driven autonomy advances reshape US unmanned platforms","context":"Artificial intelligence and autonomous decision-making capabilities are increasingly embedded in US defense procurement programs, with unmanned surface and aerial vehicles now incorporating AI-assisted targeting and mission planning functions. Defense contractors are competing to deliver systems that meet evolving operational requirements across multi-domain environments.","region":"USA","urgency":"NORMAL","source":"Prism Analysis","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Exolaunch and SEOPS buy Falcon 9 slots for rideshare growth","context":"Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launch slots to address growing customer demand for smallsat rideshare missions beyond what SpaceX directly offers. The move signals confidence in the commercial launch market and positions both brokers as independent launch service providers in their own right.","region":"USA","urgency":"NORMAL","source":"Space News","lat":40.71,"lng":-74},{"headline":"","context":"","region":"","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0}]};
 const incidentList=document.getElementById('incident-list');
-const markers=[];
 let incidentCount=0;
 
 const style=document.createElement('style');
@@ -379,7 +372,7 @@ style.textContent=`
   .leaflet-popup-content{margin:0!important}
   .leaflet-popup-tip{background:#04060f!important}
   .leaflet-container{background:#030508!important;font-family:'Space Grotesk',sans-serif}
-  .leaflet-control-zoom a{background:#060d1a!important;color:#2d7dd2!important;border-color:#0d1f3c!important;font-size:16px!important}
+  .leaflet-control-zoom a{background:#060d1a!important;color:#2d7dd2!important;border-color:#0d1f3c!important}
 `;
 document.head.appendChild(style);
 
@@ -392,7 +385,6 @@ Object.keys(newsData).forEach(cat=>{
       const r=parseInt(hex.substring(0,2),16);
       const g=parseInt(hex.substring(2,4),16);
       const b=parseInt(hex.substring(4,6),16);
-
       const icon=L.divIcon({
         className:'',
         html:`<div style="position:relative;width:22px;height:22px">
@@ -403,7 +395,6 @@ Object.keys(newsData).forEach(cat=>{
         iconSize:[22,22],
         iconAnchor:[11,11]
       });
-
       const marker=L.marker([item.lat,item.lng],{icon}).addTo(map);
       marker.bindPopup(`
         <div style="font-family:'Space Grotesk',sans-serif;max-width:240px;background:#04060f;color:#c8d4e8;border:1px solid ${col};border-radius:4px;padding:12px">
@@ -413,23 +404,17 @@ Object.keys(newsData).forEach(cat=>{
           <div style="font-size:10px;color:${col};font-family:'Space Mono',monospace">▸ ${item.source||'Prism Analysis'}</div>
         </div>
       `,{maxWidth:260});
-      markers.push({marker,item,cat});
-
       const div=document.createElement('div');
       div.className='incident-item';
       div.innerHTML=`
         <div style="width:6px;height:6px;border-radius:50%;background:${col};flex-shrink:0;margin-top:4px"></div>
-        <span style="font-size:10px;color:#8aa8c8;line-height:1.4;transition:color 0.2s">${item.headline}</span>
+        <span style="font-size:11px;color:#8aa8c8;line-height:1.5;transition:color 0.2s">${item.headline}</span>
       `;
-      div.onclick=()=>{
-        map.setView([item.lat,item.lng],4,{animate:true});
-        marker.openPopup();
-      };
+      div.onclick=()=>{map.setView([item.lat,item.lng],4,{animate:true});marker.openPopup();};
       incidentList.appendChild(div);
     }
   });
 });
-
 document.getElementById('incident-count').textContent=`LIVE · ${incidentCount} INCIDENTS`;
 </script>
 </body>
