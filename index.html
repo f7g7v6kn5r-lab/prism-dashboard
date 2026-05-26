@@ -36,11 +36,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .rlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#ff3b3b;margin-bottom:8px}
 .otext{font-size:13px;color:#8aa8c8;line-height:1.6}
 .map-section{border-bottom:1px solid #0d1f3c}
-.map-header{padding:16px 32px;display:flex;align-items:center;gap:12px}
-#prism-map{height:420px;width:100%;background:#04060f}
-.map-legend{padding:12px 32px;background:#030508;display:flex;gap:20px;flex-wrap:wrap;border-bottom:1px solid #0d1f3c}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#5a7a9a}
-.legend-dot{width:10px;height:10px;border-radius:50%}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#0d1f3c}
 .ns{background:#04060f;padding:20px 24px;border-bottom:1px solid #0d1f3c}
 .ni{padding:12px 0;border-bottom:1px solid #0a1628}
@@ -121,20 +116,30 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 </div>
 
 <div class="map-section">
-  <div class="map-header">
-    <div class="sh" style="margin-bottom:0;flex:1">
-      <div class="st">🌍 Global Intelligence Map</div>
-      <div class="sl"></div>
-    </div>
+  <div style="padding:16px 32px;display:flex;align-items:center;gap:12px">
+    <div class="st">🌍 Global Intelligence Map</div>
+    <div class="sl"></div>
+    <span style="font-size:9px;color:#2a4a6b;letter-spacing:2px">LIVE</span>
   </div>
-  <div id="prism-map"></div>
-  <div class="map-legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#2d7dd2"></div>Space</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ff3b3b"></div>Defence</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ff8c00"></div>Middle East</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#00ff88"></div>Investment</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div>AI & Tech</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ffc800"></div>IPO Watch</div>
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:0;border-top:1px solid #0d1f3c">
+    <div id="prism-map" style="height:300px;width:100%"></div>
+    <div style="background:#030508;border-left:1px solid #0d1f3c;padding:16px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;height:300px">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;margin-bottom:10px">ACTIVE INCIDENTS</div>
+        <div id="incident-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+      <div style="border-top:1px solid #0d1f3c;padding-top:12px;margin-top:auto">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;margin-bottom:8px">LEGEND</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#2d7dd2"></div><span style="font-size:10px;color:#5a7a9a">Space</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#ff3b3b"></div><span style="font-size:10px;color:#5a7a9a">Defence</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#ff8c00"></div><span style="font-size:10px;color:#5a7a9a">Mid East</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#00ff88"></div><span style="font-size:10px;color:#5a7a9a">Invest</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#a855f7"></div><span style="font-size:10px;color:#5a7a9a">AI Tech</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:#ffc800"></div><span style="font-size:10px;color:#5a7a9a">IPO</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -475,22 +480,30 @@ const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:18}).addTo(map);
 
 const colors={space:'#2d7dd2',defence:'#ff3b3b',middle_east:'#ff8c00',investment:'#00ff88',ai_tech:'#a855f7',ipo_watch:'#ffc800'};
+const labels={space:'Space',defence:'Defence',middle_east:'Mid East',investment:'Investment',ai_tech:'AI Tech',ipo_watch:'IPO Watch'};
 const newsData={"space":[{"headline":"Shenzhou-23 Crew Docks at Tiangong Station","context":"Three Chinese astronauts arrived at the Tiangong space station on Sunday, with one crewmember expected to become Chinas first to remain in orbit for an entire year. The mission marks a significant step in Chinas path toward a crewed lunar landing by 2030.","region":"East Asia","urgency":"NORMAL","source":"Space News","lat":41,"lng":100},{"headline":"Exolaunch and SEOPS Buy Falcon 9 Rideshare Launches","context":"Exolaunch and SEOPS have each purchased dedicated Falcon 9 launches from SpaceX to meet growing demand for rideshare payload capacity. The move signals that brokers of smallsat launch services are scaling up to offer more direct and flexible mission options.","region":"North America","urgency":"NORMAL","source":"Space News","lat":28.5,"lng":-80.6}],"defence":[{"headline":"US Strikes Iranian Missile Sites Amid Qatar Talks","context":"US Central Command launched new strikes against Iranian missile sites and naval vessels, citing self-defense justification as the legal basis for the action. The strikes occurred while senior Iranian negotiators were present in Qatar engaged in diplomatic negotiations aimed at ending the broader conflict.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":25.9,"lng":56.3},{"headline":"Israel to Intensify Strikes on Hezbollah in Lebanon","context":"Israeli Prime Minister Netanyahu announced that Israel will intensify its strikes against Hezbollah, with the military already hitting targets across eastern Lebanon. The escalation adds a further layer of regional instability alongside the ongoing US-Iran confrontation.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":33.8,"lng":35.9}],"middle_east":[{"headline":"US strikes Iran missile sites amid Qatar nuclear talks","context":"US Central Command conducted strikes on Iranian missile sites and naval vessels, citing self-defense as the justification. The strikes came as senior Iranian negotiators were present in Qatar for ongoing diplomatic negotiations aimed at resolving the conflict.","region":"UAE","urgency":"NORMAL","source":"BBC News","lat":25.2,"lng":55.27},{"headline":"Iran signals no imminent deal despite US optimism","context":"Iran has stated that a nuclear and conflict resolution deal with the United States is not close, contradicting earlier signals from the US Secretary of State who suggested an agreement could arrive within days. Gulf states including the UAE are monitoring the diplomatic channel closely given regional security implications.","region":"GULF","urgency":"NORMAL","source":"BBC News","lat":24.46,"lng":54.36}],"investment":[{"headline":"Navy advances seven MUSV designs to prototype phase","context":"The US Navy has approved seven Medium Unmanned Surface Vehicle marketplace submissions to progress to the prototype development phase as part of its broader unmanned naval strategy. The identities of the selected companies have not been disclosed, reflecting competitive sensitivity in the maritime autonomy sector.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":40.71,"lng":-74},{"headline":"IAI Diamond concept disperses naval weapons across small ships","context":"Israel Aerospace Industries has unveiled its Diamond naval concept, which distributes defensive missiles and drone systems across multiple small satellite vessels connected to a central mother ship in a disaggregated architecture. The flexible modular design aims to increase survivability and operational reach for smaller naval forces operating in contested maritime environments.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Loitering munitions and launched effects dominate SOF Week","context":"Loitering munitions and launched effects systems were among the most prominent technologies exhibited at SOF Week 2026, reflecting accelerating demand for autonomous strike capabilities in special operations. The Rogue 1 Block 2 upgrade was highlighted for leveraging operator feedback to enhance performance, resilience, and mission capability without increasing system complexity.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":37.33,"lng":-122.03},{"headline":"AI-driven autonomy advances reshape US unmanned platforms","context":"Artificial intelligence and autonomous decision-making capabilities are increasingly embedded in US defense procurement programs, with unmanned surface and aerial vehicles now incorporating AI-assisted targeting and mission planning functions. Defense contractors are competing to deliver systems that meet evolving operational requirements across multi-domain environments.","region":"USA","urgency":"NORMAL","source":"Prism Analysis","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Exolaunch and SEOPS buy Falcon 9 slots for rideshare growth","context":"Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launch slots to address growing customer demand for smallsat rideshare missions beyond what SpaceX directly offers. The move signals confidence in the commercial launch market and positions both brokers as independent launch service providers in their own right.","region":"USA","urgency":"NORMAL","source":"Space News","lat":40.71,"lng":-74},{"headline":"","context":"","region":"","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0}]};
+const incidentList=document.getElementById('incident-list');
 
 Object.keys(newsData).forEach(cat=>{
   (newsData[cat]||[]).forEach(item=>{
     if(item.lat&&item.lng&&item.headline){
-      L.circleMarker([item.lat,item.lng],{
-        radius:8,fillColor:colors[cat]||'#2d7dd2',
+      const marker=L.circleMarker([item.lat,item.lng],{
+        radius:7,fillColor:colors[cat]||'#2d7dd2',
         color:'#fff',weight:1,opacity:0.9,fillOpacity:0.8
-      }).addTo(map).bindPopup(`
+      }).addTo(map);
+      marker.bindPopup(`
         <div style="font-family:sans-serif;max-width:220px">
-          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${cat.toUpperCase().replace('_',' ')}</div>
+          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${labels[cat]||cat}</div>
           <div style="font-weight:600;font-size:13px;margin-bottom:6px">${item.headline}</div>
-          <div style="font-size:11px;color:#666;line-height:1.5;margin-bottom:6px">${item.context}</div>
+          <div style="font-size:11px;color:#666;line-height:1.5;margin-bottom:4px">${item.context}</div>
           <div style="font-size:10px;color:#2d7dd2;font-family:monospace">▸ ${item.source||'Prism Analysis'}</div>
         </div>
       `);
+      const div=document.createElement('div');
+      div.style.cssText='display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 0;border-bottom:1px solid #0a1628';
+      div.innerHTML=`<div style="width:8px;height:8px;border-radius:50%;background:${colors[cat]};flex-shrink:0"></div><span style="font-size:11px;color:#8aa8c8;line-height:1.4">${item.headline}</span>`;
+      div.onclick=()=>{map.setView([item.lat,item.lng],4);marker.openPopup();};
+      incidentList.appendChild(div);
     }
   });
 });
