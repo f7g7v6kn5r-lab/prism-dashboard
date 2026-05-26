@@ -36,10 +36,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .rlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#ff3b3b;margin-bottom:8px}
 .otext{font-size:13px;color:#8aa8c8;line-height:1.6}
 .map-section{border-bottom:1px solid #0d1f3c}
-.map-body{display:grid;grid-template-columns:55% 45%;border-top:1px solid #0d1f3c}
-.map-legend{display:flex;border-top:1px solid #0d1f3c;background:#030508}
-.map-legend-item{flex:1;padding:5px 10px;display:flex;align-items:center;gap:5px;border-right:1px solid #0d1f3c}
-.map-legend-item:last-child{border-right:none}
+.map-header{padding:16px 32px;display:flex;align-items:center;gap:12px}
+#prism-map{height:420px;width:100%;background:#04060f}
+.map-legend{padding:12px 32px;background:#030508;display:flex;gap:20px;flex-wrap:wrap;border-bottom:1px solid #0d1f3c}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#5a7a9a}
+.legend-dot{width:10px;height:10px;border-radius:50%}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#0d1f3c}
 .ns{background:#04060f;padding:20px 24px;border-bottom:1px solid #0d1f3c}
 .ni{padding:12px 0;border-bottom:1px solid #0a1628}
@@ -83,7 +84,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 </style>
 </head>
 <body>
+
 <div class="scan"></div>
+
 <div class="topbar">
   <div class="logo">PRI<span>S</span>M</div>
   <div class="topbar-right">
@@ -92,6 +95,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div class="ts" id="datetime"></div>
   </div>
 </div>
+
 <div class="hero">
   <div class="hero-label">◈ Executive Intelligence Briefing</div>
   <div class="badges">
@@ -102,154 +106,186 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
       ⚡ Geo Risk: HIGH
     </div>
   </div>
-  <div class="summary">US forces launched new strikes against Iranian missile sites and naval assets in what Central Command described as self-defense operations, while Iran indicated a nuclear deal with Washington remains far from imminent despite ongoing talks in Qatar. Israel announced plans to intensify strikes against Hezbollah in eastern Lebanon, further elevating regional tensions across the Middle East. Space and defense equities surged broadly, with small-cap launch and satellite names leading gains on strong sector momentum.</div>
+  <div class="summary">US strikes on Iran during active ceasefire negotiations in Doha have sharply escalated tensions across the Middle East, with Israel simultaneously intensifying strikes on Hezbollah infrastructure in Lebanon. Space and defence equities are broadly higher, led by strong gains in ASTS, PL, and RKLB as commercial space demand accelerates. European defence budgets and new DARPA propulsion contracts signal continued momentum in both government and commercial aerospace spending.</div>
 </div>
+
 <div class="orr">
   <div class="ocard">
     <div class="olabel">▲ Opportunity of the Day</div>
-    <div class="otext">Investors should watch AST SpaceMobile and Planet Labs as direct-to-device and geospatial intelligence capabilities become increasingly critical assets in active conflict monitoring and allied defense coordination.</div>
+    <div class="otext">ASTS and PL present near-term momentum opportunities as connectivity and surveillance demand rises in active conflict zones.</div>
   </div>
   <div class="ocard">
     <div class="rlabel">▼ Risk of the Day</div>
-    <div class="otext">Failure of Iran-US talks in Qatar could trigger further US military action and broader regional escalation, creating volatility risk across energy markets and defense supply chains.</div>
+    <div class="otext">Escalation of US-Iran hostilities during ceasefire talks raises the risk of broader regional conflict that could disrupt Gulf-based operations and supply chains critical to defence programmes.</div>
   </div>
 </div>
+
 <div class="map-section">
-  <div style="padding:12px 32px;display:flex;align-items:center;gap:12px">
-    <div class="st">🌍 Global Intelligence Map</div>
-    <div class="sl"></div>
-    <span id="incident-count" style="font-size:9px;color:#2d7dd2;letter-spacing:2px;font-family:'Space Mono',monospace">LIVE · 0 INCIDENTS</span>
-  </div>
-  <div class="map-body">
-    <div id="prism-map" style="height:260px"></div>
-    <div style="background:#030508;border-left:1px solid #0d1f3c;padding:12px;height:260px;overflow-y:auto">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2a4a6b;letter-spacing:2px;margin-bottom:8px">ACTIVE INCIDENTS</div>
-      <div id="incident-list"></div>
+  <div class="map-header">
+    <div class="sh" style="margin-bottom:0;flex:1">
+      <div class="st">🌍 Global Intelligence Map</div>
+      <div class="sl"></div>
     </div>
   </div>
+  <div id="prism-map"></div>
   <div class="map-legend">
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#2d7dd2"></div><span style="font-size:8px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">SPACE</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#ff3b3b"></div><span style="font-size:8px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">DEFENCE</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#ff8c00"></div><span style="font-size:8px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">MID EAST</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#00ff88"></div><span style="font-size:8px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">INVEST</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#a855f7"></div><span style="font-size:8px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">AI TECH</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#ffc800"></div><span style="font-size:8px;color:#5a7a9a;font-family:'Space Mono',monospace;letter-spacing:1px">IPO</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2d7dd2"></div>Space</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff3b3b"></div>Defence</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff8c00"></div>Middle East</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00ff88"></div>Investment</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a855f7"></div>AI & Tech</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ffc800"></div>IPO Watch</div>
   </div>
 </div>
+
 <div class="grid">
+
   <div class="ns">
     <div class="sh"><div class="st">🛰️ Space</div><div class="sl"></div></div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">Global</span></div>
-        <div class="nh">Exolaunch and SEOPS Buy Falcon 9 Dedicated Launches</div>
-        <div class="nc">Exolaunch and SEOPS have each purchased dedicated Falcon 9 launches to meet growing demand for rideshare capacity beyond what SpaceX standard rideshare slots can accommodate. The move signals strong commercial momentum in the small satellite sector as payload manifests continue to fill ahead of schedule.</div>
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">Global</span>
+        </div>
+        <div class="nh">Starcloud Orders Starlink Lasers for Orbital Data Centers</div>
+        <div class="nc">Starcloud has ordered optical inter-satellite link terminals from SpaceX to use Starlink as a global data-relay backbone for its planned orbital data center network. The deal deepens commercial ties between private orbital infrastructure players and SpaceXs Starlink constellation.</div>
         <div class="nsource">▸ Space News</div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">Europe</span></div>
-        <div class="nh">Orbit Fab and Thales Alenia Study EP Satellite Refueling</div>
-        <div class="nc">Orbit Fab and Thales Alenia Space have agreed to jointly study the integration of Orbit Fab refueling interfaces with electric propulsion satellite systems. The collaboration could extend operational lifespans of high-value geostationary assets and reduce replacement costs for government and commercial operators.</div>
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">North America</span>
+        </div>
+        <div class="nh">Voyager Wins DARPA Solid Rocket Propellant Contract</div>
+        <div class="nc">Voyager has been awarded a $16.5 million DARPA contract to develop thrust-control technology aimed at making solid propulsion systems more adaptable across different missions and weapons. The programme could significantly improve the flexibility of solid rocket motors for both space launch and defence applications.</div>
         <div class="nsource">▸ Space News</div>
       </div>
     
   </div>
+
   <div class="ns">
     <div class="sh"><div class="st">🛡️ Defence</div><div class="sl"></div></div>
     
       <div class="ni">
-        <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">Middle East</span></div>
-        <div class="nh">US Strikes Iranian Missile Sites and Naval Vessels</div>
-        <div class="nc">US Central Command confirmed new strikes targeting Iranian missile infrastructure and naval boats, characterizing the action as self-defense amid ongoing hostilities in the region. Senior Iranian negotiators were simultaneously present in Qatar for ceasefire talks, underscoring the volatile dual-track of military action and diplomacy now underway.</div>
+        <div class="nm">
+          <span class="ub breaking">BREAKING</span>
+          <span class="nr">Middle East</span>
+        </div>
+        <div class="nh">US Strikes Iran During Doha Ceasefire Negotiations</div>
+        <div class="nc">The United States carried out strikes on Iran while Iranian and Qatari negotiators were actively engaged in peace talks in Doha, drawing sharp condemnation from Tehran which called the action a gross violation of the ceasefire. The incident significantly raises the risk of renewed full-scale hostilities across the Middle East region.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">Middle East</span></div>
-        <div class="nh">Israel to Intensify Hezbollah Strikes in Eastern Lebanon</div>
-        <div class="nc">Prime Minister Netanyahu announced Israel will intensify its military campaign against Hezbollah, with the Israeli military already striking targets across eastern Lebanon. The escalation adds a northern front pressure point to an already strained regional security environment involving Iran, Hamas, and US forces.</div>
+        <div class="nm">
+          <span class="ub breaking">BREAKING</span>
+          <span class="nr">Middle East</span>
+        </div>
+        <div class="nh">Israel Strikes 100 Hezbollah Sites Across Lebanon</div>
+        <div class="nc">Israel has intensified military operations in Lebanon, striking over 100 Hezbollah infrastructure sites and killing eleven people in one village as Prime Minister Netanyahu vows to crush the group. The escalation marks a significant intensification of Israeli operations on its northern front.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
   </div>
+
   <div class="ns">
     <div class="sh"><div class="st">🌍 Middle East</div><div class="sl"></div></div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">UAE</span></div>
-        <div class="nh">US strikes on Iran raise Gulf security concerns</div>
-        <div class="nc">US Central Command launched fresh strikes on Iranian missile sites and naval vessels, citing self-defense, as senior Iranian negotiators remained in Qatar for ongoing diplomatic talks. The escalation heightens regional tension across the Gulf, with UAE authorities monitoring developments closely given proximity to potential conflict zones.</div>
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">UAE</span>
+        </div>
+        <div class="nh">Iran ceasefire talks strain Gulf security outlook</div>
+        <div class="nc">US strikes on Iran during active peace negotiations in Doha have raised serious concerns among Gulf states about regional stability. The UAE is monitoring the situation closely given its proximity to potential escalation corridors across the Strait of Hormuz.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GULF</span></div>
-        <div class="nh">Iran deal not imminent as Gulf diplomacy continues</div>
-        <div class="nc">Iran has pushed back on US secretary of state claims that a nuclear and security agreement could be reached by Monday, stating that no deal is imminent despite active negotiations hosted in Qatar. Gulf states including the UAE are closely watching the diplomatic track, as any breakthrough or breakdown would have significant economic and security implications for the region.</div>
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">GULF</span>
+        </div>
+        <div class="nh">Gulf states watch Lebanon strikes amid Hezbollah push</div>
+        <div class="nc">Israel has struck over 100 Hezbollah sites in Lebanon as Prime Minister Netanyahu vows to crush the militant group, deepening anxieties across the Gulf region. Gulf Cooperation Council members are assessing the risk of a broader regional conflict drawing in Iranian-backed actors.</div>
         <div class="nsource">▸ BBC News</div>
       </div>
     
   </div>
+
   <div class="ns">
     <div class="sh"><div class="st">🤖 AI & Technology</div><div class="sl"></div></div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GLOBAL</span></div>
-        <div class="nh">Loitering munitions and launched effects shine at SOF Week</div>
-        <div class="nc">SOF Week 2026 featured a strong showcase of loitering munitions and launched effects technologies, with the Rogue 1 Block 2 system drawing particular attention for its upgraded performance, resilience, and operational capability improvements driven by direct user feedback. The trend reflects accelerating integration of autonomous strike and ISR tools into special operations force doctrine across NATO and partner nations.</div>
-        <div class="nsource">▸ Breaking Defense</div>
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">GLOBAL</span>
+        </div>
+        <div class="nh">Starcloud taps Starlink lasers for orbital data centres</div>
+        <div class="nc">Starcloud has ordered optical inter-satellite link terminals from SpaceX to use the Starlink constellation as a global data-relay backbone for its planned network of orbital data centres. The deal deepens commercial ties between emerging space infrastructure firms and SpaceX as demand for low-latency orbital compute grows rapidly.</div>
+        <div class="nsource">▸ Space News</div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
-        <div class="nh">IAI Diamond concept links drone and missile nets on small ships</div>
-        <div class="nc">Israel Aerospace Industries has unveiled its Diamond naval architecture, which distributes flexible drone and missile defense systems across small satellite vessels connected to a central mother ship in a disaggregated operational model. The concept aims to extend naval defensive coverage and sensor reach without relying on large costly warships, making it relevant to Gulf and littoral defense procurement discussions.</div>
+        <div class="nm">
+          <span class="ub normal">NORMAL</span>
+          <span class="nr">USA</span>
+        </div>
+        <div class="nh">US Air Force NGAP engine program delayed a further year</div>
+        <div class="nc">The Next Generation Adaptive Propulsion program has slipped by another year, with prototyping now not expected to complete until 2031, representing a cumulative three-year delay from original schedules. The setback raises concerns about the timeline for next-generation fighter aircraft that depend on NGAP engines for enhanced performance and fuel efficiency.</div>
         <div class="nsource">▸ Breaking Defense</div>
       </div>
     
   </div>
+
   <div class="fw">
     <div class="sh"><div class="st">💰 Investment & Deals</div><div class="sl"></div></div>
     <div class="cards">
       
         <div class="card">
-          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
-          <div class="nh">US Navy advances seven MUSV designs to prototype phase</div>
-          <div class="nc" style="margin-top:6px">The US Navy has green-lit seven medium uncrewed surface vessel submissions from its marketplace program to proceed to the prototype development phase, signaling a major investment push in autonomous naval platforms. The identities of the selected companies have not been disclosed, but the move reflects growing Pentagon commitment to uncrewed maritime capabilities as a core future fleet element.</div>
-          <div class="nsource">▸ Breaking Defense</div>
+          <div class="nm">
+            <span class="ub normal">NORMAL</span>
+            <span class="nr">USA</span>
+          </div>
+          <div class="nh">Voyager lands DARPA deal for solid rocket propulsion</div>
+          <div class="nc" style="margin-top:6px">Voyager has secured a 16.5 million dollar DARPA contract to develop thrust-control technology aimed at making solid propulsion systems more adaptable across different missions and weapons platforms. The award signals continued US government investment in next-generation propulsion as competition with rival powers intensifies.</div>
+          <div class="nsource">▸ Space News</div>
         </div>
       
         <div class="card">
-          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GLOBAL</span></div>
-          <div class="nh">Exolaunch and SEOPS buy Falcon 9 launches for rideshare</div>
-          <div class="nc" style="margin-top:6px">Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launches from SpaceX to address surging demand for flexible rideshare missions beyond what shared manifests can accommodate. The move signals strong commercial confidence in the small satellite launch market and deepens the role of SpaceX as a backbone provider for the broader space economy.</div>
+          <div class="nm">
+            <span class="ub normal">NORMAL</span>
+            <span class="nr">GLOBAL</span>
+          </div>
+          <div class="nh">Europe defence surge could boost entrepreneurial space firms</div>
+          <div class="nc" style="margin-top:6px">A wave of increased European defence budgets presents a significant growth opportunity for the continents emerging commercial space sector, according to analysts at the Amsterdam space conference. Experts warn that entrenched bureaucratic procurement processes must be reformed quickly or the funding window will close before startups can benefit.</div>
           <div class="nsource">▸ Space News</div>
         </div>
       
     </div>
   </div>
+
   <div class="fw">
     <div class="sh"><div class="st">🚀 IPO Watch</div><div class="sl"></div></div>
     <div class="cards">
       
         <div class="icard">
-          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
-          <div class="nh">Orbit Fab and Thales Alenia study satellite refueling market</div>
-          <div class="nc" style="margin-top:6px">Orbit Fab and Thales Alenia Space have announced a joint study to integrate Orbit Fab refueling interfaces with electric propulsion systems, a development that could unlock a</div>
-          <div class="nsource">▸ Space News</div>
-        </div>
-      
-        <div class="icard">
-          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr"></span></div>
-          <div class="nh">EU Arctic</div>
-          <div class="nc" style="margin-top:6px"></div>
+          <div class="nm">
+            <span class="ub normal">NORMAL</span>
+            <span class="nr">USA</span>
+          </div>
+          <div class="nh">Defence tech listings gain momentum on US markets in 2026</div>
+          <div class="nc" style="margin-top:6px">A cluster of US defence technology firms are advancing plans toward public listings as sustained Pentagon spending and geopolitical tension sustain investor appetite for the sector. Analysts note that space and counter-drone companies are among the most active candidates eyeing Nasdaq and NYSE entries through the second half of 2026.</div>
           <div class="nsource">▸ Prism Analysis</div>
         </div>
       
     </div>
   </div>
+
 </div>
+
 <div class="stocks-section">
   <div class="sh">
     <div class="st">📈 Market Pulse — Space & Defence</div>
@@ -258,46 +294,119 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   </div>
   <div class="stocks-grid">
     <div class="stock-card">
-        <div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div>
-        <div><div class="stock-price">$ 135.76</div><div class="stock-change-up">▲ 8.22%</div></div>
+        <div>
+          <div class="stock-ticker">RKLB</div>
+          <div class="stock-name">Rocket Lab</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 143.02</div>
+          <div class="stock-change-up">▲ 5.35%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div>
-        <div><div class="stock-price">$ 533.24</div><div class="stock-change-up">▲ 2.00%</div></div>
+        <div>
+          <div class="stock-ticker">LMT</div>
+          <div class="stock-name">Lockheed Martin</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 533.66</div>
+          <div class="stock-change-up">▲ 0.08%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div>
-        <div><div class="stock-price">$ 177.01</div><div class="stock-change-up">▲ 0.59%</div></div>
+        <div>
+          <div class="stock-ticker">RTX</div>
+          <div class="stock-name">Raytheon</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 179.13</div>
+          <div class="stock-change-up">▲ 1.20%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div>
-        <div><div class="stock-price">$ 555.58</div><div class="stock-change-up">▲ 0.73%</div></div>
+        <div>
+          <div class="stock-ticker">NOC</div>
+          <div class="stock-name">Northrop Grumman</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 557.14</div>
+          <div class="stock-change-up">▲ 0.28%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div>
-        <div><div class="stock-price">$ 219.02</div><div class="stock-change-dn">▼ 0.27%</div></div>
+        <div>
+          <div class="stock-ticker">BA</div>
+          <div class="stock-name">Boeing</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 219.55</div>
+          <div class="stock-change-up">▲ 0.24%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div>
-        <div><div class="stock-price">$ 311.98</div><div class="stock-change-up">▲ 1.84%</div></div>
+        <div>
+          <div class="stock-ticker">LHX</div>
+          <div class="stock-name">L3Harris</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 313.38</div>
+          <div class="stock-change-up">▲ 0.45%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div>
-        <div><div class="stock-price">$ 48.84</div><div class="stock-change-up">▲ 6.87%</div></div>
+        <div>
+          <div class="stock-ticker">IRDM</div>
+          <div class="stock-name">Iridium</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 50.24</div>
+          <div class="stock-change-up">▲ 2.87%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div>
-        <div><div class="stock-price">$ 38.26</div><div class="stock-change-up">▲ 11.74%</div></div>
+        <div>
+          <div class="stock-ticker">LUNR</div>
+          <div class="stock-name">Intuitive Machines</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 34.80</div>
+          <div class="stock-change-dn">▼ 9.04%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div>
-        <div><div class="stock-price">$ 105.86</div><div class="stock-change-up">▲ 10.01%</div></div>
+        <div>
+          <div class="stock-ticker">ASTS</div>
+          <div class="stock-name">AST SpaceMobile</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 119.45</div>
+          <div class="stock-change-up">▲ 12.84%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div>
-        <div><div class="stock-price">$ 44.35</div><div class="stock-change-up">▲ 4.40%</div></div>
+        <div>
+          <div class="stock-ticker">PL</div>
+          <div class="stock-name">Planet Labs</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 48.55</div>
+          <div class="stock-change-up">▲ 9.48%</div>
+        </div>
       </div><div class="stock-card">
-        <div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div>
-        <div><div class="stock-price">$ 47.87</div><div class="stock-change-up">▲ 7.21%</div></div>
+        <div>
+          <div class="stock-ticker">BKSY</div>
+          <div class="stock-name">BlackSky</div>
+        </div>
+        <div>
+          <div class="stock-price">$ 48.39</div>
+          <div class="stock-change-up">▲ 1.09%</div>
+        </div>
       </div>
     <div class="stock-card" style="border-color:rgba(45,125,210,0.2)">
-      <div><div class="stock-ticker" style="color:#2a4a6b">SPACEX</div><div class="stock-name" style="color:#1a3a5a">Space Exploration</div></div>
-      <div><div class="stock-private">PRIVATE</div><div class="stock-private" style="font-size:9px">Watch: SPCX</div></div>
+      <div>
+        <div class="stock-ticker" style="color:#2a4a6b">SPACEX</div>
+        <div class="stock-name" style="color:#1a3a5a">Space Exploration</div>
+      </div>
+      <div>
+        <div class="stock-private">PRIVATE</div>
+        <div class="stock-private" style="font-size:9px">Watch: SPCX</div>
+      </div>
     </div>
   </div>
-  <div class="sector-note">The defense and space sector is positioned for sustained upward momentum as Middle East escalation drives procurement urgency and commercial space demand accelerates across government and allied customers.</div>
+  <div class="sector-note">The defence and space sector remains in a strong structural uptrend driven by geopolitical instability, rising military budgets, and accelerating commercial space infrastructure investment.</div>
 </div>
+
 <div class="events">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
   <div class="event-grid">
@@ -339,11 +448,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     </div>
   </div>
 </div>
+
 <div class="footer">
   <div class="fl">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · DUBAI</div>
   <div class="fl">CONFIDENTIAL · 2026</div>
 </div>
+
 <div class="scan"></div>
+
 <script>
 function getMoonPhase(){
   const phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
@@ -359,73 +471,29 @@ document.getElementById('datetime').textContent=
   now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+
   ' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 
-const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true,attributionControl:false});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.4}).addTo(map);
+const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© CartoDB',maxZoom:18}).addTo(map);
 
 const colors={space:'#2d7dd2',defence:'#ff3b3b',middle_east:'#ff8c00',investment:'#00ff88',ai_tech:'#a855f7',ipo_watch:'#ffc800'};
-const labels={space:'🛰 SPACE',defence:'🛡 DEFENCE',middle_east:'🌍 MID EAST',investment:'💰 INVEST',ai_tech:'🤖 AI TECH',ipo_watch:'🚀 IPO'};
-const newsData={"space":[{"headline":"Exolaunch and SEOPS Buy Falcon 9 Dedicated Launches","context":"Exolaunch and SEOPS have each purchased dedicated Falcon 9 launches to meet growing demand for rideshare capacity beyond what SpaceX standard rideshare slots can accommodate. The move signals strong commercial momentum in the small satellite sector as payload manifests continue to fill ahead of schedule.","region":"Global","urgency":"NORMAL","source":"Space News","lat":28.5729,"lng":-80.649},{"headline":"Orbit Fab and Thales Alenia Study EP Satellite Refueling","context":"Orbit Fab and Thales Alenia Space have agreed to jointly study the integration of Orbit Fab refueling interfaces with electric propulsion satellite systems. The collaboration could extend operational lifespans of high-value geostationary assets and reduce replacement costs for government and commercial operators.","region":"Europe","urgency":"NORMAL","source":"Space News","lat":48.8566,"lng":2.3522}],"defence":[{"headline":"US Strikes Iranian Missile Sites and Naval Vessels","context":"US Central Command confirmed new strikes targeting Iranian missile infrastructure and naval boats, characterizing the action as self-defense amid ongoing hostilities in the region. Senior Iranian negotiators were simultaneously present in Qatar for ceasefire talks, underscoring the volatile dual-track of military action and diplomacy now underway.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":25.9306,"lng":56.3834},{"headline":"Israel to Intensify Hezbollah Strikes in Eastern Lebanon","context":"Prime Minister Netanyahu announced Israel will intensify its military campaign against Hezbollah, with the Israeli military already striking targets across eastern Lebanon. The escalation adds a northern front pressure point to an already strained regional security environment involving Iran, Hamas, and US forces.","region":"Middle East","urgency":"URGENT","source":"BBC News","lat":33.8547,"lng":35.8623}],"middle_east":[{"headline":"US strikes on Iran raise Gulf security concerns","context":"US Central Command launched fresh strikes on Iranian missile sites and naval vessels, citing self-defense, as senior Iranian negotiators remained in Qatar for ongoing diplomatic talks. The escalation heightens regional tension across the Gulf, with UAE authorities monitoring developments closely given proximity to potential conflict zones.","region":"UAE","urgency":"NORMAL","source":"BBC News","lat":25.2,"lng":55.27},{"headline":"Iran deal not imminent as Gulf diplomacy continues","context":"Iran has pushed back on US secretary of state claims that a nuclear and security agreement could be reached by Monday, stating that no deal is imminent despite active negotiations hosted in Qatar. Gulf states including the UAE are closely watching the diplomatic track, as any breakthrough or breakdown would have significant economic and security implications for the region.","region":"GULF","urgency":"NORMAL","source":"BBC News","lat":24.46,"lng":54.36}],"investment":[{"headline":"US Navy advances seven MUSV designs to prototype phase","context":"The US Navy has green-lit seven medium uncrewed surface vessel submissions from its marketplace program to proceed to the prototype development phase, signaling a major investment push in autonomous naval platforms. The identities of the selected companies have not been disclosed, but the move reflects growing Pentagon commitment to uncrewed maritime capabilities as a core future fleet element.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":40.71,"lng":-74},{"headline":"Exolaunch and SEOPS buy Falcon 9 launches for rideshare","context":"Exolaunch and SEOPS have each independently purchased dedicated Falcon 9 launches from SpaceX to address surging demand for flexible rideshare missions beyond what shared manifests can accommodate. The move signals strong commercial confidence in the small satellite launch market and deepens the role of SpaceX as a backbone provider for the broader space economy.","region":"GLOBAL","urgency":"NORMAL","source":"Space News","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Loitering munitions and launched effects shine at SOF Week","context":"SOF Week 2026 featured a strong showcase of loitering munitions and launched effects technologies, with the Rogue 1 Block 2 system drawing particular attention for its upgraded performance, resilience, and operational capability improvements driven by direct user feedback. The trend reflects accelerating integration of autonomous strike and ISR tools into special operations force doctrine across NATO and partner nations.","region":"GLOBAL","urgency":"NORMAL","source":"Breaking Defense","lat":37.33,"lng":-122.03},{"headline":"IAI Diamond concept links drone and missile nets on small ships","context":"Israel Aerospace Industries has unveiled its Diamond naval architecture, which distributes flexible drone and missile defense systems across small satellite vessels connected to a central mother ship in a disaggregated operational model. The concept aims to extend naval defensive coverage and sensor reach without relying on large costly warships, making it relevant to Gulf and littoral defense procurement discussions.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Orbit Fab and Thales Alenia study satellite refueling market","context":"Orbit Fab and Thales Alenia Space have announced a joint study to integrate Orbit Fab refueling interfaces with electric propulsion systems, a development that could unlock a","region":"USA","urgency":"NORMAL","source":"Space News","lat":40.71,"lng":-74},{"headline":"EU Arctic","context":"","region":"","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0}]};
-const incidentList=document.getElementById('incident-list');
-let incidentCount=0;
-
-const style=document.createElement('style');
-style.textContent=`
-  @keyframes ping{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}75%,100%{transform:translate(-50%,-50%) scale(2.5);opacity:0}}
-  .leaflet-popup-content-wrapper{background:#04060f!important;border:none!important;border-radius:4px!important;box-shadow:none!important;padding:0!important}
-  .leaflet-popup-content{margin:0!important}
-  .leaflet-popup-tip{background:#04060f!important}
-  .leaflet-container{background:#030508!important;font-family:'Space Grotesk',sans-serif}
-  .leaflet-control-zoom a{background:#060d1a!important;color:#2d7dd2!important;border-color:#0d1f3c!important}
-  .inc-card{padding:8px 10px;background:#060d1a;border:1px solid #0d1f3c;border-radius:4px;margin-bottom:6px;cursor:pointer;transition:border-color 0.2s}
-  .inc-card:hover{border-color:rgba(45,125,210,0.4)}
-  .inc-card:last-child{margin-bottom:0}
-`;
-document.head.appendChild(style);
+const newsData={"space":[{"headline":"Starcloud Orders Starlink Lasers for Orbital Data Centers","context":"Starcloud has ordered optical inter-satellite link terminals from SpaceX to use Starlink as a global data-relay backbone for its planned orbital data center network. The deal deepens commercial ties between private orbital infrastructure players and SpaceXs Starlink constellation.","region":"Global","urgency":"NORMAL","source":"Space News","lat":28.6,"lng":-80.6},{"headline":"Voyager Wins DARPA Solid Rocket Propellant Contract","context":"Voyager has been awarded a $16.5 million DARPA contract to develop thrust-control technology aimed at making solid propulsion systems more adaptable across different missions and weapons. The programme could significantly improve the flexibility of solid rocket motors for both space launch and defence applications.","region":"North America","urgency":"NORMAL","source":"Space News","lat":38.9,"lng":-77}],"defence":[{"headline":"US Strikes Iran During Doha Ceasefire Negotiations","context":"The United States carried out strikes on Iran while Iranian and Qatari negotiators were actively engaged in peace talks in Doha, drawing sharp condemnation from Tehran which called the action a gross violation of the ceasefire. The incident significantly raises the risk of renewed full-scale hostilities across the Middle East region.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":35.7,"lng":51.4},{"headline":"Israel Strikes 100 Hezbollah Sites Across Lebanon","context":"Israel has intensified military operations in Lebanon, striking over 100 Hezbollah infrastructure sites and killing eleven people in one village as Prime Minister Netanyahu vows to crush the group. The escalation marks a significant intensification of Israeli operations on its northern front.","region":"Middle East","urgency":"BREAKING","source":"BBC News","lat":33.8,"lng":35.5}],"middle_east":[{"headline":"Iran ceasefire talks strain Gulf security outlook","context":"US strikes on Iran during active peace negotiations in Doha have raised serious concerns among Gulf states about regional stability. The UAE is monitoring the situation closely given its proximity to potential escalation corridors across the Strait of Hormuz.","region":"UAE","urgency":"NORMAL","source":"BBC News","lat":25.2,"lng":55.27},{"headline":"Gulf states watch Lebanon strikes amid Hezbollah push","context":"Israel has struck over 100 Hezbollah sites in Lebanon as Prime Minister Netanyahu vows to crush the militant group, deepening anxieties across the Gulf region. Gulf Cooperation Council members are assessing the risk of a broader regional conflict drawing in Iranian-backed actors.","region":"GULF","urgency":"NORMAL","source":"BBC News","lat":24.46,"lng":54.36}],"investment":[{"headline":"Voyager lands DARPA deal for solid rocket propulsion","context":"Voyager has secured a 16.5 million dollar DARPA contract to develop thrust-control technology aimed at making solid propulsion systems more adaptable across different missions and weapons platforms. The award signals continued US government investment in next-generation propulsion as competition with rival powers intensifies.","region":"USA","urgency":"NORMAL","source":"Space News","lat":40.71,"lng":-74},{"headline":"Europe defence surge could boost entrepreneurial space firms","context":"A wave of increased European defence budgets presents a significant growth opportunity for the continents emerging commercial space sector, according to analysts at the Amsterdam space conference. Experts warn that entrenched bureaucratic procurement processes must be reformed quickly or the funding window will close before startups can benefit.","region":"GLOBAL","urgency":"NORMAL","source":"Space News","lat":51.5,"lng":-0.12}],"ai_tech":[{"headline":"Starcloud taps Starlink lasers for orbital data centres","context":"Starcloud has ordered optical inter-satellite link terminals from SpaceX to use the Starlink constellation as a global data-relay backbone for its planned network of orbital data centres. The deal deepens commercial ties between emerging space infrastructure firms and SpaceX as demand for low-latency orbital compute grows rapidly.","region":"GLOBAL","urgency":"NORMAL","source":"Space News","lat":37.33,"lng":-122.03},{"headline":"US Air Force NGAP engine program delayed a further year","context":"The Next Generation Adaptive Propulsion program has slipped by another year, with prototyping now not expected to complete until 2031, representing a cumulative three-year delay from original schedules. The setback raises concerns about the timeline for next-generation fighter aircraft that depend on NGAP engines for enhanced performance and fuel efficiency.","region":"USA","urgency":"NORMAL","source":"Breaking Defense","lat":37.09,"lng":-95.71}],"ipo_watch":[{"headline":"Defence tech listings gain momentum on US markets in 2026","context":"A cluster of US defence technology firms are advancing plans toward public listings as sustained Pentagon spending and geopolitical tension sustain investor appetite for the sector. Analysts note that space and counter-drone companies are among the most active candidates eyeing Nasdaq and NYSE entries through the second half of 2026.","region":"USA","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0},{"headline":"","context":"","region":"","urgency":"NORMAL","source":"Prism Analysis","lat":0,"lng":0}]};
 
 Object.keys(newsData).forEach(cat=>{
   (newsData[cat]||[]).forEach(item=>{
     if(item.lat&&item.lng&&item.headline){
-      incidentCount++;
-      const col=colors[cat]||'#2d7dd2';
-      const hex=col.replace('#','');
-      const r=parseInt(hex.substring(0,2),16);
-      const g=parseInt(hex.substring(2,4),16);
-      const b=parseInt(hex.substring(4,6),16);
-      const icon=L.divIcon({
-        className:'',
-        html:`<div style="position:relative;width:22px;height:22px">
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:${col};border:1.5px solid rgba(255,255,255,0.9);z-index:2"></div>
-          <div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.7);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite;z-index:1"></div>
-          <div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.4);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite 0.7s;z-index:1"></div>
-        </div>`,
-        iconSize:[22,22],
-        iconAnchor:[11,11]
-      });
-      const marker=L.marker([item.lat,item.lng],{icon}).addTo(map);
-      marker.bindPopup(`
-        <div style="font-family:'Space Grotesk',sans-serif;max-width:240px;background:#04060f;color:#c8d4e8;border:1px solid ${col};border-radius:4px;padding:12px">
-          <div style="font-size:9px;color:${col};letter-spacing:3px;margin-bottom:6px;font-family:'Space Mono',monospace">${labels[cat]||cat}</div>
-          <div style="font-weight:600;font-size:13px;margin-bottom:8px;color:#e8f0f8">${item.headline}</div>
-          <div style="font-size:11px;color:#5a7a9a;line-height:1.6;margin-bottom:6px">${item.context}</div>
-          <div style="font-size:10px;color:${col};font-family:'Space Mono',monospace">▸ ${item.source||'Prism Analysis'}</div>
+      L.circleMarker([item.lat,item.lng],{
+        radius:8,fillColor:colors[cat]||'#2d7dd2',
+        color:'#fff',weight:1,opacity:0.9,fillOpacity:0.8
+      }).addTo(map).bindPopup(`
+        <div style="font-family:sans-serif;max-width:220px">
+          <div style="font-size:10px;color:#888;letter-spacing:2px;margin-bottom:4px">${cat.toUpperCase().replace('_',' ')}</div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:6px">${item.headline}</div>
+          <div style="font-size:11px;color:#666;line-height:1.5;margin-bottom:6px">${item.context}</div>
+          <div style="font-size:10px;color:#2d7dd2;font-family:monospace">▸ ${item.source||'Prism Analysis'}</div>
         </div>
-      `,{maxWidth:260});
-
-      const div=document.createElement('div');
-      div.className='inc-card';
-      div.style.borderTopColor=col;
-      div.style.borderTopWidth='2px';
-      div.innerHTML=`
-        <div style="font-size:8px;color:${col};letter-spacing:2px;margin-bottom:3px;font-family:'Space Mono',monospace">${labels[cat]||cat}</div>
-        <div style="font-size:10px;color:#c8d4e8;line-height:1.4">${item.headline}</div>
-      `;
-      div.onclick=()=>{map.setView([item.lat,item.lng],4,{animate:true});marker.openPopup();};
-      incidentList.appendChild(div);
+      `);
     }
   });
 });
-document.getElementById('incident-count').textContent=`LIVE · ${incidentCount} INCIDENTS`;
 </script>
 </body>
 </html>
