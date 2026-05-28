@@ -91,6 +91,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div id="moonphase" style="font-size:18px"></div>
     <div class="live"><div class="dot"></div>Live Intelligence</div>
     <div class="ts" id="datetime"></div>
+    <div class="ts" id="lastupdated" style="color:#1a3a5a"></div>
   </div>
 </div>
 <div class="hero">
@@ -499,6 +500,7 @@ const now=new Date();
 document.getElementById('datetime').textContent=
   now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+
   ' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+document.getElementById('lastupdated').textContent='◈ Briefing: '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 
 const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true,attributionControl:false});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
