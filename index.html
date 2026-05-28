@@ -19,7 +19,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .live{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;color:#2d7dd2}
 .dot{width:6px;height:6px;background:#00ff88;border-radius:50%;animation:pulse 2s infinite}
 .ts{font-family:'Space Mono',monospace;font-size:10px;color:#2a4a6b;letter-spacing:2px}
-.hero{padding:24px 32px;border-bottom:1px solid #0d1f3c;background:linear-gradient(180deg,#060d1a 0%,#04060f 100%)}
+.hero{padding:24px 32px;border-bottom:1px solid #0d1f3c;position:relative;background-image:url('https://images.unsplash.com/photo-1502318217862-aa4e294ba657?q=80&w=1920&auto=format&fit=crop');background-size:cover;background-position:right top;overflow:hidden}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(4,6,15,0.98) 40%,rgba(4,6,15,0.5) 100%);z-index:0}
+.hero-content{position:relative;z-index:1}
 .hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#2d7dd2;margin-bottom:12px}
 .badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
 .badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;padding:4px 12px;border-radius:3px}
@@ -30,7 +32,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .critical{background:rgba(255,59,59,0.1);color:#ff3b3b;border:1px solid rgba(255,59,59,0.3)}
 .medium{background:rgba(255,200,0,0.1);color:#ffc800;border:1px solid rgba(255,200,0,0.3)}
 .low{background:rgba(0,255,136,0.1);color:#00ff88;border:1px solid rgba(0,255,136,0.3)}
-.summary{font-size:14px;color:#8aa8c8;line-height:1.8;border-left:2px solid #2d7dd2;padding-left:16px;max-width:900px}
+.summary{font-size:14px;color:#c8d4e8;line-height:1.8;border-left:2px solid #2d7dd2;padding-left:16px;max-width:900px}
 .orr{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #0d1f3c}
 .ocard{background:#04060f;padding:16px 32px;border-right:1px solid #0d1f3c}
 .olabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#00ff88;margin-bottom:8px}
@@ -65,9 +67,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .st{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:#2d7dd2}
 .sl{flex:1;height:1px;background:#0d1f3c}
 .stocks-section{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
-.stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;max-width:760px}
+.stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;max-width:700px}
 .stock-card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
-.sicon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px}
 .stock-ticker{font-family:'Space Mono',monospace;font-size:11px;color:#fff;font-weight:700;letter-spacing:2px}
 .stock-name{font-size:10px;color:#3a5a7a;margin-top:2px}
 .stock-price{font-size:13px;color:#fff;font-weight:600;text-align:right}
@@ -91,73 +92,73 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 <div style="background:#030508;border-bottom:1px solid #0d1f3c;overflow:hidden;white-space:nowrap;padding:5px 0">
   <div style="display:inline-block;animation:ticker 40s linear infinite;will-change:transform">
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">GOLD</span>
+      <span class="ticker-label">GOLD ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$408.49</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 1.33%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">BRENT CRUDE</span>
+      <span class="ticker-label">OIL ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$51.14</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 3.69%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">VIX</span>
+      <span class="ticker-label">VIX ETF</span>
       <span style="font-size:11px;color:#ff8c00;font-weight:700">24.13</span>
       <span style="font-size:10px;color:#00ff88">▼ 2.07%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">DXY</span>
+      <span class="ticker-label">USD ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">27.75</span>
       <span style="font-size:10px;color:#00ff88">▲ 0.00%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">10Y YIELD</span>
-      <span style="font-size:11px;color:#fff;font-weight:700">85.30%</span>
+      <span class="ticker-label">TREASURY ETF</span>
+      <span style="font-size:11px;color:#fff;font-weight:700">85.30</span>
       <span style="font-size:10px;color:#ff3b3b">▲ 0.23%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">S&P 500</span>
+      <span class="ticker-label">S&P 500 ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$750.46</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 0.02%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">GOLD</span>
+      <span class="ticker-label">GOLD ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$408.49</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 1.33%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">BRENT CRUDE</span>
+      <span class="ticker-label">OIL ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$51.14</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 3.69%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">VIX</span>
+      <span class="ticker-label">VIX ETF</span>
       <span style="font-size:11px;color:#ff8c00;font-weight:700">24.13</span>
       <span style="font-size:10px;color:#00ff88">▼ 2.07%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">DXY</span>
+      <span class="ticker-label">USD ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">27.75</span>
       <span style="font-size:10px;color:#00ff88">▲ 0.00%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">10Y YIELD</span>
-      <span style="font-size:11px;color:#fff;font-weight:700">85.30%</span>
+      <span class="ticker-label">TREASURY ETF</span>
+      <span style="font-size:11px;color:#fff;font-weight:700">85.30</span>
       <span style="font-size:10px;color:#ff3b3b">▲ 0.23%</span>
     </span>
     <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span class="ticker-label">S&P 500</span>
+      <span class="ticker-label">S&P 500 ETF</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$750.46</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 0.02%</span>
     </span>
@@ -173,16 +174,19 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   </div>
 </div>
 <div class="hero">
-  <div class="hero-label">◈ Executive Intelligence Briefing</div>
-  <div class="badges">
-    <div class="badge bullish">
-      BULLISH
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">◈ Executive Intelligence Briefing</div>
+    <div class="badges">
+      <div class="badge bullish">
+        BULLISH
+      </div>
+      <div class="badge high">
+        ⚡ Geo Risk: HIGH
+      </div>
     </div>
-    <div class="badge high">
-      ⚡ Geo Risk: HIGH
-    </div>
+    <div class="summary">SpaceX is preparing for a landmark IPO in June that could be the largest in history, while simultaneously winning a $2.29 billion Space Force contract, though its Starship rocket has been grounded again by the FAA following a mishap classification. The US-Iran war remains a dominant global risk factor, with ceasefire violations on both sides, Strait of Hormuz disruptions, and stalled peace negotiations creating uncertainty across markets and geopolitics. Defence stocks are mixed as traditional contractors face headwinds while space and satellite-adjacent equities surge on commercial and military contract momentum.</div>
   </div>
-  <div class="summary">SpaceX is preparing for a landmark IPO in June that could be the largest in history, while simultaneously winning a $2.29 billion Space Force contract, though its Starship rocket has been grounded again by the FAA following a mishap classification. The US-Iran war remains a dominant global risk factor, with ceasefire violations on both sides, Strait of Hormuz disruptions, and stalled peace negotiations creating uncertainty across markets and geopolitics. Defence stocks are mixed as traditional contractors face headwinds while space and satellite-adjacent equities surge on commercial and military contract momentum.</div>
 </div>
 <div class="orr">
   <div class="ocard">
@@ -478,77 +482,41 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   </div>
   <div class="stocks-grid">
     <div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#0a1628;color:#4a9eff;border:1px solid #4a9eff22">RKLB</div>
-          <div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div>
-        </div>
+        <div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div>
         <div><div class="stock-price">$ 150.23</div><div class="stock-change-up">▲ 4.91%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#0a1220;color:#1d4ed8;border:1px solid #1d4ed822">LMT</div>
-          <div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div>
-        </div>
+        <div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div>
         <div><div class="stock-price">$ 531.14</div><div class="stock-change-dn">▼ 0.33%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#1a0a0a;color:#dc2626;border:1px solid #dc262622">RTX</div>
-          <div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div>
-        </div>
+        <div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div>
         <div><div class="stock-price">$ 176.59</div><div class="stock-change-dn">▼ 1.33%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#0a1220;color:#3b82f6;border:1px solid #3b82f622">NOC</div>
-          <div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div>
-        </div>
+        <div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div>
         <div><div class="stock-price">$ 551.34</div><div class="stock-change-dn">▼ 0.98%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#0a1220;color:#1e40af;border:1px solid #1e40af22">BA</div>
-          <div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div>
-        </div>
+        <div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div>
         <div><div class="stock-price">$ 224.30</div><div class="stock-change-up">▲ 2.47%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#0a1a0a;color:#16a34a;border:1px solid #16a34a22">LHX</div>
-          <div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div>
-        </div>
+        <div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div>
         <div><div class="stock-price">$ 309.05</div><div class="stock-change-dn">▼ 1.41%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#1a1a0a;color:#ca8a04;border:1px solid #ca8a0422">IRDM</div>
-          <div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div>
-        </div>
+        <div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div>
         <div><div class="stock-price">$ 51.39</div><div class="stock-change-up">▲ 2.45%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#0a0a1a;color:#7c3aed;border:1px solid #7c3aed22">LUNR</div>
-          <div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div>
-        </div>
+        <div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div>
         <div><div class="stock-price">$ 40.34</div><div class="stock-change-up">▲ 15.72%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#001a10;color:#00ff88;border:1px solid #00ff8822">ASTS</div>
-          <div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div>
-        </div>
+        <div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div>
         <div><div class="stock-price">$ 129.60</div><div class="stock-change-up">▲ 8.27%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#1a0a10;color:#e11d48;border:1px solid #e11d4822">PL</div>
-          <div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div>
-        </div>
+        <div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div>
         <div><div class="stock-price">$ 50.48</div><div class="stock-change-up">▲ 4.47%</div></div>
       </div><div class="stock-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="sicon" style="background:#0a0a0a;color:#94a3b8;border:1px solid #94a3b822">BKSY</div>
-          <div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div>
-        </div>
+        <div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div>
         <div><div class="stock-price">$ 51.00</div><div class="stock-change-up">▲ 4.57%</div></div>
       </div>
     <div class="stock-card" style="border-color:rgba(45,125,210,0.2)">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="sicon" style="background:#0a0a0a;color:#888;border:1px solid #22222222">SX</div>
-        <div><div class="stock-ticker" style="color:#2a4a6b">SPACEX</div><div class="stock-name" style="color:#1a3a5a">Space Exploration</div></div>
-      </div>
+      <div><div class="stock-ticker" style="color:#2a4a6b">SPACEX</div><div class="stock-name" style="color:#1a3a5a">Space Exploration</div></div>
       <div><div class="stock-private">PRIVATE</div><div class="stock-private" style="font-size:9px">Watch: SPCX</div></div>
     </div>
   </div>
