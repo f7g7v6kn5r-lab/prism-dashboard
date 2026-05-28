@@ -10,13 +10,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min-height:100vh}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 .topbar{background:#04060f;border-bottom:1px solid #0d1f3c;padding:12px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .logo{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;letter-spacing:8px;color:#fff}
 .logo span{color:#2d7dd2}
 .topbar-right{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .live{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;color:#2d7dd2}
 .dot{width:6px;height:6px;background:#00ff88;border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 .ts{font-family:'Space Mono',monospace;font-size:10px;color:#2a4a6b;letter-spacing:2px}
 .hero{padding:24px 32px;border-bottom:1px solid #0d1f3c;background:linear-gradient(180deg,#060d1a 0%,#04060f 100%)}
 .hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#2d7dd2;margin-bottom:12px}
@@ -81,80 +82,81 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .event-loc{font-size:11px;color:#5a7a9a}
 .event-tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;padding:2px 8px;border-radius:2px;background:rgba(45,125,210,0.1);color:#2d7dd2;border:1px solid rgba(45,125,210,0.3)}
 .scan{height:2px;background:linear-gradient(90deg,transparent,#2d7dd2,transparent)}
+.ticker-label{font-size:9px;color:#8aa8c8;letter-spacing:2px;font-weight:700}
 </style>
 </head>
 <body>
 <div class="scan"></div>
 <div style="background:#030508;border-bottom:1px solid #0d1f3c;overflow:hidden;white-space:nowrap;padding:5px 0">
-  <div style="display:inline-block;animation:ticker 40s linear infinite">
+  <div style="display:inline-block;animation:ticker 40s linear infinite;will-change:transform">
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">GOLD</span>
+      <span class="ticker-label">GOLD</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$408.49</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 1.33%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">OIL</span>
-      <span style="font-size:11px;color:#fff;font-weight:700">$31.92</span>
-      <span style="font-size:10px;color:#ff3b3b">▼ 2.06%</span>
+      <span class="ticker-label">BRENT CRUDE</span>
+      <span style="font-size:11px;color:#fff;font-weight:700">$51.14</span>
+      <span style="font-size:10px;color:#ff3b3b">▼ 3.69%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">VIX</span>
+      <span class="ticker-label">VIX</span>
       <span style="font-size:11px;color:#ff8c00;font-weight:700">24.13</span>
       <span style="font-size:10px;color:#00ff88">▼ 2.07%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">DXY</span>
+      <span class="ticker-label">DXY</span>
       <span style="font-size:11px;color:#fff;font-weight:700">27.75</span>
       <span style="font-size:10px;color:#00ff88">▲ 0.00%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">10Y YIELD</span>
+      <span class="ticker-label">10Y YIELD</span>
       <span style="font-size:11px;color:#fff;font-weight:700">85.30%</span>
       <span style="font-size:10px;color:#ff3b3b">▲ 0.23%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">S&P 500</span>
+      <span class="ticker-label">S&P 500</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$750.46</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 0.02%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">GOLD</span>
+      <span class="ticker-label">GOLD</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$408.49</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 1.33%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">OIL</span>
-      <span style="font-size:11px;color:#fff;font-weight:700">$31.92</span>
-      <span style="font-size:10px;color:#ff3b3b">▼ 2.06%</span>
+      <span class="ticker-label">BRENT CRUDE</span>
+      <span style="font-size:11px;color:#fff;font-weight:700">$51.14</span>
+      <span style="font-size:10px;color:#ff3b3b">▼ 3.69%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">VIX</span>
+      <span class="ticker-label">VIX</span>
       <span style="font-size:11px;color:#ff8c00;font-weight:700">24.13</span>
       <span style="font-size:10px;color:#00ff88">▼ 2.07%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">DXY</span>
+      <span class="ticker-label">DXY</span>
       <span style="font-size:11px;color:#fff;font-weight:700">27.75</span>
       <span style="font-size:10px;color:#00ff88">▲ 0.00%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">10Y YIELD</span>
+      <span class="ticker-label">10Y YIELD</span>
       <span style="font-size:11px;color:#fff;font-weight:700">85.30%</span>
       <span style="font-size:10px;color:#ff3b3b">▲ 0.23%</span>
     </span>
-    <span style="color:#0d1f3c;padding:0 8px">◈</span>
+    <span style="color:#1a3a5a;padding:0 8px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 28px;font-family:'Space Mono',monospace">
-      <span style="font-size:8px;color:#2a4a6b;letter-spacing:2px">S&P 500</span>
+      <span class="ticker-label">S&P 500</span>
       <span style="font-size:11px;color:#fff;font-weight:700">$750.46</span>
       <span style="font-size:10px;color:#ff3b3b">▼ 0.02%</span>
     </span>
@@ -179,16 +181,16 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
       ⚡ Geo Risk: HIGH
     </div>
   </div>
-  <div class="summary">SpaceX faces a dual narrative today as its Starship rocket is grounded by the FAA following a booster landing mishap while simultaneously announcing a planned June IPO that could be the largest in history and securing a 2.29 billion dollar Space Force contract. The US-Iran conflict remains volatile with ceasefire violations on both sides, Trump threatening renewed strikes, and Israel actively escalating in Lebanon to derail peace negotiations. Traditional defence stocks dipped while space and commercial launch equities surged, reflecting market confidence in the commercial space sector despite regulatory headwinds.</div>
+  <div class="summary">SpaceX is preparing for a landmark IPO in June while simultaneously winning a $2.29B Space Force contract, as the FAA grounds Starship following a mishap classification of last weeks booster landing failure. The US-Iran war ceasefire remains fragile with both sides conducting strikes, Iran escalating pressure on Lebanon, and Trump struggling to close a peace deal tied to expanded Abraham Accords. Markets are broadly bullish with S&P futures at record highs, though traditional defence contractors dipped while commercial space stocks surged on IPO momentum and sector optimism.</div>
 </div>
 <div class="orr">
   <div class="ocard">
     <div class="olabel">▲ Opportunity of the Day</div>
-    <div class="otext">The SpaceX IPO in June combined with its 2.29 billion dollar Space Force contract win positions downstream satellite communications and launch service providers such as Rocket Lab and ASTS for sustained momentum.</div>
+    <div class="otext">LUNR and ASTS are showing strong breakout momentum and could benefit further from SpaceX IPO halo effects drawing fresh institutional capital into the commercial space sector.</div>
   </div>
   <div class="ocard">
     <div class="rlabel">▼ Risk of the Day</div>
-    <div class="otext">Renewed FAA grounding of Starship alongside Israeli escalation in Lebanon and ongoing US-Iran ceasefire violations risk disrupting both launch timelines and broader Middle East stability critical to Gulf-based defence customers.</div>
+    <div class="otext">The fragile US-Iran ceasefire with ongoing mutual strikes and Israels active efforts to derail peace negotiations represent the most acute systemic risk to defence sector stability and regional operational planning today.</div>
   </div>
 </div>
 <div class="map-section">
@@ -219,43 +221,43 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     
       <div class="ni">
         <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">North America</span></div>
-        <div class="nh">SpaceX Starship Grounded After Booster Mishap</div>
-        <div class="nc">The FAA has grounded SpaceX Starship and its Super Heavy booster after classifying last weeks failed booster landing as a mishap requiring investigation. This grounding adds regulatory pressure to SpaceX just weeks before its planned June IPO, though market sentiment remains broadly positive given the companys contract wins.</div>
-        <div class="nsource"><a href="http://www.spokesman.com/stories/2026/may/27/faa-update-grounds-spacex-starship-labeling-failed/" target="_blank">▸ Spokesman</a></div>
+        <div class="nh">SpaceX Plans June IPO Potentially Largest Ever</div>
+        <div class="nc">SpaceX is planning an initial public offering in June that analysts suggest could be the largest IPO in history, bringing the worlds leading launch provider to public markets for the first time. The listing comes as SpaceX simultaneously secures major government contracts and dominates global launch cadence, making the timing strategically powerful.</div>
+        <div class="nsource"><a href="https://finance.yahoo.com/markets/stocks/articles/elon-musks-spacex-going-public-154814565.html" target="_blank">▸ Yahoo! News</a></div>
       </div>
     
       <div class="ni">
         <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">North America</span></div>
-        <div class="nh">SpaceX IPO Could Be Largest Ever in June</div>
-        <div class="nc">Elon Musks SpaceX is planning an IPO in June 2026 that analysts say could be the largest initial public offering in history, drawing intense investor interest globally. The listing coincides with a major 2.29 billion dollar Space Force satellite contract award, significantly bolstering the companys pre-IPO credentials.</div>
-        <div class="nsource"><a href="https://www.usatoday.com/story/news/nation/2026/05/27/spacex-ipo-elon-musk/90257916007/" target="_blank">▸ Usa Today</a></div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">North America</span></div>
-        <div class="nh">SpaceX Wins 2.29B Space Force Satellite Deal</div>
-        <div class="nc">SpaceX has secured a 2.29 billion dollar contract with the US Space Force to build a satellite network supporting military communications and the Golden Dome missile defence shield. The contract was awarded ahead of the companys planned IPO and reinforces its position as the dominant government launch and space infrastructure provider.</div>
+        <div class="nh">SpaceX Wins $2.29B Space Force Satellite Contract</div>
+        <div class="nc">SpaceX has secured a $2.29 billion contract with the US Space Force to build a satellite network supporting military communications and the Golden Dome missile defence shield ahead of its planned IPO. The contract significantly strengthens SpaceXs government revenue base and validates its position as a cornerstone of US national security space architecture.</div>
         <div class="nsource"><a href="https://www.expressnews.com/business/article/spacex-space-force-2-29b-satellite-contract-ipo-22277374.php" target="_blank">▸ San Antonio Express-news</a></div>
       </div>
     
       <div class="ni">
+        <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">North America</span></div>
+        <div class="nh">FAA Grounds Starship After Mishap Classification</div>
+        <div class="nc">The FAA has grounded SpaceXs Starship and Super Heavy rocket after classifying last weeks failed booster landing as a formal mishap due to an uncontrolled booster descent. The grounding adds regulatory pressure ahead of the IPO but is not expected to be prolonged given SpaceXs track record of rapid return-to-flight following FAA reviews.</div>
+        <div class="nsource"><a href="http://www.spokesman.com/stories/2026/may/27/faa-update-grounds-spacex-starship-labeling-failed/" target="_blank">▸ Spokesman</a></div>
+      </div>
+    
+      <div class="ni">
         <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">North America</span></div>
-        <div class="nh">Blue Origin New Glenn Returns to Launch Pad</div>
-        <div class="nc">Blue Origin has lined up its first New Glenn launch since the rocket was grounded by the FAA in April, after receiving clearance to return to flight last week. The resumption positions New Glenn as a renewed competitor in the heavy-lift market at a time when Starship faces its own regulatory grounding.</div>
+        <div class="nh">Blue Origin New Glenn Cleared to Return to Flight</div>
+        <div class="nc">Blue Origin has lined up its first New Glenn launch since the rocket was grounded by the FAA in April, following regulatory clearance last week to return to flight operations. The return comes at a strategically critical moment as Blue Origin seeks to establish launch cadence and compete for government and commercial contracts against a surging SpaceX.</div>
         <div class="nsource"><a href="https://hanfordsentinel.com/news/national/blue-origin-lines-up-1st-new-glenn-launch-since-rocket-was-grounded/article_a5eb47bb-86a2-5873-914e-4730b2d4b266.html" target="_blank">▸ Hanford Sentinel</a></div>
       </div>
     
       <div class="ni">
         <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">North America</span></div>
-        <div class="nh">Canadas First Commercial Spaceport Takes Shape</div>
-        <div class="nc">Canadas first commercial orbital launch facility in Nova Scotia has secured federal government backing and early commercial customer interest as construction progresses. The spaceport represents a strategic push by Canada to develop sovereign launch capability and reduce dependence on foreign launch providers.</div>
+        <div class="nh">Canada First Commercial Spaceport Takes Shape in Nova Scotia</div>
+        <div class="nc">Canadas first commercial spaceport in Nova Scotia has secured federal backing and early commercial interest as construction moves forward on what would be a significant new orbital launch facility in North America. The project reflects growing sovereign space ambitions among allied nations seeking to reduce dependence on US launch infrastructure.</div>
         <div class="nsource"><a href="https://financialpost.com/technology/canada-first-commercial-spaceport-nova-scotia" target="_blank">▸ Financial Post</a></div>
       </div>
     
       <div class="ni">
         <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">North America</span></div>
-        <div class="nh">SpinLaunch Eyes Geopolitics as Growth Catalyst</div>
-        <div class="nc">SpinLaunch CEO Massimiliano Ladovaz argues that geopolitical tensions and national sovereignty concerns are reshaping the space industry and creating new openings for alternative launch technology providers. The company sees growing demand from governments seeking launch independence as a strategic driver for its kinetic launch system development.</div>
+        <div class="nh">SpinLaunch Sees Opening as Geopolitics Reshape Space</div>
+        <div class="nc">SpinLaunch CEO Massimiliano Ladovaz argues that geopolitics and national sovereignty concerns are reshaping the space industry as rapidly as engineering innovation, creating new market openings for alternative launch providers. The company sees growing demand from nations seeking independent access to space outside of dominant US provider ecosystems.</div>
         <div class="nsource"><a href="https://spacenews.com/as-geopolitics-reshape-space-spinlaunch-sees-an-opening/" target="_blank">▸ Space News</a></div>
       </div>
     
@@ -265,44 +267,44 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     
       <div class="ni">
         <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">Middle East</span></div>
-        <div class="nh">Israel Escalates Lebanon Ops Orders Mass Evacuation</div>
-        <div class="nc">Israeli forces have intensified operations around southern Lebanon including the city of Nabatieh, with Israeli Prime Minister Netanyahu declaring an expansion of the security buffer zone and ordering a city of 200000 residents to evacuate. Israeli airstrikes have been reported up to 20 kilometres from the border as the army pushes beyond its declared yellow line.</div>
-        <div class="nsource"><a href="https://english.aawsat.com/node/5277854" target="_blank">▸ Al-sharq Al-awsat</a></div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">Middle East</span></div>
-        <div class="nh">US-Iran Ceasefire Strained by Ongoing Strikes</div>
-        <div class="nc">Despite an April ceasefire, US and Iranian forces have continued exchanging strikes including new US attacks on southern Iran and Tehran downing a US drone and firing on a fighter jet. Iran says the possibility of a return to full war is low but warns it remains ready to retaliate, while Trump has threatened to restart strikes if a satisfactory deal is not reached.</div>
+        <div class="nh">US-Iran Ceasefire Fracturing With Ongoing Strikes</div>
+        <div class="nc">Despite an April ceasefire, the US and Iran have continued exchanging strikes with Washington conducting new attacks on southern Iran and Tehran downing a US drone and firing on a fighter jet. Irans Revolutionary Guards stated Wednesday that a return to full-scale war is unlikely while simultaneously warning they remain ready to retaliate against any further attacks.</div>
         <div class="nsource"><a href="https://ca.news.yahoo.com/us-iran-launched-multiple-attacks-104755600.html" target="_blank">▸ Yahoo! News</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">Middle East</span></div>
-        <div class="nh">Trump Links Iran Deal to Abraham Accords Expansion</div>
-        <div class="nc">US President Trump has introduced a new demand tying any Iran peace deal to expanded Abraham Accords sign-ons from regional powers, drawing immediate pushback from key Middle Eastern states who have lost trust in the framework. Trump also declared the Strait of Hormuz must remain open as a non-negotiable condition of any settlement.</div>
-        <div class="nsource"><a href="https://www.thenationalnews.com/news/us/2026/05/27/trump-threatens-new-iran-strikes-and-ties-israel-normalisation-to-nuclear-deal/" target="_blank">▸ The National</a></div>
-      </div>
-    
-      <div class="ni">
-        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">Middle East</span></div>
-        <div class="nh">Israel Far-Right Minister Moves to Block Iran Deal</div>
-        <div class="nc">Israeli far-right Security Minister Itamar Ben-Gvir has openly suggested that Israels new bombardment of Lebanon is intended to derail ongoing US-Iran peace negotiations. The move signals a significant internal tension between Israeli hardliners and the Trump administrations pursuit of a regional settlement.</div>
-        <div class="nsource"><a href="https://asiatimes.com/2026/05/minister-israel-wont-allow-trump-to-make-a-peace-deal-with-iran/" target="_blank">▸ Asia Times</a></div>
+        <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">Middle East</span></div>
+        <div class="nh">Israel Escalates Lebanon Operations Near Nabatieh</div>
+        <div class="nc">The Israeli army conducted further incursions around the southern Lebanese city of Nabatieh on Wednesday, pushing beyond its declared yellow line while increasing airstrikes up to 20 kilometres from the border to expand its security buffer zone. Israeli Prime Minister Netanyahu confirmed the intensification of operations in Lebanon as Israel simultaneously ordered the evacuation of a city of 200000 residents.</div>
+        <div class="nsource"><a href="https://english.aawsat.com/node/5277854" target="_blank">▸ Al-sharq Al-awsat</a></div>
       </div>
     
       <div class="ni">
         <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">North America</span></div>
-        <div class="nh">Congress Moves to Block Trump Battleship Program</div>
-        <div class="nc">The House Armed Services Committee has moved to block work on the Trump-class battleship until its key weapons systems reach sufficient maturity, a delay that analysts warn could effectively kill the program before it begins. The committee is also demanding answers on the new frigate program amid broader concerns about naval procurement strategy.</div>
+        <div class="nh">Congress Moves to Block Trump Class Battleship Program</div>
+        <div class="nc">The House Armed Services Committee is moving to block work on the Trump class battleship until its key weapons systems reach technological maturity, a delay that analysts warn could effectively end the program before it properly begins. The committee is simultaneously demanding answers on the new frigate program, reflecting broader congressional scepticism about major surface combatant acquisitions.</div>
         <div class="nsource"><a href="https://www.twz.com/sea/congress-moves-to-block-trump-class-battleship-work-until-its-key-weapons-are-mature" target="_blank">▸ The War Zone</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">North America</span></div>
-        <div class="nh">Iran War Driving Up Pentagon Aviation Fuel Costs</div>
-        <div class="nc">US lawmakers in a fiscal year 2027 defence budget hearing are grappling with a significant rise in aviation fuel costs driven by the ongoing Iran conflict, which has affected oil markets and military operational expenses. The fuel cost surge is complicating NDAA drafting and could force trade-offs in aviation readiness and procurement accounts.</div>
+        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">Middle East</span></div>
+        <div class="nh">Starlink Price Hike Making US Drones Expensive in Iran War</div>
+        <div class="nc">Starlinks dominant market position has led to a 5x price hike that is turning previously cost-effective US drones into expensive liabilities during the Iran war, according to defence analysts. The situation highlights dangerous single-vendor dependencies in US military communications infrastructure and is drawing scrutiny from Pentagon procurement officials.</div>
+        <div class="nsource"><a href="https://www.eurasiantimes.com/starlinks-monopoly-turns-cheap-u-s-drones/" target="_blank">▸ Eurasian Times</a></div>
+      </div>
+    
+      <div class="ni">
+        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">North America</span></div>
+        <div class="nh">Iran War Aviation Fuel Costs Weigh on FY2027 Defence Budget</div>
+        <div class="nc">US lawmakers are grappling with sharply elevated aviation fuel costs driven by the Iran war as they draft the fiscal year 2027 National Defence Authorisation Act, with the price increases threatening to compress operational readiness budgets across the US Air Force and Navy. The hearings reflect growing awareness that sustained Middle East operations are generating cascading second-order costs beyond direct munitions expenditure.</div>
         <div class="nsource"><a href="https://www.defensenews.com/news/pentagon-congress/2026/05/26/us-lawmakers-weigh-aviation-fuel-cost-increase-from-iran-war-in-fiscal-2027-defense-hearing/" target="_blank">▸ Defense News</a></div>
+      </div>
+    
+      <div class="ni">
+        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">Middle East</span></div>
+        <div class="nh">Trump Iran Peace Deal Stalls Amid Israeli Opposition</div>
+        <div class="nc">US President Trump convened his Cabinet on Wednesday amid stalled negotiations to end the Iran war, with Israel actively working to derail peace talks and far-right Security Minister Itamar Ben-Gvir stating Israel will not allow Trump to conclude a deal with Tehran. Trump linked any Iran settlement to expanded Abraham Accords membership but faces scepticism from key regional powers who say trust in US mediation has eroded.</div>
+        <div class="nsource"><a href="https://www.theatlantic.com/national-security/2026/05/trump-iran-deal-frustrated/687331/" target="_blank">▸ The Atlantic</a></div>
       </div>
     
   </div>
@@ -310,45 +312,45 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     <div class="sh"><div class="st">🌍 Middle East</div><div class="sl"></div></div>
     
       <div class="ni">
-        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">UAE</span></div>
-        <div class="nh">Trump Threatens Fresh Iran Strikes Over Peace Deal</div>
-        <div class="nc">US President Trump warned Tehran that new strikes could follow if negotiators fail to deliver a satisfactory peace agreement, while also demanding the Strait of Hormuz remain open to all international shipping. Trump dismissed suggestions that upcoming midterm elections would influence his war strategy, stating Iran was negotiating on fumes.</div>
-        <div class="nsource"><a href="https://www.thenationalnews.com/news/us/2026/05/27/trump-threatens-new-iran-strikes-and-ties-israel-normalisation-to-nuclear-deal/" target="_blank">▸ The National</a></div>
+        <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">Lebanon</span></div>
+        <div class="nh">Israel Intensifies Lebanon Ops Amid Iran Peace Talks</div>
+        <div class="nc">Israel has ordered the evacuation of a Lebanese city of 200,000 residents as Prime Minister Netanyahu announced intensified operations to expand a security buffer zone in southern Lebanon. The offensive is targeting Hezbollah positions and testing defenses around Nabatieh, with Israeli forces pushing beyond the declared yellow line.</div>
+        <div class="nsource"><a href="https://www.breitbart.com/middle-east/2026/05/27/israel-intensifies-attacks-on-lebanon-orders-city-of-200000-to-evacuate/" target="_blank">▸ Brietbart</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">UAE</span></div>
-        <div class="nh">Iran IRGC Says Return To War With US Unlikely</div>
-        <div class="nc">Irans Revolutionary Guards stated on Wednesday that the probability of a return to full-scale war with the United States remains low, while affirming readiness to respond to any attack. The statement followed Iranian accusations that the US had breached the April ceasefire through continued strikes on southern Iran.</div>
+        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">Iran</span></div>
+        <div class="nh">Iran IRGC Says Return to War With US Unlikely</div>
+        <div class="nc">Irans Revolutionary Guards stated on Wednesday that a resumption of full-scale war with the United States carries a low probability, while affirming readiness to respond to any attack. The statement follows Iranian accusations that the US violated the April ceasefire through new strikes on southern Iran, with Washington and Tehran continuing to exchange limited strikes since the truce took effect.</div>
         <div class="nsource"><a href="https://www.digitaljournal.com/world/iran-says-low-possibility-of-return-to-war-with-us/article" target="_blank">▸ Digital Journal</a></div>
       </div>
     
       <div class="ni">
         <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">UAE</span></div>
-        <div class="nh">Israel Escalates Lebanon Ops Around Nabatieh</div>
-        <div class="nc">Israeli forces pushed further beyond the declared yellow line around the southern Lebanese city of Nabatieh, conducting airstrikes reaching up to 20 kilometres from the border. Prime Minister Netanyahu confirmed Israel is intensifying operations in Lebanon to expand a security buffer zone against Hezbollah.</div>
-        <div class="nsource"><a href="https://english.aawsat.com/node/5277854" target="_blank">▸ Al-sharq Al-awsat</a></div>
+        <div class="nh">Trump Links Iran Nuclear Deal to Abraham Accords Expansion</div>
+        <div class="nc">US President Donald Trump has introduced a new demand tying any Iran peace settlement to broader regional normalization, requiring additional Middle Eastern states to join the Abraham Accords. Key regional powers including Turkey have pushed back on the linkage, with analysts noting that a Middle East that has lost trust in US consistency is a difficult audience for the pitch.</div>
+        <div class="nsource"><a href="https://asiatimes.com/2026/05/trump-cant-sell-abraham-accords-to-middle-east-thats-lost-trust/" target="_blank">▸ Asia Times</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">UAE</span></div>
-        <div class="nh">Israel Far-Right Minister Moves To Block Iran Deal</div>
-        <div class="nc">Israels far-right National Security Minister Itamar Ben-Gvir signalled that Israel would not permit the Trump administration to finalise a peace deal with Iran, escalating bombardment of Lebanon as a means to derail ongoing US-Iran negotiations. The move highlights a deepening rift between Washington and parts of the Israeli government over acceptable terms for ending hostilities.</div>
+        <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">Israel</span></div>
+        <div class="nh">Israel Far-Right Minister Moves to Derail Iran Peace Deal</div>
+        <div class="nc">Israeli far-right Security Minister Itamar Ben-Gvir has publicly suggested that Israels renewed military campaign in Lebanon is partly intended to derail US-Iran peace negotiations being brokered by the Trump administration. The move highlights a sharp internal divide within the Israeli government over whether a US-Iran diplomatic settlement serves Israeli security interests.</div>
         <div class="nsource"><a href="https://asiatimes.com/2026/05/minister-israel-wont-allow-trump-to-make-a-peace-deal-with-iran/" target="_blank">▸ Asia Times</a></div>
       </div>
     
       <div class="ni">
         <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">UAE</span></div>
-        <div class="nh">Trump Links Abraham Accords Expansion To Iran Deal</div>
-        <div class="nc">President Trump introduced a new demand this week requiring regional states to sign on to an expanded Abraham Accords framework as part of any Iran peace settlement, drawing immediate pushback from key Middle Eastern powers. Analysts warn that linking normalisation to the Iran negotiations risks collapsing both tracks simultaneously at a moment of fragile regional trust.</div>
-        <div class="nsource"><a href="https://asiatimes.com/2026/05/trump-cant-sell-abraham-accords-to-middle-east-thats-lost-trust/" target="_blank">▸ Asia Times</a></div>
+        <div class="nh">Trumps Board of Peace Fund Sits at Zero Dollars</div>
+        <div class="nc">Trumps Board of Peace, announced in January with a call for one billion dollar lifetime membership fees from world leaders including Israel, Qatar and Bahrain, has accumulated zero dollars in its World Bank fund. The revelation raises questions about the credibility and operational capacity of the diplomatic mechanism at the center of US Middle East peace strategy.</div>
+        <div class="nsource"><a href="https://www.dailymail.com/news/article-15851891/Trumps-Board-Peace-fund-membership-fees.html" target="_blank">▸ Mail Online</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">UAE</span></div>
-        <div class="nh">Trumps Board Of Peace Fund Holds Zero Dollars</div>
-        <div class="nc">Trumps Board of Peace, announced in January with a solicitation of one billion dollar lifetime membership fees from world leaders including Israel, Qatar and Bahrain, currently holds no funds in its associated World Bank account. The revelation raises doubts about the financial credibility of the administrations flagship Middle East stabilisation initiative.</div>
-        <div class="nsource"><a href="https://www.dailymail.com/news/article-15851891/Trumps-Board-Peace-fund-membership-fees.html" target="_blank">▸ Mail Online</a></div>
+        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">Gaza</span></div>
+        <div class="nh">Gaza Stabilization Force Plans Stalled by Iran War</div>
+        <div class="nc">The International Stabilization Force for Gaza, announced with significant fanfare at the inaugural Board of Peace meeting in February, has yet to materialize as the broader Iran war continues to complicate regional diplomacy and troop commitment pledges. Analysts note that the ongoing conflict has diverted political bandwidth and military resources away from any coherent post-war Gaza governance framework.</div>
+        <div class="nsource"><a href="https://www.durangoherald.com/articles/iran-war-has-complicated-plans-for-an-international-force-in-gaza-that-has-yet-to-materialize/" target="_blank">▸ Durango Herald</a></div>
       </div>
     
   </div>
@@ -357,30 +359,37 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
     
       <div class="ni">
         <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GLOBAL</span></div>
-        <div class="nh">AI Sovereignty Needs More Than Powerful Models</div>
-        <div class="nc">A new analysis argues that genuine artificial intelligence sovereignty requires nations to invest not only in advanced model development but also in the full stack of semiconductor manufacturing, cloud infrastructure and data governance frameworks. Governments pouring billions into AI risk strategic dependency if underlying hardware and infrastructure remain controlled by foreign entities.</div>
-        <div class="nsource"><a href="https://weeklyblitz.net/2026/05/28/ai-sovereignty-requires-more-than-powerful-models/" target="_blank">▸ Blitz</a></div>
+        <div class="nh">Pope Leo Issues Landmark AI Ethics Encyclical</div>
+        <div class="nc">Pope Leo XIV has published a major encyclical on artificial intelligence, offering five central reflections grounded in the centrality of the human person to guide global society through the challenges and risks posed by AI development. The document represents the Catholic Churchs most comprehensive doctrinal statement on technology ethics and is expected to influence policy debates in multiple jurisdictions.</div>
+        <div class="nsource"><a href="https://religionnews.com/2026/05/27/the-five-main-takeaways-from-pope-leos-encyclical-on-ai/" target="_blank">▸ Rns</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GLOBAL</span></div>
-        <div class="nh">Broadcom Expands AI And Broadband Partnership Push</div>
-        <div class="nc">Broadcom unveiled a series of new partnerships and product launches on Wednesday aimed at deepening its footprint in next-generation broadband connectivity and artificial intelligence infrastructure. The announcements are expected to reinforce the companys position as a key supplier to hyperscale data centre operators and defence-adjacent AI programmes.</div>
-        <div class="nsource"><a href="https://www.benzinga.com/markets/large-cap/26/05/52822633/whats-going-on-with-broadcom-stock-wednesday-5" target="_blank">▸ Benzinga</a></div>
+        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">Canada</span></div>
+        <div class="nh">Canada to Release National AI Strategy Next Week</div>
+        <div class="nc">Prime Minister Carney has announced that Canadas long-awaited national artificial intelligence strategy will be released within days, following months of delays driven by growing public concern over AI safety and social impact. The strategy is expected to outline governance frameworks, investment priorities and safeguards as allied nations race to establish coherent AI policy postures.</div>
+        <div class="nsource"><a href="https://www.squamishchief.com/national-news/national-artificial-intelligence-strategy-to-be-released-next-week-carney-says-12335833" target="_blank">▸ Squamish Chief</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GLOBAL</span></div>
-        <div class="nh">SpinLaunch Eyes Opening As Geopolitics Reshape Space</div>
-        <div class="nc">SpinLaunch chief executive Massimiliano Ladovaz argued this week that shifting geopolitical dynamics and growing national demands for launch sovereignty are creating a significant commercial opening for alternative launch technology providers. The company contends that traditional rocket-based models are increasingly vulnerable to supply chain and political disruption, favouring novel kinetic launch approaches.</div>
+        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
+        <div class="nh">SpinLaunch Eyes Geopolitical Shift as Market Opening</div>
+        <div class="nc">SpinLaunch CEO Massimiliano Ladovaz has argued that the rapidly shifting space industry, increasingly driven by sovereignty concerns and geopolitical fragmentation rather than engineering innovation alone, presents a significant commercial opening for the companys alternative launch technology. The executive contends that nations seeking launch independence from dominant providers are now actively evaluating non-conventional systems.</div>
         <div class="nsource"><a href="https://spacenews.com/as-geopolitics-reshape-space-spinlaunch-sees-an-opening/" target="_blank">▸ Space News</a></div>
       </div>
     
       <div class="ni">
-        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GLOBAL</span></div>
-        <div class="nh">AI Retirement Forecasting Systems Gain Fintech Attention</div>
-        <div class="nc">Researchers in financial technology are increasingly examining the application of artificial intelligence to long-term retirement planning and forecasting, exploring how predictive models can improve outcomes for pension and savings products. The emerging field draws interest from both institutional asset managers and regulators seeking to understand AI-driven financial advice risks.</div>
-        <div class="nsource"><a href="https://www.digitaljournal.com/tech-science/ai-based-retirement-forecasting-systems-draw-attention-in-financial-technology-research/article" target="_blank">▸ Digital Journal</a></div>
+        <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">USA</span></div>
+        <div class="nh">Starship Grounded Again After FAA Labels Landing a Mishap</div>
+        <div class="nc">The Federal Aviation Administration has grounded SpaceXs Starship and Super Heavy rocket after updated findings classified last weeks launch from Texas as a mishap due to an uncontrolled booster landing. The grounding adds regulatory uncertainty to SpaceXs launch cadence at a sensitive moment ahead of the companys planned June IPO.</div>
+        <div class="nsource"><a href="http://www.spokesman.com/stories/2026/may/27/faa-update-grounds-spacex-starship-labeling-failed/" target="_blank">▸ Spokesman</a></div>
+      </div>
+    
+      <div class="ni">
+        <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
+        <div class="nh">Blue Origin New Glenn Cleared for Return to Flight</div>
+        <div class="nc">The FAA has cleared Blue Origins New Glenn rocket to return to flight after grounding the vehicle in April, with the company lining up its first launch since the suspension. The rapid return to operational status signals Blue Origins intent to maintain competitive launch cadence against SpaceX and other emerging heavy lift providers.</div>
+        <div class="nsource"><a href="https://hanfordsentinel.com/news/national/blue-origin-lines-up-1st-new-glenn-launch-since-rocket-was-grounded/article_a5eb47bb-86a2-5873-914e-4730b2d4b266.html" target="_blank">▸ Hanford Sentinel</a></div>
       </div>
     
   </div>
@@ -391,43 +400,43 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
         <div class="card">
           <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">USA</span></div>
           <div class="nh">SpaceX Wins 2.29B Space Force Satellite Contract</div>
-          <div class="nc" style="margin-top:6px">SpaceX has secured a 2.29 billion dollar contract with the US Space Force to construct a satellite network supporting military communications and the Golden Dome missile defence shield. The award arrives weeks ahead of the companys anticipated IPO, substantially boosting its government revenue profile for prospective investors.</div>
+          <div class="nc" style="margin-top:6px">SpaceX has secured a 2.29 billion dollar contract with the US Space Force to construct a satellite network supporting military communications and Trumps Golden Dome missile defense shield. The contract win comes weeks ahead of the companys planned IPO, significantly reinforcing its government revenue base and defense sector valuation case.</div>
           <div class="nsource"><a href="https://www.expressnews.com/business/article/spacex-space-force-2-29b-satellite-contract-ipo-22277374.php" target="_blank">▸ San Antonio Express-news</a></div>
         </div>
       
         <div class="card">
           <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">USA</span></div>
-          <div class="nh">Congress Moves To Block Trump Class Battleship Funds</div>
-          <div class="nc" style="margin-top:6px">The House Armed Services Committee is seeking to halt work on the Trump class battleship programme until its key weapons systems reach sufficient technological maturity, a delay that analysts say could effectively terminate the programme before it gains momentum. The committee is also demanding accountability on the new frigate programme, adding further pressure to naval procurement budgets.</div>
-          <div class="nsource"><a href="https://www.twz.com/sea/congress-moves-to-block-trump-class-battleship-work-until-its-key-weapons-are-mature" target="_blank">▸ The War Zone</a></div>
+          <div class="nh">Starlink 5X Price Hike Inflates US Drone Costs in Iran War</div>
+          <div class="nc" style="margin-top:6px">Starlinks near-monopoly on battlefield connectivity has driven a fivefold price increase for drone operators during the Iran war, turning previously affordable US unmanned systems into expensive liabilities. Defense analysts warn this dynamic exposes the risks of single-vendor dependency in contested environments and is reshaping Pentagon procurement thinking.</div>
+          <div class="nsource"><a href="https://www.eurasiantimes.com/starlinks-monopoly-turns-cheap-u-s-drones/" target="_blank">▸ Eurasian Times</a></div>
         </div>
       
         <div class="card">
-          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
-          <div class="nh">Iran War Drives US Aviation Fuel Cost Debate</div>
-          <div class="nc" style="margin-top:6px">US lawmakers scrutinising the fiscal year 2027 National Defence Authorisation Act are confronting sharply elevated aviation fuel costs driven by the ongoing Iran conflict, with implications for defence procurement and operational budgets across all service branches. The hearings reflect broader concern that sustained Middle East hostilities are compressing available funding for modernisation programmes.</div>
-          <div class="nsource"><a href="https://www.defensenews.com/news/pentagon-congress/2026/05/26/us-lawmakers-weigh-aviation-fuel-cost-increase-from-iran-war-in-fiscal-2027-defense-hearing/" target="_blank">▸ Defense News</a></div>
-        </div>
-      
-        <div class="card">
-          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
-          <div class="nh">Canada First Commercial Spaceport Takes Shape</div>
-          <div class="nc" style="margin-top:6px">Canadas first commercial orbital launch facility in Nova Scotia has secured federal government backing and attracted early commercial interest as construction moves forward incrementally. The spaceport is positioned to serve growing sovereign launch demand as geopolitical pressures push nations to reduce reliance on foreign launch providers.</div>
-          <div class="nsource"><a href="https://financialpost.com/technology/canada-first-commercial-spaceport-nova-scotia" target="_blank">▸ Financial Post</a></div>
-        </div>
-      
-        <div class="card">
-          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
-          <div class="nh">Global Defence EOIR Market To Hit 15.43B By 2035</div>
-          <div class="nc" style="margin-top:6px">A new market intelligence report projects the global defence electro-optical and infrared systems market will reach 15.43 billion dollars by 2035, expanding at a compound annual growth rate of 5.6 percent. Growth is being driven by increasing platform integration across airborne, naval and ground domains amid rising global threat perceptions.</div>
+          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">GLOBAL</span></div>
+          <div class="nh">Defense EOIR Systems Market to Hit 15.43B by 2035</div>
+          <div class="nc" style="margin-top:6px">A new DataM Intelligence report projects the global defense electro-optical and infrared systems market will reach 15.43 billion dollars by 2035, growing at a 5.6 percent compound annual growth rate. Growth is being driven by expanding airborne and naval platform integration programs and rising procurement across multiple regions amid elevated threat environments.</div>
           <div class="nsource"><a href="https://www.openpr.com/news/4528938/global-defense-electro-optical-and-infrared-eoir-systems" target="_blank">▸ Openpr.com</a></div>
         </div>
       
         <div class="card">
           <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">USA</span></div>
-          <div class="nh">Starlink Price Hike Turns Cheap Drones Into Liability</div>
-          <div class="nc" style="margin-top:6px">A fivefold increase in Starlink connectivity pricing imposed by SpaceX during the Iran war has transformed previously cost-effective US drone platforms into expensive operational liabilities, according to defence analysts. The episode has intensified debate about single-vendor dependency in critical military communications infrastructure and the leverage held by large commercial contractors.</div>
-          <div class="nsource"><a href="https://www.eurasiantimes.com/starlinks-monopoly-turns-cheap-u-s-drones/" target="_blank">▸ Eurasian Times</a></div>
+          <div class="nh">Congress Moves to Block Trump Class Battleship Funding</div>
+          <div class="nc" style="margin-top:6px">The House Armed Services Committee is pushing to block further work on the Trump class battleship program until its key weapons systems reach technological maturity, a move that analysts say could effectively kill the program before it gains momentum. The committee is simultaneously demanding answers on the status of the new US Navy frigate program, signaling broad skepticism about major surface combatant investments.</div>
+          <div class="nsource"><a href="https://www.twz.com/sea/congress-moves-to-block-trump-class-battleship-work-until-its-key-weapons-are-mature" target="_blank">▸ The War Zone</a></div>
+        </div>
+      
+        <div class="card">
+          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">USA</span></div>
+          <div class="nh">Iran War Aviation Fuel Costs Weigh on FY2027 Defense Budget</div>
+          <div class="nc" style="margin-top:6px">US lawmakers are grappling with a significant rise in aviation fuel costs driven by the Iran war as they work toward drafting the fiscal year 2027 National Defense Authorization Act. The increased operational tempo and elevated oil prices tied to Middle East instability are forcing difficult trade-offs in the Pentagon budget across air force and naval aviation accounts.</div>
+          <div class="nsource"><a href="https://www.defensenews.com/news/pentagon-congress/2026/05/26/us-lawmakers-weigh-aviation-fuel-cost-increase-from-iran-war-in-fiscal-2027-defense-hearing/" target="_blank">▸ Defense News</a></div>
+        </div>
+      
+        <div class="card">
+          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr">Canada</span></div>
+          <div class="nh">Canada First Commercial Spaceport Takes Shape in Nova Scotia</div>
+          <div class="nc" style="margin-top:6px">Canadas first commercial orbital launch facility in Nova Scotia has secured federal government backing and attracted early commercial interest as construction progresses. The spaceport represents a strategic investment in sovereign launch capability as geopolitical pressure accelerates allied nations efforts to reduce dependence on US and non-allied launch infrastructure.</div>
+          <div class="nsource"><a href="https://financialpost.com/technology/canada-first-commercial-spaceport-nova-scotia" target="_blank">▸ Financial Post</a></div>
         </div>
       
     </div>
@@ -438,22 +447,22 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
       
         <div class="icard">
           <div class="nm"><span class="ub breaking">BREAKING</span><span class="nr">USA</span></div>
-          <div class="nh">SpaceX IPO In June Could Be Largest Ever Listing</div>
-          <div class="nc" style="margin-top:6px">SpaceX is planning an initial public offering in June 2026 that analysts describe as potentially the largest IPO in history, with the company carrying an estimated valuation that dwarfs most prior technology and aerospace listings. The timing follows a 2.29 billion dollar Space Force contract win, positioning the company with strong government revenue credentials ahead of the float.</div>
-          <div class="nsource"><a href="https://www.usatoday.com/story/news/nation/2026/05/27/spacex-ipo-elon-musk/90257916007/" target="_blank">▸ Usa Today</a></div>
+          <div class="nh">SpaceX June IPO Could Be Largest in History</div>
+          <div class="nc" style="margin-top:6px">SpaceX is planning an initial public offering in June 2026 that analysts describe as potentially the largest IPO ever, bringing one of the worlds most valuable private aerospace and defense companies to public markets. The listing is expected to attract enormous institutional and retail investor interest given SpaceXs dominance across commercial launch, Starlink broadband and rapidly expanding government defense contracts.</div>
+          <div class="nsource"><a href="https://finance.yahoo.com/markets/stocks/articles/elon-musks-spacex-going-public-154814565.html" target="_blank">▸ Yahoo! News</a></div>
         </div>
       
         <div class="icard">
           <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">USA</span></div>
-          <div class="nh">Five Key Facts On The Upcoming SpaceX Public Listing</div>
-          <div class="nc" style="margin-top:6px">MoneyWeek outlines the critical investor considerations ahead of the SpaceX IPO, including valuation methodology, revenue mix across commercial launch, Starlink and government contracts, and the governance implications of Elon Musks controlling stake. The listing is expected to attract enormous retail and institutional demand globally given the companys dominant position across multiple space market segments.</div>
+          <div class="nh">SpaceX IPO Valuation and Investor Guide Published</div>
+          <div class="nc" style="margin-top:6px">Financial media have begun publishing comprehensive investor guides to the SpaceX IPO, examining potential valuation scenarios, revenue streams and the implications of the listing for the broader space and defense investment landscape. Analysts note that the 2.29 billion dollar Space Force contract win and Starlink subscriber growth are key valuation anchors ahead of the offering.</div>
           <div class="nsource"><a href="https://moneyweek.com/investments/tech-stocks/spacex-ipo" target="_blank">▸ Moneyweek</a></div>
         </div>
       
         <div class="icard">
-          <div class="nm"><span class="ub urgent">URGENT</span><span class="nr">USA</span></div>
-          <div class="nh">SpaceX IPO Clouds Starlink Drone Pricing Controversy</div>
-          <div class="nc" style="margin-top:6px">The planned SpaceX IPO is drawing scrutiny from defence analysts who note that the companys fivefold increase in Starlink pricing during the Iran war raises governance questions about commercial-military conflict of interest at a publicly traded entity. Prospective shareholders will need to weigh the revenue upside of defence contracts against regulatory and reputational risks from military pricing practices.</div>
+          <div class="nm"><span class="ub normal">NORMAL</span><span class="nr"></span></div>
+          <div class="nh">Starship Grounding Adds Risk to SpaceX Pre-IPO Outlook</div>
+          <div class="nc" style="margin-top:6px">The FAAs decision to ground Starship weeks</div>
           <div class="nsource"><span>▸ Prism Analysis</span></div>
         </div>
       
@@ -506,7 +515,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
       <div><div class="stock-private">PRIVATE</div><div class="stock-private" style="font-size:9px">Watch: SPCX</div></div>
     </div>
   </div>
-  <div class="sector-note">Commercial space equities are outperforming traditional defence primes as IPO speculation, new government contracts, and launch competition drive rotation into high-growth space names.</div>
+  <div class="sector-note">Commercial space enters a pivotal inflection point as the SpaceX IPO approaches, though regulatory headwinds from FAA grounding actions and geopolitical instability in the Middle East create near-term turbulence for defence primes.</div>
 </div>
 <div class="events">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
@@ -576,7 +585,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.p
 
 const colors={space:'#2d7dd2',defence:'#ff3b3b',middle_east:'#ff8c00',investment:'#00ff88',ai_tech:'#a855f7',ipo_watch:'#ffc800'};
 const labels={space:'🛰 SPACE',defence:'🛡 DEFENCE',middle_east:'🌍 MID EAST',investment:'💰 INVEST',ai_tech:'🤖 AI TECH',ipo_watch:'🚀 IPO'};
-const newsData={"space":[{"headline":"SpaceX Starship Grounded After Booster Mishap","context":"The FAA has grounded SpaceX Starship and its Super Heavy booster after classifying last weeks failed booster landing as a mishap requiring investigation. This grounding adds regulatory pressure to SpaceX just weeks before its planned June IPO, though market sentiment remains broadly positive given the companys contract wins.","region":"North America","urgency":"BREAKING","source":"Spokesman","link":"http://www.spokesman.com/stories/2026/may/27/faa-update-grounds-spacex-starship-labeling-failed/","lat":25.9918,"lng":-97.1547},{"headline":"SpaceX IPO Could Be Largest Ever in June","context":"Elon Musks SpaceX is planning an IPO in June 2026 that analysts say could be the largest initial public offering in history, drawing intense investor interest globally. The listing coincides with a major 2.29 billion dollar Space Force satellite contract award, significantly bolstering the companys pre-IPO credentials.","region":"North America","urgency":"URGENT","source":"Usa Today","link":"https://www.usatoday.com/story/news/nation/2026/05/27/spacex-ipo-elon-musk/90257916007/","lat":34.0522,"lng":-118.2437},{"headline":"SpaceX Wins 2.29B Space Force Satellite Deal","context":"SpaceX has secured a 2.29 billion dollar contract with the US Space Force to build a satellite network supporting military communications and the Golden Dome missile defence shield. The contract was awarded ahead of the companys planned IPO and reinforces its position as the dominant government launch and space infrastructure provider.","region":"North America","urgency":"URGENT","source":"San Antonio Express-news","link":"https://www.expressnews.com/business/article/spacex-space-force-2-29b-satellite-contract-ipo-22277374.php","lat":38.8719,"lng":-77.0563},{"headline":"Blue Origin New Glenn Returns to Launch Pad","context":"Blue Origin has lined up its first New Glenn launch since the rocket was grounded by the FAA in April, after receiving clearance to return to flight last week. The resumption positions New Glenn as a renewed competitor in the heavy-lift market at a time when Starship faces its own regulatory grounding.","region":"North America","urgency":"NORMAL","source":"Hanford Sentinel","link":"https://hanfordsentinel.com/news/national/blue-origin-lines-up-1st-new-glenn-launch-since-rocket-was-grounded/article_a5eb47bb-86a2-5873-914e-4730b2d4b266.html","lat":28.4735,"lng":-80.5273},{"headline":"Canadas First Commercial Spaceport Takes Shape","context":"Canadas first commercial orbital launch facility in Nova Scotia has secured federal government backing and early commercial customer interest as construction progresses. The spaceport represents a strategic push by Canada to develop sovereign launch capability and reduce dependence on foreign launch providers.","region":"North America","urgency":"NORMAL","source":"Financial Post","link":"https://financialpost.com/technology/canada-first-commercial-spaceport-nova-scotia","lat":44.682,"lng":-63.7443},{"headline":"SpinLaunch Eyes Geopolitics as Growth Catalyst","context":"SpinLaunch CEO Massimiliano Ladovaz argues that geopolitical tensions and national sovereignty concerns are reshaping the space industry and creating new openings for alternative launch technology providers. The company sees growing demand from governments seeking launch independence as a strategic driver for its kinetic launch system development.","region":"North America","urgency":"NORMAL","source":"Space News","link":"https://spacenews.com/as-geopolitics-reshape-space-spinlaunch-sees-an-opening/","lat":37.7749,"lng":-122.4194}],"defence":[{"headline":"Israel Escalates Lebanon Ops Orders Mass Evacuation","context":"Israeli forces have intensified operations around southern Lebanon including the city of Nabatieh, with Israeli Prime Minister Netanyahu declaring an expansion of the security buffer zone and ordering a city of 200000 residents to evacuate. Israeli airstrikes have been reported up to 20 kilometres from the border as the army pushes beyond its declared yellow line.","region":"Middle East","urgency":"BREAKING","source":"Al-sharq Al-awsat","link":"https://english.aawsat.com/node/5277854","lat":33.3772,"lng":35.4836},{"headline":"US-Iran Ceasefire Strained by Ongoing Strikes","context":"Despite an April ceasefire, US and Iranian forces have continued exchanging strikes including new US attacks on southern Iran and Tehran downing a US drone and firing on a fighter jet. Iran says the possibility of a return to full war is low but warns it remains ready to retaliate, while Trump has threatened to restart strikes if a satisfactory deal is not reached.","region":"Middle East","urgency":"BREAKING","source":"Yahoo! News","link":"https://ca.news.yahoo.com/us-iran-launched-multiple-attacks-104755600.html","lat":32.4279,"lng":53.688},{"headline":"Trump Links Iran Deal to Abraham Accords Expansion","context":"US President Trump has introduced a new demand tying any Iran peace deal to expanded Abraham Accords sign-ons from regional powers, drawing immediate pushback from key Middle Eastern states who have lost trust in the framework. Trump also declared the Strait of Hormuz must remain open as a non-negotiable condition of any settlement.","region":"Middle East","urgency":"URGENT","source":"The National","link":"https://www.thenationalnews.com/news/us/2026/05/27/trump-threatens-new-iran-strikes-and-ties-israel-normalisation-to-nuclear-deal/","lat":24.4539,"lng":54.3773},{"headline":"Israel Far-Right Minister Moves to Block Iran Deal","context":"Israeli far-right Security Minister Itamar Ben-Gvir has openly suggested that Israels new bombardment of Lebanon is intended to derail ongoing US-Iran peace negotiations. The move signals a significant internal tension between Israeli hardliners and the Trump administrations pursuit of a regional settlement.","region":"Middle East","urgency":"URGENT","source":"Asia Times","link":"https://asiatimes.com/2026/05/minister-israel-wont-allow-trump-to-make-a-peace-deal-with-iran/","lat":31.7683,"lng":35.2137},{"headline":"Congress Moves to Block Trump Battleship Program","context":"The House Armed Services Committee has moved to block work on the Trump-class battleship until its key weapons systems reach sufficient maturity, a delay that analysts warn could effectively kill the program before it begins. The committee is also demanding answers on the new frigate program amid broader concerns about naval procurement strategy.","region":"North America","urgency":"URGENT","source":"The War Zone","link":"https://www.twz.com/sea/congress-moves-to-block-trump-class-battleship-work-until-its-key-weapons-are-mature","lat":38.8951,"lng":-77.0364},{"headline":"Iran War Driving Up Pentagon Aviation Fuel Costs","context":"US lawmakers in a fiscal year 2027 defence budget hearing are grappling with a significant rise in aviation fuel costs driven by the ongoing Iran conflict, which has affected oil markets and military operational expenses. The fuel cost surge is complicating NDAA drafting and could force trade-offs in aviation readiness and procurement accounts.","region":"North America","urgency":"NORMAL","source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/05/26/us-lawmakers-weigh-aviation-fuel-cost-increase-from-iran-war-in-fiscal-2027-defense-hearing/","lat":38.8951,"lng":-77.0364}],"middle_east":[{"headline":"Trump Threatens Fresh Iran Strikes Over Peace Deal","context":"US President Trump warned Tehran that new strikes could follow if negotiators fail to deliver a satisfactory peace agreement, while also demanding the Strait of Hormuz remain open to all international shipping. Trump dismissed suggestions that upcoming midterm elections would influence his war strategy, stating Iran was negotiating on fumes.","region":"UAE","urgency":"URGENT","source":"The National","link":"https://www.thenationalnews.com/news/us/2026/05/27/trump-threatens-new-iran-strikes-and-ties-israel-normalisation-to-nuclear-deal/","lat":25.2,"lng":55.27},{"headline":"Iran IRGC Says Return To War With US Unlikely","context":"Irans Revolutionary Guards stated on Wednesday that the probability of a return to full-scale war with the United States remains low, while affirming readiness to respond to any attack. The statement followed Iranian accusations that the US had breached the April ceasefire through continued strikes on southern Iran.","region":"UAE","urgency":"URGENT","source":"Digital Journal","link":"https://www.digitaljournal.com/world/iran-says-low-possibility-of-return-to-war-with-us/article","lat":32.43,"lng":53.69},{"headline":"Israel Escalates Lebanon Ops Around Nabatieh","context":"Israeli forces pushed further beyond the declared yellow line around the southern Lebanese city of Nabatieh, conducting airstrikes reaching up to 20 kilometres from the border. Prime Minister Netanyahu confirmed Israel is intensifying operations in Lebanon to expand a security buffer zone against Hezbollah.","region":"UAE","urgency":"URGENT","source":"Al-sharq Al-awsat","link":"https://english.aawsat.com/node/5277854","lat":33.37,"lng":35.48},{"headline":"Israel Far-Right Minister Moves To Block Iran Deal","context":"Israels far-right National Security Minister Itamar Ben-Gvir signalled that Israel would not permit the Trump administration to finalise a peace deal with Iran, escalating bombardment of Lebanon as a means to derail ongoing US-Iran negotiations. The move highlights a deepening rift between Washington and parts of the Israeli government over acceptable terms for ending hostilities.","region":"UAE","urgency":"URGENT","source":"Asia Times","link":"https://asiatimes.com/2026/05/minister-israel-wont-allow-trump-to-make-a-peace-deal-with-iran/","lat":31.77,"lng":35.21},{"headline":"Trump Links Abraham Accords Expansion To Iran Deal","context":"President Trump introduced a new demand this week requiring regional states to sign on to an expanded Abraham Accords framework as part of any Iran peace settlement, drawing immediate pushback from key Middle Eastern powers. Analysts warn that linking normalisation to the Iran negotiations risks collapsing both tracks simultaneously at a moment of fragile regional trust.","region":"UAE","urgency":"NORMAL","source":"Asia Times","link":"https://asiatimes.com/2026/05/trump-cant-sell-abraham-accords-to-middle-east-thats-lost-trust/","lat":25.2,"lng":55.27},{"headline":"Trumps Board Of Peace Fund Holds Zero Dollars","context":"Trumps Board of Peace, announced in January with a solicitation of one billion dollar lifetime membership fees from world leaders including Israel, Qatar and Bahrain, currently holds no funds in its associated World Bank account. The revelation raises doubts about the financial credibility of the administrations flagship Middle East stabilisation initiative.","region":"UAE","urgency":"NORMAL","source":"Mail Online","link":"https://www.dailymail.com/news/article-15851891/Trumps-Board-Peace-fund-membership-fees.html","lat":25.2,"lng":55.27}],"investment":[{"headline":"SpaceX Wins 2.29B Space Force Satellite Contract","context":"SpaceX has secured a 2.29 billion dollar contract with the US Space Force to construct a satellite network supporting military communications and the Golden Dome missile defence shield. The award arrives weeks ahead of the companys anticipated IPO, substantially boosting its government revenue profile for prospective investors.","region":"USA","urgency":"BREAKING","source":"San Antonio Express-news","link":"https://www.expressnews.com/business/article/spacex-space-force-2-29b-satellite-contract-ipo-22277374.php","lat":40.71,"lng":-74},{"headline":"Congress Moves To Block Trump Class Battleship Funds","context":"The House Armed Services Committee is seeking to halt work on the Trump class battleship programme until its key weapons systems reach sufficient technological maturity, a delay that analysts say could effectively terminate the programme before it gains momentum. The committee is also demanding accountability on the new frigate programme, adding further pressure to naval procurement budgets.","region":"USA","urgency":"URGENT","source":"The War Zone","link":"https://www.twz.com/sea/congress-moves-to-block-trump-class-battleship-work-until-its-key-weapons-are-mature","lat":38.9,"lng":-77.04},{"headline":"Iran War Drives US Aviation Fuel Cost Debate","context":"US lawmakers scrutinising the fiscal year 2027 National Defence Authorisation Act are confronting sharply elevated aviation fuel costs driven by the ongoing Iran conflict, with implications for defence procurement and operational budgets across all service branches. The hearings reflect broader concern that sustained Middle East hostilities are compressing available funding for modernisation programmes.","region":"USA","urgency":"NORMAL","source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/05/26/us-lawmakers-weigh-aviation-fuel-cost-increase-from-iran-war-in-fiscal-2027-defense-hearing/","lat":38.9,"lng":-77.04},{"headline":"Canada First Commercial Spaceport Takes Shape","context":"Canadas first commercial orbital launch facility in Nova Scotia has secured federal government backing and attracted early commercial interest as construction moves forward incrementally. The spaceport is positioned to serve growing sovereign launch demand as geopolitical pressures push nations to reduce reliance on foreign launch providers.","region":"USA","urgency":"NORMAL","source":"Financial Post","link":"https://financialpost.com/technology/canada-first-commercial-spaceport-nova-scotia","lat":44.65,"lng":-63.58},{"headline":"Global Defence EOIR Market To Hit 15.43B By 2035","context":"A new market intelligence report projects the global defence electro-optical and infrared systems market will reach 15.43 billion dollars by 2035, expanding at a compound annual growth rate of 5.6 percent. Growth is being driven by increasing platform integration across airborne, naval and ground domains amid rising global threat perceptions.","region":"USA","urgency":"NORMAL","source":"Openpr.com","link":"https://www.openpr.com/news/4528938/global-defense-electro-optical-and-infrared-eoir-systems","lat":40.71,"lng":-74},{"headline":"Starlink Price Hike Turns Cheap Drones Into Liability","context":"A fivefold increase in Starlink connectivity pricing imposed by SpaceX during the Iran war has transformed previously cost-effective US drone platforms into expensive operational liabilities, according to defence analysts. The episode has intensified debate about single-vendor dependency in critical military communications infrastructure and the leverage held by large commercial contractors.","region":"USA","urgency":"URGENT","source":"Eurasian Times","link":"https://www.eurasiantimes.com/starlinks-monopoly-turns-cheap-u-s-drones/","lat":38.9,"lng":-77.04}],"ai_tech":[{"headline":"AI Sovereignty Needs More Than Powerful Models","context":"A new analysis argues that genuine artificial intelligence sovereignty requires nations to invest not only in advanced model development but also in the full stack of semiconductor manufacturing, cloud infrastructure and data governance frameworks. Governments pouring billions into AI risk strategic dependency if underlying hardware and infrastructure remain controlled by foreign entities.","region":"GLOBAL","urgency":"NORMAL","source":"Blitz","link":"https://weeklyblitz.net/2026/05/28/ai-sovereignty-requires-more-than-powerful-models/","lat":37.33,"lng":-122.03},{"headline":"Broadcom Expands AI And Broadband Partnership Push","context":"Broadcom unveiled a series of new partnerships and product launches on Wednesday aimed at deepening its footprint in next-generation broadband connectivity and artificial intelligence infrastructure. The announcements are expected to reinforce the companys position as a key supplier to hyperscale data centre operators and defence-adjacent AI programmes.","region":"GLOBAL","urgency":"NORMAL","source":"Benzinga","link":"https://www.benzinga.com/markets/large-cap/26/05/52822633/whats-going-on-with-broadcom-stock-wednesday-5","lat":37.33,"lng":-122.03},{"headline":"SpinLaunch Eyes Opening As Geopolitics Reshape Space","context":"SpinLaunch chief executive Massimiliano Ladovaz argued this week that shifting geopolitical dynamics and growing national demands for launch sovereignty are creating a significant commercial opening for alternative launch technology providers. The company contends that traditional rocket-based models are increasingly vulnerable to supply chain and political disruption, favouring novel kinetic launch approaches.","region":"GLOBAL","urgency":"NORMAL","source":"Space News","link":"https://spacenews.com/as-geopolitics-reshape-space-spinlaunch-sees-an-opening/","lat":34.05,"lng":-106.91},{"headline":"AI Retirement Forecasting Systems Gain Fintech Attention","context":"Researchers in financial technology are increasingly examining the application of artificial intelligence to long-term retirement planning and forecasting, exploring how predictive models can improve outcomes for pension and savings products. The emerging field draws interest from both institutional asset managers and regulators seeking to understand AI-driven financial advice risks.","region":"GLOBAL","urgency":"NORMAL","source":"Digital Journal","link":"https://www.digitaljournal.com/tech-science/ai-based-retirement-forecasting-systems-draw-attention-in-financial-technology-research/article","lat":37.33,"lng":-122.03}],"ipo_watch":[{"headline":"SpaceX IPO In June Could Be Largest Ever Listing","context":"SpaceX is planning an initial public offering in June 2026 that analysts describe as potentially the largest IPO in history, with the company carrying an estimated valuation that dwarfs most prior technology and aerospace listings. The timing follows a 2.29 billion dollar Space Force contract win, positioning the company with strong government revenue credentials ahead of the float.","region":"USA","urgency":"BREAKING","source":"Usa Today","link":"https://www.usatoday.com/story/news/nation/2026/05/27/spacex-ipo-elon-musk/90257916007/","lat":40.71,"lng":-74},{"headline":"Five Key Facts On The Upcoming SpaceX Public Listing","context":"MoneyWeek outlines the critical investor considerations ahead of the SpaceX IPO, including valuation methodology, revenue mix across commercial launch, Starlink and government contracts, and the governance implications of Elon Musks controlling stake. The listing is expected to attract enormous retail and institutional demand globally given the companys dominant position across multiple space market segments.","region":"USA","urgency":"URGENT","source":"Moneyweek","link":"https://moneyweek.com/investments/tech-stocks/spacex-ipo","lat":40.71,"lng":-74},{"headline":"SpaceX IPO Clouds Starlink Drone Pricing Controversy","context":"The planned SpaceX IPO is drawing scrutiny from defence analysts who note that the companys fivefold increase in Starlink pricing during the Iran war raises governance questions about commercial-military conflict of interest at a publicly traded entity. Prospective shareholders will need to weigh the revenue upside of defence contracts against regulatory and reputational risks from military pricing practices.","region":"USA","urgency":"URGENT","source":"Prism Analysis","link":"none","lat":40.71,"lng":-74}]};
+const newsData={"space":[{"headline":"SpaceX Plans June IPO Potentially Largest Ever","context":"SpaceX is planning an initial public offering in June that analysts suggest could be the largest IPO in history, bringing the worlds leading launch provider to public markets for the first time. The listing comes as SpaceX simultaneously secures major government contracts and dominates global launch cadence, making the timing strategically powerful.","region":"North America","urgency":"BREAKING","source":"Yahoo! News","link":"https://finance.yahoo.com/markets/stocks/articles/elon-musks-spacex-going-public-154814565.html","lat":37.7749,"lng":-122.4194},{"headline":"SpaceX Wins $2.29B Space Force Satellite Contract","context":"SpaceX has secured a $2.29 billion contract with the US Space Force to build a satellite network supporting military communications and the Golden Dome missile defence shield ahead of its planned IPO. The contract significantly strengthens SpaceXs government revenue base and validates its position as a cornerstone of US national security space architecture.","region":"North America","urgency":"URGENT","source":"San Antonio Express-news","link":"https://www.expressnews.com/business/article/spacex-space-force-2-29b-satellite-contract-ipo-22277374.php","lat":28.5729,"lng":-80.649},{"headline":"FAA Grounds Starship After Mishap Classification","context":"The FAA has grounded SpaceXs Starship and Super Heavy rocket after classifying last weeks failed booster landing as a formal mishap due to an uncontrolled booster descent. The grounding adds regulatory pressure ahead of the IPO but is not expected to be prolonged given SpaceXs track record of rapid return-to-flight following FAA reviews.","region":"North America","urgency":"BREAKING","source":"Spokesman","link":"http://www.spokesman.com/stories/2026/may/27/faa-update-grounds-spacex-starship-labeling-failed/","lat":25.9972,"lng":-97.1571},{"headline":"Blue Origin New Glenn Cleared to Return to Flight","context":"Blue Origin has lined up its first New Glenn launch since the rocket was grounded by the FAA in April, following regulatory clearance last week to return to flight operations. The return comes at a strategically critical moment as Blue Origin seeks to establish launch cadence and compete for government and commercial contracts against a surging SpaceX.","region":"North America","urgency":"NORMAL","source":"Hanford Sentinel","link":"https://hanfordsentinel.com/news/national/blue-origin-lines-up-1st-new-glenn-launch-since-rocket-was-grounded/article_a5eb47bb-86a2-5873-914e-4730b2d4b266.html","lat":28.4889,"lng":-80.5778},{"headline":"Canada First Commercial Spaceport Takes Shape in Nova Scotia","context":"Canadas first commercial spaceport in Nova Scotia has secured federal backing and early commercial interest as construction moves forward on what would be a significant new orbital launch facility in North America. The project reflects growing sovereign space ambitions among allied nations seeking to reduce dependence on US launch infrastructure.","region":"North America","urgency":"NORMAL","source":"Financial Post","link":"https://financialpost.com/technology/canada-first-commercial-spaceport-nova-scotia","lat":44.682,"lng":-63.7443},{"headline":"SpinLaunch Sees Opening as Geopolitics Reshape Space","context":"SpinLaunch CEO Massimiliano Ladovaz argues that geopolitics and national sovereignty concerns are reshaping the space industry as rapidly as engineering innovation, creating new market openings for alternative launch providers. The company sees growing demand from nations seeking independent access to space outside of dominant US provider ecosystems.","region":"North America","urgency":"NORMAL","source":"Space News","link":"https://spacenews.com/as-geopolitics-reshape-space-spinlaunch-sees-an-opening/","lat":34.0522,"lng":-106.9105}],"defence":[{"headline":"US-Iran Ceasefire Fracturing With Ongoing Strikes","context":"Despite an April ceasefire, the US and Iran have continued exchanging strikes with Washington conducting new attacks on southern Iran and Tehran downing a US drone and firing on a fighter jet. Irans Revolutionary Guards stated Wednesday that a return to full-scale war is unlikely while simultaneously warning they remain ready to retaliate against any further attacks.","region":"Middle East","urgency":"BREAKING","source":"Yahoo! News","link":"https://ca.news.yahoo.com/us-iran-launched-multiple-attacks-104755600.html","lat":32.4279,"lng":53.688},{"headline":"Israel Escalates Lebanon Operations Near Nabatieh","context":"The Israeli army conducted further incursions around the southern Lebanese city of Nabatieh on Wednesday, pushing beyond its declared yellow line while increasing airstrikes up to 20 kilometres from the border to expand its security buffer zone. Israeli Prime Minister Netanyahu confirmed the intensification of operations in Lebanon as Israel simultaneously ordered the evacuation of a city of 200000 residents.","region":"Middle East","urgency":"BREAKING","source":"Al-sharq Al-awsat","link":"https://english.aawsat.com/node/5277854","lat":33.3772,"lng":35.4836},{"headline":"Congress Moves to Block Trump Class Battleship Program","context":"The House Armed Services Committee is moving to block work on the Trump class battleship until its key weapons systems reach technological maturity, a delay that analysts warn could effectively end the program before it properly begins. The committee is simultaneously demanding answers on the new frigate program, reflecting broader congressional scepticism about major surface combatant acquisitions.","region":"North America","urgency":"URGENT","source":"The War Zone","link":"https://www.twz.com/sea/congress-moves-to-block-trump-class-battleship-work-until-its-key-weapons-are-mature","lat":38.8951,"lng":-77.0364},{"headline":"Starlink Price Hike Making US Drones Expensive in Iran War","context":"Starlinks dominant market position has led to a 5x price hike that is turning previously cost-effective US drones into expensive liabilities during the Iran war, according to defence analysts. The situation highlights dangerous single-vendor dependencies in US military communications infrastructure and is drawing scrutiny from Pentagon procurement officials.","region":"Middle East","urgency":"URGENT","source":"Eurasian Times","link":"https://www.eurasiantimes.com/starlinks-monopoly-turns-cheap-u-s-drones/","lat":33.6844,"lng":44.3661},{"headline":"Iran War Aviation Fuel Costs Weigh on FY2027 Defence Budget","context":"US lawmakers are grappling with sharply elevated aviation fuel costs driven by the Iran war as they draft the fiscal year 2027 National Defence Authorisation Act, with the price increases threatening to compress operational readiness budgets across the US Air Force and Navy. The hearings reflect growing awareness that sustained Middle East operations are generating cascading second-order costs beyond direct munitions expenditure.","region":"North America","urgency":"URGENT","source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/05/26/us-lawmakers-weigh-aviation-fuel-cost-increase-from-iran-war-in-fiscal-2027-defense-hearing/","lat":38.8951,"lng":-77.0364},{"headline":"Trump Iran Peace Deal Stalls Amid Israeli Opposition","context":"US President Trump convened his Cabinet on Wednesday amid stalled negotiations to end the Iran war, with Israel actively working to derail peace talks and far-right Security Minister Itamar Ben-Gvir stating Israel will not allow Trump to conclude a deal with Tehran. Trump linked any Iran settlement to expanded Abraham Accords membership but faces scepticism from key regional powers who say trust in US mediation has eroded.","region":"Middle East","urgency":"URGENT","source":"The Atlantic","link":"https://www.theatlantic.com/national-security/2026/05/trump-iran-deal-frustrated/687331/","lat":35.6892,"lng":51.389}],"middle_east":[{"headline":"Israel Intensifies Lebanon Ops Amid Iran Peace Talks","context":"Israel has ordered the evacuation of a Lebanese city of 200,000 residents as Prime Minister Netanyahu announced intensified operations to expand a security buffer zone in southern Lebanon. The offensive is targeting Hezbollah positions and testing defenses around Nabatieh, with Israeli forces pushing beyond the declared yellow line.","region":"Lebanon","urgency":"BREAKING","source":"Brietbart","link":"https://www.breitbart.com/middle-east/2026/05/27/israel-intensifies-attacks-on-lebanon-orders-city-of-200000-to-evacuate/","lat":33.5,"lng":35.49},{"headline":"Iran IRGC Says Return to War With US Unlikely","context":"Irans Revolutionary Guards stated on Wednesday that a resumption of full-scale war with the United States carries a low probability, while affirming readiness to respond to any attack. The statement follows Iranian accusations that the US violated the April ceasefire through new strikes on southern Iran, with Washington and Tehran continuing to exchange limited strikes since the truce took effect.","region":"Iran","urgency":"URGENT","source":"Digital Journal","link":"https://www.digitaljournal.com/world/iran-says-low-possibility-of-return-to-war-with-us/article","lat":35.69,"lng":51.39},{"headline":"Trump Links Iran Nuclear Deal to Abraham Accords Expansion","context":"US President Donald Trump has introduced a new demand tying any Iran peace settlement to broader regional normalization, requiring additional Middle Eastern states to join the Abraham Accords. Key regional powers including Turkey have pushed back on the linkage, with analysts noting that a Middle East that has lost trust in US consistency is a difficult audience for the pitch.","region":"UAE","urgency":"URGENT","source":"Asia Times","link":"https://asiatimes.com/2026/05/trump-cant-sell-abraham-accords-to-middle-east-thats-lost-trust/","lat":25.2,"lng":55.27},{"headline":"Israel Far-Right Minister Moves to Derail Iran Peace Deal","context":"Israeli far-right Security Minister Itamar Ben-Gvir has publicly suggested that Israels renewed military campaign in Lebanon is partly intended to derail US-Iran peace negotiations being brokered by the Trump administration. The move highlights a sharp internal divide within the Israeli government over whether a US-Iran diplomatic settlement serves Israeli security interests.","region":"Israel","urgency":"URGENT","source":"Asia Times","link":"https://asiatimes.com/2026/05/minister-israel-wont-allow-trump-to-make-a-peace-deal-with-iran/","lat":31.77,"lng":35.21},{"headline":"Trumps Board of Peace Fund Sits at Zero Dollars","context":"Trumps Board of Peace, announced in January with a call for one billion dollar lifetime membership fees from world leaders including Israel, Qatar and Bahrain, has accumulated zero dollars in its World Bank fund. The revelation raises questions about the credibility and operational capacity of the diplomatic mechanism at the center of US Middle East peace strategy.","region":"UAE","urgency":"NORMAL","source":"Mail Online","link":"https://www.dailymail.com/news/article-15851891/Trumps-Board-Peace-fund-membership-fees.html","lat":25.2,"lng":55.27},{"headline":"Gaza Stabilization Force Plans Stalled by Iran War","context":"The International Stabilization Force for Gaza, announced with significant fanfare at the inaugural Board of Peace meeting in February, has yet to materialize as the broader Iran war continues to complicate regional diplomacy and troop commitment pledges. Analysts note that the ongoing conflict has diverted political bandwidth and military resources away from any coherent post-war Gaza governance framework.","region":"Gaza","urgency":"NORMAL","source":"Durango Herald","link":"https://www.durangoherald.com/articles/iran-war-has-complicated-plans-for-an-international-force-in-gaza-that-has-yet-to-materialize/","lat":31.52,"lng":34.47}],"investment":[{"headline":"SpaceX Wins 2.29B Space Force Satellite Contract","context":"SpaceX has secured a 2.29 billion dollar contract with the US Space Force to construct a satellite network supporting military communications and Trumps Golden Dome missile defense shield. The contract win comes weeks ahead of the companys planned IPO, significantly reinforcing its government revenue base and defense sector valuation case.","region":"USA","urgency":"BREAKING","source":"San Antonio Express-news","link":"https://www.expressnews.com/business/article/spacex-space-force-2-29b-satellite-contract-ipo-22277374.php","lat":40.71,"lng":-74},{"headline":"Starlink 5X Price Hike Inflates US Drone Costs in Iran War","context":"Starlinks near-monopoly on battlefield connectivity has driven a fivefold price increase for drone operators during the Iran war, turning previously affordable US unmanned systems into expensive liabilities. Defense analysts warn this dynamic exposes the risks of single-vendor dependency in contested environments and is reshaping Pentagon procurement thinking.","region":"USA","urgency":"URGENT","source":"Eurasian Times","link":"https://www.eurasiantimes.com/starlinks-monopoly-turns-cheap-u-s-drones/","lat":38.9,"lng":-77.03},{"headline":"Defense EOIR Systems Market to Hit 15.43B by 2035","context":"A new DataM Intelligence report projects the global defense electro-optical and infrared systems market will reach 15.43 billion dollars by 2035, growing at a 5.6 percent compound annual growth rate. Growth is being driven by expanding airborne and naval platform integration programs and rising procurement across multiple regions amid elevated threat environments.","region":"GLOBAL","urgency":"NORMAL","source":"Openpr.com","link":"https://www.openpr.com/news/4528938/global-defense-electro-optical-and-infrared-eoir-systems","lat":40.71,"lng":-74},{"headline":"Congress Moves to Block Trump Class Battleship Funding","context":"The House Armed Services Committee is pushing to block further work on the Trump class battleship program until its key weapons systems reach technological maturity, a move that analysts say could effectively kill the program before it gains momentum. The committee is simultaneously demanding answers on the status of the new US Navy frigate program, signaling broad skepticism about major surface combatant investments.","region":"USA","urgency":"URGENT","source":"The War Zone","link":"https://www.twz.com/sea/congress-moves-to-block-trump-class-battleship-work-until-its-key-weapons-are-mature","lat":38.9,"lng":-77.03},{"headline":"Iran War Aviation Fuel Costs Weigh on FY2027 Defense Budget","context":"US lawmakers are grappling with a significant rise in aviation fuel costs driven by the Iran war as they work toward drafting the fiscal year 2027 National Defense Authorization Act. The increased operational tempo and elevated oil prices tied to Middle East instability are forcing difficult trade-offs in the Pentagon budget across air force and naval aviation accounts.","region":"USA","urgency":"NORMAL","source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/05/26/us-lawmakers-weigh-aviation-fuel-cost-increase-from-iran-war-in-fiscal-2027-defense-hearing/","lat":38.9,"lng":-77.03},{"headline":"Canada First Commercial Spaceport Takes Shape in Nova Scotia","context":"Canadas first commercial orbital launch facility in Nova Scotia has secured federal government backing and attracted early commercial interest as construction progresses. The spaceport represents a strategic investment in sovereign launch capability as geopolitical pressure accelerates allied nations efforts to reduce dependence on US and non-allied launch infrastructure.","region":"Canada","urgency":"NORMAL","source":"Financial Post","link":"https://financialpost.com/technology/canada-first-commercial-spaceport-nova-scotia","lat":44.65,"lng":-63.57}],"ai_tech":[{"headline":"Pope Leo Issues Landmark AI Ethics Encyclical","context":"Pope Leo XIV has published a major encyclical on artificial intelligence, offering five central reflections grounded in the centrality of the human person to guide global society through the challenges and risks posed by AI development. The document represents the Catholic Churchs most comprehensive doctrinal statement on technology ethics and is expected to influence policy debates in multiple jurisdictions.","region":"GLOBAL","urgency":"NORMAL","source":"Rns","link":"https://religionnews.com/2026/05/27/the-five-main-takeaways-from-pope-leos-encyclical-on-ai/","lat":41.9,"lng":12.45},{"headline":"Canada to Release National AI Strategy Next Week","context":"Prime Minister Carney has announced that Canadas long-awaited national artificial intelligence strategy will be released within days, following months of delays driven by growing public concern over AI safety and social impact. The strategy is expected to outline governance frameworks, investment priorities and safeguards as allied nations race to establish coherent AI policy postures.","region":"Canada","urgency":"NORMAL","source":"Squamish Chief","link":"https://www.squamishchief.com/national-news/national-artificial-intelligence-strategy-to-be-released-next-week-carney-says-12335833","lat":45.42,"lng":-75.69},{"headline":"SpinLaunch Eyes Geopolitical Shift as Market Opening","context":"SpinLaunch CEO Massimiliano Ladovaz has argued that the rapidly shifting space industry, increasingly driven by sovereignty concerns and geopolitical fragmentation rather than engineering innovation alone, presents a significant commercial opening for the companys alternative launch technology. The executive contends that nations seeking launch independence from dominant providers are now actively evaluating non-conventional systems.","region":"USA","urgency":"NORMAL","source":"Space News","link":"https://spacenews.com/as-geopolitics-reshape-space-spinlaunch-sees-an-opening/","lat":37.33,"lng":-122.03},{"headline":"Starship Grounded Again After FAA Labels Landing a Mishap","context":"The Federal Aviation Administration has grounded SpaceXs Starship and Super Heavy rocket after updated findings classified last weeks launch from Texas as a mishap due to an uncontrolled booster landing. The grounding adds regulatory uncertainty to SpaceXs launch cadence at a sensitive moment ahead of the companys planned June IPO.","region":"USA","urgency":"BREAKING","source":"Spokesman","link":"http://www.spokesman.com/stories/2026/may/27/faa-update-grounds-spacex-starship-labeling-failed/","lat":28.57,"lng":-80.65},{"headline":"Blue Origin New Glenn Cleared for Return to Flight","context":"The FAA has cleared Blue Origins New Glenn rocket to return to flight after grounding the vehicle in April, with the company lining up its first launch since the suspension. The rapid return to operational status signals Blue Origins intent to maintain competitive launch cadence against SpaceX and other emerging heavy lift providers.","region":"USA","urgency":"NORMAL","source":"Hanford Sentinel","link":"https://hanfordsentinel.com/news/national/blue-origin-lines-up-1st-new-glenn-launch-since-rocket-was-grounded/article_a5eb47bb-86a2-5873-914e-4730b2d4b266.html","lat":28.57,"lng":-80.65}],"ipo_watch":[{"headline":"SpaceX June IPO Could Be Largest in History","context":"SpaceX is planning an initial public offering in June 2026 that analysts describe as potentially the largest IPO ever, bringing one of the worlds most valuable private aerospace and defense companies to public markets. The listing is expected to attract enormous institutional and retail investor interest given SpaceXs dominance across commercial launch, Starlink broadband and rapidly expanding government defense contracts.","region":"USA","urgency":"BREAKING","source":"Yahoo! News","link":"https://finance.yahoo.com/markets/stocks/articles/elon-musks-spacex-going-public-154814565.html","lat":40.71,"lng":-74},{"headline":"SpaceX IPO Valuation and Investor Guide Published","context":"Financial media have begun publishing comprehensive investor guides to the SpaceX IPO, examining potential valuation scenarios, revenue streams and the implications of the listing for the broader space and defense investment landscape. Analysts note that the 2.29 billion dollar Space Force contract win and Starlink subscriber growth are key valuation anchors ahead of the offering.","region":"USA","urgency":"URGENT","source":"Moneyweek","link":"https://moneyweek.com/investments/tech-stocks/spacex-ipo","lat":40.71,"lng":-74},{"headline":"Starship Grounding Adds Risk to SpaceX Pre-IPO Outlook","context":"The FAAs decision to ground Starship weeks","region":"","urgency":"NORMAL","source":"Prism Analysis","link":"","lat":0,"lng":0}]};
 const incidentList=document.getElementById('incident-list');
 let incidentCount=0;
 
