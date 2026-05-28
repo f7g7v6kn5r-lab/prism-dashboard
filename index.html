@@ -67,8 +67,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .stocks-section{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
 .stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;max-width:760px}
 .stock-card{background:#060d1a;border:1px solid #0d1f3c;border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
-.stock-logo{width:28px;height:28px;border-radius:4px;background:#0a1628;padding:2px;object-fit:contain;flex-shrink:0}
-.stock-logo-fallback{width:28px;height:28px;border-radius:4px;background:#0a1628;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2d7dd2;font-weight:700;flex-shrink:0;font-family:'Space Mono',monospace}
+.sicon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px}
 .stock-ticker{font-family:'Space Mono',monospace;font-size:11px;color:#fff;font-weight:700;letter-spacing:2px}
 .stock-name{font-size:10px;color:#3a5a7a;margin-top:2px}
 .stock-price{font-size:13px;color:#fff;font-weight:600;text-align:right}
@@ -480,86 +479,74 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   <div class="stocks-grid">
     <div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/rocketlabusa.com" alt="RKLB" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">RK</div>
+          <div class="sicon" style="background:#0a1628;color:#4a9eff;border:1px solid #4a9eff22">RKLB</div>
           <div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div>
         </div>
         <div><div class="stock-price">$ 150.23</div><div class="stock-change-up">▲ 4.91%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/lockheedmartin.com" alt="LMT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">LM</div>
+          <div class="sicon" style="background:#0a1220;color:#1d4ed8;border:1px solid #1d4ed822">LMT</div>
           <div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div>
         </div>
         <div><div class="stock-price">$ 531.14</div><div class="stock-change-dn">▼ 0.33%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/rtx.com" alt="RTX" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">RT</div>
+          <div class="sicon" style="background:#1a0a0a;color:#dc2626;border:1px solid #dc262622">RTX</div>
           <div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div>
         </div>
         <div><div class="stock-price">$ 176.59</div><div class="stock-change-dn">▼ 1.33%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/northropgrumman.com" alt="NOC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">NO</div>
+          <div class="sicon" style="background:#0a1220;color:#3b82f6;border:1px solid #3b82f622">NOC</div>
           <div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div>
         </div>
         <div><div class="stock-price">$ 551.34</div><div class="stock-change-dn">▼ 0.98%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/boeing.com" alt="BA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">BA</div>
+          <div class="sicon" style="background:#0a1220;color:#1e40af;border:1px solid #1e40af22">BA</div>
           <div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div>
         </div>
         <div><div class="stock-price">$ 224.30</div><div class="stock-change-up">▲ 2.47%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/l3harris.com" alt="LHX" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">LH</div>
+          <div class="sicon" style="background:#0a1a0a;color:#16a34a;border:1px solid #16a34a22">LHX</div>
           <div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div>
         </div>
         <div><div class="stock-price">$ 309.05</div><div class="stock-change-dn">▼ 1.41%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/iridium.com" alt="IRDM" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">IR</div>
+          <div class="sicon" style="background:#1a1a0a;color:#ca8a04;border:1px solid #ca8a0422">IRDM</div>
           <div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div>
         </div>
         <div><div class="stock-price">$ 51.39</div><div class="stock-change-up">▲ 2.45%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/intuitivemachines.com" alt="LUNR" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">LU</div>
+          <div class="sicon" style="background:#0a0a1a;color:#7c3aed;border:1px solid #7c3aed22">LUNR</div>
           <div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div>
         </div>
         <div><div class="stock-price">$ 40.34</div><div class="stock-change-up">▲ 15.72%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/ast-science.com" alt="ASTS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">AS</div>
+          <div class="sicon" style="background:#001a10;color:#00ff88;border:1px solid #00ff8822">ASTS</div>
           <div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div>
         </div>
         <div><div class="stock-price">$ 129.60</div><div class="stock-change-up">▲ 8.27%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/planet.com" alt="PL" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">PL</div>
+          <div class="sicon" style="background:#1a0a10;color:#e11d48;border:1px solid #e11d4822">PL</div>
           <div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div>
         </div>
         <div><div class="stock-price">$ 50.48</div><div class="stock-change-up">▲ 4.47%</div></div>
       </div><div class="stock-card">
         <div style="display:flex;align-items:center;gap:10px">
-          <img class="stock-logo" src="https://logo.clearbit.com/blacksky.com" alt="BKSY" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="stock-logo-fallback" style="display:none">BK</div>
+          <div class="sicon" style="background:#0a0a0a;color:#94a3b8;border:1px solid #94a3b822">BKSY</div>
           <div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div>
         </div>
         <div><div class="stock-price">$ 51.00</div><div class="stock-change-up">▲ 4.57%</div></div>
       </div>
     <div class="stock-card" style="border-color:rgba(45,125,210,0.2)">
       <div style="display:flex;align-items:center;gap:10px">
-        <img class="stock-logo" src="https://logo.clearbit.com/spacex.com" alt="SPACEX" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="stock-logo-fallback" style="display:none">SX</div>
+        <div class="sicon" style="background:#0a0a0a;color:#888;border:1px solid #22222222">SX</div>
         <div><div class="stock-ticker" style="color:#2a4a6b">SPACEX</div><div class="stock-name" style="color:#1a3a5a">Space Exploration</div></div>
       </div>
       <div><div class="stock-private">PRIVATE</div><div class="stock-private" style="font-size:9px">Watch: SPCX</div></div>
