@@ -12,14 +12,14 @@
 body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min-height:100vh}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
-.topbar{background:linear-gradient(135deg,#1a0a2e 0%,#0d0520 50%,#160830 100%);border-bottom:1px solid #2d1a4a;padding:12px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.topbar-left{display:flex;align-items:center;gap:16px}
-.topbar-divider{border-left:1px solid rgba(138,80,210,0.4);padding-left:16px}
-.topbar-tagline{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:#a855f7}
-.topbar-right{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.live{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;color:#a855f7}
-.dot{width:6px;height:6px;background:#00ff88;border-radius:50%;animation:pulse 2s infinite}
-.ts{font-family:'Space Mono',monospace;font-size:10px;color:#5a3a7a;letter-spacing:2px}
+.topbar{background:#000;border-bottom:1px solid #1a1a1a;padding:8px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-divider{border-left:1px solid #333;padding-left:14px}
+.topbar-tagline{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#888}
+.topbar-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.live{display:flex;align-items:center;gap:5px;font-size:8px;letter-spacing:3px;color:#555}
+.dot{width:5px;height:5px;background:#00ff88;border-radius:50%;animation:pulse 2s infinite}
+.ts{font-family:'Space Mono',monospace;font-size:8px;color:#333;letter-spacing:2px}
 .hero{padding:24px 32px;border-bottom:1px solid #0d1f3c;background:linear-gradient(180deg,#060d1a 0%,#04060f 100%)}
 .hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#2d7dd2;margin-bottom:12px}
 .badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
@@ -83,7 +83,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .event-name{font-size:13px;font-weight:600;color:#e8f0f8;margin-bottom:4px}
 .event-loc{font-size:11px;color:#5a7a9a}
 .event-tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;padding:2px 8px;border-radius:2px;background:rgba(45,125,210,0.1);color:#2d7dd2;border:1px solid rgba(45,125,210,0.3)}
-.scan{height:2px;background:linear-gradient(90deg,transparent,#a855f7,transparent)}
+.scan{height:2px;background:linear-gradient(90deg,transparent,#2d7dd2,transparent)}
 .ticker-label{font-size:9px;color:#8aa8c8;letter-spacing:2px;font-weight:700}
 .poly-section{padding:20px 32px;border-bottom:1px solid #0d1f3c;background:#030508}
 .poly-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:16px}
@@ -98,8 +98,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 .poly-vol{font-size:9px;color:#2a4a6b;letter-spacing:1px;margin-top:6px}
 .poly-loading{font-family:'Space Mono',monospace;font-size:10px;color:#2a4a6b;letter-spacing:2px;padding:20px 0}
 @media(max-width:768px){
-  .topbar{padding:10px 16px;gap:8px}
-  .topbar-tagline{font-size:8px;letter-spacing:2px}
+  .topbar{padding:8px 16px;gap:8px}
+  .topbar-tagline{display:none}
+  .topbar-divider{display:none}
   .ts#lastupdated{display:none}
   .hero{padding:16px}
   .hero-label{font-size:8px;letter-spacing:3px}
@@ -130,7 +131,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
   .event-grid{grid-template-columns:1fr;gap:10px}
   .scan{height:1px}
   .topbar-right{gap:12px}
-  .topbar-divider{display:none}
 }
 @media(max-width:480px){
   .summary{font-size:11px}
@@ -145,13 +145,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#04060f;color:#c8d4e8;min
 <div class="scan"></div>
 <div class="topbar">
   <div class="topbar-left">
-    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM%20TRANSPARENT%20%20PNG%20CROP.png" style="height:52px;width:auto;object-fit:contain" alt="PRISM"/>
+    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM%20TRANSPARENT%20%20PNG%20CROP.png" style="height:44px;width:auto;object-fit:contain" alt="PRISM"/>
     <div class="topbar-divider">
       <div class="topbar-tagline">SPACE & DEFENCE INTELLIGENCE</div>
     </div>
   </div>
   <div class="topbar-right">
-    <div id="moonphase" style="font-size:18px"></div>
+    <div id="moonphase" style="font-size:14px"></div>
     <div class="live"><div class="dot"></div>Live Intelligence</div>
     <div class="ts" id="datetime"></div>
     <div class="ts" id="lastupdated"></div>
