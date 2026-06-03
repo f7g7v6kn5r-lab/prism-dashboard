@@ -12,80 +12,75 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min-height:100vh}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
-.topbar{background:#0a1628;border-bottom:1px solid #0d1f3c;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
+@keyframes glowGreen{0%,100%{box-shadow:0 0 8px rgba(0,180,80,0.6),0 0 20px rgba(0,180,80,0.3)}50%{box-shadow:0 0 14px rgba(0,180,80,0.9),0 0 32px rgba(0,180,80,0.5)}}
+@keyframes glowRed{0%,100%{box-shadow:0 0 8px rgba(200,0,0,0.6),0 0 20px rgba(200,0,0,0.3)}50%{box-shadow:0 0 14px rgba(200,0,0,0.9),0 0 32px rgba(200,0,0,0.5)}}
+@keyframes glowOrange{0%,100%{box-shadow:0 0 8px rgba(200,100,0,0.6),0 0 20px rgba(200,100,0,0.3)}50%{box-shadow:0 0 14px rgba(200,100,0,0.9),0 0 32px rgba(200,100,0,0.5)}}
+@keyframes glowBlue{0%,100%{box-shadow:0 0 8px rgba(26,95,160,0.5),0 0 20px rgba(26,95,160,0.25)}50%{box-shadow:0 0 14px rgba(26,95,160,0.8),0 0 32px rgba(26,95,160,0.4)}}
+@keyframes glowGreenFrame{0%,100%{box-shadow:0 0 10px rgba(0,150,70,0.25)}50%{box-shadow:0 0 22px rgba(0,150,70,0.4)}}
+@keyframes glowRedFrame{0%,100%{box-shadow:0 0 10px rgba(200,0,0,0.2)}50%{box-shadow:0 0 22px rgba(200,0,0,0.35)}}
+@keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+
+.topbar{background:#d8e8f4;border-bottom:1.5px solid #b8cce0;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .topbar-left{display:flex;align-items:center;gap:14px}
-.topbar-divider{border-left:1px solid rgba(255,255,255,0.1);padding-left:14px}
-.topbar-tagline{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:rgba(255,255,255,0.3)}
+.topbar-divider{border-left:1px solid #a8c0d4;padding-left:14px}
+.topbar-tagline{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#3a5a7a}
 .topbar-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.live{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:3px;color:#4a9eff;font-family:'Space Mono',monospace}
-.dot{width:5px;height:5px;background:#00e87a;border-radius:50%;animation:pulse 2s infinite}
-.ts{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px}
+.live{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:3px;color:#1a5fa0;font-family:'Space Mono',monospace}
+.dot{width:5px;height:5px;background:#006830;border-radius:50%;animation:pulse 2s infinite}
+.ts{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px}
+.beta-badge{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#3a5a7a;border:1px solid #8aabbf;padding:2px 6px;border-radius:3px;align-self:flex-start;margin-top:8px}
+.early{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#c06000;margin-top:2px}
+.analyst-pill{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#005830;text-decoration:none;border:1px solid rgba(0,88,48,0.3);padding:5px 12px;border-radius:20px;background:rgba(0,88,48,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap}
+
 .ticker-wrap{background:#fff;border-bottom:1px solid #dce4ee;overflow:hidden;white-space:nowrap;padding:6px 0}
 .ticker-inner{display:inline-block;animation:ticker 40s linear infinite;will-change:transform}
 .ticker-label{font-size:9px;color:#506070;letter-spacing:2px;font-weight:600;font-family:'Space Mono',monospace}
-.hero{background:#fff;border-bottom:1px solid #dce4ee;padding:20px 32px}
-.hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#1a5fa0;margin-bottom:12px}
-.badges{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;padding:4px 12px;border-radius:3px;border:1px solid}
-.bullish{background:rgba(0,140,60,0.08);color:#005830;border-color:rgba(0,140,60,0.2)}
-.bearish{background:rgba(200,0,0,0.08);color:#900000;border-color:rgba(200,0,0,0.2)}
-.neutral{background:rgba(26,95,160,0.08);color:#0a3060;border-color:rgba(26,95,160,0.2)}
-.high{background:rgba(180,80,0,0.08);color:#803000;border-color:rgba(180,80,0,0.2)}
-.critical{background:rgba(200,0,0,0.08);color:#900000;border-color:rgba(200,0,0,0.2)}
-.medium{background:rgba(26,95,160,0.08);color:#0a3060;border-color:rgba(26,95,160,0.2)}
-.low{background:rgba(0,140,60,0.08);color:#005830;border-color:rgba(0,140,60,0.2)}
-.summary{font-size:13px;color:#2a3a4a;line-height:1.8;border-left:3px solid #1a5fa0;padding:10px 16px;background:rgba(26,95,160,0.04);border-radius:0 6px 6px 0;max-width:900px}
-.orr{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #dce4ee;background:#f8fafc}
-.ocard{padding:16px 32px;border-right:1px solid #dce4ee}
-.ocard:last-child{border-right:none}
-.olabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#008040;margin-bottom:8px}
-.rlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#cc0000;margin-bottom:8px}
-.otext{font-size:13px;color:#2a3a4a;line-height:1.6}
-.page{padding:20px 32px;display:flex;flex-direction:column;gap:0}
-.section-header{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
-.section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#1a5fa0;white-space:nowrap}
-.section-line{flex:1;height:1px;background:#ccd4de}
-.section-count{font-family:'Space Mono',monospace;font-size:7px;color:#8090a0;letter-spacing:1px;white-space:nowrap}
-.stories-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
-.stories-single{display:flex;flex-direction:column;gap:16px;margin-bottom:8px}
-.story{background:#fff;border:1.5px solid #dce4ee;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(10,22,40,0.06);transition:box-shadow 0.2s}
-.story:hover{box-shadow:0 4px 16px rgba(10,22,40,0.1)}
-.story.crit{border-top:4px solid #cc0000}
-.story.high-s{border-top:4px solid #c06000}
-.story.med-s{border-top:4px solid #1a5fa0}
-.story-img{width:100%;max-height:280px;min-height:160px;object-fit:contain;object-position:center center;display:block;background:#f0f4f8;border-bottom:1px solid #eef2f6}
-.story-meta{display:flex;align-items:center;gap:8px;padding:12px 16px 0;flex-wrap:wrap}
-.ub{font-family:'Space Mono',monospace;font-size:7px;padding:3px 7px;border-radius:3px;letter-spacing:1px;font-weight:700}
-.ub-break{background:#ffeeee;color:#cc0000}
-.ub-urgent{background:#fff3e8;color:#c06000}
-.ub-normal{background:#eef4ff;color:#1a5fa0}
-.story-region{font-family:'Space Mono',monospace;font-size:8px;color:#8090a0;letter-spacing:1px}
-.story-score{font-family:'Space Mono',monospace;font-size:7px;padding:3px 7px;border-radius:3px;margin-left:auto;font-weight:700}
-.sc-crit{background:#ffeeee;color:#cc0000}
-.sc-high{background:#fff3e8;color:#c06000}
-.sc-med{background:#eef4ff;color:#1a5fa0}
-.story-head{font-size:14px;font-weight:700;color:#0a1628;line-height:1.4;padding:10px 16px 6px}
-.story-teaser{font-size:12px;color:#506070;line-height:1.6;padding:0 16px 10px}
-.story-divider{height:1px;background:#eef2f6;margin:0 16px}
-.story-impl{font-size:11px;color:#1a5fa0;font-style:italic;border-left:3px solid #1a5fa0;padding:8px 12px;margin:10px 16px;background:rgba(26,95,160,0.04);border-radius:0 4px 4px 0;line-height:1.5}
-.story-footer{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 14px}
-.story-source{font-family:'Space Mono',monospace;font-size:9px;color:#1a5fa0;text-decoration:none;letter-spacing:1px}
-.story-source:hover{color:#0a3060}
-.story-read{font-family:'Space Mono',monospace;font-size:8px;color:#1a5fa0;letter-spacing:1px;background:#eef4ff;padding:4px 10px;border-radius:4px;border:1px solid rgba(26,95,160,0.2);cursor:pointer;text-decoration:none}
-.outlook-section{background:#fff;border-top:1px solid #dce4ee;border-bottom:1px solid #dce4ee;padding:20px 32px}
-.outlook-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+
+.hero{background:#fff;padding:22px 32px;border-bottom:1px solid #eef2f6}
+.hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#1a5fa0;margin-bottom:14px}
+.badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+
+.badge-bullish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:2px solid rgba(0,160,70,0.6);background:rgba(0,160,70,0.12);color:#005830;animation:glowGreen 2s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.badge-bearish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:2px solid rgba(200,0,0,0.6);background:rgba(200,0,0,0.1);color:#900000;animation:glowRed 2s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.badge-neutral{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:2px solid rgba(26,95,160,0.5);background:rgba(26,95,160,0.1);color:#0a3060;animation:glowBlue 2s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.badge-geo-low{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:2px solid rgba(0,160,70,0.5);background:rgba(0,160,70,0.1);color:#005830;animation:glowGreen 2s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.badge-geo-medium{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:2px solid rgba(26,95,160,0.5);background:rgba(26,95,160,0.1);color:#0a3060;animation:glowBlue 2s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.badge-geo-high{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:2px solid rgba(200,100,0,0.6);background:rgba(200,100,0,0.1);color:#802000;animation:glowOrange 2s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.badge-geo-critical{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:2px solid rgba(200,0,0,0.7);background:rgba(200,0,0,0.12);color:#900000;animation:glowRed 1.5s ease-in-out infinite,pulseScale 1.5s ease-in-out infinite;display:flex;align-items:center;gap:8px}
+.badge-dot{width:8px;height:8px;border-radius:50%;animation:pulse 1.5s ease-in-out infinite;flex-shrink:0}
+
+.summary{font-size:14px;color:#2a3a4a;line-height:1.8;border-left:4px solid #1a5fa0;padding:12px 16px;background:rgba(26,95,160,0.04);border-radius:0 6px 6px 0;max-width:960px}
+
+.orr{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 32px;background:#f0f2f5;border-bottom:1px solid #dce4ee}
+.ocard-green{background:#fff;border:2px solid rgba(0,140,60,0.35);border-radius:10px;overflow:hidden;animation:glowGreenFrame 2.5s ease-in-out infinite}
+.ocard-red{background:#fff;border:2px solid rgba(200,0,0,0.3);border-radius:10px;overflow:hidden;animation:glowRedFrame 2.5s ease-in-out infinite}
+.ocard-header-green{background:rgba(0,140,60,0.08);border-bottom:1.5px solid rgba(0,140,60,0.2);padding:12px 18px;display:flex;align-items:center;gap:10px}
+.ocard-header-red{background:rgba(200,0,0,0.06);border-bottom:1.5px solid rgba(200,0,0,0.15);padding:12px 18px;display:flex;align-items:center;gap:10px}
+.ocard-icon{font-size:18px}
+.ocard-title-green{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#005830;text-transform:uppercase}
+.ocard-title-red{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#900000;text-transform:uppercase}
+.ocard-body{padding:14px 18px}
+.ocard-text{font-size:14px;color:#2a3a4a;line-height:1.7}
+
+.outlook-section{background:#fff;border-bottom:1px solid #dce4ee;padding:22px 32px}
+.outlook-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.outlook-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#1a5fa0;white-space:nowrap}
+.outlook-line{flex:1;height:2px;background:#eef2f6;border-radius:1px}
+.outlook-sub{font-family:'Space Mono',monospace;font-size:9px;color:#8090a0;letter-spacing:2px;background:#f0f2f5;padding:3px 10px;border-radius:20px;border:1px solid #dce4ee;white-space:nowrap}
+.outlook-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .outlook-card{background:#f8fafc;border:1.5px solid #dce4ee;border-radius:8px;padding:16px}
-.outlook-domain{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;margin-bottom:8px}
+.outlook-domain{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:3px;margin-bottom:10px}
 .outlook-watch{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;margin-bottom:10px;padding:5px 10px;border:1px solid;border-radius:3px;display:inline-block}
 .outlook-signal{font-size:12px;color:#2a3a4a;line-height:1.6;margin-bottom:12px;border-left:2px solid #1a5fa0;padding-left:10px}
 .outlook-outcomes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .outlook-bull{background:rgba(0,140,60,0.06);border:1px solid rgba(0,140,60,0.2);border-radius:4px;padding:8px}
 .outlook-bear{background:rgba(200,0,0,0.06);border:1px solid rgba(200,0,0,0.2);border-radius:4px;padding:8px}
-.outlook-bull-label{font-family:'Space Mono',monospace;font-size:7px;color:#006830;letter-spacing:2px;margin-bottom:4px}
-.outlook-bear-label{font-family:'Space Mono',monospace;font-size:7px;color:#900000;letter-spacing:2px;margin-bottom:4px}
+.outlook-bull-label{font-family:'Space Mono',monospace;font-size:7px;color:#005830;letter-spacing:2px;margin-bottom:4px;font-weight:700}
+.outlook-bear-label{font-family:'Space Mono',monospace;font-size:7px;color:#900000;letter-spacing:2px;margin-bottom:4px;font-weight:700}
 .outlook-outcome-text{font-size:10px;color:#2a3a4a;line-height:1.5}
-.map-section{border-top:1px solid #dce4ee;border-bottom:1px solid #dce4ee;background:#fff}
+
+.map-section{border-bottom:1px solid #dce4ee;background:#fff}
 .map-header{padding:14px 32px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #dce4ee}
 .map-body{display:grid;grid-template-columns:60% 40%}
 .map-legend{display:flex;border-top:1px solid #dce4ee;background:#f8fafc}
@@ -93,11 +88,46 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
 .map-legend-item:last-child{border-right:none}
 .inc-panel{background:#f8fafc;border-left:1px solid #dce4ee;padding:14px;height:380px;overflow-y:auto}
 .inc-title{font-family:'Space Mono',monospace;font-size:8px;color:#8090a0;letter-spacing:2px;margin-bottom:10px}
-.poly-section{background:#f8fafc;border-bottom:1px solid #dce4ee;padding:20px 32px}
-.poly-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:16px}
+
+.page{padding:22px 32px;background:#f0f2f5}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;margin-top:10px}
+.section-header:first-child{margin-top:0}
+.section-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#1a5fa0;white-space:nowrap}
+.section-line{flex:1;height:2px;background:#ccd4de;border-radius:1px}
+.section-count{font-family:'Space Mono',monospace;font-size:9px;color:#8090a0;letter-spacing:1px;background:#fff;padding:3px 10px;border-radius:20px;border:1px solid #dce4ee;white-space:nowrap}
+.stories-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:10px}
+
+.story{background:#fff;border:1.5px solid #dce4ee;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(10,22,40,0.06);transition:box-shadow 0.2s}
+.story:hover{box-shadow:0 4px 16px rgba(10,22,40,0.1)}
+.story-crit{border-top:4px solid #cc0000}
+.story-high{border-top:4px solid #c06000}
+.story-med{border-top:4px solid #1a5fa0}
+.story-img{width:100%;max-height:300px;min-height:160px;object-fit:contain;object-position:center center;display:block;background:#f0f4f8;border-bottom:1px solid #eef2f6}
+.story-pad{padding:16px 18px}
+.story-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.ub{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:3px;font-weight:700}
+.ub-break{background:#ffeeee;color:#cc0000}
+.ub-urgent{background:#fff3e8;color:#c06000}
+.ub-normal{background:#eef4ff;color:#1a5fa0}
+.story-region{font-family:'Space Mono',monospace;font-size:9px;color:#8090a0;letter-spacing:1px}
+.story-score{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:3px;font-weight:700;margin-left:auto}
+.sc-crit{background:#ffeeee;color:#cc0000}
+.sc-high{background:#fff3e8;color:#c06000}
+.sc-med{background:#eef4ff;color:#1a5fa0}
+.story-head{font-size:18px;font-weight:700;color:#0a1628;line-height:1.3;margin-bottom:8px}
+.story-teaser{font-size:14px;color:#506070;line-height:1.7;margin-bottom:12px}
+.story-divider{height:1px;background:#eef2f6;margin-bottom:12px}
+.story-impl{font-size:13px;color:#1a5fa0;font-style:italic;border-left:3px solid #1a5fa0;padding:8px 12px;background:rgba(26,95,160,0.04);border-radius:0 4px 4px 0;line-height:1.5;margin-bottom:12px}
+.story-footer{display:flex;align-items:center;justify-content:space-between}
+.story-source{font-family:'Space Mono',monospace;font-size:10px;color:#1a5fa0;text-decoration:none;letter-spacing:1px}
+.story-source:hover{color:#0a3060}
+.story-read{font-family:'Space Mono',monospace;font-size:9px;color:#1a5fa0;letter-spacing:1px;background:#eef4ff;padding:5px 12px;border-radius:4px;border:1px solid rgba(26,95,160,0.2);text-decoration:none}
+
+.poly-section{background:#f8fafc;border-bottom:1px solid #dce4ee;padding:22px 32px}
+.poly-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
 .poly-card{background:#fff;border:1.5px solid #dce4ee;border-radius:8px;padding:14px;transition:border-color 0.2s;cursor:pointer}
 .poly-card:hover{border-color:#1a5fa0}
-.poly-question{font-size:12px;font-weight:600;color:#0a1628;line-height:1.5;margin-bottom:10px}
+.poly-question{font-size:13px;font-weight:600;color:#0a1628;line-height:1.5;margin-bottom:10px}
 .poly-bar-wrap{height:5px;background:#eef2f6;border-radius:3px;margin-bottom:6px;overflow:hidden}
 .poly-bar{height:5px;border-radius:3px}
 .poly-odds{display:flex;justify-content:space-between}
@@ -105,61 +135,63 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
 .poly-no{font-family:'Space Mono',monospace;font-size:11px;color:#8090a0}
 .poly-vol{font-size:9px;color:#8090a0;letter-spacing:1px;margin-top:6px;font-family:'Space Mono',monospace}
 .poly-loading{font-family:'Space Mono',monospace;font-size:10px;color:#8090a0;letter-spacing:2px;padding:20px 0}
-.stocks-section{background:#fff;border-bottom:1px solid #dce4ee;padding:20px 32px}
+
+.stocks-section{background:#fff;border-bottom:1px solid #dce4ee;padding:22px 32px}
 .stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
 .stock-card{background:#f8fafc;border:1.5px solid #dce4ee;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
 .stock-ticker{font-family:'Space Mono',monospace;font-size:11px;color:#0a1628;font-weight:700;letter-spacing:2px}
 .stock-name{font-size:10px;color:#8090a0;margin-top:2px}
 .stock-price{font-size:13px;color:#0a1628;font-weight:600;text-align:right}
-.stock-up{font-size:11px;color:#006830;text-align:right}
-.stock-dn{font-size:11px;color:#cc0000;text-align:right}
+.stock-up{font-size:11px;color:#006830;text-align:right;font-weight:600}
+.stock-dn{font-size:11px;color:#cc0000;text-align:right;font-weight:600}
 .stock-private{font-size:10px;color:#8090a0;text-align:right}
-.sector-note{margin-top:14px;font-size:12px;color:#1a5fa0;font-style:italic;border-top:1px solid #dce4ee;padding-top:12px}
-.events-section{background:#f8fafc;border-bottom:1px solid #dce4ee;padding:20px 32px}
-.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+.sector-note{margin-top:14px;font-size:13px;color:#1a5fa0;font-style:italic;border-top:1px solid #dce4ee;padding-top:12px}
+
+.events-section{background:#f8fafc;border-bottom:1px solid #dce4ee;padding:22px 32px}
+.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
 .event-card{background:#fff;border:1.5px solid #dce4ee;border-radius:8px;padding:16px}
 .event-date{font-family:'Space Mono',monospace;font-size:9px;color:#1a5fa0;letter-spacing:2px;margin-bottom:6px}
-.event-name{font-size:13px;font-weight:600;color:#0a1628;margin-bottom:4px}
-.event-loc{font-size:11px;color:#506070}
+.event-name{font-size:14px;font-weight:700;color:#0a1628;margin-bottom:4px}
+.event-loc{font-size:12px;color:#506070}
 .event-tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:1px;padding:3px 10px;border-radius:3px;background:rgba(26,95,160,0.08);color:#0a3060;border:1px solid rgba(26,95,160,0.2);font-family:'Space Mono',monospace}
+
 .sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.st{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#1a5fa0}
-.sl{flex:1;height:1px;background:#dce4ee}
+.st{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#1a5fa0}
+.sl{flex:1;height:2px;background:#dce4ee;border-radius:1px}
+
 .footer{padding:14px 32px;display:flex;justify-content:space-between;background:#0a1628;flex-wrap:wrap;gap:8px}
 .footer-text{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:3px}
-.scan{height:3px;background:linear-gradient(90deg,#0a1628,#1a5fa0,#0a1628)}
+.scan{height:3px;background:linear-gradient(90deg,#b8cce0,#1a5fa0,#b8cce0)}
+
 @media(max-width:768px){
   .topbar{padding:10px 16px;flex-direction:column;align-items:center;text-align:center;gap:6px}
   .topbar-left{flex-direction:column;align-items:center;gap:4px}
-  .topbar-divider{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,0.1);padding-top:4px;width:100%;text-align:center}
+  .topbar-divider{border-left:none;padding-left:0;border-top:1px solid #a8c0d4;padding-top:4px;width:100%;text-align:center}
   .topbar-right{justify-content:center;gap:12px}
-  .hero{padding:14px 16px}
-  .orr{grid-template-columns:1fr}
-  .ocard{border-right:none;border-bottom:1px solid #dce4ee;padding:12px 16px}
-  .ocard:last-child{border-bottom:none}
-  .page{padding:14px 16px}
+  .hero{padding:16px}
+  .orr{grid-template-columns:1fr;padding:16px}
+  .page{padding:16px}
   .stories-grid{grid-template-columns:1fr}
+  .outlook-section{padding:16px}
+  .outlook-grid{grid-template-columns:1fr}
+  .outlook-outcomes{grid-template-columns:1fr}
   .map-body{grid-template-columns:1fr}
   .inc-panel{height:200px;border-left:none;border-top:1px solid #dce4ee}
   .map-legend{flex-wrap:wrap}
   .map-legend-item{flex:0 0 33.33%}
-  .outlook-grid{grid-template-columns:1fr}
-  .outlook-outcomes{grid-template-columns:1fr}
-  .stocks-grid{grid-template-columns:1fr 1fr}
-  .event-grid{grid-template-columns:1fr}
-  .poly-grid{grid-template-columns:1fr}
-  .poly-section{padding:14px 16px}
-  .stocks-section{padding:14px 16px}
-  .events-section{padding:14px 16px}
-  .outlook-section{padding:14px 16px}
-  .footer{padding:12px 16px}
   .map-header{padding:12px 16px}
+  .poly-section{padding:16px}
+  .poly-grid{grid-template-columns:1fr}
+  .stocks-section{padding:16px}
+  .stocks-grid{grid-template-columns:1fr 1fr}
+  .events-section{padding:16px}
+  .event-grid{grid-template-columns:1fr}
+  .footer{padding:12px 16px}
+  .badges{gap:8px}
 }
 @media(max-width:480px){
-  .stories-grid{grid-template-columns:1fr}
   .stocks-grid{grid-template-columns:1fr}
-  .badges{gap:6px}
-  .badge{font-size:7px;padding:3px 8px}
+  .badge-bullish,.badge-bearish,.badge-neutral,.badge-geo-low,.badge-geo-medium,.badge-geo-high,.badge-geo-critical{font-size:9px;padding:5px 12px}
 }
 </style>
 </head>
@@ -168,14 +200,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
 <div class="topbar">
   <div class="topbar-left">
     <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:60px;width:auto;object-fit:contain" alt="PRISM"/>
-    <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.15);padding:2px 6px;border-radius:3px;align-self:flex-start;margin-top:8px">BETA</span>
+    <span class="beta-badge">BETA</span>
     <div class="topbar-divider">
       <div class="topbar-tagline">SPACE & DEFENCE INTELLIGENCE</div>
-      <div style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#ff8c00;margin-top:2px">◈ EARLY ACCESS BETA</div>
+      <div class="early">◈ EARLY ACCESS BETA</div>
     </div>
   </div>
   <div class="topbar-right">
-    <a href="https://prism-consultant.vercel.app" target="_blank" style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#00e87a;text-decoration:none;border:1px solid rgba(0,232,122,0.4);padding:5px 12px;border-radius:20px;background:rgba(0,232,122,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap">◈ PRISM ANALYST</a>
+    <a href="https://prism-consultant.vercel.app" target="_blank" class="analyst-pill">◈ PRISM ANALYST</a>
     <div id="moonphase" style="font-size:16px"></div>
     <div class="live"><div class="dot"></div>Live Intelligence</div>
     <div class="ts" id="datetime"></div>
@@ -260,30 +292,35 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
 <div class="hero">
   <div class="hero-label">◈ Executive Intelligence Briefing</div>
   <div class="badges">
-    <div class="badge bullish">
-      BULLISH
-    </div>
-    <div class="badge high">
-      ⚡ Geo Risk: HIGH
-    </div>
+    <div class="badge-bullish"><div class="badge-dot" style="background:#00b050"></div>BULLISH</div><div class="badge-geo-high"><div class="badge-dot" style="background:#c06000"></div>⚡ GEO RISK: HIGH</div>
   </div>
   <div class="summary">Mounting conflict intensity across the Gulf and Eastern Europe is accelerating the structural convergence of commercial space infrastructure with active warfighting requirements, as drone proliferation, laser weapon timelines, and ISR satellite demand all tighten simultaneously around the same geopolitical fault lines. The contradiction sits between SpaceX targeting a $1.75 trillion IPO valuation on the back of Starlink dominance while Blue Origin suffers a catastrophic launch pad explosion — the divergence signals that concentration risk in Western launch capability is not a sentiment story but a hard operational constraint that defence procurement officers and satellite operators must price now. Watch whether the FAA grants or delays Starship return-to-flight clearance in the next 72 hours, because if the mishap investigation extends beyond June, the combined Starlink cadence pressure and Blue Origin gap will force NATO and allied governments to accelerate sovereign launch procurement decisions with immediate contract implications.</div>
 </div>
 <div class="orr">
-  <div class="ocard">
-    <div class="olabel">▲ Opportunity of the Day</div>
-    <div class="otext">ASTS long exposure offers the highest near-term asymmetry as direct-to-device connectivity demand intersects with both commercial scale and military PACE communications requirements validated by todays price action.</div>
+  <div class="ocard-green">
+    <div class="ocard-header-green">
+      <div class="ocard-icon">▲</div>
+      <div class="ocard-title-green">Opportunity of the Day</div>
+    </div>
+    <div class="ocard-body">
+      <div class="ocard-text">ASTS long exposure offers the highest near-term asymmetry as direct-to-device connectivity demand intersects with both commercial scale and military PACE communications requirements validated by todays price action.</div>
+    </div>
   </div>
-  <div class="ocard">
-    <div class="rlabel">▼ Risk Assessment</div>
-    <div class="otext">Any deterioration in US-Iran nuclear talks or further Gulf maritime strikes could trigger oil price spikes and risk-off rotation that pressures defence primes while paradoxically lifting pure-play ISR and space names on conflict premium.</div>
+  <div class="ocard-red">
+    <div class="ocard-header-red">
+      <div class="ocard-icon">▼</div>
+      <div class="ocard-title-red">Risk of the Day</div>
+    </div>
+    <div class="ocard-body">
+      <div class="ocard-text">Any deterioration in US-Iran nuclear talks or further Gulf maritime strikes could trigger oil price spikes and risk-off rotation that pressures defence primes while paradoxically lifting pure-play ISR and space names on conflict premium.</div>
+    </div>
   </div>
 </div>
 <div class="outlook-section">
-  <div class="sh">
-    <div class="st">🔭 Predictive Intelligence Signals</div>
-    <div class="sl"></div>
-    <div style="font-size:9px;color:#8090a0;letter-spacing:2px;font-family:'Space Mono',monospace">POWERED BY PRISM AI</div>
+  <div class="outlook-header">
+    <div class="outlook-title">🔭 Predictive Intelligence Signals</div>
+    <div class="outlook-line"></div>
+    <div class="outlook-sub">POWERED BY PRISM AI</div>
   </div>
   <div class="outlook-grid">
     <div class="outlook-card" style="border-top:3px solid #1a5fa0">
@@ -317,7 +354,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
   <div class="map-header">
     <div class="st">🌍 Global Intelligence Map</div>
     <div class="sl"></div>
-    <span id="incident-count" style="font-size:9px;color:#1a5fa0;letter-spacing:2px;font-family:'Space Mono',monospace">LIVE · 0 INCIDENTS</span>
+    <span id="incident-count" style="font-size:9px;color:#1a5fa0;letter-spacing:2px;font-family:'Space Mono',monospace;background:#fff;padding:3px 10px;border-radius:20px;border:1px solid #dce4ee">LIVE · 0 INCIDENTS</span>
   </div>
   <div class="map-body">
     <div id="prism-map" style="height:380px"></div>
@@ -327,12 +364,12 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
     </div>
   </div>
   <div class="map-legend">
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#1a5fa0"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">SPACE</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#cc0000"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">DEFENCE</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#c06000"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">MID EAST</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#006830"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">INVEST</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#6030a0"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">AI TECH</span></div>
-    <div class="map-legend-item"><div style="width:5px;height:5px;border-radius:50%;background:#806000"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">IPO</span></div>
+    <div class="map-legend-item"><div style="width:6px;height:6px;border-radius:50%;background:#1a5fa0"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">SPACE</span></div>
+    <div class="map-legend-item"><div style="width:6px;height:6px;border-radius:50%;background:#cc0000"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">DEFENCE</span></div>
+    <div class="map-legend-item"><div style="width:6px;height:6px;border-radius:50%;background:#c06000"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">MID EAST</span></div>
+    <div class="map-legend-item"><div style="width:6px;height:6px;border-radius:50%;background:#006830"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">INVEST</span></div>
+    <div class="map-legend-item"><div style="width:6px;height:6px;border-radius:50%;background:#6030a0"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">AI TECH</span></div>
+    <div class="map-legend-item"><div style="width:6px;height:6px;border-radius:50%;background:#806000"></div><span style="font-size:8px;color:#8090a0;font-family:'Space Mono',monospace;letter-spacing:1px">IPO</span></div>
   </div>
 </div>
 <div class="page">
@@ -343,105 +380,117 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
           <div class="section-count">6 STORIES · TOP 95</div>
         </div>
         <div class="stories-grid">
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://cdn.geekwire.com/wp-content/uploads/2026/06/260602-beforeafter.jpg" class="story-img" alt="New Glenn Explodes at LC-36, Blue Origin Targets Year-End RTF" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-break">BREAKING</span>
-            <span class="story-region">North America</span>
-            <span class="story-score sc-crit">CRITICAL · 95</span>
-          </div>
-          <div class="story-head">New Glenn Explodes at LC-36, Blue Origin Targets Year-End RTF</div>
-          <div class="story-teaser">Blue Origin CEO Dave Limp confirmed the New Glenn rocket suffered a catastrophic explosion during a static fire test at Launch Complex 36 in Cape Canaveral, destroying the pad and the vehicle. Limp has pledged to repair the launch pad and return to flight before the end of 2026, calling the pad condition better than initially feared.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ The loss of New Glenn and LC-36 removes a critical second heavy-lift competitive node from the Western launch market, concentrating scheduling and pricing power further in SpaceX and raising urgent questions for DoD and commercial customers with manifested payloads.</div>
-          <div class="story-footer">
-            <a href="https://www.geekwire.com/2026/blue-origin-fix-launch-pad-return-flight/" target="_blank" class="story-source">▸ geekwire</a>
-            <a href="https://www.geekwire.com/2026/blue-origin-fix-launch-pad-return-flight/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 95</span>
+            </div>
+            <div class="story-head">New Glenn Explodes at LC-36, Blue Origin Targets Year-End RTF</div>
+            <div class="story-teaser">Blue Origin CEO Dave Limp confirmed the New Glenn rocket suffered a catastrophic explosion during a static fire test at Launch Complex 36 in Cape Canaveral, destroying the pad and the vehicle. Limp has pledged to repair the launch pad and return to flight before the end of 2026, calling the pad condition better than initially feared.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ The loss of New Glenn and LC-36 removes a critical second heavy-lift competitive node from the Western launch market, concentrating scheduling and pricing power further in SpaceX and raising urgent questions for DoD and commercial customers with manifested payloads.</div>
+            <div class="story-footer">
+              <a href="https://www.geekwire.com/2026/blue-origin-fix-launch-pad-return-flight/" target="_blank" class="story-source">▸ geekwire</a>
+              <a href="https://www.geekwire.com/2026/blue-origin-fix-launch-pad-return-flight/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://d.ibtimes.com/en/full/4639078/spacex-rocket-ship-launching.jpg?w=1600&h=900&q=88&f=cff4c4a09b2db91b08c63c3d799094a8" class="story-img" alt="SpaceX Eyes $1.75T Valuation in Historic IPO" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">North America</span>
-            <span class="story-score sc-crit">CRITICAL · 88</span>
-          </div>
-          <div class="story-head">SpaceX Eyes $1.75T Valuation in Historic IPO</div>
-          <div class="story-teaser">SpaceX is targeting a valuation of approximately $1.75 trillion in its planned initial public offering, which is expected to raise at least $75 billion and rank among the largest stock market listings ever recorded. The timing places the IPO in a market environment where Starlink dominance, Falcon 9 cadence records, and Starship development all serve as valuation anchors.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A SpaceX IPO at this scale would restructure capital allocation across the entire space sector, drawing institutional flows away from smaller listed space names and resetting comparable multiples for every publicly traded launch and satellite operator.</div>
-          <div class="story-footer">
-            <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-source">▸ ibtimes</a>
-            <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-read">READ FULL STORY ↗</a>
-          </div>
-        </div>
-      
-        <div class="story crit">
-          
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">North America</span>
-            <span class="story-score sc-crit">CRITICAL · 75</span>
-          </div>
-          <div class="story-head">ULA Launches 29 Amazon LEO Satellites on Atlas 5</div>
-          <div class="story-teaser">ULA successfully launched 29 Amazon LEO satellites aboard an Atlas 5 rocket from Cape Canaveral, continuing the build-out of Amazon LEO broadband constellation. The mission reflects the accelerating tempo of competing broadband LEO deployments as Amazon LEO races to achieve operational service thresholds.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Each successful Amazon LEO batch launch narrows the operational gap with Starlink, intensifying commercial and government broadband competition and validating ULA as a reliable heavy-lift alternative at a moment when Blue Origin has lost its launch vehicle.</div>
-          <div class="story-footer">
-            <a href="https://spaceflightnow.com/2026/05/29/live-coverage-ula-to-launch-29-amazon-leo-satellites-on-atlas-5-rocket-from-cape-canaveral-2/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
-            <a href="https://spaceflightnow.com/2026/05/29/live-coverage-ula-to-launch-29-amazon-leo-satellites-on-atlas-5-rocket-from-cape-canaveral-2/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 88</span>
+            </div>
+            <div class="story-head">SpaceX Eyes $1.75T Valuation in Historic IPO</div>
+            <div class="story-teaser">SpaceX is targeting a valuation of approximately $1.75 trillion in its planned initial public offering, which is expected to raise at least $75 billion and rank among the largest stock market listings ever recorded. The timing places the IPO in a market environment where Starlink dominance, Falcon 9 cadence records, and Starship development all serve as valuation anchors.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A SpaceX IPO at this scale would restructure capital allocation across the entire space sector, drawing institutional flows away from smaller listed space names and resetting comparable multiples for every publicly traded launch and satellite operator.</div>
+            <div class="story-footer">
+              <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-source">▸ ibtimes</a>
+              <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-crit">
           
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">Global</span>
-            <span class="story-score sc-high">HIGH · 65</span>
-          </div>
-          <div class="story-head">Global SSA Market Forecast to Reach $61 Billion</div>
-          <div class="story-teaser">A new market analysis projects the global Space Situational Awareness market will reach $61 billion as governments worldwide accelerate investment in space security, orbital safety, and resilience capabilities. The growth is driven by rising congestion in LEO, increased dual-use satellite deployments, and expanding counter-space threat environments.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A $61 billion SSA market projection provides strong demand-side validation for listed ISR and tracking companies including PL and BKSY, both of which posted over 3.5 percent gains today, signalling investors are already pricing this trajectory.</div>
-          <div class="story-footer">
-            <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-source">▸ SpaceAgenda</a>
-            <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 75</span>
+            </div>
+            <div class="story-head">ULA Launches 29 Amazon LEO Satellites on Atlas 5</div>
+            <div class="story-teaser">ULA successfully launched 29 Amazon LEO satellites aboard an Atlas 5 rocket from Cape Canaveral, continuing the build-out of Amazon LEO broadband constellation. The mission reflects the accelerating tempo of competing broadband LEO deployments as Amazon LEO races to achieve operational service thresholds.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Each successful Amazon LEO batch launch narrows the operational gap with Starlink, intensifying commercial and government broadband competition and validating ULA as a reliable heavy-lift alternative at a moment when Blue Origin has lost its launch vehicle.</div>
+            <div class="story-footer">
+              <a href="https://spaceflightnow.com/2026/05/29/live-coverage-ula-to-launch-29-amazon-leo-satellites-on-atlas-5-rocket-from-cape-canaveral-2/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <a href="https://spaceflightnow.com/2026/05/29/live-coverage-ula-to-launch-29-amazon-leo-satellites-on-atlas-5-rocket-from-cape-canaveral-2/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">North America</span>
-            <span class="story-score sc-high">HIGH · 62</span>
-          </div>
-          <div class="story-head">Impulse Space Raises $500 Million in New Round</div>
-          <div class="story-teaser">Impulse Space has raised $500 million in a new funding round, marking one of the largest single capital raises for an in-space transportation company to date. The funding will accelerate development of orbital transfer vehicles designed to deliver payloads to precise orbits beyond what launch vehicles alone can achieve.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A $500 million raise for in-space transportation infrastructure signals that institutional capital now views last-mile orbital logistics as a fundable and near-term commercial category, with direct implications for defence payload deployment flexibility.</div>
-          <div class="story-footer">
-            <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-source">▸ SpaceAgenda</a>
-            <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 65</span>
+            </div>
+            <div class="story-head">Global SSA Market Forecast to Reach $61 Billion</div>
+            <div class="story-teaser">A new market analysis projects the global Space Situational Awareness market will reach $61 billion as governments worldwide accelerate investment in space security, orbital safety, and resilience capabilities. The growth is driven by rising congestion in LEO, increased dual-use satellite deployments, and expanding counter-space threat environments.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A $61 billion SSA market projection provides strong demand-side validation for listed ISR and tracking companies including PL and BKSY, both of which posted over 3.5 percent gains today, signalling investors are already pricing this trajectory.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">North America</span>
-            <span class="story-score sc-high">HIGH · 60</span>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 62</span>
+            </div>
+            <div class="story-head">Impulse Space Raises $500 Million in New Round</div>
+            <div class="story-teaser">Impulse Space has raised $500 million in a new funding round, marking one of the largest single capital raises for an in-space transportation company to date. The funding will accelerate development of orbital transfer vehicles designed to deliver payloads to precise orbits beyond what launch vehicles alone can achieve.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A $500 million raise for in-space transportation infrastructure signals that institutional capital now views last-mile orbital logistics as a fundable and near-term commercial category, with direct implications for defence payload deployment flexibility.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
-          <div class="story-head">NRO Nominee Says AI and Commercial Space Reshape Agency</div>
-          <div class="story-teaser">The nominee to lead the National Reconnaissance Office told senators that commercial space capabilities and artificial intelligence are fundamentally reshaping how the spy satellite agency sources and processes intelligence. The statement signals a structural shift toward hybrid architectures blending government and commercial ISR assets.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ NRO leadership openly endorsing commercial ISR integration accelerates procurement pathways for companies like Planet Labs and BlackSky, directly supporting the stock gains both names posted today.</div>
-          <div class="story-footer">
-            <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-source">▸ SpaceAgenda</a>
-            <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+        </div>
+      
+        <div class="story story-high">
+          
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 60</span>
+            </div>
+            <div class="story-head">NRO Nominee Says AI and Commercial Space Reshape Agency</div>
+            <div class="story-teaser">The nominee to lead the National Reconnaissance Office told senators that commercial space capabilities and artificial intelligence are fundamentally reshaping how the spy satellite agency sources and processes intelligence. The statement signals a structural shift toward hybrid architectures blending government and commercial ISR assets.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ NRO leadership openly endorsing commercial ISR integration accelerates procurement pathways for companies like Planet Labs and BlackSky, directly supporting the stock gains both names posted today.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -452,88 +501,98 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
           <div class="section-count">5 STORIES · TOP 92</div>
         </div>
         <div class="stories-grid">
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://images.timesnownews.com/thumb/msid-154442768,width-1280,height-720,resizemode-75/154442768.jpg" class="story-img" alt="Pentagon Launches $54B Drone Procurement Push" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">North America</span>
-            <span class="story-score sc-crit">CRITICAL · 92</span>
-          </div>
-          <div class="story-head">Pentagon Launches $54B Drone Procurement Push</div>
-          <div class="story-teaser">The Pentagon has announced a $54 billion investment programme targeting a new wave of drone manufacturers including startups and former hobbyists, aimed at rapidly scaling US military drone capabilities in response to lessons drawn from recent conflicts in Ukraine and the Middle East. The programme marks the largest single drone procurement initiative in US history and explicitly targets non-traditional vendors to diversify the industrial base.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A $54 billion drone mandate restructures the defence industrial base in real time, creating immediate contract opportunities for agile small-cap drone and loitering munition firms while pressuring legacy primes to accelerate uncrewed system divisions or risk displacement.</div>
-          <div class="story-footer">
-            <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-source">▸ timesnownews</a>
-            <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 92</span>
+            </div>
+            <div class="story-head">Pentagon Launches $54B Drone Procurement Push</div>
+            <div class="story-teaser">The Pentagon has announced a $54 billion investment programme targeting a new wave of drone manufacturers including startups and former hobbyists, aimed at rapidly scaling US military drone capabilities in response to lessons drawn from recent conflicts in Ukraine and the Middle East. The programme marks the largest single drone procurement initiative in US history and explicitly targets non-traditional vendors to diversify the industrial base.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A $54 billion drone mandate restructures the defence industrial base in real time, creating immediate contract opportunities for agile small-cap drone and loitering munition firms while pressuring legacy primes to accelerate uncrewed system divisions or risk displacement.</div>
+            <div class="story-footer">
+              <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-source">▸ timesnownews</a>
+              <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://static-cdn.toi-media.com/www/uploads/2026/05/AFP__20260517__B33V9G3__v5__HighRes__FilesUaeIranUsIsraelWarNuclear.jpg" class="story-img" alt="Drone Strike Hits UAE Barakah Nuclear Plant" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-break">BREAKING</span>
-            <span class="story-region">Middle East</span>
-            <span class="story-score sc-crit">CRITICAL · 90</span>
-          </div>
-          <div class="story-head">Drone Strike Hits UAE Barakah Nuclear Plant</div>
-          <div class="story-teaser">The IAEA has offered the UAE formal support following a recent drone attack on the Barakah nuclear power facility that UN nuclear chief Rafael Grossi described as carefully targeted, stating the attackers knew exactly what they were doing. The UAE has attributed the attack to Iraqi militias, and Grossi called the incident a matter of extreme gravity.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A precision drone strike on a Gulf nuclear facility elevates the strategic risk calculus for all critical infrastructure in the region and will accelerate UAE investment in layered counter-drone and hard-kill point defence systems at the highest priority level.</div>
-          <div class="story-footer">
-            <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-source">▸ timesofisrael</a>
-            <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Middle East</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">Drone Strike Hits UAE Barakah Nuclear Plant</div>
+            <div class="story-teaser">The IAEA has offered the UAE formal support following a recent drone attack on the Barakah nuclear power facility that UN nuclear chief Rafael Grossi described as carefully targeted, stating the attackers knew exactly what they were doing. The UAE has attributed the attack to Iraqi militias, and Grossi called the incident a matter of extreme gravity.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A precision drone strike on a Gulf nuclear facility elevates the strategic risk calculus for all critical infrastructure in the region and will accelerate UAE investment in layered counter-drone and hard-kill point defence systems at the highest priority level.</div>
+            <div class="story-footer">
+              <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-source">▸ timesofisrael</a>
+              <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">Middle East</span>
-            <span class="story-score sc-crit">CRITICAL · 85</span>
-          </div>
-          <div class="story-head">Hezbollah Fibre-Optic Drones Expose Israeli C-UAV Gap</div>
-          <div class="story-teaser">Hezbollah has deployed fibre-optic guided drones in southern Lebanon that operate outside the radio-frequency jamming envelope used by most Israeli counter-UAV systems, exposing a significant gap in Israels defensive architecture in contested terrain. The development marks a tactical evolution that renders many existing electronic warfare counter-drone tools ineffective against hardened guidance links.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Fibre-optic drone proliferation signals that the next generation of counter-UAV investment must shift from RF jamming to kinetic and directed-energy intercept solutions, reshaping procurement priorities for Israel, NATO, and Gulf states simultaneously.</div>
-          <div class="story-footer">
-            <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-source">▸ Shephard Media</a>
-            <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Middle East</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
+            </div>
+            <div class="story-head">Hezbollah Fibre-Optic Drones Expose Israeli C-UAV Gap</div>
+            <div class="story-teaser">Hezbollah has deployed fibre-optic guided drones in southern Lebanon that operate outside the radio-frequency jamming envelope used by most Israeli counter-UAV systems, exposing a significant gap in Israels defensive architecture in contested terrain. The development marks a tactical evolution that renders many existing electronic warfare counter-drone tools ineffective against hardened guidance links.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Fibre-optic drone proliferation signals that the next generation of counter-UAV investment must shift from RF jamming to kinetic and directed-energy intercept solutions, reshaping procurement priorities for Israel, NATO, and Gulf states simultaneously.</div>
+            <div class="story-footer">
+              <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-source">▸ Shephard Media</a>
+              <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">North America</span>
-            <span class="story-score sc-crit">CRITICAL · 82</span>
-          </div>
-          <div class="story-head">US Military Targets Battle-Ready Lasers by 2028</div>
-          <div class="story-teaser">The US military has set a formal 2028 target to showcase battle-ready directed-energy laser weapons, with programmes now accelerating across all services to field operationally viable systems against drone and missile threats. The timeline reflects urgency driven by real-world drone saturation attacks observed in Ukraine and the Gulf.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A credible 2028 fielding target for laser weapons compresses the commercial investment window for directed-energy suppliers and positions the category as a near-term rather than speculative procurement line, directly relevant to companies with DE programmes in their portfolio.</div>
-          <div class="story-footer">
-            <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-source">▸ Defense News</a>
-            <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 82</span>
+            </div>
+            <div class="story-head">US Military Targets Battle-Ready Lasers by 2028</div>
+            <div class="story-teaser">The US military has set a formal 2028 target to showcase battle-ready directed-energy laser weapons, with programmes now accelerating across all services to field operationally viable systems against drone and missile threats. The timeline reflects urgency driven by real-world drone saturation attacks observed in Ukraine and the Gulf.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A credible 2028 fielding target for laser weapons compresses the commercial investment window for directed-energy suppliers and positions the category as a near-term rather than speculative procurement line, directly relevant to companies with DE programmes in their portfolio.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://bostonglobe-bostonglobe-prod.web.arc-cdn.net/resizer/v2/O2U436ZMCNEP7JMEZYHVQEKNTQ.jpg?auth=7308631b0711e2e894491a405bffe5a23a1e571579f44e7c970b850a04c6f83f&smart=true&width=4905&height=3270" class="story-img" alt="Russia Kills 22 in Mass Ukraine Drone-Missile Strike" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-break">BREAKING</span>
-            <span class="story-region">Europe</span>
-            <span class="story-score sc-crit">CRITICAL · 80</span>
-          </div>
-          <div class="story-head">Russia Kills 22 in Mass Ukraine Drone-Missile Strike</div>
-          <div class="story-teaser">Russia launched hundreds of drones and dozens of missiles at Ukraine in one of the heaviest attacks of the conflict, killing 22 people and wounding over 130 while cutting power to thousands. President Zelenskyy warned a new ground assault may be imminent as Russian front-line advances have slowed, suggesting Moscow is shifting to infrastructure attrition to compensate for stalled territorial gains.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Continued mass Russian strikes validate sustained European defence spending commitments and reinforce demand for air defence systems, ISR assets, and resilient communications infrastructure across the entire NATO eastern flank.</div>
-          <div class="story-footer">
-            <a href="https://www.staradvertiser.com/2026/06/02/breaking-news/russian-bombardment-kills-22-cuts-power-to-thousands-in-ukraine/" target="_blank" class="story-source">▸ staradvertiser</a>
-            <a href="https://www.staradvertiser.com/2026/06/02/breaking-news/russian-bombardment-kills-22-cuts-power-to-thousands-in-ukraine/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Europe</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">Russia Kills 22 in Mass Ukraine Drone-Missile Strike</div>
+            <div class="story-teaser">Russia launched hundreds of drones and dozens of missiles at Ukraine in one of the heaviest attacks of the conflict, killing 22 people and wounding over 130 while cutting power to thousands. President Zelenskyy warned a new ground assault may be imminent as Russian front-line advances have slowed, suggesting Moscow is shifting to infrastructure attrition to compensate for stalled territorial gains.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Continued mass Russian strikes validate sustained European defence spending commitments and reinforce demand for air defence systems, ISR assets, and resilient communications infrastructure across the entire NATO eastern flank.</div>
+            <div class="story-footer">
+              <a href="https://www.staradvertiser.com/2026/06/02/breaking-news/russian-bombardment-kills-22-cuts-power-to-thousands-in-ukraine/" target="_blank" class="story-source">▸ staradvertiser</a>
+              <a href="https://www.staradvertiser.com/2026/06/02/breaking-news/russian-bombardment-kills-22-cuts-power-to-thousands-in-ukraine/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -544,105 +603,117 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
           <div class="section-count">6 STORIES · TOP 95</div>
         </div>
         <div class="stories-grid">
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://static-cdn.toi-media.com/www/uploads/2026/05/AFP__20260517__B33V9G3__v5__HighRes__FilesUaeIranUsIsraelWarNuclear.jpg" class="story-img" alt="Drone Attack Hits UAE Barakah Nuclear Plant" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-break">BREAKING</span>
-            <span class="story-region">United Arab Emirates</span>
-            <span class="story-score sc-crit">CRITICAL · 95</span>
-          </div>
-          <div class="story-head">Drone Attack Hits UAE Barakah Nuclear Plant</div>
-          <div class="story-teaser">The IAEA chief visited the Barakah nuclear facility in the UAE after a drone strike described as carefully targeted, with attackers said to have known exactly what they were doing. The UAE has blamed Iraqi militias for the attack, which the IAEA called a matter of extreme gravity.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A precision strike on a civil nuclear facility signals that non-state actors now possess the targeting intelligence and drone capability to threaten critical energy infrastructure across the Gulf, raising the risk calculus for defence operators and regional insurers.</div>
-          <div class="story-footer">
-            <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-source">▸ timesofisrael</a>
-            <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">United Arab Emirates</span>
+              <span class="story-score sc-crit">CRITICAL · 95</span>
+            </div>
+            <div class="story-head">Drone Attack Hits UAE Barakah Nuclear Plant</div>
+            <div class="story-teaser">The IAEA chief visited the Barakah nuclear facility in the UAE after a drone strike described as carefully targeted, with attackers said to have known exactly what they were doing. The UAE has blamed Iraqi militias for the attack, which the IAEA called a matter of extreme gravity.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A precision strike on a civil nuclear facility signals that non-state actors now possess the targeting intelligence and drone capability to threaten critical energy infrastructure across the Gulf, raising the risk calculus for defence operators and regional insurers.</div>
+            <div class="story-footer">
+              <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-source">▸ timesofisrael</a>
+              <a href="https://www.timesofisrael.com/iaea-offers-uae-support-after-recent-carefully-targeted-drone-attack-on-nuclear-plant/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://cassette.sphdigital.com.sg/image/businesstimes/519c40784c52d1f39adeeadccc92e376916adfa242d0fe41ca1e9285db4e88c1" class="story-img" alt="Iran Blocks Hormuz as Oil Prices Spike" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-break">BREAKING</span>
-            <span class="story-region">Strait of Hormuz</span>
-            <span class="story-score sc-crit">CRITICAL · 92</span>
-          </div>
-          <div class="story-head">Iran Blocks Hormuz as Oil Prices Spike</div>
-          <div class="story-teaser">Iran has effectively halted most non-Iranian shipping through the Strait of Hormuz since the war began, sending oil prices to a one-week high as markets assess a US proposal to halt hostilities. Iran is reviewing the proposal but has not yet accepted any terms.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Prolonged Hormuz disruption threatens hydrocarbon supply chains critical to Gulf defence logistics and drives demand for maritime surveillance, escort, and counter-drone capabilities in the region.</div>
-          <div class="story-footer">
-            <a href="https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-prices-rise-one-week-high-iran-reviews-us-proposal-halt-war" target="_blank" class="story-source">▸ businesstimes</a>
-            <a href="https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-prices-rise-one-week-high-iran-reviews-us-proposal-halt-war" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Strait of Hormuz</span>
+              <span class="story-score sc-crit">CRITICAL · 92</span>
+            </div>
+            <div class="story-head">Iran Blocks Hormuz as Oil Prices Spike</div>
+            <div class="story-teaser">Iran has effectively halted most non-Iranian shipping through the Strait of Hormuz since the war began, sending oil prices to a one-week high as markets assess a US proposal to halt hostilities. Iran is reviewing the proposal but has not yet accepted any terms.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Prolonged Hormuz disruption threatens hydrocarbon supply chains critical to Gulf defence logistics and drives demand for maritime surveillance, escort, and counter-drone capabilities in the region.</div>
+            <div class="story-footer">
+              <a href="https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-prices-rise-one-week-high-iran-reviews-us-proposal-halt-war" target="_blank" class="story-source">▸ businesstimes</a>
+              <a href="https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-prices-rise-one-week-high-iran-reviews-us-proposal-halt-war" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           
-          <div class="story-meta">
-            <span class="ub ub-break">BREAKING</span>
-            <span class="story-region">Arabian Gulf</span>
-            <span class="story-score sc-crit">CRITICAL · 88</span>
-          </div>
-          <div class="story-head">US Disables Ship Bound for Iranian Port</div>
-          <div class="story-teaser">US forces disabled a vessel allegedly heading to an Iranian port amid ongoing hostilities in the Gulf, as Washington continues to enforce maritime pressure on Iran. The action coincides with stalled US-Iran peace talks that Trump publicly denied had broken down.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Active US interdiction of vessels bound for Iran signals an expanding naval enforcement posture in the Gulf that creates immediate demand for maritime domain awareness and rapid-response naval assets.</div>
-          <div class="story-footer">
-            <a href="https://www.aljazeera.com/video/newsfeed/2026/6/3/us-disables-ship-allegedly-bound-for-iranian-port" target="_blank" class="story-source">▸ Al Jazeera</a>
-            <a href="https://www.aljazeera.com/video/newsfeed/2026/6/3/us-disables-ship-allegedly-bound-for-iranian-port" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Arabian Gulf</span>
+              <span class="story-score sc-crit">CRITICAL · 88</span>
+            </div>
+            <div class="story-head">US Disables Ship Bound for Iranian Port</div>
+            <div class="story-teaser">US forces disabled a vessel allegedly heading to an Iranian port amid ongoing hostilities in the Gulf, as Washington continues to enforce maritime pressure on Iran. The action coincides with stalled US-Iran peace talks that Trump publicly denied had broken down.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Active US interdiction of vessels bound for Iran signals an expanding naval enforcement posture in the Gulf that creates immediate demand for maritime domain awareness and rapid-response naval assets.</div>
+            <div class="story-footer">
+              <a href="https://www.aljazeera.com/video/newsfeed/2026/6/3/us-disables-ship-allegedly-bound-for-iranian-port" target="_blank" class="story-source">▸ Al Jazeera</a>
+              <a href="https://www.aljazeera.com/video/newsfeed/2026/6/3/us-disables-ship-allegedly-bound-for-iranian-port" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://static-cdn.toi-media.com/www/uploads/2026/06/AFP__20260602__B4QR62C__v1__HighRes__UsIsraelLebanonPoliticsDiplomacy.jpg" class="story-img" alt="Israel-Lebanon Talks Open in DC Amid Strikes" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">Israel and Lebanon</span>
-            <span class="story-score sc-crit">CRITICAL · 82</span>
-          </div>
-          <div class="story-head">Israel-Lebanon Talks Open in DC Amid Strikes</div>
-          <div class="story-teaser">Fresh diplomatic talks between Israel and Lebanon began in Washington DC as the IDF eased some restrictions in northern Israel, though strikes on southern Lebanon continued killing at least four people. Hezbollah rejected any partial ceasefire, insisting it would not halt attacks unless Israel spared Beirut.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ The dual-track of diplomacy and active strikes sustains elevated demand for Israeli and US precision strike systems, counter-drone platforms, and real-time ISR assets across the Lebanon theatre.</div>
-          <div class="story-footer">
-            <a href="https://www.timesofisrael.com/fresh-israel-lebanon-talks-begin-in-dc-as-idf-eases-restrictions-in-northern-israel/" target="_blank" class="story-source">▸ timesofisrael</a>
-            <a href="https://www.timesofisrael.com/fresh-israel-lebanon-talks-begin-in-dc-as-idf-eases-restrictions-in-northern-israel/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Israel and Lebanon</span>
+              <span class="story-score sc-crit">CRITICAL · 82</span>
+            </div>
+            <div class="story-head">Israel-Lebanon Talks Open in DC Amid Strikes</div>
+            <div class="story-teaser">Fresh diplomatic talks between Israel and Lebanon began in Washington DC as the IDF eased some restrictions in northern Israel, though strikes on southern Lebanon continued killing at least four people. Hezbollah rejected any partial ceasefire, insisting it would not halt attacks unless Israel spared Beirut.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ The dual-track of diplomacy and active strikes sustains elevated demand for Israeli and US precision strike systems, counter-drone platforms, and real-time ISR assets across the Lebanon theatre.</div>
+            <div class="story-footer">
+              <a href="https://www.timesofisrael.com/fresh-israel-lebanon-talks-begin-in-dc-as-idf-eases-restrictions-in-northern-israel/" target="_blank" class="story-source">▸ timesofisrael</a>
+              <a href="https://www.timesofisrael.com/fresh-israel-lebanon-talks-begin-in-dc-as-idf-eases-restrictions-in-northern-israel/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">Southern Lebanon</span>
-            <span class="story-score sc-crit">CRITICAL · 80</span>
-          </div>
-          <div class="story-head">Hezbollah Fibre-Optic Drones Expose Israel Gap</div>
-          <div class="story-teaser">Hezbollah has deployed fibre-optic guided drones in southern Lebanon that are resistant to electronic jamming, exposing a significant gap in Israeli counter-UAV defences. The development marks a tactical evolution that conventional RF-based countermeasures cannot address.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Fibre-optic drone proliferation forces a hardware and doctrine rethink for counter-UAS investors and defence primes, as existing jamming-centric solutions lose effectiveness against this class of threat.</div>
-          <div class="story-footer">
-            <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-source">▸ Shephard Media</a>
-            <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Southern Lebanon</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">Hezbollah Fibre-Optic Drones Expose Israel Gap</div>
+            <div class="story-teaser">Hezbollah has deployed fibre-optic guided drones in southern Lebanon that are resistant to electronic jamming, exposing a significant gap in Israeli counter-UAV defences. The development marks a tactical evolution that conventional RF-based countermeasures cannot address.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Fibre-optic drone proliferation forces a hardware and doctrine rethink for counter-UAS investors and defence primes, as existing jamming-centric solutions lose effectiveness against this class of threat.</div>
+            <div class="story-footer">
+              <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-source">▸ Shephard Media</a>
+              <a href="https://www.shephardmedia.com/news/air-warfare/hezbollahs-fibre-optic-drones-expose-israels-counter-uav-gap-in-southern-lebanon/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://assets.sbs.com.au/dims4/default/b3b79f1/2147483647/strip/false/crop/5105x2346+0+529/resize/1234x567!/format/jpeg/quality/90/?url=https%3A%2F%2Fsbs-au-brightspot.s3.ap-southeast-2.amazonaws.com%2F61%2F5f%2F22580b304f218b49eb051a9b65bf%2F20260217175632794954-original.jpg" class="story-img" alt="Kuwait Airport Closed by Gulf Drone Strikes" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-break">BREAKING</span>
-            <span class="story-region">Kuwait</span>
-            <span class="story-score sc-crit">CRITICAL · 78</span>
-          </div>
-          <div class="story-head">Kuwait Airport Closed by Gulf Drone Strikes</div>
-          <div class="story-teaser">Drone strikes forced the closure of Kuwait airport as Iran and US forces continued trading strikes across the Gulf, escalating the regional conflict beyond direct Iran-Israel-US frontlines. The closure disrupted civilian and military logistics across a key Gulf hub.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Airport closures caused by drone strikes in neutral Gulf states demonstrate the expanding geographic footprint of the conflict and elevate urgency for layered air defence procurement across all GCC members.</div>
-          <div class="story-footer">
-            <a href="https://www.sbs.com.au/news/article/drone-strikes-force-closure-of-kuwait-airport-as-iran-and-us-trade-strikes-in-the-gulf/3bax9lo4t" target="_blank" class="story-source">▸ sbs</a>
-            <a href="https://www.sbs.com.au/news/article/drone-strikes-force-closure-of-kuwait-airport-as-iran-and-us-trade-strikes-in-the-gulf/3bax9lo4t" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Kuwait</span>
+              <span class="story-score sc-crit">CRITICAL · 78</span>
+            </div>
+            <div class="story-head">Kuwait Airport Closed by Gulf Drone Strikes</div>
+            <div class="story-teaser">Drone strikes forced the closure of Kuwait airport as Iran and US forces continued trading strikes across the Gulf, escalating the regional conflict beyond direct Iran-Israel-US frontlines. The closure disrupted civilian and military logistics across a key Gulf hub.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Airport closures caused by drone strikes in neutral Gulf states demonstrate the expanding geographic footprint of the conflict and elevate urgency for layered air defence procurement across all GCC members.</div>
+            <div class="story-footer">
+              <a href="https://www.sbs.com.au/news/article/drone-strikes-force-closure-of-kuwait-airport-as-iran-and-us-trade-strikes-in-the-gulf/3bax9lo4t" target="_blank" class="story-source">▸ sbs</a>
+              <a href="https://www.sbs.com.au/news/article/drone-strikes-force-closure-of-kuwait-airport-as-iran-and-us-trade-strikes-in-the-gulf/3bax9lo4t" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -653,105 +724,117 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
           <div class="section-count">6 STORIES · TOP 80</div>
         </div>
         <div class="stories-grid">
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://www.news247plus.com/images/51041/Germany-built-a-Terminator-robot-capable-of-shooting-down-drones-with-laser-beams-and-it-will-arrive-in-2027-news-image-51041.webp" class="story-img" alt="Germany Deploys Laser Drone-Killer Robot by 2027" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">Germany</span>
-            <span class="story-score sc-crit">CRITICAL · 80</span>
-          </div>
-          <div class="story-head">Germany Deploys Laser Drone-Killer Robot by 2027</div>
-          <div class="story-teaser">Germany has developed an unmanned ground vehicle armed with laser technology capable of shooting down drones, with deployment expected in 2027. The system represents a significant step in autonomous counter-UAS ground platforms designed for frontline air defence.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Autonomous laser-armed ground robots entering NATO inventories will accelerate demand for similar uncrewed counter-drone systems across European and Gulf defence customers seeking affordable high-repetition-rate intercept solutions.</div>
-          <div class="story-footer">
-            <a href="https://www.news247plus.com/news/technology/germany-built-a-terminator-robot-capable-of-shooting-down-drones-with-laser-beams-and-it-will-arrive-in-2027-51041" target="_blank" class="story-source">▸ news247plus</a>
-            <a href="https://www.news247plus.com/news/technology/germany-built-a-terminator-robot-capable-of-shooting-down-drones-with-laser-beams-and-it-will-arrive-in-2027-51041" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Germany</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">Germany Deploys Laser Drone-Killer Robot by 2027</div>
+            <div class="story-teaser">Germany has developed an unmanned ground vehicle armed with laser technology capable of shooting down drones, with deployment expected in 2027. The system represents a significant step in autonomous counter-UAS ground platforms designed for frontline air defence.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Autonomous laser-armed ground robots entering NATO inventories will accelerate demand for similar uncrewed counter-drone systems across European and Gulf defence customers seeking affordable high-repetition-rate intercept solutions.</div>
+            <div class="story-footer">
+              <a href="https://www.news247plus.com/news/technology/germany-built-a-terminator-robot-capable-of-shooting-down-drones-with-laser-beams-and-it-will-arrive-in-2027-51041" target="_blank" class="story-source">▸ news247plus</a>
+              <a href="https://www.news247plus.com/news/technology/germany-built-a-terminator-robot-capable-of-shooting-down-drones-with-laser-beams-and-it-will-arrive-in-2027-51041" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-crit">CRITICAL · 78</span>
-          </div>
-          <div class="story-head">US Military Targets Battle-Ready Lasers by 2028</div>
-          <div class="story-teaser">The US military has announced plans to showcase battle-ready directed energy laser weapons by 2028, signalling a shift from experimental to operationally fielded high-energy laser systems. The timeline reflects urgency driven by proliferating drone and missile threats in active conflict zones.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A 2028 fielding target for US laser weapons compresses the investment window for directed energy primes and forces competitors to accelerate their own programmes to remain relevant in future procurement cycles.</div>
-          <div class="story-footer">
-            <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-source">▸ Defense News</a>
-            <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 78</span>
+            </div>
+            <div class="story-head">US Military Targets Battle-Ready Lasers by 2028</div>
+            <div class="story-teaser">The US military has announced plans to showcase battle-ready directed energy laser weapons by 2028, signalling a shift from experimental to operationally fielded high-energy laser systems. The timeline reflects urgency driven by proliferating drone and missile threats in active conflict zones.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A 2028 fielding target for US laser weapons compresses the investment window for directed energy primes and forces competitors to accelerate their own programmes to remain relevant in future procurement cycles.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.defensenews.com/industry/techwatch/2026/06/02/the-us-military-wants-to-showcase-battle-ready-laser-weapons-by-2028/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-crit">CRITICAL · 75</span>
-          </div>
-          <div class="story-head">US Air Force Fast-Tracks GPS-Denied Operations</div>
-          <div class="story-teaser">The US Air Force is accelerating capability development for operations in GPS-denied environments, responding to demonstrated adversary jamming and spoofing threats in active theatres. The programme aims to fast-track alternative navigation, targeting, and communications technologies for contested airspace.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Fast-track investment in GPS-denied navigation creates near-term contract opportunities for inertial navigation, quantum positioning, and AI-based terrain-referenced guidance system developers.</div>
-          <div class="story-footer">
-            <a href="https://www.shephardmedia.com/news/air-warfare/us-air-force-fast-track-capability-development-for-gps-denied-operations/" target="_blank" class="story-source">▸ Shephard Media</a>
-            <a href="https://www.shephardmedia.com/news/air-warfare/us-air-force-fast-track-capability-development-for-gps-denied-operations/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 75</span>
+            </div>
+            <div class="story-head">US Air Force Fast-Tracks GPS-Denied Operations</div>
+            <div class="story-teaser">The US Air Force is accelerating capability development for operations in GPS-denied environments, responding to demonstrated adversary jamming and spoofing threats in active theatres. The programme aims to fast-track alternative navigation, targeting, and communications technologies for contested airspace.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Fast-track investment in GPS-denied navigation creates near-term contract opportunities for inertial navigation, quantum positioning, and AI-based terrain-referenced guidance system developers.</div>
+            <div class="story-footer">
+              <a href="https://www.shephardmedia.com/news/air-warfare/us-air-force-fast-track-capability-development-for-gps-denied-operations/" target="_blank" class="story-source">▸ Shephard Media</a>
+              <a href="https://www.shephardmedia.com/news/air-warfare/us-air-force-fast-track-capability-development-for-gps-denied-operations/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-high">HIGH · 72</span>
-          </div>
-          <div class="story-head">NRO Nominee: AI and Commercial Space Reshaping Spy Sats</div>
-          <div class="story-teaser">The nominee to lead the National Reconnaissance Office told Congress that commercial space and artificial intelligence are fundamentally reshaping the spy satellite agency and its intelligence collection architecture. The statement signals a major shift toward integrating commercial imagery and AI analytics into national intelligence workflows.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ NRO openness to commercial AI and satellite integration expands the addressable government market for commercial remote sensing operators and geospatial AI platforms across allied intelligence communities.</div>
-          <div class="story-footer">
-            <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-source">▸ SpaceAgenda</a>
-            <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">NRO Nominee: AI and Commercial Space Reshaping Spy Sats</div>
+            <div class="story-teaser">The nominee to lead the National Reconnaissance Office told Congress that commercial space and artificial intelligence are fundamentally reshaping the spy satellite agency and its intelligence collection architecture. The statement signals a major shift toward integrating commercial imagery and AI analytics into national intelligence workflows.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ NRO openness to commercial AI and satellite integration expands the addressable government market for commercial remote sensing operators and geospatial AI platforms across allied intelligence communities.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/nro-nominee-says-commercial-space-ai-are-reshaping-spy-satellite-agency/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           <img src="https://unionrecorder.com/wp-content/uploads/sites/4/2026/06/6-3-our-space.jpg" class="story-img" alt="DARPA Takes Roadside Assistance Model to Space" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-high">HIGH · 62</span>
-          </div>
-          <div class="story-head">DARPA Takes Roadside Assistance Model to Space</div>
-          <div class="story-teaser">DARPA is developing a space-based servicing programme modelled on terrestrial roadside assistance, creating a network to repair and support satellites on orbit. The initiative reflects growing recognition that in-orbit servicing is essential to maintaining resilient space architectures.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ DARPA backing for on-orbit servicing normalises the business case for commercial satellite servicing operators and validates investment in rendezvous, proximity operations, and robotic repair technologies.</div>
-          <div class="story-footer">
-            <a href="https://unionrecorder.com/2026/06/02/our-space-roadside-assistance-goes-to-space-with-darpa/" target="_blank" class="story-source">▸ unionrecorder</a>
-            <a href="https://unionrecorder.com/2026/06/02/our-space-roadside-assistance-goes-to-space-with-darpa/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-high">HIGH · 62</span>
+            </div>
+            <div class="story-head">DARPA Takes Roadside Assistance Model to Space</div>
+            <div class="story-teaser">DARPA is developing a space-based servicing programme modelled on terrestrial roadside assistance, creating a network to repair and support satellites on orbit. The initiative reflects growing recognition that in-orbit servicing is essential to maintaining resilient space architectures.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ DARPA backing for on-orbit servicing normalises the business case for commercial satellite servicing operators and validates investment in rendezvous, proximity operations, and robotic repair technologies.</div>
+            <div class="story-footer">
+              <a href="https://unionrecorder.com/2026/06/02/our-space-roadside-assistance-goes-to-space-with-darpa/" target="_blank" class="story-source">▸ unionrecorder</a>
+              <a href="https://unionrecorder.com/2026/06/02/our-space-roadside-assistance-goes-to-space-with-darpa/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           <img src="https://www.cnet.com/a/img/resize/796180e20fbdca3ff29d1e0fda8a7790539642d4/hub/2026/06/02/be2b84df-027f-4579-98d8-936c46987323/gettyimages-2251459964.jpg?auto=webp&fit=crop&height=614&width=1092" class="story-img" alt="Trump AI Executive Order Lacks Enforcement Teeth" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-high">HIGH · 55</span>
-          </div>
-          <div class="story-head">Trump AI Executive Order Lacks Enforcement Teeth</div>
-          <div class="story-teaser">A new Trump executive order intended to review AI models posing risks to the US carries no mandatory requirements and relies entirely on voluntary compliance from industry. Critics argue the order provides no enforceable framework for managing dual-use AI risks in defence and critical infrastructure.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Voluntary-only AI governance in the US leaves defence primes and allied governments without a common compliance baseline, slowing the integration of high-assurance AI into weapons systems and ISR platforms.</div>
-          <div class="story-footer">
-            <a href="https://www.cnet.com/tech/services-and-software/trump-ai-executive-order-has-no-requirements/" target="_blank" class="story-source">▸ cnet</a>
-            <a href="https://www.cnet.com/tech/services-and-software/trump-ai-executive-order-has-no-requirements/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-high">HIGH · 55</span>
+            </div>
+            <div class="story-head">Trump AI Executive Order Lacks Enforcement Teeth</div>
+            <div class="story-teaser">A new Trump executive order intended to review AI models posing risks to the US carries no mandatory requirements and relies entirely on voluntary compliance from industry. Critics argue the order provides no enforceable framework for managing dual-use AI risks in defence and critical infrastructure.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Voluntary-only AI governance in the US leaves defence primes and allied governments without a common compliance baseline, slowing the integration of high-assurance AI into weapons systems and ISR platforms.</div>
+            <div class="story-footer">
+              <a href="https://www.cnet.com/tech/services-and-software/trump-ai-executive-order-has-no-requirements/" target="_blank" class="story-source">▸ cnet</a>
+              <a href="https://www.cnet.com/tech/services-and-software/trump-ai-executive-order-has-no-requirements/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -762,105 +845,117 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
           <div class="section-count">6 STORIES · TOP 85</div>
         </div>
         <div class="stories-grid">
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://d.ibtimes.com/en/full/4639078/spacex-rocket-ship-launching.jpg?w=1600&h=900&q=88&f=cff4c4a09b2db91b08c63c3d799094a8" class="story-img" alt="SpaceX Eyes $1.75 Trillion Valuation in IPO" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-crit">CRITICAL · 85</span>
-          </div>
-          <div class="story-head">SpaceX Eyes $1.75 Trillion Valuation in IPO</div>
-          <div class="story-teaser">SpaceX is targeting a valuation of approximately $1.75 trillion in its planned initial public offering, which is expected to raise at least $75 billion and rank among the largest stock market listings ever recorded. The move would mark a historic liquidity event for space and defence technology investors globally.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A SpaceX IPO at this scale would reprice the entire commercial space sector, forcing institutional investors to reassess valuations of Rocket Lab, AST SpaceMobile, and competing launch and satellite businesses.</div>
-          <div class="story-footer">
-            <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-source">▸ ibtimes</a>
-            <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
+            </div>
+            <div class="story-head">SpaceX Eyes $1.75 Trillion Valuation in IPO</div>
+            <div class="story-teaser">SpaceX is targeting a valuation of approximately $1.75 trillion in its planned initial public offering, which is expected to raise at least $75 billion and rank among the largest stock market listings ever recorded. The move would mark a historic liquidity event for space and defence technology investors globally.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A SpaceX IPO at this scale would reprice the entire commercial space sector, forcing institutional investors to reassess valuations of Rocket Lab, AST SpaceMobile, and competing launch and satellite businesses.</div>
+            <div class="story-footer">
+              <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-source">▸ ibtimes</a>
+              <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://images.timesnownews.com/thumb/msid-154442768,width-1280,height-720,resizemode-75/154442768.jpg" class="story-img" alt="Pentagon Launches $54B Drone Investment Push" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-crit">CRITICAL · 82</span>
-          </div>
-          <div class="story-head">Pentagon Launches $54B Drone Investment Push</div>
-          <div class="story-teaser">The Pentagon has announced a $54 billion drone investment programme, turning to startups and former hobbyists to rapidly expand US military drone manufacturing capacity. The initiative is directly driven by lessons from recent conflicts demonstrating the battlefield dominance of low-cost unmanned systems.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A $54 billion government commitment to drone procurement creates a generational opportunity for defence tech startups and primes with loitering munition, autonomous ISR, and counter-UAS portfolios.</div>
-          <div class="story-footer">
-            <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-source">▸ timesnownews</a>
-            <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 82</span>
+            </div>
+            <div class="story-head">Pentagon Launches $54B Drone Investment Push</div>
+            <div class="story-teaser">The Pentagon has announced a $54 billion drone investment programme, turning to startups and former hobbyists to rapidly expand US military drone manufacturing capacity. The initiative is directly driven by lessons from recent conflicts demonstrating the battlefield dominance of low-cost unmanned systems.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A $54 billion government commitment to drone procurement creates a generational opportunity for defence tech startups and primes with loitering munition, autonomous ISR, and counter-UAS portfolios.</div>
+            <div class="story-footer">
+              <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-source">▸ timesnownews</a>
+              <a href="https://www.timesnownews.com/world/us/us-news/pentagon-launches-54-billion-drone-push-turning-to-startups-and-former-hobbyists-article-154442625" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-high">HIGH · 72</span>
-          </div>
-          <div class="story-head">Impulse Space Raises $500 Million</div>
-          <div class="story-teaser">Impulse Space has closed a $500 million funding round, significantly boosting its in-space transportation and orbital logistics capabilities. The raise positions the company to accelerate development of its orbital transfer vehicle services for government and commercial customers.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Large private capital flowing into in-space logistics reflects growing investor conviction that orbital transfer and last-mile delivery will be a high-margin segment as LEO constellations and Moon Base programmes scale.</div>
-          <div class="story-footer">
-            <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-source">▸ SpaceAgenda</a>
-            <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">Impulse Space Raises $500 Million</div>
+            <div class="story-teaser">Impulse Space has closed a $500 million funding round, significantly boosting its in-space transportation and orbital logistics capabilities. The raise positions the company to accelerate development of its orbital transfer vehicle services for government and commercial customers.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Large private capital flowing into in-space logistics reflects growing investor conviction that orbital transfer and last-mile delivery will be a high-margin segment as LEO constellations and Moon Base programmes scale.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/impulse-space-raises-500-million/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">Global</span>
-            <span class="story-score sc-high">HIGH · 65</span>
-          </div>
-          <div class="story-head">Global Weapons Market to Hit $162B by 2035</div>
-          <div class="story-teaser">A new SNS Insider report projects the global weapons and ammunition market will reach $162.11 billion by 2035, with the US segment alone forecast at $63.16 billion and Europe at $37.84 billion amid rising defence spending. The growth is driven by active conflicts, NATO rearmament, and Indo-Pacific military modernisation.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ Long-term structural growth in the weapons and ammunition market underpins durable revenue visibility for defence primes and investors in ammunition supply chains and smart munitions programmes.</div>
-          <div class="story-footer">
-            <a href="https://www.globenewswire.com/news-release/2026/06/02/3305129/0/en/Global-Weapons-and-Ammunition-Market-Projected-to-Hit-USD-162-11-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-source">▸ globenewswire</a>
-            <a href="https://www.globenewswire.com/news-release/2026/06/02/3305129/0/en/Global-Weapons-and-Ammunition-Market-Projected-to-Hit-USD-162-11-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 65</span>
+            </div>
+            <div class="story-head">Global Weapons Market to Hit $162B by 2035</div>
+            <div class="story-teaser">A new SNS Insider report projects the global weapons and ammunition market will reach $162.11 billion by 2035, with the US segment alone forecast at $63.16 billion and Europe at $37.84 billion amid rising defence spending. The growth is driven by active conflicts, NATO rearmament, and Indo-Pacific military modernisation.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Long-term structural growth in the weapons and ammunition market underpins durable revenue visibility for defence primes and investors in ammunition supply chains and smart munitions programmes.</div>
+            <div class="story-footer">
+              <a href="https://www.globenewswire.com/news-release/2026/06/02/3305129/0/en/Global-Weapons-and-Ammunition-Market-Projected-to-Hit-USD-162-11-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-source">▸ globenewswire</a>
+              <a href="https://www.globenewswire.com/news-release/2026/06/02/3305129/0/en/Global-Weapons-and-Ammunition-Market-Projected-to-Hit-USD-162-11-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           <img src="https://nynewscast.com/wp-content/uploads/2025/10/WhatsApp-Image-2025-10-31-at-00.04.14.jpeg" class="story-img" alt="Tactical Comms Market to Reach $108B by 2035" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">Global</span>
-            <span class="story-score sc-high">HIGH · 58</span>
-          </div>
-          <div class="story-head">Tactical Comms Market to Reach $108B by 2035</div>
-          <div class="story-teaser">The global tactical communication market is projected to reach $108.15 billion by 2035, expanding at a 22.51 percent CAGR according to SNS Insider, with the US at $7.85 billion and Europe at $24.76 billion. Defence modernisation initiatives and contested environment operations are cited as the primary growth drivers.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A 22 percent CAGR in tactical communications signals a structural procurement surge that benefits companies with encrypted battlefield networking, software-defined radio, and satcom-on-the-move product lines.</div>
-          <div class="story-footer">
-            <a href="https://nynewscast.com/tactical-communication-market-projected-to-reach-usd-108-15-billion-by-2035-expanding-at-22-51-cagr-sns-insider-224353/" target="_blank" class="story-source">▸ nynewscast</a>
-            <a href="https://nynewscast.com/tactical-communication-market-projected-to-reach-usd-108-15-billion-by-2035-expanding-at-22-51-cagr-sns-insider-224353/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 58</span>
+            </div>
+            <div class="story-head">Tactical Comms Market to Reach $108B by 2035</div>
+            <div class="story-teaser">The global tactical communication market is projected to reach $108.15 billion by 2035, expanding at a 22.51 percent CAGR according to SNS Insider, with the US at $7.85 billion and Europe at $24.76 billion. Defence modernisation initiatives and contested environment operations are cited as the primary growth drivers.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A 22 percent CAGR in tactical communications signals a structural procurement surge that benefits companies with encrypted battlefield networking, software-defined radio, and satcom-on-the-move product lines.</div>
+            <div class="story-footer">
+              <a href="https://nynewscast.com/tactical-communication-market-projected-to-reach-usd-108-15-billion-by-2035-expanding-at-22-51-cagr-sns-insider-224353/" target="_blank" class="story-source">▸ nynewscast</a>
+              <a href="https://nynewscast.com/tactical-communication-market-projected-to-reach-usd-108-15-billion-by-2035-expanding-at-22-51-cagr-sns-insider-224353/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       
-        <div class="story high-s">
+        <div class="story story-high">
           
-          <div class="story-meta">
-            <span class="ub ub-normal">NORMAL</span>
-            <span class="story-region">Global</span>
-            <span class="story-score sc-high">HIGH · 55</span>
-          </div>
-          <div class="story-head">SSA Market Forecast to Reach $61B Globally</div>
-          <div class="story-teaser">The global Space Situational Awareness market is forecast to reach $61 billion as governments prioritise space security, orbital safety, and resilience against counter-space threats. Accelerating proliferation of LEO satellites and rising military interest in space domain awareness are the core demand drivers.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ A $61 billion SSA market outlook validates sustained investment in ground-based radar, space-based sensors, and AI-driven conjunction analysis platforms serving both civil and defence customers.</div>
-          <div class="story-footer">
-            <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-source">▸ SpaceAgenda</a>
-            <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 55</span>
+            </div>
+            <div class="story-head">SSA Market Forecast to Reach $61B Globally</div>
+            <div class="story-teaser">The global Space Situational Awareness market is forecast to reach $61 billion as governments prioritise space security, orbital safety, and resilience against counter-space threats. Accelerating proliferation of LEO satellites and rising military interest in space domain awareness are the core demand drivers.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A $61 billion SSA market outlook validates sustained investment in ground-based radar, space-based sensors, and AI-driven conjunction analysis platforms serving both civil and defence customers.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/global-ssa-market-to-reach-61b-as-governments-prioritize-space-security-resilience-and-orbital-safety/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -871,20 +966,22 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
           <div class="section-count">1 STORY · TOP 88</div>
         </div>
         <div class="stories-grid">
-        <div class="story crit">
+        <div class="story story-crit">
           <img src="https://d.ibtimes.com/en/full/4639078/spacex-rocket-ship-launching.jpg?w=1600&h=900&q=88&f=cff4c4a09b2db91b08c63c3d799094a8" class="story-img" alt="SpaceX Targets $1.75T Valuation in Historic IPO" onerror="this.style.display='none'">
-          <div class="story-meta">
-            <span class="ub ub-urgent">URGENT</span>
-            <span class="story-region">United States</span>
-            <span class="story-score sc-crit">CRITICAL · 88</span>
-          </div>
-          <div class="story-head">SpaceX Targets $1.75T Valuation in Historic IPO</div>
-          <div class="story-teaser">SpaceX is seeking a $1.75 trillion valuation in its planned IPO, which is expected to raise a minimum of $75 billion and potentially rank as one of the largest public listings in history. The move would provide an unprecedented benchmark for commercial space and dual-use technology valuations.</div>
-          <div class="story-divider"></div>
-          <div class="story-impl">◈ SpaceX going public at this scale would catalyse a repricing wave across the entire space and defence technology investment landscape, unlocking liquidity for early investors and setting new multiples for sector peers.</div>
-          <div class="story-footer">
-            <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-source">▸ ibtimes</a>
-            <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-read">READ FULL STORY ↗</a>
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 88</span>
+            </div>
+            <div class="story-head">SpaceX Targets $1.75T Valuation in Historic IPO</div>
+            <div class="story-teaser">SpaceX is seeking a $1.75 trillion valuation in its planned IPO, which is expected to raise a minimum of $75 billion and potentially rank as one of the largest public listings in history. The move would provide an unprecedented benchmark for commercial space and dual-use technology valuations.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ SpaceX going public at this scale would catalyse a repricing wave across the entire space and defence technology investment landscape, unlocking liquidity for early investors and setting new multiples for sector peers.</div>
+            <div class="story-footer">
+              <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-source">▸ ibtimes</a>
+              <a href="https://www.ibtimes.com/spacex-targets-175-trillion-valuation-ipo-expected-raise-least-75-billion-3803642" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
           </div>
         </div>
       </div>
@@ -892,9 +989,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
 </div>
 <div class="poly-section">
   <div class="sh">
-    <div class="st">🎯 Prediction Markets — Defence · Space · AI</div>
+    <div class="st">🎯 Prediction Markets</div>
     <div class="sl"></div>
-    <div style="font-size:9px;color:#8090a0;letter-spacing:2px;font-family:'Space Mono',monospace">LIVE · POLYMARKET</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#8090a0;letter-spacing:2px;background:#fff;padding:3px 10px;border-radius:20px;border:1px solid #dce4ee">LIVE · POLYMARKET</div>
   </div>
   <div id="poly-grid" class="poly-grid">
     <div class="poly-loading">◈ LOADING PREDICTION MARKETS...</div>
@@ -904,7 +1001,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#f0f2f5;color:#0a1628;min
   <div class="sh">
     <div class="st">📈 Market Pulse — Space & Defence</div>
     <div class="sl"></div>
-    <div style="font-size:9px;color:#8090a0;letter-spacing:2px;font-family:'Space Mono',monospace">15MIN DELAYED</div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#8090a0;letter-spacing:2px;background:#f8fafc;padding:3px 10px;border-radius:20px;border:1px solid #dce4ee">15MIN DELAYED</div>
   </div>
   <div class="stocks-grid">
     <div class="stock-card">
@@ -1018,9 +1115,7 @@ function getMoonPhase(){
 }
 document.getElementById('moonphase').textContent=getMoonPhase();
 const now=new Date();
-document.getElementById('datetime').textContent=
-  now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+
-  ' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+document.getElementById('datetime').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 document.getElementById('lastupdated').textContent='◈ Briefing: '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 const RELEVANT_KEYWORDS=['war','military','nuclear','missile','satellite','space','launch','rocket','AI','artificial intelligence','defense','defence','ceasefire','invasion','weapons','cyber','drone','conflict','Iran','Russia','China','NATO','Taiwan','army','navy','bomb','strike','attack','troops','combat','terror','hypersonic','ballistic','radar','surveillance','intel','OpenAI','Anthropic','GPT','AGI','Starlink','SpaceX','Boeing','Lockheed','Raytheon','Northrop','Pentagon','CENTCOM','treaty','sanctions','proliferation','warhead','uranium','plutonium','North Korea','Pakistan','Israel','Gaza','Lebanon','Ukraine','Syria','coup','rebellion','geopolit','orbit','ISS','moon','Mars','asteroid'];
 function isRelevant(q){return RELEVANT_KEYWORDS.some(k=>q.toLowerCase().includes(k.toLowerCase()));}
@@ -1079,8 +1174,8 @@ style.textContent=`
   .leaflet-popup-tip{background:#fff!important}
   .leaflet-container{background:#f0f2f5!important;font-family:'Space Grotesk',sans-serif}
   .leaflet-control-zoom a{background:#fff!important;color:#1a5fa0!important;border-color:#dce4ee!important}
-  .inc-card{padding:8px 10px;background:#fff;border:1px solid #dce4ee;border-radius:6px;margin-bottom:6px;cursor:pointer;transition:border-color 0.2s}
-  .inc-card:hover{border-color:#1a5fa0}
+  .inc-card{padding:8px 10px;background:#fff;border:1px solid #dce4ee;border-left:3px solid;border-radius:6px;margin-bottom:6px;cursor:pointer;transition:border-color 0.2s}
+  .inc-card:hover{background:#f8fafc}
   .inc-card:last-child{margin-bottom:0}
 `;
 document.head.appendChild(style);
@@ -1104,21 +1199,20 @@ Object.keys(newsData).forEach(cat=>{
       });
       const marker=L.marker([item.lat,item.lng],{icon}).addTo(map);
       marker.bindPopup(`
-        <div style="font-family:'Space Grotesk',sans-serif;max-width:240px;padding:12px">
-          <div style="font-size:9px;color:${col};letter-spacing:3px;margin-bottom:6px;font-family:'Space Mono',monospace">${labels[cat]||cat}</div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:8px;color:#0a1628">${item.headline}</div>
-          <div style="font-size:11px;color:#506070;line-height:1.6;margin-bottom:6px">${item.context}</div>
-          ${item.implication?`<div style="font-size:10px;color:${col};font-style:italic;margin-bottom:6px;padding:4px 8px;border-left:2px solid ${col};background:${col}08">◈ ${item.implication}</div>`:''}
-          ${item.link&&item.link!='none'?`<a href="${item.link}" target="_blank" style="font-size:10px;color:${col};font-family:'Space Mono',monospace;text-decoration:none">▸ ${item.source||'Prism Analysis'}</a>`:`<div style="font-size:10px;color:${col};font-family:'Space Mono',monospace">▸ ${item.source||'Prism Analysis'}</div>`}
+        <div style="font-family:'Space Grotesk',sans-serif;max-width:240px;padding:14px">
+          <div style="font-size:9px;color:${col};letter-spacing:3px;margin-bottom:6px;font-family:'Space Mono',monospace;font-weight:700">${labels[cat]||cat}</div>
+          <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:#0a1628;line-height:1.3">${item.headline}</div>
+          <div style="font-size:12px;color:#506070;line-height:1.6;margin-bottom:8px">${item.context}</div>
+          ${item.implication?`<div style="font-size:11px;color:${col};font-style:italic;margin-bottom:8px;padding:6px 10px;border-left:2px solid ${col};background:${col}08;border-radius:0 3px 3px 0">◈ ${item.implication}</div>`:''}
+          ${item.link&&item.link!='none'?`<a href="${item.link}" target="_blank" style="font-size:10px;color:${col};font-family:'Space Mono',monospace;text-decoration:none;font-weight:700">▸ ${item.source||'Prism Analysis'}</a>`:`<div style="font-size:10px;color:${col};font-family:'Space Mono',monospace;font-weight:700">▸ ${item.source||'Prism Analysis'}</div>`}
         </div>
       `,{maxWidth:260});
       const div=document.createElement('div');
       div.className='inc-card';
       div.style.borderLeftColor=col;
-      div.style.borderLeftWidth='3px';
       div.innerHTML=`
-        <div style="font-size:8px;color:${col};letter-spacing:2px;margin-bottom:3px;font-family:'Space Mono',monospace">${labels[cat]||cat}</div>
-        <div style="font-size:10px;color:#0a1628;line-height:1.4">${item.headline}</div>
+        <div style="font-size:8px;color:${col};letter-spacing:2px;margin-bottom:3px;font-family:'Space Mono',monospace;font-weight:700">${labels[cat]||cat}</div>
+        <div style="font-size:11px;color:#0a1628;line-height:1.4;font-weight:500">${item.headline}</div>
       `;
       div.onclick=()=>{map.setView([item.lat,item.lng],4,{animate:true});marker.openPopup();};
       incidentList.appendChild(div);
