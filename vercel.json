@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/regulatory.js": {
+      "maxDuration": 30
+    }
+  }
+}
