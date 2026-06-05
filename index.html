@@ -12,7 +12,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{max-width:100%;overflow-x:hidden}
 body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min-height:100vh}
-
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes pulse{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
 @keyframes glowGreenFrame{0%,100%{box-shadow:0 0 10px rgba(0,180,80,0.2)}50%{box-shadow:0 0 20px rgba(0,180,80,0.35)}}
@@ -24,12 +23,10 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 @keyframes slideDown{0%{max-height:0;opacity:0;transform:translateY(-4px)}100%{max-height:300px;opacity:1;transform:translateY(0)}}
 @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 @keyframes ping{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}75%,100%{transform:translate(-50%,-50%) scale(2.5);opacity:0}}
-@keyframes chatBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @keyframes chatPulse{0%,100%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 0 rgba(74,158,255,0.4)}70%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 10px rgba(74,158,255,0)}}
 @keyframes bubbleIn{0%{opacity:0;transform:translateY(10px) scale(0.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes fadeOverlay{0%{opacity:0}100%{opacity:1}}
 
-/* TOPBAR */
 .topbar{background:#0a1628;border-bottom:1.5px solid #1a2a4a;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .topbar-left{display:flex;align-items:center;gap:14px}
 .topbar-divider{border-left:1px solid #1a2a4a;padding-left:14px}
@@ -40,23 +37,15 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .ts{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.3);letter-spacing:2px}
 .beta-badge{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:flex-start;margin-top:8px}
 .early{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#ff8c00;margin-top:2px}
-
-/* ANALYST PILL */
 .analyst-pill{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4a9eff;text-decoration:none;border:1px solid rgba(74,158,255,0.35);padding:5px 14px;border-radius:20px;background:rgba(74,158,255,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all 0.2s}
 .analyst-pill:hover{background:rgba(74,158,255,0.15);border-color:rgba(74,158,255,0.6)}
-
-/* TICKER */
 .ticker-wrap{background:#0d1f3c;border-bottom:1px solid #1a2a4a;overflow:hidden;white-space:nowrap;padding:6px 0;width:100%}
 .ticker-inner{display:inline-block;animation:ticker 40s linear infinite;will-change:transform}
 .ticker-label{font-size:9px;color:rgba(200,220,255,0.4);letter-spacing:2px;font-weight:600;font-family:'Space Mono',monospace}
-
-/* SECTION 1 — BRIEFING + MAP */
 .section-briefing-map{display:grid;grid-template-columns:1fr 1fr;background:#0d1f3c;border-bottom:1px solid #1a2a4a;min-height:300px}
 .briefing-left{padding:22px 32px;border-right:1px solid #1a2a4a;display:flex;flex-direction:column;justify-content:center}
 .hero-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#4a9eff;margin-bottom:12px}
 .badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
-
-/* CALM BADGES — no pulse, subtle border */
 .badge-bullish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(0,160,70,0.4);background:rgba(0,160,70,0.1);color:#00cc60;display:flex;align-items:center;gap:8px}
 .badge-bearish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.4);background:rgba(200,0,0,0.1);color:#ff5555;display:flex;align-items:center;gap:8px}
 .badge-neutral{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(74,158,255,0.35);background:rgba(74,158,255,0.08);color:#4a9eff;display:flex;align-items:center;gap:8px}
@@ -65,10 +54,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .badge-geo-high{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,100,0,0.4);background:rgba(200,100,0,0.1);color:#ff8c00;display:flex;align-items:center;gap:8px}
 .badge-geo-critical{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.5);background:rgba(200,0,0,0.12);color:#ff5555;display:flex;align-items:center;gap:8px}
 .badge-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
 .summary{font-size:14px;color:#a8c4e0;line-height:1.8;border-left:3px solid #4a9eff;padding:12px 16px;background:rgba(74,158,255,0.05);border-radius:0 6px 6px 0}
-
-/* MAP */
 .map-right{display:flex;flex-direction:column;overflow:hidden;background:#04060f}
 .map-header-inner{padding:12px 16px;background:#0a1628;border-bottom:1px solid #1a2a4a;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .map-title-inner{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:3px;color:#4a9eff}
@@ -78,8 +64,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .inc-item{font-size:11px;color:#7090b0;display:flex;align-items:center;gap:8px;font-weight:500;cursor:pointer;transition:color 0.15s}
 .inc-item:hover{color:#c8dff0}
 .inc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
-/* MAP POPUP OVERLAY */
 .map-popup-overlay{position:fixed;inset:0;background:rgba(4,6,15,0.7);z-index:9000;display:none;align-items:center;justify-content:center;animation:fadeOverlay 0.2s ease;backdrop-filter:blur(3px)}
 .map-popup-overlay.active{display:flex}
 .map-popup-card{background:#0d1f3c;border:1.5px solid #1a2a4a;border-radius:12px;width:90%;max-width:520px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.6);animation:bubbleIn 0.2s ease}
@@ -96,8 +80,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .map-popup-src{font-family:'Space Mono',monospace;font-size:10px;color:#4a9eff;text-decoration:none}
 .map-popup-read{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;padding:5px 14px;border-radius:4px;border:1px solid rgba(74,158,255,0.3);background:rgba(74,158,255,0.08);text-decoration:none;transition:all 0.15s}
 .map-popup-read:hover{background:rgba(74,158,255,0.15)}
-
-/* SECTION 2 — OPP + RISK */
 .section-orr{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 32px;background:#080f1c;border-bottom:1px solid #1a2a4a}
 .ocard-green{background:#0d1f3c;border:1.5px solid rgba(0,140,60,0.3);border-radius:10px;overflow:hidden;animation:glowGreenFrame 3s ease-in-out infinite}
 .ocard-red{background:#0d1f3c;border:1.5px solid rgba(200,0,0,0.25);border-radius:10px;overflow:hidden;animation:glowRedFrame 3s ease-in-out infinite}
@@ -108,8 +90,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .ocard-title-red{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#ff4444}
 .ocard-body{padding:14px 18px}
 .ocard-text{font-size:14px;color:#7090b0;line-height:1.75}
-
-/* SECTION 3 — NEWS */
 .page{padding:22px 32px;background:#080f1c}
 .section-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;margin-top:10px}
 .section-header:first-child{margin-top:0}
@@ -140,10 +120,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .story-impl{font-size:13px;color:#4a9eff;font-style:italic;border-left:3px solid #4a9eff;padding:8px 12px;background:rgba(74,158,255,0.05);border-radius:0 4px 4px 0;line-height:1.5;margin-bottom:12px}
 .story-footer{display:flex;align-items:center;justify-content:space-between}
 .story-source{font-family:'Space Mono',monospace;font-size:10px;color:#4a9eff;text-decoration:none;letter-spacing:1px}
+.story-source:hover{color:#7ab8ff}
 .story-read{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;letter-spacing:1px;background:rgba(74,158,255,0.08);padding:5px 12px;border-radius:4px;border:1px solid rgba(74,158,255,0.25);text-decoration:none;transition:all 0.15s}
 .story-read:hover{background:rgba(74,158,255,0.15)}
-
-/* SECTION 4 — PREDICTIVE with dropdown */
 .outlook-section{background:#0a1628;border-top:1px solid #1a2a4a;border-bottom:1px solid #1a2a4a;padding:22px 32px}
 .outlook-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .outlook-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#4a9eff;white-space:nowrap}
@@ -154,7 +133,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .outlook-domain{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:3px;margin-bottom:10px}
 .outlook-watch{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:10px;padding:5px 10px;border:1px solid;border-radius:3px;display:inline-block}
 .outlook-signal{font-size:14px;color:#a8c4e0;line-height:1.7;margin-bottom:12px;border-left:2px solid #4a9eff;padding-left:10px}
-/* DROPDOWN */
 .pred-dropdown{border:1px solid #1a2a4a;border-radius:6px;overflow:hidden}
 .pred-dd-btn{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#080f1c;color:#4a9eff;transition:background 0.15s;user-select:none}
 .pred-dd-btn:hover{background:#0a1628}
@@ -165,8 +143,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .pred-bear{background:rgba(200,0,0,0.07);border:1px solid rgba(200,0,0,0.18);border-radius:4px;padding:10px}
 .pred-lbl{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:5px}
 .pred-txt{font-size:12px;color:#6a8aaa;line-height:1.5}
-
-/* SECTION 5 — REGULATORY */
 .reg-section{background:#080f1c;border-bottom:1px solid #1a2a4a;padding:22px 32px}
 .reg-inner{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-top:16px}
 .reg-score-card{background:#0d1f3c;border:1.5px solid #1a2a4a;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
@@ -205,8 +181,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .reg-footer-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
 .reg-footer-text{font-family:'Space Mono',monospace;font-size:7px;color:#3a5a7a;letter-spacing:1px}
 .reg-footer-btn{font-family:'Space Mono',monospace;font-size:7px;color:#4a9eff;letter-spacing:1px;background:rgba(74,158,255,0.08);padding:4px 10px;border-radius:3px;border:1px solid rgba(74,158,255,0.2);text-decoration:none}
-
-/* POLY */
 .poly-section{background:#0a1628;border-bottom:1px solid #1a2a4a;padding:22px 32px}
 .poly-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
 .poly-card{background:#0d1f3c;border:1.5px solid #1a2a4a;border-radius:8px;padding:14px;transition:border-color 0.2s;cursor:pointer}
@@ -219,8 +193,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .poly-no{font-family:'Space Mono',monospace;font-size:11px;color:#3a5a7a}
 .poly-vol{font-size:9px;color:#3a5a7a;letter-spacing:1px;margin-top:6px;font-family:'Space Mono',monospace}
 .poly-loading{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;letter-spacing:2px;padding:20px 0}
-
-/* STOCKS */
 .stocks-section{background:#080f1c;border-bottom:1px solid #1a2a4a;padding:22px 32px}
 .stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
 .stock-card{background:#0d1f3c;border:1.5px solid #1a2a4a;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
@@ -231,8 +203,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .stock-dn{font-size:11px;color:#ff4444;text-align:right;font-weight:600}
 .stock-private{font-size:10px;color:#3a5a7a;text-align:right}
 .sector-note{margin-top:14px;font-size:13px;color:#4a9eff;font-style:italic;border-top:1px solid #1a2a4a;padding-top:12px}
-
-/* EVENTS */
 .events-section{background:#0a1628;border-bottom:1px solid #1a2a4a;padding:22px 32px}
 .event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
 .event-card{background:#0d1f3c;border:1.5px solid #1a2a4a;border-radius:8px;padding:16px}
@@ -240,15 +210,12 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .event-name{font-size:14px;font-weight:700;color:#c8dff0;margin-bottom:4px}
 .event-loc{font-size:12px;color:#5a7a9a}
 .event-tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:1px;padding:3px 10px;border-radius:3px;background:rgba(74,158,255,0.08);color:#4a9eff;border:1px solid rgba(74,158,255,0.2);font-family:'Space Mono',monospace}
-
 .sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .st{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#4a9eff}
 .sl{flex:1;height:2px;background:#1a2a4a;border-radius:1px}
 .footer{padding:14px 32px;display:flex;justify-content:space-between;background:#04060f;flex-wrap:wrap;gap:8px;border-top:1px solid #1a2a4a}
 .footer-text{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.12);letter-spacing:3px}
 .scan{height:3px;background:linear-gradient(90deg,#1a2a4a,#4a9eff,#1a2a4a)}
-
-/* FLOATING CHAT BUBBLE */
 .chat-bubble{position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
 .chat-bubble-btn{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#1a5fa0,#4a9eff);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(74,158,255,0.35);animation:chatPulse 3s ease-in-out infinite;transition:transform 0.2s;position:relative}
 .chat-bubble-btn:hover{transform:scale(1.08);animation:none;box-shadow:0 6px 28px rgba(74,158,255,0.5)}
@@ -258,14 +225,16 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .chat-bubble-tooltip:hover{border-color:#2a4a6a}
 .chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#4a9eff;margin-bottom:4px}
 .chat-tooltip-text{font-size:11px;color:#5a7a9a;line-height:1.4}
-
-/* MOBILE */
 @media(max-width:768px){
-  .topbar{padding:10px 16px;flex-direction:column;align-items:center;text-align:center;gap:6px}
-  .topbar-left{flex-direction:column;align-items:center;gap:4px}
-  .topbar-divider{border-left:none;padding-left:0;border-top:1px solid #1a2a4a;padding-top:4px;width:100%;text-align:center}
-  .topbar-right{justify-content:center;gap:10px}
+  .topbar{padding:4px 12px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:0}
+  .topbar-left{flex-direction:row;align-items:center;gap:6px}
+  .topbar-divider{display:none}
+  .topbar-right{gap:8px;flex-wrap:nowrap}
   .ts{display:none}
+  .beta-badge{display:none}
+  .early{display:none}
+  .analyst-pill{font-size:7px;padding:2px 8px;letter-spacing:1px}
+  img[alt="PRISM"]{height:22px!important}
   .section-briefing-map{grid-template-columns:1fr;display:flex;flex-direction:column}
   .briefing-left{padding:16px;border-right:none;border-bottom:1px solid #1a2a4a}
   .map-right{min-height:280px}
@@ -294,8 +263,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 </head>
 <body>
 <div class="scan"></div>
-
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
     <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:60px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
@@ -313,8 +280,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <div class="ts" id="lastupdated"></div>
   </div>
 </div>
-
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-inner">
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">GOLD ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$407.87</span><span style="font-size:10px;color:#ff4444">▼ 0.99%</span></span>
@@ -336,8 +301,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">S&P 500 ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$754.24</span><span style="font-size:10px;color:#ff4444">▼ 0.70%</span></span>
   </div>
 </div>
-
-<!-- SECTION 1: BRIEFING + MAP -->
 <div class="section-briefing-map">
   <div class="briefing-left">
     <div class="hero-label">◈ Executive Intelligence Briefing</div>
@@ -357,8 +320,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <div class="inc-list-inner" id="incident-list-top"></div>
   </div>
 </div>
-
-<!-- SECTION 2: OPP + RISK -->
 <div class="section-orr">
   <div class="ocard-green">
     <div class="ocard-header-green"><div class="ocard-icon">▲</div><div class="ocard-title-green">Opportunity of the Day</div></div>
@@ -369,8 +330,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <div class="ocard-body"><div class="ocard-text">A confirmed Iranian strike on a US naval vessel in the Gulf — already reported by Iran and disputed by CENTCOM — risks triggering direct escalation that closes the Strait of Hormuz and sends oil through $100, crashing equity markets and forcing emergency defence reallocation within 48 hours.</div></div>
   </div>
 </div>
-
-<!-- SECTION 3: NEWS -->
 <div class="page">
   
         <div class="section-header">
@@ -910,8 +869,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
       </div>
       
 </div>
-
-<!-- SECTION 4: PREDICTIVE with dropdown -->
 <div class="outlook-section">
   <div class="outlook-header">
     <div class="outlook-title">🔭 Predictive Intelligence Signals</div>
@@ -964,8 +921,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
       </div>
   </div>
 </div>
-
-<!-- SECTION 5: REGULATORY -->
 <div class="reg-section">
   <div class="sh">
     <div class="st">⚖ Regulatory Pulse</div>
@@ -982,8 +937,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <a href="https://prism-consultant.vercel.app" target="_blank" class="reg-footer-btn">▸ ASK PRISM ANALYST</a>
   </div>
 </div>
-
-<!-- SECTION 6: POLYMARKET -->
 <div class="poly-section">
   <div class="sh">
     <div class="st">🎯 Prediction Markets</div>
@@ -992,8 +945,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   </div>
   <div id="poly-grid" class="poly-grid"><div class="poly-loading">◈ LOADING PREDICTION MARKETS...</div></div>
 </div>
-
-<!-- SECTION 7: STOCKS -->
 <div class="stocks-section">
   <div class="sh">
     <div class="st">📈 Market Pulse — Space & Defence</div>
@@ -1006,8 +957,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   </div>
   <div class="sector-note">The Iran conflict escalation combined with the US House war authorization vote creates a bifurcated defence environment where counter-drone, missile defence, and naval asset protection programmes accelerate while longer-cycle platform contracts face budgetary and political uncertainty through Q3 2026.</div>
 </div>
-
-<!-- SECTION 8: EVENTS -->
 <div class="events-section">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
   <div class="event-grid">
@@ -1062,14 +1011,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     
   </div>
 </div>
-
 <div class="footer">
   <div class="footer-text">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · U.A.E.</div>
   <div class="footer-text">CONFIDENTIAL · 2026</div>
 </div>
 <div class="scan"></div>
-
-<!-- MAP POPUP OVERLAY -->
 <div class="map-popup-overlay" id="map-popup-overlay" onclick="closeMapPopup(event)">
   <div class="map-popup-card" id="map-popup-card">
     <div class="map-popup-top">
@@ -1088,8 +1034,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     </div>
   </div>
 </div>
-
-<!-- FLOATING CHAT BUBBLE -->
 <div class="chat-bubble">
   <a href="https://prism-consultant.vercel.app" target="_blank" class="chat-bubble-tooltip">
     <div class="chat-tooltip-title">💬 PRISM ANALYST</div>
@@ -1102,100 +1046,66 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     </button>
   </a>
 </div>
-
 <script>
-// ── DROPDOWN TOGGLE ────────────────────────────────────────────────
-function toggleDD(id) {
-  const content = document.getElementById(id);
-  const arrow = document.getElementById('arr-'+id);
-  const isOpen = content.classList.contains('open');
-  content.classList.toggle('open');
-  if(arrow) arrow.textContent = isOpen ? '▾' : '▴';
-}
-
-// ── MAP POPUP ──────────────────────────────────────────────────────
-function openMapPopup(item, col, catLabel) {
+function toggleDD(id){const c=document.getElementById(id);const a=document.getElementById('arr-'+id);const o=c.classList.contains('open');c.classList.toggle('open');if(a)a.textContent=o?'▾':'▴';}
+function openMapPopup(item,col,catLabel){
   document.getElementById('map-popup-overlay').classList.add('active');
-  document.getElementById('map-popup-cat').textContent = catLabel;
-  document.getElementById('map-popup-cat').style.color = col;
-  document.getElementById('map-popup-head').textContent = item.headline || '';
-  document.getElementById('map-popup-context').textContent = item.context || '';
-  const impl = document.getElementById('map-popup-impl');
-  if(item.implication) { impl.textContent = '◈ ' + item.implication; impl.style.display='block'; } else { impl.style.display='none'; }
-  const img = document.getElementById('map-popup-img');
-  if(item.image && item.image !== 'none' && item.image !== '') { img.src=item.image; img.style.display='block'; img.onerror=()=>img.style.display='none'; } else { img.style.display='none'; }
-  const src = document.getElementById('map-popup-src');
-  src.textContent = '▸ ' + (item.source||'Prism Analysis');
-  if(item.link && item.link!=='none') { src.href=item.link; } else { src.href='#'; }
-  const read = document.getElementById('map-popup-read');
-  if(item.link && item.link!=='none') { read.href=item.link; read.style.display='inline-block'; } else { read.style.display='none'; }
+  document.getElementById('map-popup-cat').textContent=catLabel;
+  document.getElementById('map-popup-cat').style.color=col;
+  document.getElementById('map-popup-head').textContent=item.headline||'';
+  document.getElementById('map-popup-context').textContent=item.context||'';
+  const impl=document.getElementById('map-popup-impl');
+  if(item.implication){impl.textContent='◈ '+item.implication;impl.style.display='block';}else{impl.style.display='none';}
+  const img=document.getElementById('map-popup-img');
+  if(item.image&&item.image!=='none'&&item.image!==''){img.src=item.image;img.style.display='block';img.onerror=()=>img.style.display='none';}else{img.style.display='none';}
+  const src=document.getElementById('map-popup-src');
+  src.textContent='▸ '+(item.source||'Prism Analysis');
+  if(item.link&&item.link!=='none'){src.href=item.link;}else{src.href='#';}
+  const read=document.getElementById('map-popup-read');
+  if(item.link&&item.link!=='none'){read.href=item.link;read.style.display='inline-block';}else{read.style.display='none';}
 }
-function closeMapPopup(e) {
-  if(e.target === document.getElementById('map-popup-overlay')) {
-    document.getElementById('map-popup-overlay').classList.remove('active');
-  }
-}
-document.addEventListener('keydown', e => { if(e.key==='Escape') document.getElementById('map-popup-overlay').classList.remove('active'); });
-
-// ── REGULATORY PULSE ────────────────────────────────────────────────
-async function loadRegulatoryPulse() {
-  const briefing = `Escalating kinetic conflict between the US and Iran — now entering day 97 — has crossed a threshold that directly disrupts Gulf infrastructure, with Iranian drone and missile strikes hitting Kuwait International Airport and US naval assets, while the US House voted to block further war authorization, creating a structural split between executive warfighting and legislative restraint that defines todays strategic landscape. The contradiction is stark: defence stocks are falling sharply despite active combat operations, signalling that markets are pricing in ceasefire risk and contract uncertainty rather than sustained procurement cycles, while space stocks including ASTS, LUNR, and BKSY are collapsing for company-specific reasons layered on top of macro fear, creating a dual-pressure environment that punishes both sectors simultaneously. Watch for the next 24 to 72 hours whether CENTCOM announces retaliatory strikes beyond Hormuz or whether the Strait of Hormuz ceasefire framework gains formal backing from Saudi Arabia and Qatar, as either outcome will either lock in a prolonged defence procurement supercycle or trigger a rapid de-escalation that resets risk pricing across the entire sector.`;
-  const sentiment = `BEARISH`;
-  const risk = `CRITICAL`;
-  const spaceH = ["New Glenn Explodes — Blue Origin Targets Year-End RTF","AST SpaceMobile Commercial Service Pushed to 2027","SpaceX Eyes $75B IPO as Valuation Pressure Builds","ULA Launches 29 Amazon LEO Satellites on Atlas 5","Muon Space Unveils Starship-Class Orbital Data Center Platform","Applied Aerospace and Defense Prices $650M IPO at 10x Demand"];
-  const defH = ["Iran Strikes Kuwait Airport — One Dead, 63 Injured","US House Votes to Block Further War on Iran","Lockheed GRIZZLY C-UAS Downs Drone in Live-Fire Demo","Six Gaps Blocking US Golden Dome Missile Shield","US Delays Weapon Sales to Allies — Long-Term Risk Assessed"];
-  const midH = ["Kuwait Expels Iranian Diplomats After Attacks","Iran War Triggers Worlds Worst Energy Crisis","Israel and Lebanon Agree to Conditional Ceasefire","Omans Neutrality Strained as Iran War Escalates"];
-  const allH = [...spaceH,...defH,...midH].join('\n- ');
-  const prompt = `You are a regulatory intelligence analyst for Prism, a space and defence dashboard. Today briefing: ${briefing}. Sentiment: ${sentiment}. Risk: ${risk}. Headlines:\n- ${allH}\n\nAnalyse the regulatory environment. Reply ONLY in this exact JSON with no other text:\n{"score":<0-100>,"status":"<STABLE|ELEVATED|HIGH PRESSURE|CRITICAL>","delta":"<e.g. +8 pts this week>","delta_direction":"<up|down|stable>","areas":[{"name":"<max 18 chars>","status":"<green|amber|red>","pill":"<STABLE|WATCH|ACTIVE|CRITICAL>","trend":"<up|stable|down>","text":"<2 sentences max>","countdown":"<72 HRS or 5 DAYS or PENDING or none>"}]}\nInclude exactly 4 areas. No apostrophes.`;
-  try {
-    const resp = await fetch('/api/regulatory', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
-    const data = await resp.json();
-    const text = data.content&&data.content[0]&&data.content[0].text ? data.content[0].text : '';
-    const parsed = JSON.parse(text.replace(/```json|```/g,'').trim());
+function closeMapPopup(e){if(e.target===document.getElementById('map-popup-overlay'))document.getElementById('map-popup-overlay').classList.remove('active');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('map-popup-overlay').classList.remove('active');});
+async function loadRegulatoryPulse(){
+  const briefing=`Escalating kinetic conflict between the US and Iran — now entering day 97 — has crossed a threshold that directly disrupts Gulf infrastructure, with Iranian drone and missile strikes hitting Kuwait International Airport and US naval assets, while the US House voted to block further war authorization, creating a structural split between executive warfighting and legislative restraint that defines todays strategic landscape. The contradiction is stark: defence stocks are falling sharply despite active combat operations, signalling that markets are pricing in ceasefire risk and contract uncertainty rather than sustained procurement cycles, while space stocks including ASTS, LUNR, and BKSY are collapsing for company-specific reasons layered on top of macro fear, creating a dual-pressure environment that punishes both sectors simultaneously. Watch for the next 24 to 72 hours whether CENTCOM announces retaliatory strikes beyond Hormuz or whether the Strait of Hormuz ceasefire framework gains formal backing from Saudi Arabia and Qatar, as either outcome will either lock in a prolonged defence procurement supercycle or trigger a rapid de-escalation that resets risk pricing across the entire sector.`;
+  const sentiment=`BEARISH`;
+  const risk=`CRITICAL`;
+  const spaceH=["New Glenn Explodes — Blue Origin Targets Year-End RTF","AST SpaceMobile Commercial Service Pushed to 2027","SpaceX Eyes $75B IPO as Valuation Pressure Builds","ULA Launches 29 Amazon LEO Satellites on Atlas 5","Muon Space Unveils Starship-Class Orbital Data Center Platform","Applied Aerospace and Defense Prices $650M IPO at 10x Demand"];
+  const defH=["Iran Strikes Kuwait Airport — One Dead, 63 Injured","US House Votes to Block Further War on Iran","Lockheed GRIZZLY C-UAS Downs Drone in Live-Fire Demo","Six Gaps Blocking US Golden Dome Missile Shield","US Delays Weapon Sales to Allies — Long-Term Risk Assessed"];
+  const midH=["Kuwait Expels Iranian Diplomats After Attacks","Iran War Triggers Worlds Worst Energy Crisis","Israel and Lebanon Agree to Conditional Ceasefire","Omans Neutrality Strained as Iran War Escalates"];
+  const allH=[...spaceH,...defH,...midH].join('\n- ');
+  const prompt=`You are a regulatory intelligence analyst for Prism, a space and defence dashboard. Today briefing: ${briefing}. Sentiment: ${sentiment}. Risk: ${risk}. Headlines:\n- ${allH}\n\nAnalyse the regulatory environment. Reply ONLY in this exact JSON with no other text:\n{"score":<0-100>,"status":"<STABLE|ELEVATED|HIGH PRESSURE|CRITICAL>","delta":"<e.g. +8 pts this week>","delta_direction":"<up|down|stable>","areas":[{"name":"<max 18 chars>","status":"<green|amber|red>","pill":"<STABLE|WATCH|ACTIVE|CRITICAL>","trend":"<up|stable|down>","text":"<2 sentences max>","countdown":"<72 HRS or 5 DAYS or PENDING or none>"}]}\nInclude exactly 4 areas. No apostrophes.`;
+  try{
+    const resp=await fetch('/api/regulatory',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
+    const data=await resp.json();
+    const text=data.content&&data.content[0]&&data.content[0].text?data.content[0].text:'';
+    const parsed=JSON.parse(text.replace(/```json|```/g,'').trim());
     renderRegPulse(parsed);
-  } catch(e) {
-    document.getElementById('reg-inner').innerHTML = '<div style="font-family:Space Mono,monospace;font-size:9px;color:#ff4444;padding:20px;letter-spacing:2px">◈ REGULATORY DATA UNAVAILABLE</div>';
-  }
+  }catch(e){document.getElementById('reg-inner').innerHTML='<div style="font-family:Space Mono,monospace;font-size:9px;color:#ff4444;padding:20px;letter-spacing:2px">◈ REGULATORY DATA UNAVAILABLE</div>';}
 }
-function renderRegPulse(data) {
-  const inner = document.getElementById('reg-inner');
-  const score = data.score||0;
-  const dir = data.delta_direction||'stable';
-  const scoreColor = score>=75?'#ff4444':score>=50?'#ff8c00':'#00aa40';
-  const dotClass = {green:'dot-green',amber:'dot-amber',red:'dot-red'};
-  const nameClass = {green:'name-green',amber:'name-amber',red:'name-red'};
-  const pillClass = {green:'pill-green',amber:'pill-amber',red:'pill-red'};
-  const trendHtml = {up:'<span class="reg-area-trend trend-up">▲</span>',stable:'<span class="reg-area-trend trend-stable">→</span>',down:'<span class="reg-area-trend trend-down">▼</span>'};
-  const areasHtml = (data.areas||[]).map((a,i)=>{
+function renderRegPulse(data){
+  const inner=document.getElementById('reg-inner');
+  const score=data.score||0;
+  const dir=data.delta_direction||'stable';
+  const scoreColor=score>=75?'#ff4444':score>=50?'#ff8c00':'#00aa40';
+  const dotClass={green:'dot-green',amber:'dot-amber',red:'dot-red'};
+  const nameClass={green:'name-green',amber:'name-amber',red:'name-red'};
+  const pillClass={green:'pill-green',amber:'pill-amber',red:'pill-red'};
+  const trendHtml={up:'<span class="reg-area-trend trend-up">▲</span>',stable:'<span class="reg-area-trend trend-stable">→</span>',down:'<span class="reg-area-trend trend-down">▼</span>'};
+  const areasHtml=(data.areas||[]).map((a,i)=>{
     const s=a.status||'green';const t=a.trend||'stable';
-    return `<div class="reg-area" style="animation:slideIn 0.3s ease ${i*0.1}s both">
-      <div class="reg-area-hdr"><div class="reg-area-dot ${dotClass[s]||'dot-green'}"></div><div class="reg-area-name ${nameClass[s]||'name-green'}">${a.name||''}</div>${trendHtml[t]||trendHtml.stable}<div class="reg-area-pill ${pillClass[s]||'pill-green'}">${a.pill||'STABLE'}</div></div>
-      <div class="reg-area-text">${a.text||''}</div>
-      ${a.countdown&&a.countdown!=='none'?`<div class="reg-area-cd"><div class="reg-area-cd-lbl">NEXT DECISION</div><div class="reg-area-cd-val">${a.countdown}</div></div>`:''}
-    </div>`;
+    return `<div class="reg-area" style="animation:slideIn 0.3s ease ${i*0.1}s both"><div class="reg-area-hdr"><div class="reg-area-dot ${dotClass[s]||'dot-green'}"></div><div class="reg-area-name ${nameClass[s]||'name-green'}">${a.name||''}</div>${trendHtml[t]||trendHtml.stable}<div class="reg-area-pill ${pillClass[s]||'pill-green'}">${a.pill||'STABLE'}</div></div><div class="reg-area-text">${a.text||''}</div>${a.countdown&&a.countdown!=='none'?`<div class="reg-area-cd"><div class="reg-area-cd-lbl">NEXT DECISION</div><div class="reg-area-cd-val">${a.countdown}</div></div>`:''}</div>`;
   }).join('');
-  inner.innerHTML = `
-    <div class="reg-score-card">
-      <div><div class="reg-score-num" style="color:${scoreColor}">${score}</div><div class="reg-score-lbl" style="color:${scoreColor}">${data.status||'STABLE'}</div></div>
-      <div class="reg-bar-wrap"><div class="reg-bar" style="width:${Math.min(score,100)}%"></div></div>
-      <div class="reg-bar-labels"><span class="reg-bar-lbl" style="color:#00aa40">STABLE</span><span class="reg-bar-lbl" style="color:#ff8c00">ELEVATED</span><span class="reg-bar-lbl" style="color:#ff4444">CRITICAL</span></div>
-      <div class="reg-delta" style="color:${dir==='up'?'#ff4444':dir==='down'?'#00aa40':'#3a5a7a'}">${dir==='up'?'▲ ':dir==='down'?'▼ ':'→ '}${data.delta||''}</div>
-    </div>
-    <div class="reg-areas-grid">${areasHtml}</div>
-  `;
+  inner.innerHTML=`<div class="reg-score-card"><div><div class="reg-score-num" style="color:${scoreColor}">${score}</div><div class="reg-score-lbl" style="color:${scoreColor}">${data.status||'STABLE'}</div></div><div class="reg-bar-wrap"><div class="reg-bar" style="width:${Math.min(score,100)}%"></div></div><div class="reg-bar-labels"><span class="reg-bar-lbl" style="color:#00aa40">STABLE</span><span class="reg-bar-lbl" style="color:#ff8c00">ELEVATED</span><span class="reg-bar-lbl" style="color:#ff4444">CRITICAL</span></div><div class="reg-delta" style="color:${dir==='up'?'#ff4444':dir==='down'?'#00aa40':'#3a5a7a'}">${dir==='up'?'▲ ':dir==='down'?'▼ ':'→ '}${data.delta||''}</div></div><div class="reg-areas-grid">${areasHtml}</div>`;
   const n=new Date();
   document.getElementById('reg-footer-time').textContent='UPDATED BY PRISM AI · '+n.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 }
 loadRegulatoryPulse();
-
-// ── TOPBAR ──────────────────────────────────────────────────────────
 function getMoonPhase(){const phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];const known=new Date(2000,0,6);const now=new Date();const diff=(now-known)/(1000*60*60*24);const cycle=diff%29.53;return phases[Math.floor(cycle/29.53*8)];}
 document.getElementById('moonphase').textContent=getMoonPhase();
 const now=new Date();
 document.getElementById('datetime').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 document.getElementById('lastupdated').textContent='◈ Briefing: '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
-
-// ── POLYMARKET ──────────────────────────────────────────────────────
 const RELEVANT_KEYWORDS=['war','military','nuclear','missile','satellite','space','launch','rocket','AI','artificial intelligence','defense','defence','ceasefire','invasion','weapons','cyber','drone','conflict','Iran','Russia','China','NATO','Taiwan','army','navy','bomb','strike','attack','troops','combat','terror','hypersonic','ballistic','radar','surveillance','intel','OpenAI','Anthropic','GPT','AGI','Starlink','SpaceX','Boeing','Lockheed','Raytheon','Northrop','Pentagon','CENTCOM','treaty','sanctions','proliferation','warhead','uranium','plutonium','North Korea','Pakistan','Israel','Gaza','Lebanon','Ukraine','Syria','coup','rebellion','geopolit','orbit','ISS','moon','Mars','asteroid'];
 function isRelevant(q){return RELEVANT_KEYWORDS.some(k=>q.toLowerCase().includes(k.toLowerCase()));}
 function getProbabilityColor(p){return p>=0.7?'#00aa40':p>=0.5?'#806000':p>=0.3?'#ff8c00':'#ff4444';}
@@ -1218,8 +1128,6 @@ async function loadPolymarkets(){
   }catch(e){grid.innerHTML='<div class="poly-loading">◈ POLYMARKET DATA UNAVAILABLE</div>';}
 }
 loadPolymarkets();
-
-// ── MAP ─────────────────────────────────────────────────────────────
 const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true,attributionControl:false});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.35}).addTo(map);
@@ -1240,7 +1148,7 @@ Object.keys(newsData).forEach(cat=>{
       const r=parseInt(hex.substring(0,2),16);const g=parseInt(hex.substring(2,4),16);const b=parseInt(hex.substring(4,6),16);
       const icon=L.divIcon({className:'',html:`<div style="position:relative;width:22px;height:22px;cursor:pointer"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:${col};border:2px solid rgba(255,255,255,0.7);z-index:2;box-shadow:0 0 8px ${col}"></div><div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.7);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite;z-index:1"></div><div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.3);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite 0.7s;z-index:1"></div></div>`,iconSize:[22,22],iconAnchor:[11,11]});
       const marker=L.marker([item.lat,item.lng],{icon}).addTo(map);
-      marker.on('click',()=>openMapPopup(item, col, catLabels[cat]||cat));
+      marker.on('click',()=>openMapPopup(item,col,catLabels[cat]||cat));
       if(incidentCount<=3){
         const div=document.createElement('div');
         div.className='inc-item';
