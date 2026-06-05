@@ -43,7 +43,12 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .ticker-inner{display:inline-block;animation:ticker 40s linear infinite;will-change:transform}
 .ticker-label{font-size:9px;color:rgba(200,220,255,0.4);letter-spacing:2px;font-weight:600;font-family:'Space Mono',monospace}
 .section-briefing-map{display:grid;grid-template-columns:1fr 1fr;background:#0d1f3c;border-bottom:1px solid #1a2a4a;min-height:300px}
-.briefing-left{padding:0;border-right:1px solid #1a2a4a;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.briefing-left{padding:0;border-right:none;border-bottom:none}
+.briefing-frame{margin:10px;border-radius:8px}
+.briefing-frame-title{font-size:9px;letter-spacing:1px}
+.badges{flex-wrap:nowrap;gap:6px}
+.badge-bullish,.badge-bearish,.badge-neutral,.badge-geo-low,.badge-geo-medium,.badge-geo-high,.badge-geo-critical{font-size:8px;padding:4px 8px;letter-spacing:1px;white-space:nowrap}
+.summary{font-size:12px}
 .briefing-frame{border:2px solid rgba(74,158,255,0.5);border-radius:10px;overflow:hidden;box-shadow:0 0 20px rgba(74,158,255,0.15);margin:18px 24px;flex:1}
 .briefing-frame-header{background:#1a3a6a;padding:12px 18px;border-bottom:1px solid rgba(74,158,255,0.3);display:flex;align-items:center;gap:10px}
 .briefing-frame-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#7ab8ff;white-space:nowrap}
@@ -242,7 +247,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   .early{display:none}
   .analyst-pill{font-size:7px;padding:2px 8px;letter-spacing:1px}
   img[alt="PRISM"]{height:22px!important}
-  .section-briefing-map{grid-template-columns:1fr;display:flex;flex-direction:column}
+  .section-briefing-map{grid-template-columns:1fr;display:flex;flex-direction:column;background:#0d1f3c}
   .briefing-left{padding:16px;border-right:none;border-bottom:1px solid #1a2a4a}
   .map-right{min-height:280px}
   .section-orr{grid-template-columns:1fr;padding:16px;gap:12px}
