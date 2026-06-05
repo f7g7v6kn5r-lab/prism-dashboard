@@ -235,8 +235,26 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .search-clear{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;cursor:pointer;padding:0 4px;transition:color 0.15s}
 .search-clear:hover{color:#c8dff0}
 .search-count{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;white-space:nowrap}
+.search-bar-wrap{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 32px;position:relative}
+.search-row{display:flex;align-items:center;gap:12px}
+.search-inner:focus-within{border-color:rgba(74,158,255,0.5);box-shadow:0 0 0 3px rgba(74,158,255,0.08)}
+.search-nav{display:flex;align-items:center;gap:6px}
+.search-nav-btn{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;transition:all 0.15s}
+.search-nav-btn:hover{background:rgba(74,158,255,0.15)}
+.search-nav-btn:disabled{color:#3a5a7a;background:transparent;border-color:#1a2a4a;cursor:not-allowed}
+.search-pos{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:1px;min-width:40px;text-align:center}
+.search-dropdown{position:absolute;top:calc(100% + 2px);left:32px;right:32px;background:#0d1f3c;border:1.5px solid rgba(74,158,255,0.3);border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.6);z-index:1000;max-height:300px;overflow-y:auto}
+.search-drop-header{padding:8px 14px;background:#0a1628;border-bottom:1px solid #1a2a4a;font-family:'Space Mono',monospace;font-size:8px;color:#3a5a7a;letter-spacing:2px}
+.search-result-item{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;display:flex;align-items:flex-start;gap:10px}
+.search-result-item:hover{background:rgba(74,158,255,0.08)}
+.search-result-item:last-child{border-bottom:none}
+.sri-cat{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.sri-head{font-size:12px;font-weight:600;color:#c8dff0;line-height:1.4;margin-bottom:3px}
+.sri-excerpt{font-size:11px;color:#3a5a7a;line-height:1.5}
+.sri-head mark,.sri-excerpt mark,.story-head mark,.story-teaser mark{background:rgba(74,158,255,0.25);color:#7ab8ff;border-radius:2px;padding:0 2px;font-style:normal}
 .story-hidden{display:none!important}
-.story-highlight{border-color:#4a9eff!important}
+.story.active-result{border-color:#4a9eff!important;box-shadow:0 0 0 2px rgba(74,158,255,0.2),0 0 20px rgba(74,158,255,0.12)!important}
+.story.dimmed{opacity:0.2}
 @media(max-width:768px){
   .topbar{padding:6px 12px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06)}
   .topbar-left{flex-direction:row;align-items:center;gap:6px}
@@ -303,32 +321,40 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 </div>
 <div class="ticker-wrap">
   <div class="ticker-inner">
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">GOLD ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$398.53</span><span style="font-size:10px;color:#ff4444">▼ 3.10%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">GOLD ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$396.73</span><span style="font-size:10px;color:#ff4444">▼ 3.54%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">OIL ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$51.20</span><span style="font-size:10px;color:#ff4444">▼ 2.44%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">OIL ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$51.30</span><span style="font-size:10px;color:#ff4444">▼ 2.25%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">VIX ETF</span><span style="font-size:11px;color:#ffaa40;font-weight:700">23.69</span><span style="font-size:10px;color:#ff4444">▲ 4.50%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">VIX ETF</span><span style="font-size:11px;color:#ffaa40;font-weight:700">23.97</span><span style="font-size:10px;color:#ff4444">▲ 5.73%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
     <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">USD ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">28.03</span><span style="font-size:10px;color:#00aa40">▲ 0.68%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">TREASURY ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">85.20</span><span style="font-size:10px;color:#00aa40">▼ 0.35%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">TREASURY ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">85.09</span><span style="font-size:10px;color:#00aa40">▼ 0.48%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">S&P 500 ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$744.67</span><span style="font-size:10px;color:#ff4444">▼ 1.64%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">S&P 500 ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$742.18</span><span style="font-size:10px;color:#ff4444">▼ 1.97%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">GOLD ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$398.53</span><span style="font-size:10px;color:#ff4444">▼ 3.10%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">GOLD ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$396.73</span><span style="font-size:10px;color:#ff4444">▼ 3.54%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">OIL ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$51.20</span><span style="font-size:10px;color:#ff4444">▼ 2.44%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">OIL ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$51.30</span><span style="font-size:10px;color:#ff4444">▼ 2.25%</span></span>
     <span style="color:#1a2a4a;padding:0 6px">◈</span>
-    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">S&P 500 ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$744.67</span><span style="font-size:10px;color:#ff4444">▼ 1.64%</span></span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:0 24px;font-family:'Space Mono',monospace"><span class="ticker-label">S&P 500 ETF</span><span style="font-size:11px;color:#c8dff0;font-weight:700">$742.18</span><span style="font-size:10px;color:#ff4444">▼ 1.97%</span></span>
   </div>
 </div>
-  <div class="search-bar-wrap">
-  <div class="search-inner">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(74,158,255,0.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input class="search-input" id="prism-search" type="text" placeholder="SEARCH STORIES & ANALYSIS..." oninput="prismSearch(this.value)"/>
-    <div class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">✕</div>
+  <div class="search-bar-wrap" id="search-wrap">
+  <div class="search-row">
+    <div class="search-inner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(74,158,255,0.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" id="prism-search" type="text" placeholder="SEARCH STORIES & ANALYSIS..." oninput="prismSearch(this.value)"/>
+      <div class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">✕</div>
+    </div>
+    <div class="search-count" id="search-count"></div>
+    <div class="search-nav" id="search-nav" style="display:none">
+      <button class="search-nav-btn" id="btn-prev" onclick="navResult(-1)">▲ PREV</button>
+      <div class="search-pos" id="search-pos">1 / 1</div>
+      <button class="search-nav-btn" id="btn-next" onclick="navResult(1)">▼ NEXT</button>
+    </div>
   </div>
-  <div id="search-count" class="search-count"></div>
+  <div class="search-dropdown" id="search-dropdown" style="display:none"></div>
 </div>
 <div class="section-briefing-map">
   <div class="briefing-left">
@@ -340,7 +366,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="badges">
           <div class="badge-bearish"><div class="badge-dot" style="background:#ff4444"></div>BEARISH</div><div class="badge-geo-critical"><div class="badge-dot" style="background:#ff4444"></div>⚡ GEO RISK: CRITICAL</div>
         </div>
-        <div class="summary">Simultaneous escalation across the Middle East theatre and accelerating space infrastructure investment reveal a structural bifurcation in global security spending — states are deploying capital into both kinetic deterrence and orbital capability at unprecedented speed, compressing the traditional cycle between threat and procurement response. The contradiction sits between Planet Labs posting record Q1 2027 revenue while its stock falls 24.5% and ASTS drops 12.7%, signalling that equity markets are pricing execution risk and dilution fears faster than commercial momentum can absorb them, even as government demand for persistent ISR from commercial providers has never been higher. Watch whether Hezbollah formally rejects all ceasefire terms within the next 48 hours — a confirmed hard rejection would expand the Iran war perimeter into Lebanon, triggering a new round of Gulf defence posture upgrades and directly accelerating ISR and counter-drone procurement cycles that benefit RTX, LMT, and commercial satellite operators.</div>
+        <div class="summary">Simultaneous fractures across the Middle East conflict, the SpaceX IPO filing, and a wave of sharp equity selloffs in space stocks reveal a single structural shift: capital is repricing risk across the entire space and defence complex as the Iran war enters its most diplomatically unstable phase yet. The contradiction lies in Planet Labs reporting record revenue while its stock crashes 26 percent, signalling that even strong fundamentals cannot protect high-multiple space equities when macro risk sentiment deteriorates and institutional investors deleverage across the sector simultaneously. Watch whether Hezbollah formally rejects or accepts any ceasefire framework in the next 48 hours — a confirmed rejection will extend the Iran war into a third month of active escalation, validating a sustained rotation from commercial space into hard defence primes and missile defence suppliers.</div>
       </div>
     </div>
   </div>
@@ -358,11 +384,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 <div class="section-orr">
   <div class="ocard-green">
     <div class="ocard-header-green"><div class="ocard-icon">▲</div><div class="ocard-title-green">Opportunity of the Day</div></div>
-    <div class="ocard-body"><div class="ocard-text">RTX offers the strongest near-term catalyst alignment given Patriot system demand in Kuwait, Stinger replacement procurement by the US Army, and its direct exposure to Gulf air defence upgrade cycles now accelerating under live combat conditions.</div></div>
+    <div class="ocard-body"><div class="ocard-text">RTX offers the highest near-term conviction long given its Patriot missile relevance to active Middle East theatre operations, continued NATO rearmament procurement, and US Army Stinger replacement programme momentum, all converging simultaneously.</div></div>
   </div>
   <div class="ocard-red">
     <div class="ocard-header-red"><div class="ocard-icon">▼</div><div class="ocard-title-red">Risk of the Day</div></div>
-    <div class="ocard-body"><div class="ocard-text">A confirmed Hezbollah rejection of the Lebanon ceasefire combined with Israeli refusal to withdraw forces could trigger simultaneous escalation across the Gaza, Lebanon, and Iran theatres, spiking defence risk premiums and disrupting Gulf airspace operations critical to regional space launch logistics.</div></div>
+    <div class="ocard-body"><div class="ocard-text">A formal Hezbollah rejection of the Lebanon ceasefire combined with any new Iranian strike on Gulf infrastructure in the next 48 hours would trigger another leg down in risk assets and could close Gulf airspace, directly impacting satellite ground operations and launch logistics across the region.</div></div>
   </div>
 </div>
 <div class="page">
@@ -381,48 +407,48 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
               <span class="story-region">North America</span>
               <span class="story-score sc-crit">CRITICAL · 82</span>
             </div>
-            <div class="story-head">Blue Origin targets LC-36 RTF by end of 2026</div>
-            <div class="story-teaser">Blue Origin has initiated recovery operations at Launch Complex 36 following the explosion of its New Glenn rocket during a static fire test in late May 2026. The company has publicly committed to resuming flight operations before the end of 2026, with NASA already urging Blue Origin to secure an alternative launcher for its moon landers to protect Artemis mission deadlines.</div>
+            <div class="story-head">Blue Origin targets LC-36 return to flight by end 2026</div>
+            <div class="story-teaser">Blue Origin has initiated recovery operations at Launch Complex 36 following the New Glenn static fire explosion in late May 2026 and is formally targeting a return to flight before the end of the year. NASA has separately urged Blue Origin to consider alternative launch vehicles for its moon landers to protect Artemis mission deadlines, signalling institutional concern about the programme timeline.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Blue Origin LC-36 recovery timeline directly threatens Artemis III schedule integrity and opens a competitive window for SpaceX and other launch providers to capture displaced government payload manifests.</div>
+            <div class="story-impl">◈ The New Glenn failure creates a critical gap in the heavy-lift market that directly threatens Amazon LEO deployment schedules and Artemis lunar lander timelines, strengthening the competitive position of SpaceX Falcon 9 and ULA Atlas 5 for near-term manifest slots.</div>
             <div class="story-footer">
-              <a href="https://www.nasaspaceflight.com/2026/06/blue-lc-36-recovery-rtf-end-2026/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
-              <a href="https://www.nasaspaceflight.com/2026/06/blue-lc-36-recovery-rtf-end-2026/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              <a href="https://spaceflightnow.com/2026/06/04/nasa-head-urges-new-launcher-for-blue-origins-moon-landers-to-meet-artemis-mission-deadlines/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <a href="https://spaceflightnow.com/2026/06/04/nasa-head-urges-new-launcher-for-blue-origins-moon-landers-to-meet-artemis-mission-deadlines/" target="_blank" class="story-read">READ FULL STORY ↗</a>
             </div>
           </div>
         </div>
       
         <div class="story story-crit">
-          
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Global</span>
-              <span class="story-score sc-crit">CRITICAL · 79</span>
-            </div>
-            <div class="story-head">ISS crew shelters in Dragon amid new leaks</div>
-            <div class="story-teaser">NASA crew aboard the International Space Station briefly took shelter inside their SpaceX Dragon capsule as Russian engineers worked to address newly identified leaks on the Russian segment of the station. The incident raises fresh questions about ISS structural integrity and the pace at which Russia can maintain its module obligations under current geopolitical constraints.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Repeated ISS leak events accelerate political and commercial pressure to advance commercial space station programmes, benefiting Axiom Space and other LEO habitat developers as the station transition timeline compresses.</div>
-            <div class="story-footer">
-              <a href="https://spaceflightnow.com/2026/06/05/nasa-crew-briefly-shelter-inside-dragon-capsule-as-russia-addresses-new-space-station-leaks/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
-              <a href="https://spaceflightnow.com/2026/06/05/nasa-crew-briefly-shelter-inside-dragon-capsule-as-russia-addresses-new-space-station-leaks/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-crit">
-          <img src="https://cdn.content.foolcdn.com/images/1umn9qeh/production/b4204f36ed605fc54d4ba32e2cb31d1dd892afd6-800x450.jpg?w=800&q=75&fit=max&auto=format" class="story-img" alt="Planet Labs beats Q1 2027 but stock crashes 24%" onerror="this.style.display='none'">
+          <img src="https://www.fool.com.au/wp-content/uploads/2021/03/rocket-taking-off-16.9.jpg" class="story-img" alt="SpaceX IPO priced at $135 targeting $75bn raise" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
               <span class="story-region">North America</span>
-              <span class="story-score sc-crit">CRITICAL · 75</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
             </div>
-            <div class="story-head">Planet Labs beats Q1 2027 but stock crashes 24%</div>
-            <div class="story-teaser">Planet Labs reported record revenue for Q1 2027, beating analyst forecasts across key metrics in its earnings call on June 4, 2026. Despite the operational outperformance, PL shares fell 24.5% on the day, suggesting investors are discounting near-term profitability concerns and potential dilution over commercial momentum.</div>
+            <div class="story-head">SpaceX IPO priced at $135 targeting $75bn raise</div>
+            <div class="story-teaser">SpaceX has formally launched its IPO process with a price set at $135 per share, aiming to raise up to $75 billion in what would be the largest stock market debut in financial history, with a 505-page prospectus now publicly filed. The offering values SpaceX at approximately $1.77 trillion and will test whether investors price the company on Starlink revenue fundamentals or on the broader Musk vision premium embedded in the prospectus.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ The gap between Planet Labs operational performance and market reaction signals that commercial ISR investors are demanding a clear path to profitability before re-rating the sector, creating a buying opportunity only for long-duration capital with high risk tolerance.</div>
+            <div class="story-impl">◈ A successful SpaceX IPO at this valuation would permanently reset the pricing benchmark for all commercial space equities and create a dominant index-eligible space prime that absorbs institutional capital at the expense of smaller constellation and launch names.</div>
+            <div class="story-footer">
+              <a href="https://www.businesstoday.in/markets/stocks/story/spacex-ipo-price-out-valuation-risks-growth-explains-all-what-investors-should-know-534868-2026-06-04" target="_blank" class="story-source">▸ businesstoday</a>
+              <a href="https://www.businesstoday.in/markets/stocks/story/spacex-ipo-price-out-valuation-risks-growth-explains-all-what-investors-should-know-534868-2026-06-04" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit">
+          <img src="https://cdn.content.foolcdn.com/images/1umn9qeh/production/b4204f36ed605fc54d4ba32e2cb31d1dd892afd6-800x450.jpg?w=800&q=75&fit=max&auto=format" class="story-img" alt="Planet Labs posts record revenue, stock crashes 26%" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 78</span>
+            </div>
+            <div class="story-head">Planet Labs posts record revenue, stock crashes 26%</div>
+            <div class="story-teaser">Planet Labs reported record Q1 2027 revenue, beating forecasts on the earnings call held June 4 2026, yet the stock collapsed 25.89 percent on the day — one of the worst single-session performances in the companys history. The disconnect between operational performance and market reaction points to multiple compression across high-valuation commercial Earth observation names under current macro and geopolitical risk conditions.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Record revenue failing to prevent a 26 percent crash confirms that commercial remote sensing equities are now priced on risk sentiment rather than fundamentals, creating potential long-term value entry points for patient investors but signalling near-term capitulation risk remains elevated.</div>
             <div class="story-footer">
               <a href="https://www.fool.com/earnings/call-transcripts/2026/06/05/planet-labs-pl-q1-2027-earnings-transcript/" target="_blank" class="story-source">▸ fool</a>
               <a href="https://www.fool.com/earnings/call-transcripts/2026/06/05/planet-labs-pl-q1-2027-earnings-transcript/" target="_blank" class="story-read">READ FULL STORY ↗</a>
@@ -434,14 +460,33 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
           
           <div class="story-pad">
             <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">ISS crew shelters in Dragon amid new station leaks</div>
+            <div class="story-teaser">NASA crew aboard the International Space Station briefly sheltered inside the SpaceX Dragon capsule as Russia worked to address new leaks discovered at the station, marking the latest in a series of structural integrity incidents aboard the ageing platform. The event underscores growing operational risk on the ISS as it approaches decommissioning timelines and elevates urgency around commercial station programmes.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Repeated ISS leak events accelerate the policy and funding case for Axiom Space and other commercial station developers, directly benefiting companies that have secured NASA commercial LEO destination contracts.</div>
+            <div class="story-footer">
+              <a href="https://spaceflightnow.com/2026/06/05/nasa-crew-briefly-shelters-inside-dragon-capsule-as-russia-addresses-new-space-station-leaks/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <a href="https://spaceflightnow.com/2026/06/05/nasa-crew-briefly-shelters-inside-dragon-capsule-as-russia-addresses-new-space-station-leaks/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high">
+          
+          <div class="story-pad">
+            <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
               <span class="story-region">Europe</span>
-              <span class="story-score sc-high">HIGH · 68</span>
+              <span class="story-score sc-high">HIGH · 65</span>
             </div>
             <div class="story-head">Ariane 6 next launch to carry 36 Amazon LEO satellites</div>
-            <div class="story-teaser">The next Ariane 6 mission will carry 36 Amazon LEO satellites using upgraded booster hardware, marking a significant expansion of the European launcher relationship with Amazons broadband constellation programme. This mission demonstrates Ariane 6 commercial viability as a multi-manifest heavy payload carrier and strengthens European access to the LEO broadband deployment market.</div>
+            <div class="story-teaser">The next Ariane 6 launch will carry 36 Amazon LEO satellites using upgraded boosters, marking a significant milestone in Ariane 6 commercial utilisation and Amazon LEO constellation deployment momentum. This mission follows ULA Atlas 5 launching 29 Amazon LEO satellites on May 29, indicating Amazon is now executing a multi-launcher strategy at accelerating cadence.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Ariane 6 securing a 36-satellite Amazon LEO manifest validates its commercial competitiveness and reduces European dependence on SpaceX for large constellation deployment, which matters to EU defence and commercial satellite operators seeking launch diversity.</div>
+            <div class="story-impl">◈ Amazon LEO multi-launcher strategy using both Ariane 6 and Atlas 5 reduces single-point-of-failure risk from the New Glenn programme disruption and demonstrates that the constellation is on track to challenge Starlink operationally by late 2026.</div>
             <div class="story-footer">
               <a href="https://spacenews.com/next-ariane-6-launch-to-carry-36-amazon-leo-satellites-using-upgraded-boosters/" target="_blank" class="story-source">▸ SpaceAgenda</a>
               <a href="https://spacenews.com/next-ariane-6-launch-to-carry-36-amazon-leo-satellites-using-upgraded-boosters/" target="_blank" class="story-read">READ FULL STORY ↗</a>
@@ -455,34 +500,15 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
               <span class="story-region">North America</span>
-              <span class="story-score sc-high">HIGH · 62</span>
+              <span class="story-score sc-high">HIGH · 60</span>
             </div>
-            <div class="story-head">Apex satellite maker valued at 2.3 billion after raise</div>
-            <div class="story-teaser">Satellite manufacturer Apex has raised an additional 200 million dollars, lifting its valuation to 2.3 billion dollars in its latest funding round. The raise reflects sustained investor appetite for flexible satellite bus manufacturing capacity as commercial and government constellation programmes accelerate demand.</div>
+            <div class="story-head">Apex satellite maker valuation hits $2.3bn after raise</div>
+            <div class="story-teaser">Satellite bus manufacturer Apex has closed a $200 million funding round that values the company at $2.3 billion, reflecting sustained institutional appetite for infrastructure-layer space companies that serve multiple constellation and defence customers. Apex builds standardised satellite buses that reduce lead times and cost for both commercial and government mission operators.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Apex valuation growth signals that the market is concentrating capital into vertically integrated satellite manufacturing platforms that can serve both commercial and defence customers across multiple constellation programmes simultaneously.</div>
+            <div class="story-impl">◈ Apex valuation growth signals that defence and intelligence community demand for rapidly manufacturable satellite buses is now large enough to sustain prime-level valuations, positioning the company as a potential acquisition target for major primes seeking vertical integration.</div>
             <div class="story-footer">
               <a href="https://spacenews.com/satellite-maker-apexs-valuation-rises-to-2-3-billion-after-latest-200-million-raise/" target="_blank" class="story-source">▸ SpaceAgenda</a>
               <a href="https://spacenews.com/satellite-maker-apexs-valuation-rises-to-2-3-billion-after-latest-200-million-raise/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high">
-          
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">Global</span>
-              <span class="story-score sc-high">HIGH · 55</span>
-            </div>
-            <div class="story-head">Global military satellite market to reach 80 billion by 2035</div>
-            <div class="story-teaser">A new SNS Insider market report projects the global military satellite market will reach 80.53 billion dollars by 2035, with the US market alone reaching 30.06 billion and Europe reaching 19.74 billion. The projection reflects accelerating government investment in secure communications, ISR, and missile warning satellite infrastructure driven by multi-theatre conflict conditions.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ An 80 billion dollar military satellite market by 2035 provides a decade-long structural tailwind for defence primes and commercial ISR operators with classified programme exposure, reinforcing the investment case for LMT, NOC, and RTX space divisions.</div>
-            <div class="story-footer">
-              <a href="https://www.globenewswire.com/news-release/2026/06/04/3306960/0/en/Global-Military-Satellite-Market-Projected-to-Hit-USD-80-53-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-source">▸ globenewswire</a>
-              <a href="https://www.globenewswire.com/news-release/2026/06/04/3306960/0/en/Global-Military-Satellite-Market-Projected-to-Hit-USD-80-53-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
             </div>
           </div>
         </div>
@@ -491,43 +517,43 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="section-header">
           <div class="section-title">🛡 DEFENCE</div>
           <div class="section-line"></div>
-          <div class="section-count">5 STORIES · TOP 95</div>
+          <div class="section-count">5 STORIES · TOP 90</div>
         </div>
         <div class="stories-grid">
         <div class="story story-crit">
-          <img src="https://neweralive.na/wp-content/uploads/2026/06/Kuwait-scaled.jpg" class="story-img" alt="Iranian drone strikes Kuwait airport amid US clash" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-break">BREAKING</span>
-              <span class="story-region">Middle East</span>
-              <span class="story-score sc-crit">CRITICAL · 95</span>
-            </div>
-            <div class="story-head">Iranian drone strikes Kuwait airport amid US clash</div>
-            <div class="story-teaser">An Iranian drone struck a passenger terminal at Kuwait International Airport, killing at least one person and wounding several others, forcing suspension of air traffic as Iranian and US forces traded attacks across the region. US Central Command rejected Iranian claims that a Patriot missile interceptor caused damage at the airport, calling the account totally false, while a Khamenei adviser issued direct threats against UAE, Kuwait, Bahrain, and Saudi Arabia.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Direct Iranian strikes on Gulf civilian infrastructure signal a dangerous escalation threshold has been crossed, immediately elevating procurement urgency for integrated air defence systems across all GCC states and creating near-term contract catalysts for RTX and LMT missile defence divisions.</div>
-            <div class="story-footer">
-              <a href="https://neweralive.na/drone-strikes-close-kuwait-airport-as-iran-us-clash/" target="_blank" class="story-source">▸ neweralive_na</a>
-              <a href="https://neweralive.na/drone-strikes-close-kuwait-airport-as-iran-us-clash/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-crit">
-          <img src="https://i.headtopics.com/images/2026/6/5/breitbartnews/hezbollah-rejects-lebanese-ceasefire-deal-with-isr-hezbollah-rejects-lebanese-ceasefire-deal-with-isr-9406E3B54A4A7422205672C3293A9470.webp" class="story-img" alt="Hezbollah rejects Lebanon ceasefire clouding Iran war" onerror="this.style.display='none'">
+          <img src="https://i.headtopics.com/images/2026/6/5/breitbartnews/hezbollah-rejects-lebanese-ceasefire-deal-with-isr-hezbollah-rejects-lebanese-ceasefire-deal-with-isr-9406E3B54A4A7422205672C3293A9470.webp" class="story-img" alt="Hezbollah rejects Lebanon ceasefire, fighting continues" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
               <span class="story-region">Middle East</span>
               <span class="story-score sc-crit">CRITICAL · 90</span>
             </div>
-            <div class="story-head">Hezbollah rejects Lebanon ceasefire clouding Iran war</div>
-            <div class="story-teaser">Hezbollah formally rejected a ceasefire agreement between Lebanon and Israel despite the deal being announced by Lebanon President Joseph Aoun and the United States, insisting on full Israeli withdrawal from Lebanese territory before any accord. Israel simultaneously stated it would not withdraw its forces, leaving the ceasefire effectively collapsed and the Iran war perimeter in Lebanon unresolved.</div>
+            <div class="story-head">Hezbollah rejects Lebanon ceasefire, fighting continues</div>
+            <div class="story-teaser">Hezbollah formally rejected the ceasefire agreement announced by Lebanon and the United States, with the group demanding full Israeli troop withdrawal from Lebanon before any deal — a condition Israel has refused to accept. Israel continued striking targets in Lebanon including a car strike in the south, while the Iran war death toll passed 3,500 and Tehran raised doubts about any broader diplomatic deal.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Hezbollah rejection of the ceasefire prolongs the northern front of the Israel-Iran war, sustaining demand for air defence, precision strike, and ISR assets across the eastern Mediterranean and reinforcing the structural bullish case for defence primes with relevant programme exposure.</div>
+            <div class="story-impl">◈ Hezbollah rejection of the ceasefire removes the most credible near-term off-ramp from the Lebanon front and extends active multi-theatre conflict, sustaining elevated demand signals for air defence systems, loitering munitions, and ISR satellite coverage across the region.</div>
             <div class="story-footer">
-              <a href="https://us.headtopics.com/news/hezbollah-rejects-lebanese-ceasefire-deal-with-israel-84151585" target="_blank" class="story-source">▸ headtopics</a>
-              <a href="https://us.headtopics.com/news/hezbollah-rejects-lebanese-ceasefire-deal-with-israel-84151585" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              <a href="https://www.aljazeera.com/news/2026/6/5/iran-war-day-98-tehran-raises-doubts-on-deal-as-lebanon-fighting-continues" target="_blank" class="story-source">▸ Al Jazeera</a>
+              <a href="https://www.aljazeera.com/news/2026/6/5/iran-war-day-98-tehran-raises-doubts-on-deal-as-lebanon-fighting-continues" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit">
+          <img src="https://neweralive.na/wp-content/uploads/2026/06/Kuwait-scaled.jpg" class="story-img" alt="Iranian drone hits Kuwait airport, kills one person" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Middle East</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">Iranian drone hits Kuwait airport, kills one person</div>
+            <div class="story-teaser">An Iranian drone strike struck a passenger terminal at Kuwait International Airport, killing one person and wounding several others, forcing suspension of air traffic in a direct escalation of the Iran conflict into Gulf territory. US CENTCOM rejected Iranian claims that a Patriot missile interceptor caused the damage, labelling Tehrans account as totally false and accusing Iran of responsibility.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A lethal Iranian strike on civilian airport infrastructure in a Gulf state represents a qualitative escalation that threatens to draw Kuwait and other GCC nations into active conflict posture, with immediate implications for US base access, regional air defence procurement, and insurance risk across Gulf commercial aviation.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/news/your-military/2026/06/05/us-forces-board-sanctioned-tanker-in-indian-ocean-pentagon-says/" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.defensenews.com/news/your-military/2026/06/05/us-forces-board-sanctioned-tanker-in-indian-ocean-pentagon-says/" target="_blank" class="story-read">READ FULL STORY ↗</a>
             </div>
           </div>
         </div>
@@ -541,9 +567,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
               <span class="story-score sc-crit">CRITICAL · 82</span>
             </div>
             <div class="story-head">US Army seeks thousands of Stinger replacement missiles</div>
-            <div class="story-teaser">The US Army has issued requirements for thousands of new short-range air defence missiles to replace the ageing Stinger MANPADS system, reflecting urgent lessons from drone-intensive conflicts in Ukraine and the Middle East. The programme represents a major near-term acquisition opportunity as the Army accelerates its transition to modern man-portable and vehicle-mounted counter-drone and air defence solutions.</div>
+            <div class="story-teaser">The US Army has issued requirements for thousands of next-generation short-range air defence missiles to replace the aging Stinger system, with the programme driven by inventory depletion from Ukraine transfers and the demonstrated threat of low-cost drones in multiple active theatres. The procurement requirement signals a generational upgrade cycle in man-portable and vehicle-mounted air defence across the US ground force.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A large-scale Stinger replacement programme creates a multi-billion dollar competition directly relevant to RTX and LMT short-range air defence portfolios and signals the US Army is finally resourcing the counter-UAS capability gap at scale.</div>
+            <div class="story-impl">◈ This programme represents a multi-billion dollar opportunity for RTX, Raytheon, and emerging competitors and confirms that SHORAD replacement is now a top-tier Army modernisation priority with urgent timeline pressure driven by real-world drone threat proliferation.</div>
             <div class="story-footer">
               <a href="https://www.defensenews.com/industry/techwatch/2026/06/05/the-us-army-wants-thousands-of-air-defense-missiles-to-replace-the-stinger/" target="_blank" class="story-source">▸ Defense News</a>
               <a href="https://www.defensenews.com/industry/techwatch/2026/06/05/the-us-army-wants-thousands-of-air-defense-missiles-to-replace-the-stinger/" target="_blank" class="story-read">READ FULL STORY ↗</a>
@@ -551,21 +577,21 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
           </div>
         </div>
       
-        <div class="story story-crit">
+        <div class="story story-high">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
               <span class="story-region">Europe</span>
-              <span class="story-score sc-crit">CRITICAL · 78</span>
+              <span class="story-score sc-high">HIGH · 72</span>
             </div>
-            <div class="story-head">Hungary unblocks EU 6.6 billion for Ukraine air defence</div>
-            <div class="story-teaser">Hungary has lifted its veto on the allocation of 6.6 billion euros from the EU fund designated for armaments procurement for Ukraine, with sources indicating the funds are likely to be directed toward air defence systems for the Ukrainian army. The unblocking removes a significant political obstacle that had stalled European military aid and signals a shift in Budapests posture toward the Ukraine conflict.</div>
+            <div class="story-head">UK military chief warns defence investment plan stalling</div>
+            <div class="story-teaser">The UK Chief of Defence Staff warned that Britain is running out of time to execute its defence investment plan, with the programme stalling amid procurement delays and industrial capacity constraints that leave the armed forces short of critical capabilities. The warning comes as NATO allies face parallel pressure from Washington to boost air and naval forces to meet alliance commitments.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Release of 6.6 billion euros for Ukrainian air defence creates an immediate procurement cycle that benefits European and US air defence manufacturers and accelerates integration of Western systems into Ukraines layered defence architecture.</div>
+            <div class="story-impl">◈ UK procurement stalling combined with US pressure for NATO burden-sharing creates an urgent political forcing function that could unlock accelerated UK defence spending decisions before the end of 2026, benefiting BAE Systems and Rolls-Royce most directly.</div>
             <div class="story-footer">
-              <a href="https://tass.com/world/2142121" target="_blank" class="story-source">▸ tass</a>
-              <a href="https://tass.com/world/2142121" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              <a href="https://www.defensenews.com/global" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.defensenews.com/global" target="_blank" class="story-read">READ FULL STORY ↗</a>
             </div>
           </div>
         </div>
@@ -576,12 +602,12 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
               <span class="story-region">Global</span>
-              <span class="story-score sc-high">HIGH · 72</span>
+              <span class="story-score sc-high">HIGH · 70</span>
             </div>
-            <div class="story-head">Counter-drone market to hit 22.88 billion by 2035</div>
-            <div class="story-teaser">The global counter-drone system market is projected to reach 22.88 billion dollars by 2035 at a CAGR of 24.33%, with the US market reaching 7.78 billion and Europe 6.02 billion as governments expand C-UAS capabilities in response to proliferating drone threats. The forecast is driven by combat lessons from Ukraine, the Middle East, and accelerating non-state actor drone adoption.</div>
+            <div class="story-head">Counter-drone market forecast to reach $22.88bn by 2035</div>
+            <div class="story-teaser">A new SNS Insider report projects the global counter-drone system market will grow to $22.88 billion by 2035 at a compound annual growth rate of 24.33 percent, with the US market alone projected at $7.78 billion and Europe at $6.02 billion. The growth is driven by drone threats in Ukraine, Middle East theatres, and expanding government procurement mandates across NATO and Gulf allies.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A 24% CAGR counter-drone market provides the clearest structural growth vector in defence technology today, directly benefiting LHX, LMT via GRIZZLY, and emerging C-UAS specialists with production capacity to meet accelerating NATO and GCC demand.</div>
+            <div class="story-impl">◈ A 24 percent CAGR in counter-drone systems over nine years represents one of the fastest-growing structural procurement cycles in the defence sector and favours companies with established C-UAS product lines including Lockheed GRIZZLY, RTX, and emerging dedicated C-UAS pure-plays.</div>
             <div class="story-footer">
               <a href="https://www.globenewswire.com/news-release/2026/06/04/3306671/0/en/Global-Counter-Drone-System-Market-Size-to-Worth-USD-22-88-Billion-by-2035-Growing-at-a-CAGR-of-24-33-SNS-Insider.html" target="_blank" class="story-source">▸ globenewswire</a>
               <a href="https://www.globenewswire.com/news-release/2026/06/04/3306671/0/en/Global-Counter-Drone-System-Market-Size-to-Worth-USD-22-88-Billion-by-2035-Growing-at-a-CAGR-of-24-33-SNS-Insider.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
@@ -593,21 +619,21 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="section-header">
           <div class="section-title">🌍 MIDDLE EAST</div>
           <div class="section-line"></div>
-          <div class="section-count">4 STORIES · TOP 80</div>
+          <div class="section-count">4 STORIES · TOP 88</div>
         </div>
         <div class="stories-grid">
         <div class="story story-crit">
-          <img src="https://timesofindia.indiatimes.com/photo/msid-131523033/131523033.jpg?resizemode=4" class="story-img" alt="Iran Adviser Threatens UAE, Kuwait and Bahrain" onerror="this.style.display='none'">
+          <img src="https://timesofindia.indiatimes.com/photo/msid-131523033/131523033.jpg?resizemode=4" class="story-img" alt="Khamenei Adviser Threatens UAE, Kuwait and Bahrain" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
               <span class="story-region">Persian Gulf</span>
-              <span class="story-score sc-crit">CRITICAL · 80</span>
+              <span class="story-score sc-crit">CRITICAL · 88</span>
             </div>
-            <div class="story-head">Iran Adviser Threatens UAE, Kuwait and Bahrain</div>
-            <div class="story-teaser">A senior adviser to Iranian Supreme Leader Khamenei issued direct threats against UAE, Kuwait, and Bahrain, reportedly stating that Abu Dhabi could be handed to Saudi Arabia and warning that the US would not protect its Gulf allies. The statements represent some of the most provocative Iranian rhetoric targeting key US partners in the Gulf since the current conflict escalated.</div>
+            <div class="story-head">Khamenei Adviser Threatens UAE, Kuwait and Bahrain</div>
+            <div class="story-teaser">A senior adviser to Iran Supreme Leader Khamenei issued direct threats against the UAE, Kuwait, and Bahrain, including provocative statements about Gulf Arab sovereignty amid the ongoing Iran conflict. The adviser suggested US security guarantees to Gulf states were unreliable, raising fears of Iranian escalation against key US partners.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Direct Iranian threats against Gulf states hosting critical US basing infrastructure raise the probability of expanded theatre operations and accelerate procurement timelines for integrated air and missile defence across the Gulf Cooperation Council.</div>
+            <div class="story-impl">◈ Direct Iranian threats against Gulf host nations for US bases increase pressure on UAE and regional partners to accelerate sovereign defence procurement and reduce exposure to single-power security dependencies.</div>
             <div class="story-footer">
               <a href="https://timesofindia.indiatimes.com/videos/international/give-abu-dhabi-to-saudi-khamenei-advisers-big-threat-to-uae-kuwait-bahrain-us-wont-help/videoshow/131523033.cms" target="_blank" class="story-source">▸ toi</a>
               <a href="https://timesofindia.indiatimes.com/videos/international/give-abu-dhabi-to-saudi-khamenei-advisers-big-threat-to-uae-kuwait-bahrain-us-wont-help/videoshow/131523033.cms" target="_blank" class="story-read">READ FULL STORY ↗</a>
@@ -616,36 +642,17 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         </div>
       
         <div class="story story-high">
-          <img src="https://cf-images.assettype.com/nationalherald/2026-06-04/aqnggfhb/AP06022026000229B.jpg" class="story-img" alt="Lebanon Ceasefire Fuels Iran Diplomacy Hopes" onerror="this.style.display='none'">
+          <img src="https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/05/28/2026-03-06T202553Z_1211216835_RC21ZJAPJMAL_RTRMADP_3_IRAN-CRISIS-EMIRATES.JPG?itok=9JNnvF_R" class="story-img" alt="Foreign Affairs: Can the UAE Go It Alone?" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Middle East</span>
-              <span class="story-score sc-high">HIGH · 65</span>
+              <span class="story-region">United Arab Emirates</span>
+              <span class="story-score sc-high">HIGH · 72</span>
             </div>
-            <div class="story-head">Lebanon Ceasefire Fuels Iran Diplomacy Hopes</div>
-            <div class="story-teaser">Washington confirmed that Israel and Lebanon had agreed to implement a truce, with officials suggesting the development could open a diplomatic pathway toward broader negotiations involving Iran. Tehran has publicly linked any wider peace talks to a cessation of fighting in Lebanon, making the fragile Lebanon agreement a potential pivot point in the larger US-Iran conflict.</div>
+            <div class="story-head">Foreign Affairs: Can the UAE Go It Alone?</div>
+            <div class="story-teaser">Foreign Affairs published an analysis examining the UAE push for strategic autonomy as the Iran conflict reshapes Gulf security architecture and puts US alliance commitments under scrutiny. The piece assesses the risks and opportunities for the UAE as it seeks to balance its defence posture independently from Washington.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A diplomatic breakthrough connecting Lebanon and Iran could reshape theatre risk calculations for defence operators across the region, though continued Hezbollah rejection makes any durable de-escalation highly uncertain.</div>
-            <div class="story-footer">
-              <a href="https://www.nationalheraldindia.com/international/israel-lebanon-ceasefire-fuels-hopes-of-diplomatic-breakthrough-with-iran" target="_blank" class="story-source">▸ nationalheraldindia</a>
-              <a href="https://www.nationalheraldindia.com/international/israel-lebanon-ceasefire-fuels-hopes-of-diplomatic-breakthrough-with-iran" target="_blank" class="story-read">READ FULL STORY ↗</a>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high">
-          <img src="https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/05/28/2026-03-06T202553Z_1211216835_RC21ZJAPJMAL_RTRMADP_3_IRAN-CRISIS-EMIRATES.JPG?itok=9JNnvF_R" class="story-img" alt="Can the UAE Navigate the War Alone?" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">UAE</span>
-              <span class="story-score sc-high">HIGH · 60</span>
-            </div>
-            <div class="story-head">Can the UAE Navigate the War Alone?</div>
-            <div class="story-teaser">Foreign Affairs published a major analysis examining the UAE quest for strategic autonomy amid an increasingly volatile Middle East, assessing whether Abu Dhabi can sustain its independent defence and foreign policy posture without full US backing. The piece follows Iranian threats against the Gulf state and rising pressure from multiple regional flashpoints simultaneously.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ The UAE push for strategic autonomy is driving accelerated domestic defence investment and diversification of partnerships, creating openings for non-US suppliers in areas including air defence, cyber, and ISR.</div>
+            <div class="story-impl">◈ A UAE pivot toward strategic autonomy signals growing appetite for domestic and non-US defence procurement, creating openings for European and Asian defence suppliers in one of the worlds most active acquisition markets.</div>
             <div class="story-footer">
               <a href="https://www.foreignaffairs.com/united-arab-emirates/can-uae-go-it-alone" target="_blank" class="story-source">▸ foreignaffairs</a>
               <a href="https://www.foreignaffairs.com/united-arab-emirates/can-uae-go-it-alone" target="_blank" class="story-read">READ FULL STORY ↗</a>
@@ -654,20 +661,103 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         </div>
       
         <div class="story story-high">
-          <img src="https://www.newsx.com/wp-content/uploads/2026/06/1_48.jpg" class="story-img" alt="US Issues Level 3 Alert Across Gulf States" onerror="this.style.display='none'">
+          <img src="https://tass.com/img/blocks/common/tass_logo_share_eng.png" class="story-img" alt="Hungary Unblocks EU 6.6 Billion for Ukraine Air Defence" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Gulf Region</span>
-              <span class="story-score sc-high">HIGH · 55</span>
+              <span class="story-region">Europe / Ukraine</span>
+              <span class="story-score sc-high">HIGH · 70</span>
             </div>
-            <div class="story-head">US Issues Level 3 Alert Across Gulf States</div>
-            <div class="story-teaser">The United States has issued a fresh security advisory for travellers across the Middle East, placing UAE, Kuwait, Saudi Arabia, and Qatar under Level 3 status and urging visitors to stay cautious and monitor news amid ongoing Iran-linked conflict. The advisory reflects the elevated and fluid threat environment across the Gulf as Iranian and US forces continue to exchange attacks in the broader theatre.</div>
+            <div class="story-head">Hungary Unblocks EU 6.6 Billion for Ukraine Air Defence</div>
+            <div class="story-teaser">Hungary has lifted its block on the allocation of 6.6 billion euros from an EU fund designated for armaments for Ukraine, according to sources cited by Nepszava. The unblocked funds are expected to be directed toward the purchase of air defence systems for the Ukrainian army.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A sustained Level 3 US travel advisory across Gulf states signals persistent threat assessment that directly affects operational security planning for defence contractors and personnel stationed across the region.</div>
+            <div class="story-impl">◈ Releasing this funding accelerates European procurement of air defence platforms and signals continued NATO-aligned investment in systems that directly benefit major contractors including Lockheed Martin, MBDA, and Rheinmetall.</div>
             <div class="story-footer">
-              <a href="https://www.newsx.com/world/us-advisory-for-uae-kuwait-saudi-arabia-qatar-travel-amid-iran-war-stay-cautious-monitor-news-230456/" target="_blank" class="story-source">▸ newsx</a>
-              <a href="https://www.newsx.com/world/us-advisory-for-uae-kuwait-saudi-arabia-qatar-travel-amid-iran-war-stay-cautious-monitor-news-230456/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              <a href="https://tass.com/world/2142121" target="_blank" class="story-source">▸ tass</a>
+              <a href="https://tass.com/world/2142121" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high">
+          <img src="https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/06/01/2026-04-03T210238Z_564163970_RC22DKAXMMQ5_RTRMADP_3_IRAN-CRISIS-USA.JPG?itok=czIbeXIe" class="story-img" alt="Iran War: US Bases Raise Risk of Escalation" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Middle East</span>
+              <span class="story-score sc-high">HIGH · 62</span>
+            </div>
+            <div class="story-head">Iran War: US Bases Raise Risk of Escalation</div>
+            <div class="story-teaser">Foreign Affairs published an analysis arguing that the US empire of forward military bases across the Middle East makes it structurally easier for Washington to blunder into broader conflict, citing the Iran war as a live example of this dynamic. The piece highlights the hidden costs of wartime access agreements and the strategic constraints they impose on US decision-making.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Debate over the strategic cost of US basing posture may prompt GCC host nations to reassess hosting terms, with direct consequences for base infrastructure investment and allied defence positioning in the Gulf.</div>
+            <div class="story-footer">
+              <a href="https://www.foreignaffairs.com/iran/iran-and-hidden-cost-wartime-access" target="_blank" class="story-source">▸ foreignaffairs</a>
+              <a href="https://www.foreignaffairs.com/iran/iran-and-hidden-cost-wartime-access" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+        <div class="section-header">
+          <div class="section-title">🤖 AI & TECHNOLOGY</div>
+          <div class="section-line"></div>
+          <div class="section-count">3 STORIES · TOP 62</div>
+        </div>
+        <div class="stories-grid">
+        <div class="story story-high">
+          <img src="https://images.timesnownews.com/thumb/msid-154462900,width-1280,height-720,resizemode-75/154462900.jpg" class="story-img" alt="Google Cuts Cloud and Cybersecurity Jobs for AI Pivot" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-high">HIGH · 62</span>
+            </div>
+            <div class="story-head">Google Cuts Cloud and Cybersecurity Jobs for AI Pivot</div>
+            <div class="story-teaser">Google Cloud has carried out a fresh round of layoffs targeting cybersecurity and cloud infrastructure teams as the company reallocates resources toward artificial intelligence focused growth initiatives. The cuts continue a pattern of major tech firms restructuring legacy divisions to fund AI platform development.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Google contraction in cybersecurity headcount as it pivots to AI creates gaps in enterprise and government security coverage that specialist defence-tech and cyber firms can exploit through targeted hiring and contract capture.</div>
+            <div class="story-footer">
+              <a href="https://www.timesnownews.com/business-economy/companies/tech-layoffs-google-is-cutting-jobs-againheres-which-teams-were-affected-this-time-article-154462748" target="_blank" class="story-source">▸ timesnownews</a>
+              <a href="https://www.timesnownews.com/business-economy/companies/tech-layoffs-google-is-cutting-jobs-againheres-which-teams-were-affected-this-time-article-154462748" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-med">
+          <img src="https://e27.co/wp-content/uploads/2026/06/Agent_commerce-1.jpg" class="story-img" alt="Agentic Commerce Reshapes Asia Tech Strategy" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Asia-Pacific</span>
+              <span class="story-score sc-med">MEDIUM · 45</span>
+            </div>
+            <div class="story-head">Agentic Commerce Reshapes Asia Tech Strategy</div>
+            <div class="story-teaser">A new ecosystem analysis highlights that Asian merchants are approaching a strategic inflection point as agentic AI systems begin making procurement and purchasing decisions autonomously, shifting competitive advantage away from traditional search and storefront visibility. Analyst forecasts cited in the report suggest the agentic commerce transition will fundamentally alter how B2B and B2G supply chains operate across the region.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ The rise of agentic AI decision-making in procurement pipelines has direct implications for defence supply chains, where autonomous purchasing agents could accelerate or distort acquisition cycles for dual-use and commercial-off-the-shelf components.</div>
+            <div class="story-footer">
+              <a href="https://e27.co/ecosystem-roundup-the-rise-of-the-machine-consumer-20260605/" target="_blank" class="story-source">▸ e27</a>
+              <a href="https://e27.co/ecosystem-roundup-the-rise-of-the-machine-consumer-20260605/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-med">
+          
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Nigeria</span>
+              <span class="story-score sc-med">MEDIUM · 32</span>
+            </div>
+            <div class="story-head">CIPM Nigeria Calls for Ethical AI Governance Framework</div>
+            <div class="story-teaser">The Chartered Institute of Personnel Management of Nigeria has called on organisations, policymakers, and academic institutions to adopt responsible AI governance frameworks as AI deployment accelerates across African industries. The institute emphasised that ethical AI adoption requires regulatory structures rather than voluntary compliance alone.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Emerging AI governance frameworks in African markets will shape how international defence and space technology firms structure AI-enabled systems for export and local partnership in a rapidly growing strategic region.</div>
+            <div class="story-footer">
+              <a href="https://www.latestnigeriannews.com/p/298033/cipm-advocates-responsible-ai-adoption-ethical-governance.html" target="_blank" class="story-source">▸ latestnigeriannews</a>
+              <a href="https://www.latestnigeriannews.com/p/298033/cipm-advocates-responsible-ai-adoption-ethical-governance.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
             </div>
           </div>
         </div>
@@ -676,21 +766,59 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="section-header">
           <div class="section-title">💰 INVESTMENT & DEALS</div>
           <div class="section-line"></div>
-          <div class="section-count">3 STORIES · TOP 85</div>
+          <div class="section-count">4 STORIES · TOP 65</div>
         </div>
         <div class="stories-grid">
-        <div class="story story-crit">
+        <div class="story story-high">
+          
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-high">HIGH · 65</span>
+            </div>
+            <div class="story-head">Axiom Space Adds Over 175 Million to Funding Round</div>
+            <div class="story-teaser">Axiom Space has added more than 175 million dollars to its ongoing funding round, strengthening its financial position as it pursues development of a commercial space station module. The company continues to position itself as the successor infrastructure provider as the ISS approaches retirement.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Sustained private capital flowing into commercial space station development signals that investors expect government anchor tenants including NASA and defence agencies to transition orbital operations to commercial operators within this decade.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/axiom-space-adds-more-than-175-million-to-funding-round/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/axiom-space-adds-more-than-175-million-to-funding-round/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Germany</span>
-              <span class="story-score sc-crit">CRITICAL · 85</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 63</span>
             </div>
-            <div class="story-head">Rheinmetall Sells Auto Division to Go All-In on Defence</div>
-            <div class="story-teaser">German defence and automotive giant Rheinmetall has sold its struggling automotive division in order to concentrate fully on its rapidly expanding defence business, which has seen surging demand driven by the war in Ukraine and broader European rearmament. The divestiture marks a definitive strategic pivot for one of Europe largest defence industrial players as it repositions for long-term military growth.</div>
+            <div class="story-head">Western Rare Earth Supply Chains Take Shape Ahead of Ban</div>
+            <div class="story-teaser">As the Pentagon 2027 ban on Chinese-origin rare earth materials approaches, REalloys (ALOY) is securing exclusive control over significant heavy rare earth deposits outside China to serve defence contractors including Lockheed Martin, RTX, Northrop Grumman, General Dynamics, and Boeing. Western rare earth supply chains are being described as finally taking concrete shape after years of strategic concern.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Rheinmetall full commitment to defence consolidates its position as a primary beneficiary of European rearmament spending, making it a high-conviction stock for defence-focused investors tracking NATO capability build-up.</div>
+            <div class="story-impl">◈ The race to establish non-Chinese rare earth supply ahead of the Pentagon ban creates a narrow investment window in upstream mining and processing companies that feed directly into missiles, satellites, and advanced fighter programmes.</div>
+            <div class="story-footer">
+              <a href="https://www.prnewswire.com/news-releases/western-rare-earth-supply-chains-are-finally-taking-shape-302791873.html" target="_blank" class="story-source">▸ cision</a>
+              <a href="https://www.prnewswire.com/news-releases/western-rare-earth-supply-chains-are-finally-taking-shape-302791873.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high">
+          
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Germany</span>
+              <span class="story-score sc-high">HIGH · 62</span>
+            </div>
+            <div class="story-head">Rheinmetall Sells Auto Division to Focus on Defence</div>
+            <div class="story-teaser">Rheinmetall has sold its struggling automotive division to concentrate entirely on defence manufacturing, reflecting the company strategic pivot in response to surging European rearmament demand. The move allows Rheinmetall to redirect capital and production capacity toward ammunition, armoured vehicles, and air defence systems.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Rheinmetall full commitment to pure-play defence positions it as a primary beneficiary of NATO rearmament spending and signals to investors that Europe largest defence industrial players are restructuring for a sustained high-demand cycle.</div>
             <div class="story-footer">
               <a href="https://www.defensenews.com/global/europe/2026/06/04/rheinmetall-sells-struggling-auto-division-to-focus-on-defense/" target="_blank" class="story-source">▸ Defense News</a>
               <a href="https://www.defensenews.com/global/europe/2026/06/04/rheinmetall-sells-struggling-auto-division-to-focus-on-defense/" target="_blank" class="story-read">READ FULL STORY ↗</a>
@@ -703,35 +831,16 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">United States</span>
-              <span class="story-score sc-high">HIGH · 60</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 55</span>
             </div>
-            <div class="story-head">Western Rare Earth Supply Chains Finally Taking Shape</div>
-            <div class="story-teaser">With the Pentagon 2027 ban on Chinese-origin rare earth materials approaching, companies including REalloys (ALOY) are securing exclusive control of large heavy rare earth deposits to supply defence contractors such as Lockheed Martin, RTX, Northrop Grumman, General Dynamics, and Boeing. The move reflects a broader US and allied strategy to eliminate critical mineral dependency on China ahead of the regulatory deadline.</div>
+            <div class="story-head">Military Satellite Market to Hit 80 Billion by 2035</div>
+            <div class="story-teaser">A new SNS Insider report projects the global military satellite market will reach 80.53 billion dollars by 2035, with the US market alone accounting for 30.06 billion dollars and Europe reaching 19.74 billion dollars. Growth is driven by ISR demand, secure communications, and space-based navigation requirements across NATO and Indo-Pacific alliances.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ The Pentagon rare earth ban deadline is forcing a rapid restructuring of defence supply chains, creating significant first-mover advantage for companies that lock in non-Chinese rare earth sources before 2027 compliance becomes mandatory.</div>
+            <div class="story-impl">◈ A confirmed 80 billion dollar market trajectory validates long-term capital allocation into military satellite programmes and positions prime contractors and smallsat manufacturers for decade-long revenue visibility.</div>
             <div class="story-footer">
-              <a href="https://www.prnewswire.com/news-releases/western-rare-earth-supply-chains-are-finally-taking-shape-302791873.html" target="_blank" class="story-source">▸ cision</a>
-              <a href="https://www.prnewswire.com/news-releases/western-rare-earth-supply-chains-are-finally-taking-shape-302791873.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high">
-          <img src="https://i-invdn-com.investing.com/news/LYNXMPEB3R08Z_L.jpg" class="story-img" alt="Planet Labs Beats Q1 2027 With Record Revenue" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">United States</span>
-              <span class="story-score sc-high">HIGH · 60</span>
-            </div>
-            <div class="story-head">Planet Labs Beats Q1 2027 With Record Revenue</div>
-            <div class="story-teaser">Planet Labs reported record revenue in its first quarter of fiscal year 2027, beating analyst forecasts and delivering results that exceeded consensus expectations across key financial metrics. The earnings call highlighted growing commercial and government demand for the company daily satellite imaging data across defence, agriculture, and climate monitoring segments.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Planet Labs record revenue beat signals strengthening institutional demand for commercial satellite imagery, reinforcing the investment case for Earth observation companies serving dual-use defence and civil markets.</div>
-            <div class="story-footer">
-              <a href="https://ng.investing.com/news/stock-market-news/earnings-call-transcript-planet-labs-beats-q1-2027-forecasts-with-record-revenue-93CH-2545208" target="_blank" class="story-source">▸ investing_ng</a>
-              <a href="https://ng.investing.com/news/stock-market-news/earnings-call-transcript-planet-labs-beats-q1-2027-forecasts-with-record-revenue-93CH-2545208" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              <a href="https://www.globenewswire.com/news-release/2026/06/04/3306960/0/en/Global-Military-Satellite-Market-Projected-to-Hit-USD-80-53-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-source">▸ globenewswire</a>
+              <a href="https://www.globenewswire.com/news-release/2026/06/04/3306960/0/en/Global-Military-Satellite-Market-Projected-to-Hit-USD-80-53-Billion-by-2035-SNS-Insider.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
             </div>
           </div>
         </div>
@@ -747,44 +856,44 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   <div class="outlook-grid">
     <div class="outlook-card" style="border-top:3px solid #4a9eff">
         <div class="outlook-domain" style="color:#4a9eff">🛰 SPACE</div>
-        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: SpaceX IPO institutional order book close and allocation</div>
-        <div class="outlook-signal">SpaceX IPO pricing at $135 per share and the 505-page prospectus now live will be tested by institutional order book data emerging this week, setting the benchmark valuation for the entire commercial space sector.</div>
+        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: SpaceX IPO first-week trading performance and order book fill rate</div>
+        <div class="outlook-signal">SpaceX IPO pricing at $135 per share with a $1.77 trillion valuation sets up a defining liquidity event that will reprice the entire commercial space sector within days of listing.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-0')" id="btn-dd-0">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-0">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-0">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Oversubscription at or above $135 per share reprices comparable pure-play space equities including Planet Labs upward, accelerates capital flows into satellite and launch infrastructure, and validates the $1.77 trillion valuation floor for sovereign and commercial operators benchmarking vendor contracts.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Weak institutional demand or pricing cut below $135 triggers a sector-wide de-rating, pressures Planet Labs post its record Q1 2027 beat, and forces private space companies including Apex and Axiom Space to accept lower valuations in ongoing funding rounds.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Strong open above IPO price compresses risk premiums across the sector, accelerating capital flows into Planet Labs, Apex, and Axiom Space, all of which are currently raising or have recently closed rounds at elevated valuations.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">IPO trades flat or below issue price, triggering a valuation reset that forces late-stage private space companies to reprice down rounds and stalls the $200 million Apex raise and $175 million Axiom extension.</div></div>
           </div>
         </div>
       </div><div class="outlook-card" style="border-top:3px solid #ff4444">
         <div class="outlook-domain" style="color:#ff4444">🛡 DEFENCE</div>
-        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: US Army Stinger replacement missile contract award or shortlist</div>
-        <div class="outlook-signal">The US Army formal solicitation for thousands of Stinger-replacement air defense missiles this week arrives as Kuwait airport drone strike damage and Iranian aerial threat escalation create immediate procurement urgency across Gulf-based operators.</div>
+        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: US Army Stinger replacement contract award or downselect decision</div>
+        <div class="outlook-signal">The US Army formal solicitation for thousands of Stinger replacement air defense missiles arrives as Iran drone strikes on Kuwait airport validate the urgent demand signal for short-range air defense at scale.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-1')" id="btn-dd-1">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-1">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-1">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A fast-tracked contract award to Raytheon RTX or a competitor accelerates counter-drone and short-range air defense production lines, drives revenue uplift for winners, and signals to Gulf defense ministries including UAE and Kuwait that US-supplied terminal defense inventory will scale to meet the Iranian drone threat.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Delay or protest of the award stalls production ramp at a moment of live operational demand, forces Gulf allies already under US Level 3 travel advisories to accelerate indigenous or non-US procurement, and benefits European C-UAS suppliers already targeting the $22.88 billion counter-drone market.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Contract award to a named prime accelerates production ramp, directly benefiting RTX and LMT supply chains and validating the counter-drone market trajectory toward the projected $22.88 billion by 2035.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Decision delayed or fragmented across multiple vendors without a clear lead integrator, extending procurement timelines and leaving near-term revenue recognition uncertain for CUAS-exposed equities.</div></div>
           </div>
         </div>
       </div><div class="outlook-card" style="border-top:3px solid #ff8c00">
         <div class="outlook-domain" style="color:#ff8c00">🌍 GEOPOLITICS</div>
-        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: Iran nuclear talks status or new US coercive measures announcement</div>
-        <div class="outlook-signal">Hezbollah formal rejection of the Lebanon-Israel ceasefire, simultaneous Iranian drone strikes on Kuwait airport, and a Khamenei adviser threatening UAE and Bahrain sovereignty will be tested this week by whether Washington imposes new coercive measures or Iran signals a return to nuclear talks.</div>
+        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: Hezbollah official position on ceasefire terms by June 12</div>
+        <div class="outlook-signal">Hezbollah formal rejection of the Lebanon ceasefire deal, combined with Tehran raising doubts on any wider Iran settlement on day 98 of the conflict, creates a binary inflection point for Gulf state security posture this week.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-2')" id="btn-dd-2">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-2">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-2">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A credible Iranian signal toward diplomatic engagement unlocks partial Gulf risk premium compression, stabilizes Brent oil pricing, reduces insurance and operational costs for Dubai-based operators, and reopens conditions for UAE strategic autonomy positioning as a neutral hub between Washington and Tehran.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Continued Iranian escalation including further drone strikes on Gulf infrastructure triggers full Level 4 US travel advisories, forces reinsurance withdrawal from Gulf aviation and maritime routes, accelerates emergency air defense procurement across Kuwait, UAE, and Bahrain, and elevates demand for satellite ISR coverage of the Gulf theater.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Hezbollah accepts revised terms and Iran signals willingness to negotiate, reducing threat perception across UAE, Kuwait, and Qatar, stabilizing Gulf energy infrastructure risk and reducing the Level 3 travel advisory pressure on regional defence procurement timelines.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Hezbollah holds rejection and Iran escalates after Kuwait airport drone strike dispute, prompting UAE and Gulf states to accelerate emergency air defense procurement and activate contingency basing arrangements with direct implications for forward-deployed US and allied assets.</div></div>
           </div>
         </div>
       </div>
@@ -821,10 +930,10 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <div style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;background:#0d1f3c;padding:3px 10px;border-radius:20px;border:1px solid #1a2a4a">15MIN DELAYED</div>
   </div>
   <div class="stocks-grid">
-    <div class="stock-card"><div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div><div><div class="stock-price">$110.30</div><div class="stock-dn">▼ 8.04%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div><div><div class="stock-price">$523.32</div><div class="stock-up">▲ 0.82%</div></div></div><div class="stock-card"><div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div><div><div class="stock-price">$182.17</div><div class="stock-up">▲ 1.54%</div></div></div><div class="stock-card"><div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div><div><div class="stock-price">$544.57</div><div class="stock-dn">▼ 0.11%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div><div><div class="stock-price">$216.25</div><div class="stock-dn">▼ 0.54%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div><div><div class="stock-price">$308.94</div><div class="stock-dn">▼ 0.27%</div></div></div><div class="stock-card"><div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div><div><div class="stock-price">$47.16</div><div class="stock-dn">▼ 9.43%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div><div><div class="stock-price">$29.39</div><div class="stock-dn">▼ 12.61%</div></div></div><div class="stock-card"><div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div><div><div class="stock-price">$93.67</div><div class="stock-dn">▼ 12.69%</div></div></div><div class="stock-card"><div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div><div><div class="stock-price">$32.85</div><div class="stock-dn">▼ 24.53%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div><div><div class="stock-price">$34.92</div><div class="stock-dn">▼ 11.95%</div></div></div>
+    <div class="stock-card"><div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div><div><div class="stock-price">$108.34</div><div class="stock-dn">▼ 9.68%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div><div><div class="stock-price">$523.53</div><div class="stock-up">▲ 0.86%</div></div></div><div class="stock-card"><div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div><div><div class="stock-price">$182.17</div><div class="stock-up">▲ 1.54%</div></div></div><div class="stock-card"><div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div><div><div class="stock-price">$545.50</div><div class="stock-up">▲ 0.06%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div><div><div class="stock-price">$215.80</div><div class="stock-dn">▼ 0.75%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div><div><div class="stock-price">$309.20</div><div class="stock-dn">▼ 0.19%</div></div></div><div class="stock-card"><div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div><div><div class="stock-price">$46.52</div><div class="stock-dn">▼ 10.66%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div><div><div class="stock-price">$28.92</div><div class="stock-dn">▼ 14.01%</div></div></div><div class="stock-card"><div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div><div><div class="stock-price">$91.96</div><div class="stock-dn">▼ 14.29%</div></div></div><div class="stock-card"><div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div><div><div class="stock-price">$32.26</div><div class="stock-dn">▼ 25.89%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div><div><div class="stock-price">$34.29</div><div class="stock-dn">▼ 13.54%</div></div></div>
     <div class="stock-card"><div><div class="stock-ticker" style="color:#3a5a7a">SPACEX</div><div class="stock-name">Space Exploration</div></div><div><div class="stock-private">PRIVATE</div><div class="stock-private">Watch: SPCX</div></div></div>
   </div>
-  <div class="sector-note">Defence primes with missile defence and counter-drone exposure are positioned to outperform as Gulf escalation drives emergency procurement, while commercial space equities face continued multiple compression until dilution and path-to-profitability concerns are resolved.</div>
+  <div class="sector-note">Hard defence primes with missile defence and air defence exposure lead the sector over the next 30 days while commercial and LEO constellation equities face continued multiple compression until Iran war trajectory becomes clearer.</div>
 </div>
 <div class="events-section">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
@@ -840,42 +949,42 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     
       <div class="event-card">
         <div class="event-date">Jul 20–24 2026</div>
-        <div class="event-name">Farnborough International Airshow 2026</div>
+        <div class="event-name">Farnborough Airshow 2026</div>
         <div class="event-loc">📍 Farnborough United Kingdom</div>
         <div class="event-tag">Aerospace Defence Aviation</div>
         <div style="margin-top:8px"><a href="https://www.farnboroughairshow.com" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">Nov 2026</div>
-        <div class="event-name">Space Tech Expo Europe 2026</div>
-        <div class="event-loc">📍 Bremen Germany</div>
-        <div class="event-tag">Space Technology Defence</div>
-        <div style="margin-top:8px"><a href="https://www.spacetechexpo.eu" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
+        <div class="event-date">Sep 1–4 2026</div>
+        <div class="event-name">MSPO 2026</div>
+        <div class="event-loc">📍 Kielce Poland</div>
+        <div class="event-tag">Defence Military</div>
+        <div style="margin-top:8px"><a href="https://www.mspo.pl" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">Oct 2026</div>
+        <div class="event-date">Oct 19–23 2026</div>
         <div class="event-name">IAC 2026</div>
         <div class="event-loc">📍 Antalya Turkey</div>
-        <div class="event-tag">Space Astronautics International</div>
+        <div class="event-tag">Space Astronautics</div>
         <div style="margin-top:8px"><a href="https://www.iafastro.org" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">Dec 2026</div>
-        <div class="event-name">MEBAA 2026</div>
-        <div class="event-loc">📍 Dubai UAE</div>
-        <div class="event-tag">Aviation Aerospace Business</div>
-        <div style="margin-top:8px"><a href="https://www.mebaa.aero" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
+        <div class="event-date">Oct 20–23 2026</div>
+        <div class="event-name">Euronaval 2026</div>
+        <div class="event-loc">📍 Le Bourget Paris France</div>
+        <div class="event-tag">Naval Defence Maritime</div>
+        <div style="margin-top:8px"><a href="https://www.euronaval.fr" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">Sep 2027</div>
-        <div class="event-name">DSEI 2027</div>
-        <div class="event-loc">📍 London UK</div>
-        <div class="event-tag">Defence Security Land Sea Air</div>
-        <div style="margin-top:8px"><a href="https://www.dsei.co.uk" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
+        <div class="event-date">Dec 8–10 2026</div>
+        <div class="event-name">MEBAA 2026</div>
+        <div class="event-loc">📍 Dubai UAE</div>
+        <div class="event-tag">Aviation Business Aviation</div>
+        <div style="margin-top:8px"><a href="https://www.mebaa.aero" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
   </div>
@@ -936,12 +1045,12 @@ function openMapPopup(item,col,catLabel){
 function closeMapPopup(e){if(e.target===document.getElementById('map-popup-overlay'))document.getElementById('map-popup-overlay').classList.remove('active');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('map-popup-overlay').classList.remove('active');});
 async function loadRegulatoryPulse(){
-  const briefing=`Simultaneous escalation across the Middle East theatre and accelerating space infrastructure investment reveal a structural bifurcation in global security spending — states are deploying capital into both kinetic deterrence and orbital capability at unprecedented speed, compressing the traditional cycle between threat and procurement response. The contradiction sits between Planet Labs posting record Q1 2027 revenue while its stock falls 24.5% and ASTS drops 12.7%, signalling that equity markets are pricing execution risk and dilution fears faster than commercial momentum can absorb them, even as government demand for persistent ISR from commercial providers has never been higher. Watch whether Hezbollah formally rejects all ceasefire terms within the next 48 hours — a confirmed hard rejection would expand the Iran war perimeter into Lebanon, triggering a new round of Gulf defence posture upgrades and directly accelerating ISR and counter-drone procurement cycles that benefit RTX, LMT, and commercial satellite operators.`;
+  const briefing=`Simultaneous fractures across the Middle East conflict, the SpaceX IPO filing, and a wave of sharp equity selloffs in space stocks reveal a single structural shift: capital is repricing risk across the entire space and defence complex as the Iran war enters its most diplomatically unstable phase yet. The contradiction lies in Planet Labs reporting record revenue while its stock crashes 26 percent, signalling that even strong fundamentals cannot protect high-multiple space equities when macro risk sentiment deteriorates and institutional investors deleverage across the sector simultaneously. Watch whether Hezbollah formally rejects or accepts any ceasefire framework in the next 48 hours — a confirmed rejection will extend the Iran war into a third month of active escalation, validating a sustained rotation from commercial space into hard defence primes and missile defence suppliers.`;
   const sentiment=`BEARISH`;
   const risk=`CRITICAL`;
-  const spaceH=["Blue Origin targets LC-36 RTF by end of 2026","ISS crew shelters in Dragon amid new leaks","Planet Labs beats Q1 2027 but stock crashes 24%","Ariane 6 next launch to carry 36 Amazon LEO satellites","Apex satellite maker valued at 2.3 billion after raise","Global military satellite market to reach 80 billion by 2035"];
-  const defH=["Iranian drone strikes Kuwait airport amid US clash","Hezbollah rejects Lebanon ceasefire clouding Iran war","US Army seeks thousands of Stinger replacement missiles","Hungary unblocks EU 6.6 billion for Ukraine air defence","Counter-drone market to hit 22.88 billion by 2035"];
-  const midH=["Iran Adviser Threatens UAE, Kuwait and Bahrain","Lebanon Ceasefire Fuels Iran Diplomacy Hopes","Can the UAE Navigate the War Alone?","US Issues Level 3 Alert Across Gulf States"];
+  const spaceH=["Blue Origin targets LC-36 return to flight by end 2026","SpaceX IPO priced at $135 targeting $75bn raise","Planet Labs posts record revenue, stock crashes 26%","ISS crew shelters in Dragon amid new station leaks","Ariane 6 next launch to carry 36 Amazon LEO satellites","Apex satellite maker valuation hits $2.3bn after raise"];
+  const defH=["Hezbollah rejects Lebanon ceasefire, fighting continues","Iranian drone hits Kuwait airport, kills one person","US Army seeks thousands of Stinger replacement missiles","UK military chief warns defence investment plan stalling","Counter-drone market forecast to reach $22.88bn by 2035"];
+  const midH=["Khamenei Adviser Threatens UAE, Kuwait and Bahrain","Foreign Affairs: Can the UAE Go It Alone?","Hungary Unblocks EU 6.6 Billion for Ukraine Air Defence","Iran War: US Bases Raise Risk of Escalation"];
   const allH=[...spaceH,...defH,...midH].join('\n- ');
   const prompt=`You are a regulatory intelligence analyst for Prism, a space and defence dashboard. Today briefing: ${briefing}. Sentiment: ${sentiment}. Risk: ${risk}. Headlines:\n- ${allH}\n\nAnalyse the regulatory environment. Reply ONLY in this exact JSON with no other text:\n{"score":<0-100>,"status":"<STABLE|ELEVATED|HIGH PRESSURE|CRITICAL>","delta":"<e.g. +8 pts this week>","delta_direction":"<up|down|stable>","areas":[{"name":"<max 18 chars>","status":"<green|amber|red>","pill":"<STABLE|WATCH|ACTIVE|CRITICAL>","trend":"<up|stable|down>","text":"<2 sentences max>","countdown":"<72 HRS or 5 DAYS or PENDING or none>"}]}\nInclude exactly 4 areas. No apostrophes.`;
   try{
@@ -1002,7 +1111,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.35}).addTo(map);
 const catColors={space:'#4a9eff',defence:'#ff4444',middle_east:'#ff8c00',investment:'#00aa40',ai_tech:'#a060ff',ipo_watch:'#ffcc00'};
 const catLabels={space:'🛰 SPACE',defence:'🛡 DEFENCE',middle_east:'🌍 MID EAST',investment:'💰 INVEST',ai_tech:'🤖 AI TECH',ipo_watch:'🚀 IPO'};
-const newsData={"space":[{"headline":"Blue Origin targets LC-36 RTF by end of 2026","context":"Blue Origin has initiated recovery operations at Launch Complex 36 following the explosion of its New Glenn rocket during a static fire test in late May 2026. The company has publicly committed to resuming flight operations before the end of 2026, with NASA already urging Blue Origin to secure an alternative launcher for its moon landers to protect Artemis mission deadlines.","implication":"Blue Origin LC-36 recovery timeline directly threatens Artemis III schedule integrity and opens a competitive window for SpaceX and other launch providers to capture displaced government payload manifests.","image":"none","region":"North America","urgency":"URGENT","score":82,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/06/blue-lc-36-recovery-rtf-end-2026/","lat":28.4889,"lng":-80.5778},{"headline":"ISS crew shelters in Dragon amid new leaks","context":"NASA crew aboard the International Space Station briefly took shelter inside their SpaceX Dragon capsule as Russian engineers worked to address newly identified leaks on the Russian segment of the station. The incident raises fresh questions about ISS structural integrity and the pace at which Russia can maintain its module obligations under current geopolitical constraints.","implication":"Repeated ISS leak events accelerate political and commercial pressure to advance commercial space station programmes, benefiting Axiom Space and other LEO habitat developers as the station transition timeline compresses.","image":"none","region":"Global","urgency":"URGENT","score":79,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/05/nasa-crew-briefly-shelter-inside-dragon-capsule-as-russia-addresses-new-space-station-leaks/","lat":51.6667,"lng":139},{"headline":"Planet Labs beats Q1 2027 but stock crashes 24%","context":"Planet Labs reported record revenue for Q1 2027, beating analyst forecasts across key metrics in its earnings call on June 4, 2026. Despite the operational outperformance, PL shares fell 24.5% on the day, suggesting investors are discounting near-term profitability concerns and potential dilution over commercial momentum.","implication":"The gap between Planet Labs operational performance and market reaction signals that commercial ISR investors are demanding a clear path to profitability before re-rating the sector, creating a buying opportunity only for long-duration capital with high risk tolerance.","image":"https://cdn.content.foolcdn.com/images/1umn9qeh/production/b4204f36ed605fc54d4ba32e2cb31d1dd892afd6-800x450.jpg?w=800&q=75&fit=max&auto=format","region":"North America","urgency":"URGENT","score":75,"source":"fool","link":"https://www.fool.com/earnings/call-transcripts/2026/06/05/planet-labs-pl-q1-2027-earnings-transcript/","lat":37.7749,"lng":-122.4194},{"headline":"Ariane 6 next launch to carry 36 Amazon LEO satellites","context":"The next Ariane 6 mission will carry 36 Amazon LEO satellites using upgraded booster hardware, marking a significant expansion of the European launcher relationship with Amazons broadband constellation programme. This mission demonstrates Ariane 6 commercial viability as a multi-manifest heavy payload carrier and strengthens European access to the LEO broadband deployment market.","implication":"Ariane 6 securing a 36-satellite Amazon LEO manifest validates its commercial competitiveness and reduces European dependence on SpaceX for large constellation deployment, which matters to EU defence and commercial satellite operators seeking launch diversity.","image":"none","region":"Europe","urgency":"NORMAL","score":68,"source":"SpaceAgenda","link":"https://spacenews.com/next-ariane-6-launch-to-carry-36-amazon-leo-satellites-using-upgraded-boosters/","lat":5.239,"lng":-52.7689},{"headline":"Apex satellite maker valued at 2.3 billion after raise","context":"Satellite manufacturer Apex has raised an additional 200 million dollars, lifting its valuation to 2.3 billion dollars in its latest funding round. The raise reflects sustained investor appetite for flexible satellite bus manufacturing capacity as commercial and government constellation programmes accelerate demand.","implication":"Apex valuation growth signals that the market is concentrating capital into vertically integrated satellite manufacturing platforms that can serve both commercial and defence customers across multiple constellation programmes simultaneously.","image":"none","region":"North America","urgency":"NORMAL","score":62,"source":"SpaceAgenda","link":"https://spacenews.com/satellite-maker-apexs-valuation-rises-to-2-3-billion-after-latest-200-million-raise/","lat":34.0522,"lng":-118.2437},{"headline":"Global military satellite market to reach 80 billion by 2035","context":"A new SNS Insider market report projects the global military satellite market will reach 80.53 billion dollars by 2035, with the US market alone reaching 30.06 billion and Europe reaching 19.74 billion. The projection reflects accelerating government investment in secure communications, ISR, and missile warning satellite infrastructure driven by multi-theatre conflict conditions.","implication":"An 80 billion dollar military satellite market by 2035 provides a decade-long structural tailwind for defence primes and commercial ISR operators with classified programme exposure, reinforcing the investment case for LMT, NOC, and RTX space divisions.","image":"none","region":"Global","urgency":"NORMAL","score":55,"source":"globenewswire","link":"https://www.globenewswire.com/news-release/2026/06/04/3306960/0/en/Global-Military-Satellite-Market-Projected-to-Hit-USD-80-53-Billion-by-2035-SNS-Insider.html","lat":38.9072,"lng":-77.0369}],"defence":[{"headline":"Iranian drone strikes Kuwait airport amid US clash","context":"An Iranian drone struck a passenger terminal at Kuwait International Airport, killing at least one person and wounding several others, forcing suspension of air traffic as Iranian and US forces traded attacks across the region. US Central Command rejected Iranian claims that a Patriot missile interceptor caused damage at the airport, calling the account totally false, while a Khamenei adviser issued direct threats against UAE, Kuwait, Bahrain, and Saudi Arabia.","implication":"Direct Iranian strikes on Gulf civilian infrastructure signal a dangerous escalation threshold has been crossed, immediately elevating procurement urgency for integrated air defence systems across all GCC states and creating near-term contract catalysts for RTX and LMT missile defence divisions.","image":"https://neweralive.na/wp-content/uploads/2026/06/Kuwait-scaled.jpg","region":"Middle East","urgency":"BREAKING","score":95,"source":"neweralive_na","link":"https://neweralive.na/drone-strikes-close-kuwait-airport-as-iran-us-clash/","lat":29.241,"lng":47.9774},{"headline":"Hezbollah rejects Lebanon ceasefire clouding Iran war","context":"Hezbollah formally rejected a ceasefire agreement between Lebanon and Israel despite the deal being announced by Lebanon President Joseph Aoun and the United States, insisting on full Israeli withdrawal from Lebanese territory before any accord. Israel simultaneously stated it would not withdraw its forces, leaving the ceasefire effectively collapsed and the Iran war perimeter in Lebanon unresolved.","implication":"Hezbollah rejection of the ceasefire prolongs the northern front of the Israel-Iran war, sustaining demand for air defence, precision strike, and ISR assets across the eastern Mediterranean and reinforcing the structural bullish case for defence primes with relevant programme exposure.","image":"https://i.headtopics.com/images/2026/6/5/breitbartnews/hezbollah-rejects-lebanese-ceasefire-deal-with-isr-hezbollah-rejects-lebanese-ceasefire-deal-with-isr-9406E3B54A4A7422205672C3293A9470.webp","region":"Middle East","urgency":"BREAKING","score":90,"source":"headtopics","link":"https://us.headtopics.com/news/hezbollah-rejects-lebanese-ceasefire-deal-with-israel-84151585","lat":33.8547,"lng":35.8623},{"headline":"US Army seeks thousands of Stinger replacement missiles","context":"The US Army has issued requirements for thousands of new short-range air defence missiles to replace the ageing Stinger MANPADS system, reflecting urgent lessons from drone-intensive conflicts in Ukraine and the Middle East. The programme represents a major near-term acquisition opportunity as the Army accelerates its transition to modern man-portable and vehicle-mounted counter-drone and air defence solutions.","implication":"A large-scale Stinger replacement programme creates a multi-billion dollar competition directly relevant to RTX and LMT short-range air defence portfolios and signals the US Army is finally resourcing the counter-UAS capability gap at scale.","image":"none","region":"North America","urgency":"URGENT","score":82,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/06/05/the-us-army-wants-thousands-of-air-defense-missiles-to-replace-the-stinger/","lat":38.9072,"lng":-77.0369},{"headline":"Hungary unblocks EU 6.6 billion for Ukraine air defence","context":"Hungary has lifted its veto on the allocation of 6.6 billion euros from the EU fund designated for armaments procurement for Ukraine, with sources indicating the funds are likely to be directed toward air defence systems for the Ukrainian army. The unblocking removes a significant political obstacle that had stalled European military aid and signals a shift in Budapests posture toward the Ukraine conflict.","implication":"Release of 6.6 billion euros for Ukrainian air defence creates an immediate procurement cycle that benefits European and US air defence manufacturers and accelerates integration of Western systems into Ukraines layered defence architecture.","image":"none","region":"Europe","urgency":"URGENT","score":78,"source":"tass","link":"https://tass.com/world/2142121","lat":47.4979,"lng":19.0402},{"headline":"Counter-drone market to hit 22.88 billion by 2035","context":"The global counter-drone system market is projected to reach 22.88 billion dollars by 2035 at a CAGR of 24.33%, with the US market reaching 7.78 billion and Europe 6.02 billion as governments expand C-UAS capabilities in response to proliferating drone threats. The forecast is driven by combat lessons from Ukraine, the Middle East, and accelerating non-state actor drone adoption.","implication":"A 24% CAGR counter-drone market provides the clearest structural growth vector in defence technology today, directly benefiting LHX, LMT via GRIZZLY, and emerging C-UAS specialists with production capacity to meet accelerating NATO and GCC demand.","image":"none","region":"Global","urgency":"NORMAL","score":72,"source":"globenewswire","link":"https://www.globenewswire.com/news-release/2026/06/04/3306671/0/en/Global-Counter-Drone-System-Market-Size-to-Worth-USD-22-88-Billion-by-2035-Growing-at-a-CAGR-of-24-33-SNS-Insider.html","lat":38.9072,"lng":-77.0369}],"middle_east":[{"headline":"Iran Adviser Threatens UAE, Kuwait and Bahrain","context":"A senior adviser to Iranian Supreme Leader Khamenei issued direct threats against UAE, Kuwait, and Bahrain, reportedly stating that Abu Dhabi could be handed to Saudi Arabia and warning that the US would not protect its Gulf allies. The statements represent some of the most provocative Iranian rhetoric targeting key US partners in the Gulf since the current conflict escalated.","implication":"Direct Iranian threats against Gulf states hosting critical US basing infrastructure raise the probability of expanded theatre operations and accelerate procurement timelines for integrated air and missile defence across the Gulf Cooperation Council.","image":"https://timesofindia.indiatimes.com/photo/msid-131523033/131523033.jpg?resizemode=4","region":"Persian Gulf","urgency":"BREAKING","score":80,"source":"toi","link":"https://timesofindia.indiatimes.com/videos/international/give-abu-dhabi-to-saudi-khamenei-advisers-big-threat-to-uae-kuwait-bahrain-us-wont-help/videoshow/131523033.cms","lat":24.4539,"lng":54.3773},{"headline":"Lebanon Ceasefire Fuels Iran Diplomacy Hopes","context":"Washington confirmed that Israel and Lebanon had agreed to implement a truce, with officials suggesting the development could open a diplomatic pathway toward broader negotiations involving Iran. Tehran has publicly linked any wider peace talks to a cessation of fighting in Lebanon, making the fragile Lebanon agreement a potential pivot point in the larger US-Iran conflict.","implication":"A diplomatic breakthrough connecting Lebanon and Iran could reshape theatre risk calculations for defence operators across the region, though continued Hezbollah rejection makes any durable de-escalation highly uncertain.","image":"https://cf-images.assettype.com/nationalherald/2026-06-04/aqnggfhb/AP06022026000229B.jpg","region":"Middle East","urgency":"URGENT","score":65,"source":"nationalheraldindia","link":"https://www.nationalheraldindia.com/international/israel-lebanon-ceasefire-fuels-hopes-of-diplomatic-breakthrough-with-iran","lat":33.8547,"lng":35.8623},{"headline":"Can the UAE Navigate the War Alone?","context":"Foreign Affairs published a major analysis examining the UAE quest for strategic autonomy amid an increasingly volatile Middle East, assessing whether Abu Dhabi can sustain its independent defence and foreign policy posture without full US backing. The piece follows Iranian threats against the Gulf state and rising pressure from multiple regional flashpoints simultaneously.","implication":"The UAE push for strategic autonomy is driving accelerated domestic defence investment and diversification of partnerships, creating openings for non-US suppliers in areas including air defence, cyber, and ISR.","image":"https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/05/28/2026-03-06T202553Z_1211216835_RC21ZJAPJMAL_RTRMADP_3_IRAN-CRISIS-EMIRATES.JPG?itok=9JNnvF_R","region":"UAE","urgency":"NORMAL","score":60,"source":"foreignaffairs","link":"https://www.foreignaffairs.com/united-arab-emirates/can-uae-go-it-alone","lat":24.4539,"lng":54.3773},{"headline":"US Issues Level 3 Alert Across Gulf States","context":"The United States has issued a fresh security advisory for travellers across the Middle East, placing UAE, Kuwait, Saudi Arabia, and Qatar under Level 3 status and urging visitors to stay cautious and monitor news amid ongoing Iran-linked conflict. The advisory reflects the elevated and fluid threat environment across the Gulf as Iranian and US forces continue to exchange attacks in the broader theatre.","implication":"A sustained Level 3 US travel advisory across Gulf states signals persistent threat assessment that directly affects operational security planning for defence contractors and personnel stationed across the region.","image":"https://www.newsx.com/wp-content/uploads/2026/06/1_48.jpg","region":"Gulf Region","urgency":"URGENT","score":55,"source":"newsx","link":"https://www.newsx.com/world/us-advisory-for-uae-kuwait-saudi-arabia-qatar-travel-amid-iran-war-stay-cautious-monitor-news-230456/","lat":25.2048,"lng":55.2708}],"investment":[{"headline":"Rheinmetall Sells Auto Division to Go All-In on Defence","context":"German defence and automotive giant Rheinmetall has sold its struggling automotive division in order to concentrate fully on its rapidly expanding defence business, which has seen surging demand driven by the war in Ukraine and broader European rearmament. The divestiture marks a definitive strategic pivot for one of Europe largest defence industrial players as it repositions for long-term military growth.","implication":"Rheinmetall full commitment to defence consolidates its position as a primary beneficiary of European rearmament spending, making it a high-conviction stock for defence-focused investors tracking NATO capability build-up.","image":"none","region":"Germany","urgency":"URGENT","score":85,"source":"Defense News","link":"https://www.defensenews.com/global/europe/2026/06/04/rheinmetall-sells-struggling-auto-division-to-focus-on-defense/","lat":51.2217,"lng":6.7762},{"headline":"Western Rare Earth Supply Chains Finally Taking Shape","context":"With the Pentagon 2027 ban on Chinese-origin rare earth materials approaching, companies including REalloys (ALOY) are securing exclusive control of large heavy rare earth deposits to supply defence contractors such as Lockheed Martin, RTX, Northrop Grumman, General Dynamics, and Boeing. The move reflects a broader US and allied strategy to eliminate critical mineral dependency on China ahead of the regulatory deadline.","implication":"The Pentagon rare earth ban deadline is forcing a rapid restructuring of defence supply chains, creating significant first-mover advantage for companies that lock in non-Chinese rare earth sources before 2027 compliance becomes mandatory.","image":"none","region":"United States","urgency":"NORMAL","score":60,"source":"cision","link":"https://www.prnewswire.com/news-releases/western-rare-earth-supply-chains-are-finally-taking-shape-302791873.html","lat":38.9072,"lng":-77.0369},{"headline":"Planet Labs Beats Q1 2027 With Record Revenue","context":"Planet Labs reported record revenue in its first quarter of fiscal year 2027, beating analyst forecasts and delivering results that exceeded consensus expectations across key financial metrics. The earnings call highlighted growing commercial and government demand for the company daily satellite imaging data across defence, agriculture, and climate monitoring segments.","implication":"Planet Labs record revenue beat signals strengthening institutional demand for commercial satellite imagery, reinforcing the investment case for Earth observation companies serving dual-use defence and civil markets.","image":"https://i-invdn-com.investing.com/news/LYNXMPEB3R08Z_L.jpg","region":"United States","urgency":"NORMAL","score":60,"source":"investing_ng","link":"https://ng.investing.com/news/stock-market-news/earnings-call-transcript-planet-labs-beats-q1-2027-forecasts-with-record-revenue-93CH-2545208","lat":37.7749,"lng":0}],"ai_tech":[],"ipo_watch":[]};
+const newsData={"space":[{"headline":"Blue Origin targets LC-36 return to flight by end 2026","context":"Blue Origin has initiated recovery operations at Launch Complex 36 following the New Glenn static fire explosion in late May 2026 and is formally targeting a return to flight before the end of the year. NASA has separately urged Blue Origin to consider alternative launch vehicles for its moon landers to protect Artemis mission deadlines, signalling institutional concern about the programme timeline.","implication":"The New Glenn failure creates a critical gap in the heavy-lift market that directly threatens Amazon LEO deployment schedules and Artemis lunar lander timelines, strengthening the competitive position of SpaceX Falcon 9 and ULA Atlas 5 for near-term manifest slots.","image":"none","region":"North America","urgency":"URGENT","score":82,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/04/nasa-head-urges-new-launcher-for-blue-origins-moon-landers-to-meet-artemis-mission-deadlines/","lat":28.4889,"lng":-80.5778},{"headline":"SpaceX IPO priced at $135 targeting $75bn raise","context":"SpaceX has formally launched its IPO process with a price set at $135 per share, aiming to raise up to $75 billion in what would be the largest stock market debut in financial history, with a 505-page prospectus now publicly filed. The offering values SpaceX at approximately $1.77 trillion and will test whether investors price the company on Starlink revenue fundamentals or on the broader Musk vision premium embedded in the prospectus.","implication":"A successful SpaceX IPO at this valuation would permanently reset the pricing benchmark for all commercial space equities and create a dominant index-eligible space prime that absorbs institutional capital at the expense of smaller constellation and launch names.","image":"https://www.fool.com.au/wp-content/uploads/2021/03/rocket-taking-off-16.9.jpg","region":"North America","urgency":"URGENT","score":80,"source":"businesstoday","link":"https://www.businesstoday.in/markets/stocks/story/spacex-ipo-price-out-valuation-risks-growth-explains-all-what-investors-should-know-534868-2026-06-04","lat":28.5618,"lng":-80.577},{"headline":"Planet Labs posts record revenue, stock crashes 26%","context":"Planet Labs reported record Q1 2027 revenue, beating forecasts on the earnings call held June 4 2026, yet the stock collapsed 25.89 percent on the day — one of the worst single-session performances in the companys history. The disconnect between operational performance and market reaction points to multiple compression across high-valuation commercial Earth observation names under current macro and geopolitical risk conditions.","implication":"Record revenue failing to prevent a 26 percent crash confirms that commercial remote sensing equities are now priced on risk sentiment rather than fundamentals, creating potential long-term value entry points for patient investors but signalling near-term capitulation risk remains elevated.","image":"https://cdn.content.foolcdn.com/images/1umn9qeh/production/b4204f36ed605fc54d4ba32e2cb31d1dd892afd6-800x450.jpg?w=800&q=75&fit=max&auto=format","region":"North America","urgency":"URGENT","score":78,"source":"fool","link":"https://www.fool.com/earnings/call-transcripts/2026/06/05/planet-labs-pl-q1-2027-earnings-transcript/","lat":37.7749,"lng":-122.4194},{"headline":"ISS crew shelters in Dragon amid new station leaks","context":"NASA crew aboard the International Space Station briefly sheltered inside the SpaceX Dragon capsule as Russia worked to address new leaks discovered at the station, marking the latest in a series of structural integrity incidents aboard the ageing platform. The event underscores growing operational risk on the ISS as it approaches decommissioning timelines and elevates urgency around commercial station programmes.","implication":"Repeated ISS leak events accelerate the policy and funding case for Axiom Space and other commercial station developers, directly benefiting companies that have secured NASA commercial LEO destination contracts.","image":"none","region":"Global","urgency":"URGENT","score":72,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/05/nasa-crew-briefly-shelters-inside-dragon-capsule-as-russia-addresses-new-space-station-leaks/","lat":0,"lng":0},{"headline":"Ariane 6 next launch to carry 36 Amazon LEO satellites","context":"The next Ariane 6 launch will carry 36 Amazon LEO satellites using upgraded boosters, marking a significant milestone in Ariane 6 commercial utilisation and Amazon LEO constellation deployment momentum. This mission follows ULA Atlas 5 launching 29 Amazon LEO satellites on May 29, indicating Amazon is now executing a multi-launcher strategy at accelerating cadence.","implication":"Amazon LEO multi-launcher strategy using both Ariane 6 and Atlas 5 reduces single-point-of-failure risk from the New Glenn programme disruption and demonstrates that the constellation is on track to challenge Starlink operationally by late 2026.","image":"none","region":"Europe","urgency":"NORMAL","score":65,"source":"SpaceAgenda","link":"https://spacenews.com/next-ariane-6-launch-to-carry-36-amazon-leo-satellites-using-upgraded-boosters/","lat":5.236,"lng":-52.7697},{"headline":"Apex satellite maker valuation hits $2.3bn after raise","context":"Satellite bus manufacturer Apex has closed a $200 million funding round that values the company at $2.3 billion, reflecting sustained institutional appetite for infrastructure-layer space companies that serve multiple constellation and defence customers. Apex builds standardised satellite buses that reduce lead times and cost for both commercial and government mission operators.","implication":"Apex valuation growth signals that defence and intelligence community demand for rapidly manufacturable satellite buses is now large enough to sustain prime-level valuations, positioning the company as a potential acquisition target for major primes seeking vertical integration.","image":"none","region":"North America","urgency":"NORMAL","score":60,"source":"SpaceAgenda","link":"https://spacenews.com/satellite-maker-apexs-valuation-rises-to-2-3-billion-after-latest-200-million-raise/","lat":34.0522,"lng":-118.2437}],"defence":[{"headline":"Hezbollah rejects Lebanon ceasefire, fighting continues","context":"Hezbollah formally rejected the ceasefire agreement announced by Lebanon and the United States, with the group demanding full Israeli troop withdrawal from Lebanon before any deal — a condition Israel has refused to accept. Israel continued striking targets in Lebanon including a car strike in the south, while the Iran war death toll passed 3,500 and Tehran raised doubts about any broader diplomatic deal.","implication":"Hezbollah rejection of the ceasefire removes the most credible near-term off-ramp from the Lebanon front and extends active multi-theatre conflict, sustaining elevated demand signals for air defence systems, loitering munitions, and ISR satellite coverage across the region.","image":"https://i.headtopics.com/images/2026/6/5/breitbartnews/hezbollah-rejects-lebanese-ceasefire-deal-with-isr-hezbollah-rejects-lebanese-ceasefire-deal-with-isr-9406E3B54A4A7422205672C3293A9470.webp","region":"Middle East","urgency":"BREAKING","score":90,"source":"Al Jazeera","link":"https://www.aljazeera.com/news/2026/6/5/iran-war-day-98-tehran-raises-doubts-on-deal-as-lebanon-fighting-continues","lat":33.8547,"lng":35.8623},{"headline":"Iranian drone hits Kuwait airport, kills one person","context":"An Iranian drone strike struck a passenger terminal at Kuwait International Airport, killing one person and wounding several others, forcing suspension of air traffic in a direct escalation of the Iran conflict into Gulf territory. US CENTCOM rejected Iranian claims that a Patriot missile interceptor caused the damage, labelling Tehrans account as totally false and accusing Iran of responsibility.","implication":"A lethal Iranian strike on civilian airport infrastructure in a Gulf state represents a qualitative escalation that threatens to draw Kuwait and other GCC nations into active conflict posture, with immediate implications for US base access, regional air defence procurement, and insurance risk across Gulf commercial aviation.","image":"https://neweralive.na/wp-content/uploads/2026/06/Kuwait-scaled.jpg","region":"Middle East","urgency":"BREAKING","score":90,"source":"Defense News","link":"https://www.defensenews.com/news/your-military/2026/06/05/us-forces-board-sanctioned-tanker-in-indian-ocean-pentagon-says/","lat":29.2427,"lng":47.9689},{"headline":"US Army seeks thousands of Stinger replacement missiles","context":"The US Army has issued requirements for thousands of next-generation short-range air defence missiles to replace the aging Stinger system, with the programme driven by inventory depletion from Ukraine transfers and the demonstrated threat of low-cost drones in multiple active theatres. The procurement requirement signals a generational upgrade cycle in man-portable and vehicle-mounted air defence across the US ground force.","implication":"This programme represents a multi-billion dollar opportunity for RTX, Raytheon, and emerging competitors and confirms that SHORAD replacement is now a top-tier Army modernisation priority with urgent timeline pressure driven by real-world drone threat proliferation.","image":"none","region":"North America","urgency":"URGENT","score":82,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/06/05/the-us-army-wants-thousands-of-air-defense-missiles-to-replace-the-stinger/","lat":38.9072,"lng":-77.0369},{"headline":"UK military chief warns defence investment plan stalling","context":"The UK Chief of Defence Staff warned that Britain is running out of time to execute its defence investment plan, with the programme stalling amid procurement delays and industrial capacity constraints that leave the armed forces short of critical capabilities. The warning comes as NATO allies face parallel pressure from Washington to boost air and naval forces to meet alliance commitments.","implication":"UK procurement stalling combined with US pressure for NATO burden-sharing creates an urgent political forcing function that could unlock accelerated UK defence spending decisions before the end of 2026, benefiting BAE Systems and Rolls-Royce most directly.","image":"none","region":"Europe","urgency":"URGENT","score":72,"source":"Defense News","link":"https://www.defensenews.com/global","lat":0,"lng":0},{"headline":"Counter-drone market forecast to reach $22.88bn by 2035","context":"A new SNS Insider report projects the global counter-drone system market will grow to $22.88 billion by 2035 at a compound annual growth rate of 24.33 percent, with the US market alone projected at $7.78 billion and Europe at $6.02 billion. The growth is driven by drone threats in Ukraine, Middle East theatres, and expanding government procurement mandates across NATO and Gulf allies.","implication":"A 24 percent CAGR in counter-drone systems over nine years represents one of the fastest-growing structural procurement cycles in the defence sector and favours companies with established C-UAS product lines including Lockheed GRIZZLY, RTX, and emerging dedicated C-UAS pure-plays.","image":"none","region":"Global","urgency":"NORMAL","score":70,"source":"globenewswire","link":"https://www.globenewswire.com/news-release/2026/06/04/3306671/0/en/Global-Counter-Drone-System-Market-Size-to-Worth-USD-22-88-Billion-by-2035-Growing-at-a-CAGR-of-24-33-SNS-Insider.html","lat":38.9072,"lng":-77.0369}],"middle_east":[{"headline":"Khamenei Adviser Threatens UAE, Kuwait and Bahrain","context":"A senior adviser to Iran Supreme Leader Khamenei issued direct threats against the UAE, Kuwait, and Bahrain, including provocative statements about Gulf Arab sovereignty amid the ongoing Iran conflict. The adviser suggested US security guarantees to Gulf states were unreliable, raising fears of Iranian escalation against key US partners.","implication":"Direct Iranian threats against Gulf host nations for US bases increase pressure on UAE and regional partners to accelerate sovereign defence procurement and reduce exposure to single-power security dependencies.","image":"https://timesofindia.indiatimes.com/photo/msid-131523033/131523033.jpg?resizemode=4","region":"Persian Gulf","urgency":"BREAKING","score":88,"source":"toi","link":"https://timesofindia.indiatimes.com/videos/international/give-abu-dhabi-to-saudi-khamenei-advisers-big-threat-to-uae-kuwait-bahrain-us-wont-help/videoshow/131523033.cms","lat":24.4539,"lng":54.3773},{"headline":"Foreign Affairs: Can the UAE Go It Alone?","context":"Foreign Affairs published an analysis examining the UAE push for strategic autonomy as the Iran conflict reshapes Gulf security architecture and puts US alliance commitments under scrutiny. The piece assesses the risks and opportunities for the UAE as it seeks to balance its defence posture independently from Washington.","implication":"A UAE pivot toward strategic autonomy signals growing appetite for domestic and non-US defence procurement, creating openings for European and Asian defence suppliers in one of the worlds most active acquisition markets.","image":"https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/05/28/2026-03-06T202553Z_1211216835_RC21ZJAPJMAL_RTRMADP_3_IRAN-CRISIS-EMIRATES.JPG?itok=9JNnvF_R","region":"United Arab Emirates","urgency":"URGENT","score":72,"source":"foreignaffairs","link":"https://www.foreignaffairs.com/united-arab-emirates/can-uae-go-it-alone","lat":23.4241,"lng":53.8478},{"headline":"Hungary Unblocks EU 6.6 Billion for Ukraine Air Defence","context":"Hungary has lifted its block on the allocation of 6.6 billion euros from an EU fund designated for armaments for Ukraine, according to sources cited by Nepszava. The unblocked funds are expected to be directed toward the purchase of air defence systems for the Ukrainian army.","implication":"Releasing this funding accelerates European procurement of air defence platforms and signals continued NATO-aligned investment in systems that directly benefit major contractors including Lockheed Martin, MBDA, and Rheinmetall.","image":"https://tass.com/img/blocks/common/tass_logo_share_eng.png","region":"Europe / Ukraine","urgency":"URGENT","score":70,"source":"tass","link":"https://tass.com/world/2142121","lat":50.4501,"lng":30.5234},{"headline":"Iran War: US Bases Raise Risk of Escalation","context":"Foreign Affairs published an analysis arguing that the US empire of forward military bases across the Middle East makes it structurally easier for Washington to blunder into broader conflict, citing the Iran war as a live example of this dynamic. The piece highlights the hidden costs of wartime access agreements and the strategic constraints they impose on US decision-making.","implication":"Debate over the strategic cost of US basing posture may prompt GCC host nations to reassess hosting terms, with direct consequences for base infrastructure investment and allied defence positioning in the Gulf.","image":"https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/06/01/2026-04-03T210238Z_564163970_RC22DKAXMMQ5_RTRMADP_3_IRAN-CRISIS-USA.JPG?itok=czIbeXIe","region":"Middle East","urgency":"NORMAL","score":62,"source":"foreignaffairs","link":"https://www.foreignaffairs.com/iran/iran-and-hidden-cost-wartime-access","lat":26.0667,"lng":50.5577}],"investment":[{"headline":"Axiom Space Adds Over 175 Million to Funding Round","context":"Axiom Space has added more than 175 million dollars to its ongoing funding round, strengthening its financial position as it pursues development of a commercial space station module. The company continues to position itself as the successor infrastructure provider as the ISS approaches retirement.","implication":"Sustained private capital flowing into commercial space station development signals that investors expect government anchor tenants including NASA and defence agencies to transition orbital operations to commercial operators within this decade.","image":"none","region":"United States","urgency":"NORMAL","score":65,"source":"SpaceAgenda","link":"https://spacenews.com/axiom-space-adds-more-than-175-million-to-funding-round/","lat":29.7604,"lng":-95.3698},{"headline":"Western Rare Earth Supply Chains Take Shape Ahead of Ban","context":"As the Pentagon 2027 ban on Chinese-origin rare earth materials approaches, REalloys (ALOY) is securing exclusive control over significant heavy rare earth deposits outside China to serve defence contractors including Lockheed Martin, RTX, Northrop Grumman, General Dynamics, and Boeing. Western rare earth supply chains are being described as finally taking concrete shape after years of strategic concern.","implication":"The race to establish non-Chinese rare earth supply ahead of the Pentagon ban creates a narrow investment window in upstream mining and processing companies that feed directly into missiles, satellites, and advanced fighter programmes.","image":"none","region":"Global","urgency":"URGENT","score":63,"source":"cision","link":"https://www.prnewswire.com/news-releases/western-rare-earth-supply-chains-are-finally-taking-shape-302791873.html","lat":38.9072,"lng":-77.0369},{"headline":"Rheinmetall Sells Auto Division to Focus on Defence","context":"Rheinmetall has sold its struggling automotive division to concentrate entirely on defence manufacturing, reflecting the company strategic pivot in response to surging European rearmament demand. The move allows Rheinmetall to redirect capital and production capacity toward ammunition, armoured vehicles, and air defence systems.","implication":"Rheinmetall full commitment to pure-play defence positions it as a primary beneficiary of NATO rearmament spending and signals to investors that Europe largest defence industrial players are restructuring for a sustained high-demand cycle.","image":"none","region":"Germany","urgency":"NORMAL","score":62,"source":"Defense News","link":"https://www.defensenews.com/global/europe/2026/06/04/rheinmetall-sells-struggling-auto-division-to-focus-on-defense/","lat":51.2217,"lng":6.7762},{"headline":"Military Satellite Market to Hit 80 Billion by 2035","context":"A new SNS Insider report projects the global military satellite market will reach 80.53 billion dollars by 2035, with the US market alone accounting for 30.06 billion dollars and Europe reaching 19.74 billion dollars. Growth is driven by ISR demand, secure communications, and space-based navigation requirements across NATO and Indo-Pacific alliances.","implication":"A confirmed 80 billion dollar market trajectory validates long-term capital allocation into military satellite programmes and positions prime contractors and smallsat manufacturers for decade-long revenue visibility.","image":"none","region":"Global","urgency":"NORMAL","score":55,"source":"globenewswire","link":"https://www.globenewswire.com/news-release/2026/06/04/3306960/0/en/Global-Military-Satellite-Market-Projected-to-Hit-USD-80-53-Billion-by-2035-SNS-Insider.html","lat":38.9072,"lng":-77.0369}],"ai_tech":[{"headline":"Google Cuts Cloud and Cybersecurity Jobs for AI Pivot","context":"Google Cloud has carried out a fresh round of layoffs targeting cybersecurity and cloud infrastructure teams as the company reallocates resources toward artificial intelligence focused growth initiatives. The cuts continue a pattern of major tech firms restructuring legacy divisions to fund AI platform development.","implication":"Google contraction in cybersecurity headcount as it pivots to AI creates gaps in enterprise and government security coverage that specialist defence-tech and cyber firms can exploit through targeted hiring and contract capture.","image":"https://images.timesnownews.com/thumb/msid-154462900,width-1280,height-720,resizemode-75/154462900.jpg","region":"United States","urgency":"NORMAL","score":62,"source":"timesnownews","link":"https://www.timesnownews.com/business-economy/companies/tech-layoffs-google-is-cutting-jobs-againheres-which-teams-were-affected-this-time-article-154462748","lat":37.4419,"lng":-122.143},{"headline":"Agentic Commerce Reshapes Asia Tech Strategy","context":"A new ecosystem analysis highlights that Asian merchants are approaching a strategic inflection point as agentic AI systems begin making procurement and purchasing decisions autonomously, shifting competitive advantage away from traditional search and storefront visibility. Analyst forecasts cited in the report suggest the agentic commerce transition will fundamentally alter how B2B and B2G supply chains operate across the region.","implication":"The rise of agentic AI decision-making in procurement pipelines has direct implications for defence supply chains, where autonomous purchasing agents could accelerate or distort acquisition cycles for dual-use and commercial-off-the-shelf components.","image":"https://e27.co/wp-content/uploads/2026/06/Agent_commerce-1.jpg","region":"Asia-Pacific","urgency":"NORMAL","score":45,"source":"e27","link":"https://e27.co/ecosystem-roundup-the-rise-of-the-machine-consumer-20260605/","lat":1.3521,"lng":103.8198},{"headline":"CIPM Nigeria Calls for Ethical AI Governance Framework","context":"The Chartered Institute of Personnel Management of Nigeria has called on organisations, policymakers, and academic institutions to adopt responsible AI governance frameworks as AI deployment accelerates across African industries. The institute emphasised that ethical AI adoption requires regulatory structures rather than voluntary compliance alone.","implication":"Emerging AI governance frameworks in African markets will shape how international defence and space technology firms structure AI-enabled systems for export and local partnership in a rapidly growing strategic region.","image":"none","region":"Nigeria","urgency":"NORMAL","score":32,"source":"latestnigeriannews","link":"https://www.latestnigeriannews.com/p/298033/cipm-advocates-responsible-ai-adoption-ethical-governance.html","lat":9.082,"lng":8.6753}],"ipo_watch":[]};
 const incidentListTop=document.getElementById('incident-list-top');
 let incidentCount=0;
 const mapStyle=document.createElement('style');
@@ -1029,40 +1138,51 @@ Object.keys(newsData).forEach(cat=>{
   });
 });
 document.getElementById('incident-count').textContent=`LIVE · ${incidentCount} INCIDENTS`;
-function prismSearch(val) {
-  const q = val.toLowerCase().trim();
-  const clear = document.getElementById('search-count');
-  const clearBtn = document.getElementById('search-clear');
-  clearBtn.style.display = q ? 'block' : 'none';
-  const stories = document.querySelectorAll('.story');
-  let found = 0;
-  stories.forEach(s => {
-    const text = s.textContent.toLowerCase();
-    if (!q) {
-      s.classList.remove('story-hidden', 'story-highlight');
-    } else if (text.includes(q)) {
-      s.classList.remove('story-hidden');
-      s.classList.add('story-highlight');
-      found++;
-    } else {
-      s.classList.add('story-hidden');
-      s.classList.remove('story-highlight');
-    }
+let searchResults=[];let searchCurrent=0;
+function hlText(text,q){if(!q)return text;const re=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');return text.replace(re,'<mark>$1</mark>');}
+function prismSearch(val){
+  const q=val.toLowerCase().trim();
+  const countEl=document.getElementById('search-count');
+  const clearBtn=document.getElementById('search-clear');
+  const nav=document.getElementById('search-nav');
+  const dropdown=document.getElementById('search-dropdown');
+  clearBtn.style.display=q?'block':'none';
+  document.querySelectorAll('.story').forEach(s=>{
+    s.classList.remove('active-result','dimmed');
+    const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
+    if(h)h.innerHTML=h.textContent;if(t)t.innerHTML=t.textContent;if(i)i.innerHTML=i.textContent;
   });
-  clear.textContent = q ? `${found} RESULT${found !== 1 ? 'S' : ''} FOUND` : '';
-  // show all section headers — hide ones with no visible stories
-  document.querySelectorAll('.section-header').forEach(h => {
-    const grid = h.nextElementSibling;
-    if (!grid) return;
-    const visible = grid.querySelectorAll('.story:not(.story-hidden)').length;
-    h.style.display = (!q || visible > 0) ? '' : 'none';
-    grid.style.display = (!q || visible > 0) ? '' : 'none';
+  document.querySelectorAll('.section-header').forEach(h=>{h.style.display='';if(h.nextElementSibling)h.nextElementSibling.style.display='';});
+  if(!q){countEl.textContent='';nav.style.display='none';dropdown.style.display='none';searchResults=[];return;}
+  searchResults=Array.from(document.querySelectorAll('.story')).filter(s=>s.textContent.toLowerCase().includes(q));
+  searchResults.forEach(s=>{
+    const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
+    if(h)h.innerHTML=hlText(h.textContent,q);if(t)t.innerHTML=hlText(t.textContent,q);if(i)i.innerHTML=hlText(i.textContent,q);
   });
+  document.querySelectorAll('.story').forEach(s=>{if(!searchResults.includes(s))s.classList.add('dimmed');});
+  countEl.textContent=`${searchResults.length} RESULT${searchResults.length!==1?'S':''}`;
+  if(searchResults.length>0){
+    dropdown.innerHTML=`<div class="search-drop-header">◈ ${searchResults.length} STORIES FOUND · CLICK TO JUMP</div>`+
+      searchResults.map((s,i)=>{
+        const head=s.querySelector('.story-head')?s.querySelector('.story-head').textContent:'';
+        const body=s.querySelector('.story-teaser')?s.querySelector('.story-teaser').textContent:'';
+        const excerpt=body.length>90?body.substring(0,90)+'...':body;
+        let col='#4a9eff';let lbl='🛰 SPACE';
+        const pg=s.closest('.page');
+        if(pg){Array.from(pg.querySelectorAll('.section-header')).forEach(hdr=>{const grid=hdr.nextElementSibling;if(grid&&grid.contains(s)){const txt=hdr.querySelector('.section-title')?hdr.querySelector('.section-title').textContent:'';if(txt.includes('DEFENCE')){col='#ff4444';lbl='🛡 DEFENCE';}else if(txt.includes('MIDDLE')){col='#ff8c00';lbl='🌍 MID EAST';}else if(txt.includes('AI')){col='#a060ff';lbl='🤖 AI TECH';}else if(txt.includes('INVEST')){col='#00aa40';lbl='💰 INVEST';}else if(txt.includes('IPO')){col='#ffcc00';lbl='🚀 IPO';}}});}
+        return `<div class="search-result-item" onclick="jumpToResult(${i})"><div class="sri-cat" style="background:${col}22;color:${col};border:1px solid ${col}44">${lbl}</div><div><div class="sri-head">${hlText(head,q)}</div><div class="sri-excerpt">${hlText(excerpt,q)}</div></div></div>`;
+      }).join('');
+    dropdown.style.display='block';nav.style.display='flex';searchCurrent=0;updateSearchNav();jumpToResult(0);
+  }else{
+    dropdown.innerHTML='<div class="search-drop-header" style="color:#ff4444">◈ NO RESULTS FOUND</div>';
+    dropdown.style.display='block';nav.style.display='none';
+  }
 }
-function clearSearch() {
-  document.getElementById('prism-search').value = '';
-  prismSearch('');
-}
+function jumpToResult(idx){searchResults.forEach(s=>s.classList.remove('active-result'));if(!searchResults[idx])return;searchCurrent=idx;searchResults[idx].classList.add('active-result');searchResults[idx].scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('search-dropdown').style.display='none';updateSearchNav();}
+function navResult(dir){const next=searchCurrent+dir;if(next>=0&&next<searchResults.length)jumpToResult(next);}
+function updateSearchNav(){document.getElementById('search-pos').textContent=`${searchCurrent+1} / ${searchResults.length}`;document.getElementById('btn-prev').disabled=searchCurrent===0;document.getElementById('btn-next').disabled=searchCurrent===searchResults.length-1;}
+function clearSearch(){document.getElementById('prism-search').value='';prismSearch('');}
+document.addEventListener('click',e=>{if(!e.target.closest('#search-wrap')){const d=document.getElementById('search-dropdown');if(d)d.style.display='none';}});
 setTimeout(()=>map.invalidateSize(),300);
 </script>
 </body>
