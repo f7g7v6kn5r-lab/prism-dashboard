@@ -360,7 +360,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
       <button class="search-nav-btn" id="btn-next" onclick="navResult(1)">▼ NEXT</button>
     </div>
   </div>
-  <div class="search-dropdown" id="search-dropdown" style="display:none"></div>
+<div class="search-dropdown" id="search-dropdown" style="display:none"></div>
+<div id="search-banner" style="display:none;background:#0a1628;border-bottom:1px solid rgba(74,158,255,0.2);padding:8px 32px;font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;letter-spacing:2px;align-items:center;gap:10px"></div>
 </div>
 <div class="section-briefing-map">
   <div class="briefing-left">
@@ -1237,44 +1238,63 @@ function prismSearch(val){
   const clearBtn=document.getElementById('search-clear');
   const nav=document.getElementById('search-nav');
   const dropdown=document.getElementById('search-dropdown');
-  clearBtn.style.display=q?'block':'none';
+  dropdown.style.display='none';
+  nav.style.display='none';
   document.querySelectorAll('.story').forEach(s=>{
-    s.classList.remove('active-result','dimmed');
+    s.classList.remove('active-result','dimmed','story-hidden');
     const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
     if(h)h.innerHTML=h.textContent;if(t)t.innerHTML=t.textContent;if(i)i.innerHTML=i.textContent;
   });
   document.querySelectorAll('.section-header').forEach(h=>{h.style.display='';if(h.nextElementSibling)h.nextElementSibling.style.display='';});
-  if(!q){countEl.textContent='';nav.style.display='none';dropdown.style.display='none';searchResults=[];return;}
-  searchResults=Array.from(document.querySelectorAll('.story')).filter(s=>s.textContent.toLowerCase().includes(q));
-  searchResults.forEach(s=>{
-    const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
-    if(h)h.innerHTML=hlText(h.textContent,q);if(t)t.innerHTML=hlText(t.textContent,q);if(i)i.innerHTML=hlText(i.textContent,q);
-  });
-  document.querySelectorAll('.story').forEach(s=>{if(!searchResults.includes(s))s.classList.add('dimmed');});
-  countEl.textContent=`${searchResults.length} RESULT${searchResults.length!==1?'S':''}`;
-  if(searchResults.length>0){
-    dropdown.innerHTML=`<div class="search-drop-header">◈ ${searchResults.length} STORIES FOUND · CLICK TO JUMP</div>`+
-      searchResults.map((s,i)=>{
-        const head=s.querySelector('.story-head')?s.querySelector('.story-head').textContent:'';
-        const body=s.querySelector('.story-teaser')?s.querySelector('.story-teaser').textContent:'';
-        const excerpt=body.length>90?body.substring(0,90)+'...':body;
-        let col='#4a9eff';let lbl='🛰 SPACE';
-        const pg=s.closest('.page');
-        if(pg){Array.from(pg.querySelectorAll('.section-header')).forEach(hdr=>{const grid=hdr.nextElementSibling;if(grid&&grid.contains(s)){const txt=hdr.querySelector('.section-title')?hdr.querySelector('.section-title').textContent:'';if(txt.includes('DEFENCE')){col='#ff4444';lbl='🛡 DEFENCE';}else if(txt.includes('MIDDLE')){col='#ff8c00';lbl='🌍 MID EAST';}else if(txt.includes('AI')){col='#a060ff';lbl='🤖 AI TECH';}else if(txt.includes('INVEST')){col='#00aa40';lbl='💰 INVEST';}else if(txt.includes('IPO')){col='#ffcc00';lbl='🚀 IPO';}}});}
-        return `<div class="search-result-item" onclick="jumpToResult(${i})"><div class="sri-cat" style="background:${col}22;color:${col};border:1px solid ${col}44">${lbl}</div><div><div class="sri-head">${hlText(head,q)}</div><div class="sri-excerpt">${hlText(excerpt,q)}</div></div></div>`;
-      }).join('');
-    dropdown.style.display='block';nav.style.display='flex';searchCurrent=0;updateSearchNav();jumpToResult(0);
-  }else{
-    dropdown.innerHTML='<div class="search-drop-header" style="color:#ff4444">◈ NO RESULTS FOUND</div>';
-    dropdown.style.display='block';nav.style.display='none';
+  const banner=document.getElementById('search-banner');
+  if(!q){
+    countEl.textContent='';
+    clearBtn.style.display='none';
+    if(banner)banner.style.display='none';
+    searchResults=[];
+    return;
   }
+  clearBtn.style.display='block';
+  searchResults=Array.from(document.querySelectorAll('.story')).filter(s=>s.textContent.toLowerCase().includes(q));
+  document.querySelectorAll('.story').forEach(s=>{
+    if(!searchResults.includes(s)){
+      s.classList.add('story-hidden');
+    } else {
+      const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
+      if(h)h.innerHTML=hlText(h.textContent,q);
+      if(t)t.innerHTML=hlText(t.textContent,q);
+      if(i)i.innerHTML=hlText(i.textContent,q);
+    }
+  });
+  document.querySelectorAll('.section-header').forEach(h=>{
+    const grid=h.nextElementSibling;
+    if(!grid)return;
+    const visible=grid.querySelectorAll('.story:not(.story-hidden)').length;
+    h.style.display=visible>0?'':'none';
+    grid.style.display=visible>0?'':'none';
+  });
+  countEl.textContent=`${searchResults.length} RESULT${searchResults.length!==1?'S':''}`;
+  if(banner){
+    if(searchResults.length>0){
+      banner.innerHTML=`◈ ${searchResults.length} RESULT${searchResults.length!==1?'S':''} FOR "<span style="color:#fff">${val.toUpperCase()}</span>" &nbsp;<span onclick="clearSearch()" style="cursor:pointer;color:#ff4444;border:1px solid rgba(255,68,68,0.3);padding:2px 8px;border-radius:4px;font-size:8px">✕ CLEAR</span>`;
+      banner.style.display='flex';
+    } else {
+      banner.innerHTML=`◈ NO RESULTS FOR "<span style="color:#fff">${val.toUpperCase()}</span>" &nbsp;<span onclick="clearSearch()" style="cursor:pointer;color:#ff4444;border:1px solid rgba(255,68,68,0.3);padding:2px 8px;border-radius:4px;font-size:8px">✕ CLEAR</span>`;
+      banner.style.display='flex';
+    }
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function jumpToResult(idx){searchResults.forEach(s=>s.classList.remove('active-result'));if(!searchResults[idx])return;searchCurrent=idx;searchResults[idx].classList.add('active-result');searchResults[idx].scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('search-dropdown').style.display='none';updateSearchNav();}
+function jumpToResult(idx){searchResults.forEach(s=>s.classList.remove('active-result'));if(!searchResults[idx])return;searchCurrent=idx;searchResults[idx].classList.add('active-result');searchResults[idx].scrollIntoView({behavior:'smooth',block:'center'});updateSearchNav();}
 function navResult(dir){const next=searchCurrent+dir;if(next>=0&&next<searchResults.length)jumpToResult(next);}
 function updateSearchNav(){document.getElementById('search-pos').textContent=`${searchCurrent+1} / ${searchResults.length}`;document.getElementById('btn-prev').disabled=searchCurrent===0;document.getElementById('btn-next').disabled=searchCurrent===searchResults.length-1;}
-function clearSearch(){document.getElementById('prism-search').value='';prismSearch('');}
-document.addEventListener('click',e=>{if(!e.target.closest('#search-wrap')){const d=document.getElementById('search-dropdown');if(d)d.style.display='none';}});
-setTimeout(()=>map.invalidateSize(),300);
+function clearSearch(){
+  document.getElementById('prism-search').value='';
+  prismSearch('');
+  const banner=document.getElementById('search-banner');
+  if(banner)banner.style.display='none';
+}
+  setTimeout(()=>map.invalidateSize(),300);
 </script>
 </body>
 </html>
