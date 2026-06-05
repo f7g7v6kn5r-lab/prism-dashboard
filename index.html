@@ -228,7 +228,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#4a9eff;margin-bottom:4px}
 .chat-tooltip-text{font-size:11px;color:#5a7a9a;line-height:1.4}
 .search-bar-wrap{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:8px 32px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.search-inner{display:flex;align-items:center;gap:8px;background:#0d1f3c;border:1px solid #1a2a4a;border-radius:6px;padding:9px 14px;flex:1;max-width:50%;transition:border-color 0.2s}
+.search-inner{display:flex;align-items:center;gap:8px;background:#0d1f3c;border:1px solid #1a2a4a;border-radius:6px;padding:9px 14px;flex:1;transition:border-color 0.2s}
+.search-row{width:100%}
 .search-inner:focus-within{border-color:rgba(74,158,255,0.4)}
 .search-input{background:none;border:none;outline:none;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#c8dff0;width:100%}
 .search-input::placeholder{color:rgba(200,220,255,0.2);letter-spacing:2px}
@@ -290,8 +291,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   .event-grid{grid-template-columns:1fr}
   .footer{padding:12px 16px}
   .chat-bubble{bottom:16px;right:16px}
-  .search-bar-wrap{padding:8px 12px}
-  .search-inner{max-width:100%}
+.search-bar-wrap{padding:8px 12px}
+.search-row{width:100%}
+.search-inner{max-width:none;flex:1;width:100%}
+.search-count{display:none}
+.search-nav{flex-shrink:0}
   .chat-bubble-tooltip{display:none}
 }
 @media(max-width:480px){
