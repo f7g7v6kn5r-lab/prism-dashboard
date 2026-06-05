@@ -43,7 +43,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .ticker-inner{display:inline-block;animation:ticker 40s linear infinite;will-change:transform}
 .ticker-label{font-size:9px;color:rgba(200,220,255,0.4);letter-spacing:2px;font-weight:600;font-family:'Space Mono',monospace}
 .section-briefing-map{display:grid;grid-template-columns:1fr 1fr;background:#0d1f3c;border-bottom:1px solid #1a2a4a;min-height:300px}
-.briefing-left{padding:22px 32px;border-right:1px solid #1a2a4a;display:flex;flex-direction:column;justify-content:center}
+.briefing-left{padding:0;border-right:1px solid #1a2a4a;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.briefing-frame{border:2px solid rgba(74,158,255,0.5);border-radius:10px;overflow:hidden;box-shadow:0 0 20px rgba(74,158,255,0.15);margin:18px 24px;flex:1}
+.briefing-frame-header{background:#1a3a6a;padding:12px 18px;border-bottom:1px solid rgba(74,158,255,0.3);display:flex;align-items:center;gap:10px}
+.briefing-frame-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#7ab8ff;white-space:nowrap}
+.briefing-frame-body{background:#0d2040;padding:16px 18px}
 .hero-label{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;letter-spacing:2px;color:#4a9eff;margin-bottom:14px;white-space:nowrap}
 .badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
 .badge-bullish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(0,160,70,0.4);background:rgba(0,160,70,0.1);color:#00cc60;display:flex;align-items:center;gap:8px}
@@ -54,7 +58,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .badge-geo-high{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,100,0,0.4);background:rgba(200,100,0,0.1);color:#ff8c00;display:flex;align-items:center;gap:8px}
 .badge-geo-critical{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.5);background:rgba(200,0,0,0.12);color:#ff5555;display:flex;align-items:center;gap:8px}
 .badge-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.summary{font-size:14px;color:#a8c4e0;line-height:1.8;border-left:3px solid #4a9eff;padding:12px 16px;background:rgba(74,158,255,0.05);border-radius:0 6px 6px 0}
+.summary{font-size:14px;color:#a8c4e0;line-height:1.8;text-align:justify;hyphens:auto}
 .map-right{display:flex;flex-direction:column;overflow:hidden;background:#04060f}
 .map-header-inner{padding:12px 16px;background:#0a1628;border-bottom:1px solid #1a2a4a;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .map-title-inner{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:3px;color:#4a9eff}
@@ -306,12 +310,18 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 </div>
 <div class="section-briefing-map">
   <div class="briefing-left">
-    <div class="hero-label">◈ Executive Intelligence Briefing</div>
+  <div class="briefing-frame">
+    <div class="briefing-frame-header">
+      <div class="briefing-frame-title">◈ EXECUTIVE INTELLIGENCE BRIEFING</div>
+    </div>
+    <div class="briefing-frame-body">
     <div class="badges">
       <div class="badge-bearish"><div class="badge-dot" style="background:#ff4444"></div>BEARISH</div><div class="badge-geo-critical"><div class="badge-dot" style="background:#ff4444"></div>⚡ GEO RISK: CRITICAL</div>
     </div>
     <div class="summary">Escalating kinetic conflict between the US and Iran — now entering day 97 — has crossed a threshold that directly disrupts Gulf infrastructure, with Iranian drone and missile strikes hitting Kuwait International Airport and US naval assets, while the US House voted to block further war authorization, creating a structural split between executive warfighting and legislative restraint that defines todays strategic landscape. The contradiction is stark: defence stocks are falling sharply despite active combat operations, signalling that markets are pricing in ceasefire risk and contract uncertainty rather than sustained procurement cycles, while space stocks including ASTS, LUNR, and BKSY are collapsing for company-specific reasons layered on top of macro fear, creating a dual-pressure environment that punishes both sectors simultaneously. Watch for the next 24 to 72 hours whether CENTCOM announces retaliatory strikes beyond Hormuz or whether the Strait of Hormuz ceasefire framework gains formal backing from Saudi Arabia and Qatar, as either outcome will either lock in a prolonged defence procurement supercycle or trigger a rapid de-escalation that resets risk pricing across the entire sector.</div>
+    </div>
   </div>
+</div>
   <div class="map-right">
     <div class="map-header-inner">
       <div class="map-title-inner">🌍 GLOBAL INTELLIGENCE MAP</div>
