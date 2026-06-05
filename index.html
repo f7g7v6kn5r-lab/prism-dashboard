@@ -1284,15 +1284,29 @@ function prismSearch(val){
     }
   }
   window.scrollTo({top:0,behavior:'smooth'});
+document.querySelector('.section-briefing-map').style.display=q?'none':'';
+document.querySelector('.section-orr').style.display=q?'none':'';
+document.querySelector('.outlook-section').style.display=q?'none':'';
+document.querySelector('.reg-section').style.display=q?'none':'';
+document.querySelector('.poly-section').style.display=q?'none':'';
+document.querySelector('.stocks-section').style.display=q?'none':'';
+document.querySelector('.events-section').style.display=q?'none':'';
 }
 function jumpToResult(idx){searchResults.forEach(s=>s.classList.remove('active-result'));if(!searchResults[idx])return;searchCurrent=idx;searchResults[idx].classList.add('active-result');searchResults[idx].scrollIntoView({behavior:'smooth',block:'center'});updateSearchNav();}
 function navResult(dir){const next=searchCurrent+dir;if(next>=0&&next<searchResults.length)jumpToResult(next);}
 function updateSearchNav(){document.getElementById('search-pos').textContent=`${searchCurrent+1} / ${searchResults.length}`;document.getElementById('btn-prev').disabled=searchCurrent===0;document.getElementById('btn-next').disabled=searchCurrent===searchResults.length-1;}
 function clearSearch(){
   document.getElementById('prism-search').value='';
-  prismSearch('');
   const banner=document.getElementById('search-banner');
   if(banner)banner.style.display='none';
+  document.querySelector('.section-briefing-map').style.display='';
+  document.querySelector('.section-orr').style.display='';
+  document.querySelector('.outlook-section').style.display='';
+  document.querySelector('.reg-section').style.display='';
+  document.querySelector('.poly-section').style.display='';
+  document.querySelector('.stocks-section').style.display='';
+  document.querySelector('.events-section').style.display='';
+  prismSearch('');
 }
   setTimeout(()=>map.invalidateSize(),300);
 </script>
