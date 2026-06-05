@@ -26,7 +26,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 @keyframes chatPulse{0%,100%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 0 rgba(74,158,255,0.4)}70%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 10px rgba(74,158,255,0)}}
 @keyframes bubbleIn{0%{opacity:0;transform:translateY(10px) scale(0.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes fadeOverlay{0%{opacity:0}100%{opacity:1}}
-
 .topbar{background:#0a1628;border-bottom:1.5px solid #1a2a4a;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .topbar-left{display:flex;align-items:center;gap:14px}
 .topbar-divider{border-left:1px solid #1a2a4a;padding-left:14px}
@@ -43,17 +42,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .ticker-inner{display:inline-block;animation:ticker 40s linear infinite;will-change:transform}
 .ticker-label{font-size:9px;color:rgba(200,220,255,0.4);letter-spacing:2px;font-weight:600;font-family:'Space Mono',monospace}
 .section-briefing-map{display:grid;grid-template-columns:1fr 1fr;background:#0d1f3c;border-bottom:1px solid #1a2a4a;min-height:300px}
-.briefing-left{padding:0;border-right:none;border-bottom:none}
-.briefing-frame{margin:10px;border-radius:8px}
-.briefing-frame-title{font-size:9px;letter-spacing:1px}
-.badges{flex-wrap:nowrap;gap:6px}
-.badge-bullish,.badge-bearish,.badge-neutral,.badge-geo-low,.badge-geo-medium,.badge-geo-high,.badge-geo-critical{font-size:8px;padding:4px 8px;letter-spacing:1px;white-space:nowrap}
-.summary{font-size:12px}
+.briefing-left{padding:0;border-right:1px solid #1a2a4a;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .briefing-frame{border:2px solid rgba(74,158,255,0.5);border-radius:10px;overflow:hidden;box-shadow:0 0 20px rgba(74,158,255,0.15);margin:18px 24px;flex:1}
 .briefing-frame-header{background:#1a3a6a;padding:12px 18px;border-bottom:1px solid rgba(74,158,255,0.3);display:flex;align-items:center;gap:10px}
 .briefing-frame-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#7ab8ff;white-space:nowrap}
 .briefing-frame-body{background:#0d2040;padding:16px 18px}
-.hero-label{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;letter-spacing:2px;color:#4a9eff;margin-bottom:14px;white-space:nowrap}
 .badges{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
 .badge-bullish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(0,160,70,0.4);background:rgba(0,160,70,0.1);color:#00cc60;display:flex;align-items:center;gap:8px}
 .badge-bearish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.4);background:rgba(200,0,0,0.1);color:#ff5555;display:flex;align-items:center;gap:8px}
@@ -241,16 +234,21 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   .topbar-right{gap:6px;flex-wrap:nowrap}
   .live{font-size:7px;letter-spacing:1px;white-space:nowrap}
   .dot{width:4px;height:4px}
-#moonphase{display:none}
+  #moonphase{display:none}
   .ts{display:none}
   .beta-badge{display:inline-block;font-size:6px;padding:1px 4px}
   .early{display:none}
   .analyst-pill{font-size:7px;padding:2px 8px;letter-spacing:1px}
   img[alt="PRISM"]{height:22px!important}
   .section-briefing-map{grid-template-columns:1fr;display:flex;flex-direction:column;background:#0d1f3c}
-  .briefing-left{padding:16px;border-right:none;border-bottom:1px solid #1a2a4a}
-  .map-right{min-height:280px}
-  .section-orr{grid-template-columns:1fr;padding:16px;gap:12px}
+  .briefing-left{padding:0;border-right:none;border-bottom:none}
+  .briefing-frame{margin:10px;border-radius:8px}
+  .briefing-frame-title{font-size:9px;letter-spacing:1px}
+  .badges{flex-wrap:nowrap;gap:6px;margin-bottom:10px}
+  .badge-bullish,.badge-bearish,.badge-neutral,.badge-geo-low,.badge-geo-medium,.badge-geo-high,.badge-geo-critical{font-size:8px;padding:4px 8px;letter-spacing:1px;white-space:nowrap}
+  .summary{font-size:12px}
+  .map-right{min-height:240px}
+  .section-orr{grid-template-columns:1fr;padding:12px;gap:10px}
   .page{padding:14px 16px}
   .stories-grid{grid-template-columns:1fr}
   .outlook-section{padding:16px}
@@ -262,7 +260,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   .stocks-grid{grid-template-columns:1fr 1fr}
   .event-grid{grid-template-columns:1fr}
   .footer{padding:12px 16px}
-  .badges{gap:8px}
   .chat-bubble{bottom:16px;right:16px}
   .chat-bubble-tooltip{display:none}
 }
@@ -315,18 +312,18 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 </div>
 <div class="section-briefing-map">
   <div class="briefing-left">
-  <div class="briefing-frame">
-    <div class="briefing-frame-header">
-      <div class="briefing-frame-title">◈ EXECUTIVE INTELLIGENCE BRIEFING</div>
-    </div>
-    <div class="briefing-frame-body">
-    <div class="badges">
-      <div class="badge-bearish"><div class="badge-dot" style="background:#ff4444"></div>BEARISH</div><div class="badge-geo-critical"><div class="badge-dot" style="background:#ff4444"></div>⚡ GEO RISK: CRITICAL</div>
-    </div>
-    <div class="summary">Escalating kinetic conflict between the US and Iran — now entering day 97 — has crossed a threshold that directly disrupts Gulf infrastructure, with Iranian drone and missile strikes hitting Kuwait International Airport and US naval assets, while the US House voted to block further war authorization, creating a structural split between executive warfighting and legislative restraint that defines todays strategic landscape. The contradiction is stark: defence stocks are falling sharply despite active combat operations, signalling that markets are pricing in ceasefire risk and contract uncertainty rather than sustained procurement cycles, while space stocks including ASTS, LUNR, and BKSY are collapsing for company-specific reasons layered on top of macro fear, creating a dual-pressure environment that punishes both sectors simultaneously. Watch for the next 24 to 72 hours whether CENTCOM announces retaliatory strikes beyond Hormuz or whether the Strait of Hormuz ceasefire framework gains formal backing from Saudi Arabia and Qatar, as either outcome will either lock in a prolonged defence procurement supercycle or trigger a rapid de-escalation that resets risk pricing across the entire sector.</div>
+    <div class="briefing-frame">
+      <div class="briefing-frame-header">
+        <div class="briefing-frame-title">◈ EXECUTIVE INTELLIGENCE BRIEFING</div>
+      </div>
+      <div class="briefing-frame-body">
+        <div class="badges">
+          <div class="badge-bearish"><div class="badge-dot" style="background:#ff4444"></div>BEARISH</div><div class="badge-geo-critical"><div class="badge-dot" style="background:#ff4444"></div>⚡ GEO RISK: CRITICAL</div>
+        </div>
+        <div class="summary">Escalating kinetic conflict between the US and Iran — now entering day 97 — has crossed a threshold that directly disrupts Gulf infrastructure, with Iranian drone and missile strikes hitting Kuwait International Airport and US naval assets, while the US House voted to block further war authorization, creating a structural split between executive warfighting and legislative restraint that defines todays strategic landscape. The contradiction is stark: defence stocks are falling sharply despite active combat operations, signalling that markets are pricing in ceasefire risk and contract uncertainty rather than sustained procurement cycles, while space stocks including ASTS, LUNR, and BKSY are collapsing for company-specific reasons layered on top of macro fear, creating a dual-pressure environment that punishes both sectors simultaneously. Watch for the next 24 to 72 hours whether CENTCOM announces retaliatory strikes beyond Hormuz or whether the Strait of Hormuz ceasefire framework gains formal backing from Saudi Arabia and Qatar, as either outcome will either lock in a prolonged defence procurement supercycle or trigger a rapid de-escalation that resets risk pricing across the entire sector.</div>
+      </div>
     </div>
   </div>
-</div>
   <div class="map-right">
     <div class="map-header-inner">
       <div class="map-title-inner">🌍 GLOBAL INTELLIGENCE MAP</div>
