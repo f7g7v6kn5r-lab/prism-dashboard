@@ -395,7 +395,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <div class="ocard-body"><div class="ocard-text">Any Iranian strike that successfully damages the US 5th Fleet headquarters in Bahrain or closes the Strait of Hormuz to commercial traffic would trigger an immediate energy price shock and force emergency defence supplemental spending that reshapes the entire sector overnight.</div></div>
   </div>
 </div>
-<div class="page">
+<div class="page" id="news">
   
         <div class="section-header">
           <div class="section-title">🛰 SPACE</div>
@@ -1333,7 +1333,7 @@ function clearSearch(){
 setTimeout(()=>map.invalidateSize(),300);
 function shareStory(headline,link){
   const dashboardUrl='https://dashboard.prism-osint.com';
-  const shareUrl=dashboardUrl;
+  const shareUrl=dashboardUrl+'#news';
   const text='◈ '+headline+'\n\nVia PRISM — Space & Defence Intelligence';
   if(navigator.share){
     navigator.share({title:headline,text:text,url:shareUrl});
