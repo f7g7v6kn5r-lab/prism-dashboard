@@ -301,22 +301,91 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 </head>
 <body>
 <div class="scan"></div>
-<div class="topbar">
-  <div class="topbar-left">
-    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:60px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
-    <span class="beta-badge">BETA</span>
-    <div class="topbar-divider">
-      <div class="topbar-tagline">SPACE & DEFENCE INTELLIGENCE</div>
-      <div class="early">◈ EARLY ACCESS BETA</div>
+<style>
+.pnav-item{position:relative}
+.pnav-link-nav{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(200,220,255,0.4);padding:0 20px;display:flex;align-items:center;cursor:pointer;white-space:nowrap;transition:color 0.2s;height:56px;border-bottom:2px solid transparent;user-select:none;text-decoration:none}
+.pnav-link-nav.active{color:rgba(200,220,255,0.95);border-bottom:2px solid rgba(200,220,255,0.55)}
+.pnav-item:hover>.pnav-link-nav{color:rgba(200,220,255,0.95)}
+.pnav-dropdown-nav{display:none;position:absolute;top:56px;left:0;background:#0d1020;border:1px solid rgba(255,255,255,0.07);border-top:2px solid rgba(200,220,255,0.3);min-width:300px;z-index:9999}
+.pnav-item:hover>.pnav-dropdown-nav{display:block}
+  @media(max-width:768px){
+  #mob-menu-btn{display:flex!important}
+  #mob-menu.mob-open{display:flex!important}
+  #moonphase{display:none!important}
+  .ts{display:none!important}
+}
+.drop-header-nav{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(200,220,255,0.25);padding:12px 18px 8px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between}
+.drop-launch-nav{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;text-decoration:none}
+.drop-launch-nav:hover{background:rgba(255,255,255,0.03)}
+.drop-cd{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:rgba(200,220,255,0.9);min-width:40px;text-align:center}
+.drop-mission{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:rgba(200,220,255,0.85);margin-bottom:3px}
+.drop-meta-nav{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:rgba(200,220,255,0.28)}
+.drop-st{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 7px;border-radius:2px;white-space:nowrap}
+.dst-go{background:rgba(0,180,80,0.12);color:#00cc60;border:1px solid rgba(0,180,80,0.25)}
+.dst-tbd{background:rgba(200,120,0,0.12);color:#cc8800;border:1px solid rgba(200,120,0,0.25)}
+.drop-footer-nav{padding:10px 18px;border-top:1px solid rgba(255,255,255,0.05);text-align:center}
+.drop-footer-nav a{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.3);text-decoration:none;transition:color 0.2s}
+.drop-footer-nav a:hover{color:rgba(200,220,255,0.8)}
+@media(max-width:768px){
+  .pnav-desktop{display:none!important}
+}
+</style>
+
+<div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:500">
+  <div style="display:flex;align-items:center;gap:0;height:56px">
+    <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:56px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+      <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center">BETA</span>
+    </a>
+    <div class="pnav-desktop" style="display:flex;align-items:stretch;height:56px;margin-left:24px">
+
+      <div class="pnav-item">
+        <a href="https://dashboard.prism-osint.com" class="pnav-link-nav active">INTELLIGENCE</a>
+      </div>
+
+      <div class="pnav-item">
+        <div class="pnav-link-nav">UPCOMING LAUNCHES ▾</div>
+        <div class="pnav-dropdown-nav">
+          <div class="drop-header-nav">
+            <span>NEXT 3 LAUNCHES</span>
+            <span id="nav-api-status" style="font-size:7px;color:rgba(200,220,255,0.2)">LOADING...</span>
+          </div>
+          <div id="nav-launch-list">
+            <div style="padding:20px 18px;font-family:'Space Mono',monospace;font-size:8px;color:rgba(200,220,255,0.25);letter-spacing:2px">◈ FETCHING LIVE DATA...</div>
+          </div>
+          <div class="drop-footer-nav">
+            <a href="https://prism-osint.com/launches" target="_blank">VIEW ALL LAUNCHES →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pnav-item">
+        <a href="#" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'});return false;" class="pnav-link-nav">EVENTS</a>
+      </div>
+
+      <div class="pnav-item">
+        <a href="https://prism-consultant.vercel.app" target="_blank" class="pnav-link-nav">PRISM AI</a>
+      </div>
+
     </div>
   </div>
-  <div class="topbar-right">
-    <a href="https://prism-consultant.vercel.app" target="_blank" class="analyst-pill">💬 PRISM ANALYST · AI CHAT</a> <a href="https://prism-osint.com/launches" target="_blank" class="launch-pill" style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#00d4ff;text-decoration:none;border:1px solid rgba(0,212,255,0.35);padding:5px 14px;border-radius:20px;background:rgba(0,212,255,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all 0.2s" onmouseover="this.style.background='rgba(0,212,255,0.18)'" onmouseout="this.style.background='rgba(0,212,255,0.08)'">🚀 LAUNCH TRACKER</a>
-    <div id="moonphase" style="font-size:16px"></div>
-    <div class="live"><div class="dot"></div>Live Intelligence</div>
+
+  <div style="display:flex;align-items:center;gap:16px">
+    <div id="moonphase" style="font-size:16px;filter:grayscale(1);opacity:0.4"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.28)"><div class="dot"></div>LIVE</div>
     <div class="ts" id="datetime"></div>
-    <div class="ts" id="lastupdated"></div>
+    <div id="mob-menu-btn" onclick="document.getElementById('mob-menu').classList.toggle('mob-open')" style="display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px">
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+    </div>
   </div>
+  <div id="mob-menu" style="display:none;flex-direction:column;background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);z-index:499">
+  <a href="https://dashboard.prism-osint.com" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none">INTELLIGENCE</a>
+  <a href="https://prism-osint.com/launches" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none">UPCOMING LAUNCHES</a>
+  <a href="#" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'});document.getElementById('mob-menu').classList.remove('mob-open');return false;" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none">EVENTS</a>
+  <a href="https://prism-consultant.vercel.app" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;text-decoration:none">PRISM AI</a>
+</div>
 </div>
 <div class="search-bar-wrap" id="search-wrap">
   <div class="search-row">
@@ -346,7 +415,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="badges">
           <div class="badge-bullish"><div class="badge-dot" style="background:#00aa40"></div>BULLISH</div><div class="badge-geo-high"><div class="badge-dot" style="background:#ff8c00"></div>⚡ GEO RISK: HIGH</div>
         </div>
-        <div class="summary">Beneath todays surface-level news of Middle East ceasefires and IPO pricing, the deeper structural story is a simultaneous acceleration of capital formation and military realignment — SpaceX prices its IPO on Friday, Quantum Space heads for a $1.2B public debut, Iceye raises 1 billion euros, and Europe abandons the FCAS joint fighter program while rushing to expand F-35 and next-gen fighter orders, signaling that both private and sovereign actors are betting heavily on a new era of contested space and air dominance. The central contradiction is that Iran and Israel are stepping back from the brink under US pressure while the US Navy simultaneously struck an oil tanker in the Gulf of Oman and a US Apache went down near the Strait of Hormuz — this gap between diplomatic signaling and kinetic action tells investors that the Hormuz risk premium is not priced out yet and energy and defence supply chains remain exposed. Watch the SpaceX IPO opening trade on Friday and whether the Strait of Hormuz reopens within 72 hours — if both occur simultaneously they will confirm that capital is pricing in stabilization across the space economy and energy corridor, but a gap between the two would signal that defence premiums are underpriced.</div>
+        <div class="summary">Converging signals across space finance, Middle East kinetics, and European rearmament reveal a single structural shift — the privatisation and commercialisation of strategic infrastructure is accelerating precisely as state actors demonstrate they can no longer guarantee the stability those infrastructures depend on. The contradiction sharpens when the SpaceX IPO prices into a market simultaneously digesting a near-closure of the Strait of Hormuz and a US Apache helicopter downed near it — retail optimism about commercial space is colliding with sovereign risk repricing that defence primes are not yet reflecting in their declining stock prices today. Watch the SpaceX IPO opening trade on Friday: if SPCX prices above its Thursday evening target and opens with volume above 50 million shares, it confirms that capital markets have fully decoupled commercial space valuation from geopolitical risk — a structural signal with direct implications for how defence and space assets are priced for the next 12 months.</div>
       </div>
     </div>
   </div>
@@ -364,11 +433,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 <div class="section-orr">
   <div class="ocard-green">
     <div class="ocard-header-green"><div class="ocard-icon">▲</div><div class="ocard-title-green">Opportunity of the Day</div></div>
-    <div class="ocard-body"><div class="ocard-text">The Iceye $1 billion euro SAR raise and BlackSky NRO contract modification together signal that radar and persistent surveillance satellites are the highest-conviction sub-sector for institutional allocation in the current threat environment.</div></div>
+    <div class="ocard-body"><div class="ocard-text">The FCC spectrum penalty on Amazon LEO directly advantages SpaceX Starlink and RKLB as launch partner — both are positioned to capture market share during Amazon LEOs deployment lag and the IPO window amplifies the entry signal.</div></div>
   </div>
   <div class="ocard-red">
     <div class="ocard-header-red"><div class="ocard-icon">▼</div><div class="ocard-title-red">Risk of the Day</div></div>
-    <div class="ocard-body"><div class="ocard-text">The Strait of Hormuz remains the single most dangerous market variable — any resumption of Iranian interdiction or Israeli escalation in the next 48 hours could spike oil, compress equity markets, and reprice every defence and energy logistics asset simultaneously.</div></div>
+    <div class="ocard-body"><div class="ocard-text">Iran declared an end to military operations but warned it would resume hostilities if Israel continued strikes — a single Israeli action against Iranian assets in the next 48 hours could reopen the Strait of Hormuz crisis and trigger a hard reversal across energy, shipping, and defence markets simultaneously.</div></div>
   </div>
 </div>
 <div class="page" id="news">
@@ -376,136 +445,136 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="section-header">
           <div class="section-title">🛰 SPACE</div>
           <div class="section-line"></div>
-          <div class="section-count">6 STORIES · TOP 95</div>
+          <div class="section-count">6 STORIES · TOP 90</div>
         </div>
         <div class="stories-grid">
-        <div class="story story-crit" id="story-spacex-ipo-prices-thursday-on-nasdaq-as-">
-          <img src="https://fortune.com/img-assets/wp-content/uploads/2026/06/GettyImages-2074390138-e1780924286315.jpg?w=2048" class="story-img" alt="SpaceX IPO Prices Thursday on Nasdaq as SPCX" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-spacex-ipo-prices-thursday-trades-friday">
+          <img src="https://fortune.com/img-assets/wp-content/uploads/2026/06/GettyImages-2074390138-e1780924286315.jpg?w=2048" class="story-img" alt="SpaceX IPO prices Thursday, trades Friday as SPCX" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
               <span class="story-region">North America</span>
-              <span class="story-score sc-crit">CRITICAL · 95</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
             </div>
-            <div class="story-head">SpaceX IPO Prices Thursday on Nasdaq as SPCX</div>
-            <div class="story-teaser">The SpaceX IPO is expected to price Thursday evening with shares trading Friday on the Nasdaq under the ticker SPCX, marking one of the most anticipated public offerings in the history of the space industry. Analyst Gene Munster told CNBC he would buy at IPO price and potentially minutes later when the stock trades higher, citing SpaceX long-term fundamentals and market positioning as outweighing near-term volatility concerns.</div>
+            <div class="story-head">SpaceX IPO prices Thursday, trades Friday as SPCX</div>
+            <div class="story-teaser">The SpaceX IPO is expected to price Thursday evening with shares beginning to trade Friday on the Nasdaq under the ticker SPCX, marking one of the most anticipated public listings in technology and space history. Veteran analyst Gene Munster told CNBC he would buy at the IPO price and potentially minutes later when it trades higher, citing SpaceX fundamentals and long-term market positioning as outweighing near-term volatility concerns.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ The SpaceX IPO will immediately reprice the entire commercial space sector — RKLB, ASTS, PL and LUNR valuations will be measured against SPCX from Friday morning, creating both a benchmark pressure and a potential capital rotation event that every space fund manager must position for before Thursday close.</div>
+            <div class="story-impl">◈ The SPCX listing will reprice the entire commercial space sector and force institutional portfolios to recalibrate exposure to RKLB, ASTS, PL and other listed space names relative to the new SpaceX benchmark.</div>
             <div class="story-footer">
               <a href="https://fortune.com/2026/06/08/retail-investors-participate-spacex-ipo-spcx-elon-musk-brokerages/" target="_blank" class="story-source">▸ fortune</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="SpaceX IPO Prices Thursday on Nasdaq as SPCX" data-l="https://dashboard.prism-osint.com#story-spacex-ipo-prices-thursday-on-nasdaq-as-" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="SpaceX IPO prices Thursday, trades Friday as SPCX" data-l="https://dashboard.prism-osint.com#story-spacex-ipo-prices-thursday-trades-friday" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
                 <a href="https://fortune.com/2026/06/08/retail-investors-participate-spacex-ipo-spcx-elon-musk-brokerages/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-fcc-penalises-amazon-leo-on-spectrum-ove">
-          <img src="https://i0.wp.com/spacenews.com/wp-content/uploads/2026/02/schwarz-smallsat2026.jpeg?fit=2500%2C1735&ssl=1" class="story-img" alt="FCC Penalises Amazon LEO on Spectrum Over Deployment Miss" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-fcc-penalises-amazon-leo-for-missing-dep">
+          <img src="https://i0.wp.com/spacenews.com/wp-content/uploads/2026/02/schwarz-smallsat2026.jpeg?fit=2500%2C1735&ssl=1" class="story-img" alt="FCC penalises Amazon LEO for missing deploy deadline" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
               <span class="story-region">North America</span>
-              <span class="story-score sc-crit">CRITICAL · 85</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
             </div>
-            <div class="story-head">FCC Penalises Amazon LEO on Spectrum Over Deployment Miss</div>
-            <div class="story-teaser">The FCC has allowed Amazon LEO to miss its July 30 deadline for deploying half of its planned 3,232 broadband satellites, but the reprieve comes with a temporary loss of spectrum priority that advantages SpaceX and other rivals in the broadband satellite market. Amazon LEO no longer faces an immediate cutoff but the spectrum penalty creates a measurable competitive disadvantage at the precise moment SpaceX is entering public markets.</div>
+            <div class="story-head">FCC penalises Amazon LEO for missing deploy deadline</div>
+            <div class="story-teaser">The FCC ruled that Amazon LEO no longer faces a hard July 30 cutoff for deploying half of its planned 3,232 broadband satellites, but the reprieve comes with a temporary loss of spectrum priority that directly advantages SpaceX Starlink and other rival constellations. The ruling confirms that Amazon LEOs build-out is running materially behind schedule, weakening its competitive position in the global broadband satellite market at a critical juncture.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ The spectrum penalty handed to Amazon LEO directly strengthens Starlink commercial positioning ahead of the SpaceX IPO and signals that regulatory timing is now a strategic weapon in the LEO broadband competition that investors must factor into Amazon and SpaceX valuations.</div>
+            <div class="story-impl">◈ Loss of spectrum priority during a deployment gap hands Starlink a structural window to lock in enterprise and government customers that Amazon LEO was targeting, compounding the competitive disadvantage that will persist beyond any eventual Amazon LEO catch-up launch cadence.</div>
             <div class="story-footer">
               <a href="https://spacenews.com/fcc-lets-amazon-leo-miss-deployment-deadline-with-temporary-spectrum-penalty/" target="_blank" class="story-source">▸ spacenews</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="FCC Penalises Amazon LEO on Spectrum Over Deployment Miss" data-l="https://dashboard.prism-osint.com#story-fcc-penalises-amazon-leo-on-spectrum-ove" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="FCC penalises Amazon LEO for missing deploy deadline" data-l="https://dashboard.prism-osint.com#story-fcc-penalises-amazon-leo-for-missing-dep" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
                 <a href="https://spacenews.com/fcc-lets-amazon-leo-miss-deployment-deadline-with-temporary-spectrum-penalty/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-iceye-raises-1-billion-euros-to-expand-s">
-          
+        <div class="story story-high" id="story-falcon-9-booster-b1067-completes-record-">
+          <img src="https://techgenyz.com/wp-content/uploads/2026/06/falcon-9-booster.webp" class="story-img" alt="Falcon 9 booster B1067 completes record 35th flight" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
-              <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Europe</span>
-              <span class="story-score sc-crit">CRITICAL · 82</span>
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 72</span>
             </div>
-            <div class="story-head">Iceye Raises 1 Billion Euros to Expand SAR Constellation</div>
-            <div class="story-teaser">Iceye has raised 1 billion euros to expand its synthetic aperture radar satellite systems, representing one of the largest single fundraising rounds in the commercial Earth observation sector to date. The raise comes amid intensifying demand from both defence and intelligence customers for persistent all-weather radar imaging, particularly in the context of ongoing conflicts in Ukraine and the Middle East.</div>
+            <div class="story-head">Falcon 9 booster B1067 completes record 35th flight</div>
+            <div class="story-teaser">SpaceX booster B1067 completed its 35th flight during a Starlink mission, setting a new reusability record for an orbital launch vehicle and demonstrating that Falcon 9 hardware can sustain operational tempo far beyond original design assumptions. The milestone reinforces SpaceX cost leadership and its ability to compress per-launch economics ahead of the SPCX IPO, providing a tangible operational data point for prospective investors.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Iceye at 1 billion euros signals institutional conviction that SAR surveillance is a critical warfighting and intelligence infrastructure asset, applying direct valuation pressure on BKSY and PL whose current selloff may represent a mispricing relative to the sector appetite Iceye just validated.</div>
+            <div class="story-impl">◈ Each reusability record lowers SpaceX marginal launch cost and widens the price gap that competitors including Amazon LEO launch partners must close to remain commercially viable.</div>
             <div class="story-footer">
-              <a href="https://spacenews.com/iceye-raises-1-billion-euros-to-expand-sar-satellite-systems/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://techgenyz.com/spacex-falcon-9-booster-35th-flight-starlink-record/" target="_blank" class="story-source">▸ techgenyz</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Iceye Raises 1 Billion Euros to Expand SAR Constellation" data-l="https://dashboard.prism-osint.com#story-iceye-raises-1-billion-euros-to-expand-s" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacenews.com/iceye-raises-1-billion-euros-to-expand-sar-satellite-systems/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Falcon 9 booster B1067 completes record 35th flight" data-l="https://dashboard.prism-osint.com#story-falcon-9-booster-b1067-completes-record-" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://techgenyz.com/spacex-falcon-9-booster-35th-flight-starlink-record/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-quantum-space-eyes-1-2b-public-debut-via">
-          <img src="https://techfundingnews.com/wp-content/uploads/2026/06/Spacetech.jpg" class="story-img" alt="Quantum Space Eyes 1.2B Public Debut via SPAC" onerror="this.style.display='none'">
+        <div class="story story-high" id="story-quantum-space-targets-1-2b-public-debut-">
+          <img src="https://techfundingnews.com/wp-content/uploads/2026/06/Spacetech.jpg" class="story-img" alt="Quantum Space targets 1.2B public debut via SPAC" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
               <span class="story-region">North America</span>
-              <span class="story-score sc-crit">CRITICAL · 75</span>
+              <span class="story-score sc-high">HIGH · 68</span>
             </div>
-            <div class="story-head">Quantum Space Eyes 1.2B Public Debut via SPAC</div>
-            <div class="story-teaser">Quantum Space, led by former NASA Administrator Jim Bridenstine, is heading for a $1.2 billion public debut through a SPAC deal, targeting the spacecraft infrastructure needed for cislunar and deep space operations. The company positions itself at the intersection of the next space race, building the transport and services layer between low Earth orbit and the Moon.</div>
+            <div class="story-head">Quantum Space targets 1.2B public debut via SPAC</div>
+            <div class="story-teaser">Quantum Space, led by former NASA Administrator Jim Bridenstine, is moving toward a 1.2 billion dollar public debut through a SPAC deal, targeting the cislunar and deep space mobility market as competition for NASA and DoD contracts in that domain intensifies. The company joins a wave of space infrastructure firms seeking public capital as the SpaceX IPO creates a liquidity event that is broadly re-energising investor appetite for space listings.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Bridenstine lending his name and track record to a $1.2B SPAC signals that cislunar infrastructure is transitioning from programme concept to investable asset class, and defence-aligned investors should evaluate this as a long-duration bet on US strategic depth beyond LEO.</div>
+            <div class="story-impl">◈ A Bridenstine-backed public vehicle in the cislunar domain signals that government-adjacent space infrastructure is now investable at scale, creating a new listed benchmark for operators and funds that previously had no liquid exposure to that segment.</div>
             <div class="story-footer">
               <a href="https://techfundingnews.com/former-nasa-chiefs-quantum-space-heads-for-1-2b-public-debut-to-build-the-spacecraft-needed-for-the-next-space-race/" target="_blank" class="story-source">▸ techfundingnews</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Quantum Space Eyes 1.2B Public Debut via SPAC" data-l="https://dashboard.prism-osint.com#story-quantum-space-eyes-1-2b-public-debut-via" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Quantum Space targets 1.2B public debut via SPAC" data-l="https://dashboard.prism-osint.com#story-quantum-space-targets-1-2b-public-debut-" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
                 <a href="https://techfundingnews.com/former-nasa-chiefs-quantum-space-heads-for-1-2b-public-debut-to-build-the-spacecraft-needed-for-the-next-space-race/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-starship-booster-20-enters-cryogenic-tes">
+        <div class="story story-high" id="story-blacksky-wins-nro-contract-modification-">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
               <span class="story-region">North America</span>
-              <span class="story-score sc-high">HIGH · 70</span>
+              <span class="story-score sc-high">HIGH · 65</span>
             </div>
-            <div class="story-head">Starship Booster 20 Enters Cryogenic Testing for Flight 13</div>
-            <div class="story-teaser">Booster 20 has entered cryogenic testing at Boca Chica ahead of Starship Flight 13, marking the next major milestone in SpaceX incremental test campaign for its fully reusable super-heavy launch system. The timing of this test article progression puts Flight 13 on a trajectory that could coincide with heightened public attention immediately following the SpaceX IPO.</div>
+            <div class="story-head">BlackSky wins NRO contract modification for broad-area work</div>
+            <div class="story-teaser">BlackSky secured a contract modification with the National Reconnaissance Office to accelerate broad-area collection operations, deepening its role as a commercial imagery supplier to the US intelligence community at a time when geospatial demand from active conflict zones is at a multi-year high. The modification expands scope beyond prior tasking and signals NRO confidence in BlackSky operational cadence and data quality.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Starship Flight 13 test progress directly supports the SpaceX IPO narrative by demonstrating hardware velocity, giving retail and institutional investors a visible technical milestone to anchor their valuation thesis in the days following SPCX debut.</div>
+            <div class="story-impl">◈ NRO contract expansions for commercial EO providers validate the dual-use revenue model and reduce BlackSky revenue concentration risk, a direct positive for BKSY despite its 1.38 percent decline today.</div>
             <div class="story-footer">
-              <a href="https://www.nasaspaceflight.com/2026/06/booster-20-cryogenic-testing-ahead-flight-13/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <a href="https://spacenews.com/blacksky-to-accelerate-broad-area-collection-work-under-nro-contract-modification/" target="_blank" class="story-source">▸ SpaceAgenda</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Starship Booster 20 Enters Cryogenic Testing for Flight 13" data-l="https://dashboard.prism-osint.com#story-starship-booster-20-enters-cryogenic-tes" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.nasaspaceflight.com/2026/06/booster-20-cryogenic-testing-ahead-flight-13/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="BlackSky wins NRO contract modification for broad-area work" data-l="https://dashboard.prism-osint.com#story-blacksky-wins-nro-contract-modification-" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spacenews.com/blacksky-to-accelerate-broad-area-collection-work-under-nro-contract-modification/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-nasa-unveils-artemis-3-crew-as-srb-segme">
+        <div class="story story-high" id="story-iceye-raises-1-billion-euros-to-expand-s">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">North America</span>
-              <span class="story-score sc-high">HIGH · 68</span>
+              <span class="story-region">Europe</span>
+              <span class="story-score sc-high">HIGH · 63</span>
             </div>
-            <div class="story-head">NASA Unveils Artemis 3 Crew as SRB Segments Ship to Florida</div>
-            <div class="story-teaser">NASA is set to unveil the Artemis 3 crew today with live coverage confirming the mission is advancing toward its lunar landing objective, while the remaining solid rocket booster segments have been shipped from Utah to Florida for integration. The convergence of crew announcement and hardware delivery signals Artemis 3 is entering its final pre-launch assembly phase.</div>
+            <div class="story-head">Iceye raises 1 billion euros to expand SAR constellation</div>
+            <div class="story-teaser">Finnish SAR satellite operator Iceye has raised 1 billion euros to expand its synthetic aperture radar satellite systems, making it one of the largest private fundraises in European space history and significantly increasing its capacity to provide all-weather, day-night surveillance imagery. The raise arrives as SAR data demand surges from both defence customers monitoring active conflict zones and commercial insurance and maritime clients.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Artemis 3 crew and hardware milestones validate sustained SLS and Orion programme spending, reinforcing LMT and NOC revenue visibility and supporting the case that government deep space investment remains on track despite commercial disruption from SpaceX.</div>
+            <div class="story-impl">◈ Iceye at 1 billion euros of fresh capital represents a direct competitive pressure on listed SAR and EO operators including BKSY and PL, and signals European sovereign appetite to build non-US imagery infrastructure as geopolitical fractures widen.</div>
             <div class="story-footer">
-              <a href="https://spaceflightnow.com/2026/06/09/live-coverage-nasa-to-unveil-artemis-3-crew-provide-updates-on-mission/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <a href="https://spacenews.com/iceye-raises-1-billion-euros-to-expand-sar-satellite-systems/" target="_blank" class="story-source">▸ SpaceAgenda</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="NASA Unveils Artemis 3 Crew as SRB Segments Ship to Florida" data-l="https://dashboard.prism-osint.com#story-nasa-unveils-artemis-3-crew-as-srb-segme" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spaceflightnow.com/2026/06/09/live-coverage-nasa-to-unveil-artemis-3-crew-provide-updates-on-mission/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Iceye raises 1 billion euros to expand SAR constellation" data-l="https://dashboard.prism-osint.com#story-iceye-raises-1-billion-euros-to-expand-s" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spacenews.com/iceye-raises-1-billion-euros-to-expand-sar-satellite-systems/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
@@ -518,73 +587,51 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
           <div class="section-count">5 STORIES · TOP 95</div>
         </div>
         <div class="stories-grid">
-        <div class="story story-crit" id="story-us-navy-f-a-18-strikes-oil-tanker-in-gul">
-          
+        <div class="story story-crit" id="story-us-apache-downed-near-strait-of-hormuz-c">
+          <img src="https://d3lzcn6mbbadaf.cloudfront.net/media/details/__sized__/ANI-20260609043312-thumbnail-320x180-70.jpg" class="story-img" alt="US Apache downed near Strait of Hormuz, crew rescued" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
               <span class="story-region">Middle East</span>
               <span class="story-score sc-crit">CRITICAL · 95</span>
             </div>
-            <div class="story-head">US Navy F/A-18 Strikes Oil Tanker in Gulf of Oman</div>
-            <div class="story-teaser">A US Navy F/A-18 Super Hornet struck and disabled an oil tanker in the Gulf of Oman, a direct kinetic action that occurred even as diplomatic channels between the US and Iran were signaling de-escalation from their April ceasefire framework. The strike represents a significant escalation of naval operations in the Gulf corridor and raises immediate questions about the rules of engagement governing US forces near the Strait of Hormuz.</div>
+            <div class="story-head">US Apache downed near Strait of Hormuz, crew rescued</div>
+            <div class="story-teaser">A US Apache attack helicopter went down near the Strait of Hormuz and its flight crew was successfully rescued, according to reporting confirmed by the New York Times and acknowledged by President Trump who stated the pilots are fine. The incident occurred one day after Iran and Israel announced a halt to mutual strikes following pressure from Trump, with Iran having warned it would resume hostilities if Israeli attacks continued.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A US Navy strike on a tanker in the Gulf of Oman while a fragile Iran-US ceasefire is nominally in place signals that the Hormuz corridor remains a live kinetic zone, directly threatening global oil flows and elevating the risk premium for every energy logistics and defence contractor operating in the region.</div>
+            <div class="story-impl">◈ A US military aircraft loss in the Strait of Hormuz during an active ceasefire window elevates the risk of miscalculation that could instantly reopen the conflict and trigger oil price spikes, shipping disruptions, and a hard repricing of regional defence exposure.</div>
             <div class="story-footer">
-              <a href="https://www.defensenews.com/flashpoints/2026/06/08/us-navy-fa-18-super-hornet-strikes-disables-oil-tanker-in-gulf-of-oman/" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.aninews.in/news/world/us/us-crew-reported-rescued-after-helicopter-goes-down-near-strait-of-hormuz-reports-nyt20260609100322/" target="_blank" class="story-source">▸ aninews</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Navy F/A-18 Strikes Oil Tanker in Gulf of Oman" data-l="https://dashboard.prism-osint.com#story-us-navy-f-a-18-strikes-oil-tanker-in-gul" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.defensenews.com/flashpoints/2026/06/08/us-navy-fa-18-super-hornet-strikes-disables-oil-tanker-in-gulf-of-oman/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Apache downed near Strait of Hormuz, crew rescued" data-l="https://dashboard.prism-osint.com#story-us-apache-downed-near-strait-of-hormuz-c" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.aninews.in/news/world/us/us-crew-reported-rescued-after-helicopter-goes-down-near-strait-of-hormuz-reports-nyt20260609100322/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-germany-and-france-kill-fcas-fighter-pro">
+        <div class="story story-crit" id="story-germany-and-france-drop-joint-fighter-je">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
               <span class="story-region">Europe</span>
-              <span class="story-score sc-crit">CRITICAL · 92</span>
+              <span class="story-score sc-crit">CRITICAL · 88</span>
             </div>
-            <div class="story-head">Germany and France Kill FCAS Fighter Programme</div>
-            <div class="story-teaser">Germany and France have dropped their joint Future Combat Air System fighter jet project, ending one of the most ambitious and troubled European defence programmes in decades and leaving a significant capability gap in European air power planning. In the immediate aftermath, an Airbus-led alliance began lobbying Germany on an alternative fighter jet project while Germany simultaneously weighs ordering additional F-35 warplanes.</div>
+            <div class="story-head">Germany and France drop joint fighter jet project</div>
+            <div class="story-teaser">Germany and France have abandoned their joint next-generation fighter jet programme, a major fracture in European defence industrial cooperation that will force both nations to pursue independent or alternative coalition paths to replace their ageing fast jet fleets. An Airbus-led alliance is now lobbying Berlin directly on a new fighter jet project, signalling that the industrial competition to fill the vacuum is already underway.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ The FCAS collapse forces a binary choice for Germany between US-supplied F-35s and a reconstituted European alternative, and either outcome reshapes the industrial base beneficiaries — with LMT positioned to win near-term orders and Airbus and European primes fighting to stay relevant in the long cycle.</div>
+            <div class="story-impl">◈ The collapse of the Franco-German fighter programme creates a significant procurement opening for Dassault Rafale exports, US F-35 orders, and potentially FCAS successor arrangements — directly affecting LMT, RTX and European prime valuations over the next 12 to 24 months.</div>
             <div class="story-footer">
               <a href="https://www.defensenews.com/global/europe/2026/06/08/germany-and-france-drop-joint-fighter-jet-project/" target="_blank" class="story-source">▸ Defense News</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Germany and France Kill FCAS Fighter Programme" data-l="https://dashboard.prism-osint.com#story-germany-and-france-kill-fcas-fighter-pro" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Germany and France drop joint fighter jet project" data-l="https://dashboard.prism-osint.com#story-germany-and-france-drop-joint-fighter-je" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
                 <a href="https://www.defensenews.com/global/europe/2026/06/08/germany-and-france-drop-joint-fighter-jet-project/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-apache-down-near-strait-of-hormuz-pilots">
-          
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-break">BREAKING</span>
-              <span class="story-region">Middle East</span>
-              <span class="story-score sc-crit">CRITICAL · 88</span>
-            </div>
-            <div class="story-head">Apache Down Near Strait of Hormuz, Pilots Rescued</div>
-            <div class="story-teaser">US soldiers were rescued after an Apache helicopter went down near the coast of Oman, with US Central Command confirming the two pilots are safe following the incident near the Strait of Hormuz. The crash occurred during heightened US military operations in the Gulf region amid the fragile Iran-US ceasefire and Israel-Iran tensions.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ A US military aircraft loss near the Strait of Hormuz — regardless of cause — will elevate operational risk assessments for Gulf-based defence contractors and logistics operators and may signal that US force posture in the region is under greater pressure than official statements acknowledge.</div>
-            <div class="story-footer">
-              <a href="https://www.defensenews.com/news/your-military/2026/06/09/us-soldiers-rescued-after-apache-helicopter-goes-down-near-the-coast-of-oman/" target="_blank" class="story-source">▸ Defense News</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Apache Down Near Strait of Hormuz, Pilots Rescued" data-l="https://dashboard.prism-osint.com#story-apache-down-near-strait-of-hormuz-pilots" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.defensenews.com/news/your-military/2026/06/09/us-soldiers-rescued-after-apache-helicopter-goes-down-near-the-coast-of-oman/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-crit" id="story-us-approves-2-billion-counter-drone-sale">
+        <div class="story story-crit" id="story-us-approves-kuwait-2-billion-dollar-coun">
           
           <div class="story-pad">
             <div class="story-meta">
@@ -592,37 +639,59 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
               <span class="story-region">Middle East</span>
               <span class="story-score sc-crit">CRITICAL · 82</span>
             </div>
-            <div class="story-head">US Approves 2 Billion Counter-Drone Sale to Kuwait</div>
-            <div class="story-teaser">The United States has approved a Kuwaiti request to purchase nearly $2 billion worth of counter-drone platforms, one of the largest counter-UAS foreign military sales approvals in the Gulf region to date. The timing of the sale reflects accelerating Gulf state demand for layered drone defence as Houthi and Iranian-proxy drone threats continue to evolve across the region.</div>
+            <div class="story-head">US approves Kuwait 2 billion dollar counter-drone sale</div>
+            <div class="story-teaser">The United States has approved a Kuwaiti government request to purchase nearly 2 billion dollars worth of counter-drone platforms, one of the largest counter-UAS foreign military sales approvals in the Gulf region to date. The approval comes as Houthi drone and missile activity in the Red Sea and Strait of Hormuz reaches peak operational tempo, validating Gulf state demand for layered counter-drone infrastructure.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A $2 billion Kuwaiti counter-drone approval signals that Gulf state procurement of UAS defence systems is entering a sustained high-volume cycle, creating durable revenue visibility for RTX, Raytheon, and L3Harris counter-UAS programme offices that investors should weight in regional defence allocation models.</div>
+            <div class="story-impl">◈ A 2 billion dollar counter-drone sale to Kuwait signals accelerating Gulf state procurement budgets for C-UAS systems, a direct revenue opportunity for RTX, LMT, and specialist counter-drone platform providers over the next 18 months.</div>
             <div class="story-footer">
-              <a href="https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-request-to-buy-nearly-2-billion-of-counter-drone-platforms/" target="_blank" class="story-source">▸ Defense News</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Approves 2 Billion Counter-Drone Sale to Kuwait" data-l="https://dashboard.prism-osint.com#story-us-approves-2-billion-counter-drone-sale" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US approves Kuwait 2 billion dollar counter-drone sale" data-l="https://dashboard.prism-osint.com#story-us-approves-kuwait-2-billion-dollar-coun" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-request-to-buy-nearly-2-billion-of-counter-drone-platforms/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-pentagon-reveals-munition-choices-for-on">
-          
+        <div class="story story-crit" id="story-french-rafale-shoots-down-drone-over-lat">
+          <img src="https://www.twz.com/wp-content/uploads/2026/06/RAFALE-LAUNCHES-MICA-MISSILE.jpg" class="story-img" alt="French Rafale shoots down drone over Latvia for NATO" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">North America</span>
+              <span class="story-region">Europe</span>
               <span class="story-score sc-crit">CRITICAL · 80</span>
             </div>
-            <div class="story-head">Pentagon Reveals Munition Choices for One-Way Attack Drones</div>
-            <div class="story-teaser">The Pentagon has revealed its preferred munitions for one-way attack drones, providing the clearest public signal yet of the US military direction in kamikaze drone procurement and the weapons integration strategy that will define the next generation of autonomous strike systems. The disclosure follows sustained lessons from Ukraine where loitering munitions have proven decisive in shaping the tactical and operational battlefield.</div>
+            <div class="story-head">French Rafale shoots down drone over Latvia for NATO</div>
+            <div class="story-teaser">A French Rafale fighter jet on a NATO air policing mission shot down a drone in Latvian airspace, in what appears to be the first footage captured of this type of air-to-air drone engagement in European airspace and a direct demonstration of the growing drone threat to NATO eastern flank air sovereignty. The incident underscores that Russian drone activity has expanded from Ukraine into NATO-monitored airspace and is forcing a shift in air policing rules of engagement.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Pentagon munitions selection for one-way attack drones defines the industrial winners in the fast-growing autonomous strike market and directly benefits companies in the Anduril, AeroVironment, and L3Harris supply chains that investors should be tracking for contract flow.</div>
+            <div class="story-impl">◈ Live drone engagements in NATO airspace accelerate demand for air-to-air counter-drone weapons, sensor integration, and rules of engagement reform — directly relevant to Dassault, MBDA, and any prime with European air policing contracts.</div>
             <div class="story-footer">
-              <a href="https://www.defensenews.com/industry/techwatch/2026/06/09/pentagon-reveals-preferred-munitions-for-one-way-attack-drones/" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.defensenews.com/global/europe/2026/06/08/french-jet-on-nato-mission-shoots-down-drone-in-latvian-airspace/" target="_blank" class="story-source">▸ Defense News</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pentagon Reveals Munition Choices for One-Way Attack Drones" data-l="https://dashboard.prism-osint.com#story-pentagon-reveals-munition-choices-for-on" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.defensenews.com/industry/techwatch/2026/06/09/pentagon-reveals-preferred-munitions-for-one-way-attack-drones/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="French Rafale shoots down drone over Latvia for NATO" data-l="https://dashboard.prism-osint.com#story-french-rafale-shoots-down-drone-over-lat" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/global/europe/2026/06/08/french-jet-on-nato-mission-shoots-down-drone-in-latvian-airspace/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-pentagon-adds-byd-alibaba-baidu-to-china">
+          <img src="https://images.timesnownews.com/thumb/msid-154521813,width-1280,height-720,resizemode-75/154521813.jpg" class="story-img" alt="Pentagon adds BYD, Alibaba, Baidu to China blacklist" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-crit">CRITICAL · 78</span>
+            </div>
+            <div class="story-head">Pentagon adds BYD, Alibaba, Baidu to China blacklist</div>
+            <div class="story-teaser">The Pentagon has added a broad set of Chinese companies including BYD, Alibaba, and Baidu to its list of entities linked to the Chinese military, restricting their access to US capital and government contracting channels in a significant escalation of technology decoupling policy. The action affects some of the most capitalised Chinese technology and industrial firms and signals that the US military-civil fusion designation process is expanding beyond traditional defence contractors.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Expanding the China military entity list to include major consumer tech and automotive firms signals a structural decoupling that will reshape allied procurement decisions and create indirect demand for Western-sourced alternatives across logistics, EV fleets, and AI infrastructure.</div>
+            <div class="story-footer">
+              <span class="story-source">▸ timesnownews</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pentagon adds BYD, Alibaba, Baidu to China blacklist" data-l="https://dashboard.prism-osint.com#story-pentagon-adds-byd-alibaba-baidu-to-china" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                
               </div>
             </div>
           </div>
@@ -632,7 +701,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="section-header">
           <div class="section-title">🌍 MIDDLE EAST</div>
           <div class="section-line"></div>
-          <div class="section-count">6 STORIES · TOP 95</div>
+          <div class="section-count">5 STORIES · TOP 95</div>
         </div>
         <div class="stories-grid">
         <div class="story story-crit" id="story-iran-and-israel-pull-back-from-all-out-w">
@@ -640,13 +709,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
-              <span class="story-region">Middle East — Iran, Israel</span>
+              <span class="story-region">Middle East — Iran and Israel</span>
               <span class="story-score sc-crit">CRITICAL · 95</span>
             </div>
             <div class="story-head">Iran and Israel Pull Back From All-Out War</div>
-            <div class="story-teaser">After a flurry of tit-for-tat strikes, Iran and Israel both signalled de-escalation on Monday, stepping back from a broader military confrontation that had threatened to unravel the fragile Iran-US ceasefire in place since April 8. Both sides indicated restraint following a short but intense exchange of fire, with Iran declaring an end to military operations.</div>
+            <div class="story-teaser">After a sustained exchange of tit-for-tat missile and drone strikes lasting over 100 days, Israel and Iran both declared a halt to active hostilities following direct pressure from US President Trump. Iran declared an end to military operations while Israel paused further strikes, though Tehran warned it would resume if Israel escalated again.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A temporary halt in direct Iran-Israel hostilities reduces near-term risk to Gulf-based space and defence infrastructure, but the fragility of the ceasefire keeps procurement and operational continuity planning elevated across the region.</div>
+            <div class="story-impl">◈ A fragile halt in direct Iran-Israel exchanges reduces near-term escalation risk for regional defence operators but leaves procurement pipelines and forward basing decisions in flux until a durable ceasefire framework emerges.</div>
             <div class="story-footer">
               <a href="https://www.twz.com/news-features/iran-and-israel-step-back-from-the-brink" target="_blank" class="story-source">▸ twz</a>
               <div style="display:flex;align-items:center;gap:8px">
@@ -657,111 +726,118 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
           </div>
         </div>
       
-        <div class="story story-crit" id="story-six-nations-sanction-enablers-of-west-ba">
-          
+        <div class="story story-crit" id="story-strait-of-hormuz-closure-triggers-oil-ma">
+          <img src="https://www.brookings.edu/wp-content/uploads/2026/06/GettyImages-2273105641.jpg?quality=50" class="story-img" alt="Strait of Hormuz Closure Triggers Oil Market Crisis" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
-              <span class="story-region">Middle East — West Bank, Israel</span>
-              <span class="story-score sc-crit">CRITICAL · 80</span>
+              <span class="story-region">Strait of Hormuz — Gulf Region</span>
+              <span class="story-score sc-crit">CRITICAL · 93</span>
             </div>
-            <div class="story-head">Six Nations Sanction Enablers of West Bank Violence</div>
-            <div class="story-teaser">Six countries announced coordinated sanctions targeting networks enabling settler violence in the occupied West Bank, marking a significant multilateral diplomatic response to ongoing instability in Palestinian territories. The move signals growing international willingness to apply economic pressure on actors fuelling ground-level conflict.</div>
+            <div class="story-head">Strait of Hormuz Closure Triggers Oil Market Crisis</div>
+            <div class="story-teaser">The Strait of Hormuz remains closed following the escalation of the Israel-Iran conflict, with Brookings analysts warning that oil prices will rise further and markets could take months to normalise once the strait reopens. The closure represents one of the most consequential disruptions to global energy supply chains in years, given that roughly 20 percent of global oil transits the chokepoint.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Multilateral sanctions on West Bank networks raise the diplomatic stakes for defence contractors and intelligence firms operating in Israeli-linked supply chains across allied nations.</div>
-            <div class="story-footer">
-              <a href="https://www.aljazeera.com/news/2026/6/9/six-countries-sanction-networks-enabling-settler-violence-in-west-bank?traffic_source=rss" target="_blank" class="story-source">▸ Al Jazeera</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Six Nations Sanction Enablers of West Bank Violence" data-l="https://dashboard.prism-osint.com#story-six-nations-sanction-enablers-of-west-ba" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.aljazeera.com/news/2026/6/9/six-countries-sanction-networks-enabling-settler-violence-in-west-bank?traffic_source=rss" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-crit" id="story-trump-eyes-peace-deal-in-days-as-lebanon">
-          <img src="https://media.assettype.com/gulfnews/2026-06-09/d37iyeby/HGL2U8xX0AIQXBb.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true" class="story-img" alt="Trump Eyes Peace Deal in Days as Lebanon Struck" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-break">BREAKING</span>
-              <span class="story-region">Middle East — Lebanon, Israel, United States</span>
-              <span class="story-score sc-crit">CRITICAL · 80</span>
-            </div>
-            <div class="story-head">Trump Eyes Peace Deal in Days as Lebanon Struck</div>
-            <div class="story-teaser">US President Donald Trump said a Middle East peace deal could come within two to three days, describing the situation as being in its final stages, even as Israeli strikes on Lebanon killed at least eight people in Tyre. Trump also warned Israeli Prime Minister Netanyahu that Israel would be on its own if attacks on Iran resumed.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ US pressure on Israel to halt offensive operations while simultaneously pursuing a nuclear deal with Iran creates a volatile diplomatic environment that directly shapes the risk calculus for regional defence investment and basing decisions.</div>
-            <div class="story-footer">
-              <a href="https://gulfnews.com/world/mena/israel-bombs-lebanon-as-trump-says-middle-east-peace-deal-could-come-in-23-days-1.500567980" target="_blank" class="story-source">▸ gulfnews</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Trump Eyes Peace Deal in Days as Lebanon Struck" data-l="https://dashboard.prism-osint.com#story-trump-eyes-peace-deal-in-days-as-lebanon" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://gulfnews.com/world/mena/israel-bombs-lebanon-as-trump-says-middle-east-peace-deal-could-come-in-23-days-1.500567980" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-crit" id="story-strait-of-hormuz-closure-drives-oil-pric">
-          <img src="https://www.brookings.edu/wp-content/uploads/2026/06/GettyImages-2273105641.jpg?quality=50" class="story-img" alt="Strait of Hormuz Closure Drives Oil Price Surge" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Middle East — Strait of Hormuz</span>
-              <span class="story-score sc-crit">CRITICAL · 75</span>
-            </div>
-            <div class="story-head">Strait of Hormuz Closure Drives Oil Price Surge</div>
-            <div class="story-teaser">The Strait of Hormuz remains closed following the Iran-Israel exchange of fire, with Brookings analysis warning that oil prices are likely to rise further and that markets could take months to normalise once the strait reopens. The chokepoint handles roughly 20 percent of global oil trade, making its closure one of the most consequential supply disruptions possible.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Prolonged Hormuz closure accelerates defence procurement urgency across Gulf states and drives renewed investment in energy-resilient military logistics and satellite-based maritime surveillance systems.</div>
+            <div class="story-impl">◈ Sustained Hormuz closure accelerates demand for maritime surveillance satellites, naval ISR assets, and energy-security contracts across Gulf states and allied navies operating in the region.</div>
             <div class="story-footer">
               <a href="https://www.brookings.edu/articles/from-chokepoint-to-crisis-the-strait-of-hormuz-and-global-oil-markets/" target="_blank" class="story-source">▸ brookings</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Strait of Hormuz Closure Drives Oil Price Surge" data-l="https://dashboard.prism-osint.com#story-strait-of-hormuz-closure-drives-oil-pric" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Strait of Hormuz Closure Triggers Oil Market Crisis" data-l="https://dashboard.prism-osint.com#story-strait-of-hormuz-closure-triggers-oil-ma" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
                 <a href="https://www.brookings.edu/articles/from-chokepoint-to-crisis-the-strait-of-hormuz-and-global-oil-markets/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-vance-us-pursuing-iran-nuclear-deal-rega">
-          <img src="https://media.assettype.com/gulfnews/2026-06-09/w9c4ult5/101.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true" class="story-img" alt="Vance: US Pursuing Iran Nuclear Deal Regardless of Israel" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-houthis-block-red-sea-to-israel-linked-s">
+          <img src="https://moderndiplomacy.eu/wp-content/uploads/2025/10/Houthis-Yemen.jpg" class="story-img" alt="Houthis Block Red Sea to Israel-Linked Ships" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
-              <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Middle East — United States, Iran, Israel</span>
-              <span class="story-score sc-crit">CRITICAL · 75</span>
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Red Sea — Yemen</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
             </div>
-            <div class="story-head">Vance: US Pursuing Iran Nuclear Deal Regardless of Israel</div>
-            <div class="story-teaser">US Vice President JD Vance stated that the United States will continue to pursue a nuclear agreement with Iran regardless of Israel's position, reinforcing the Trump administration's intention to decouple the Iran nuclear track from Israeli military actions. Vance described the US as being in a good position to achieve its goals in the ongoing talks.</div>
+            <div class="story-head">Houthis Block Red Sea to Israel-Linked Ships</div>
+            <div class="story-teaser">Yemen's Houthi movement announced a ban on all vessels linked to Israel from transiting the Red Sea, citing renewed Israeli military attacks on Iran as justification. A Houthi source confirmed the move is part of coordinated pressure operations alongside Iran, raising alarms for global shipping operators across a second major trade chokepoint simultaneously.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ US insistence on an Iran nuclear deal independent of Israeli preferences signals a potential realignment of American regional security guarantees that defence planners and Gulf-based operators must factor into long-term strategic assessments.</div>
+            <div class="story-impl">◈ The simultaneous closure of both the Strait of Hormuz and the Red Sea corridor to Israel-linked shipping signals a multi-vector trade disruption that will drive urgent demand for maritime patrol, satellite AIS monitoring, and counter-drone naval platforms.</div>
             <div class="story-footer">
-              <a href="https://gulfnews.com/world/mena/vance-us-in-good-position-to-achieve-goals-in-iran-talks-1.500567980" target="_blank" class="story-source">▸ gulfnews</a>
+              <a href="https://www.newsweek.com/iran-ally-joins-war-blockade-another-global-trade-chokepoint-12043202" target="_blank" class="story-source">▸ newsweek</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Vance: US Pursuing Iran Nuclear Deal Regardless of Israel" data-l="https://dashboard.prism-osint.com#story-vance-us-pursuing-iran-nuclear-deal-rega" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://gulfnews.com/world/mena/vance-us-in-good-position-to-achieve-goals-in-iran-talks-1.500567980" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Houthis Block Red Sea to Israel-Linked Ships" data-l="https://dashboard.prism-osint.com#story-houthis-block-red-sea-to-israel-linked-s" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.newsweek.com/iran-ally-joins-war-blockade-another-global-trade-chokepoint-12043202" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-houthi-red-sea-threat-rattles-global-oil">
-          <img src="https://moderndiplomacy.eu/wp-content/uploads/2025/10/Houthis-Yemen.jpg" class="story-img" alt="Houthi Red Sea Threat Rattles Global Oil Shipping" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-kuwait-clears-2b-counter-drone-platform-">
+          
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Middle East — Yemen, Red Sea</span>
-              <span class="story-score sc-high">HIGH · 65</span>
+              <span class="story-region">Kuwait — Gulf Region</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
             </div>
-            <div class="story-head">Houthi Red Sea Threat Rattles Global Oil Shipping</div>
-            <div class="story-teaser">Yemen-based Houthis announced a ban on ships linked to Israel from transiting the Red Sea, citing renewed Israeli military attacks on Iran, escalating concerns for global shipping lanes and energy market stability. The declaration compounds existing pressure on maritime trade routes already strained by the Hormuz closure.</div>
+            <div class="story-head">Kuwait Clears $2B Counter-Drone Platform Buy</div>
+            <div class="story-teaser">The United States has approved Kuwait's request to purchase nearly two billion dollars worth of counter-drone platforms in a significant Foreign Military Sale. The deal reflects growing Gulf state urgency to field layered drone defence systems as UAV threats from Iran-aligned actors have intensified across the region.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Renewed Houthi interdiction threats in the Red Sea reinforce demand for maritime domain awareness satellites and counter-drone naval systems among shipping nations and Gulf defence forces.</div>
+            <div class="story-impl">◈ A near two billion dollar counter-drone approval for Kuwait signals accelerating Gulf procurement cycles and validates defence firms with mature counter-UAS product lines as priority vendors across the Arabian Peninsula.</div>
             <div class="story-footer">
-              <a href="https://moderndiplomacy.eu/2026/06/08/why-houthi-threats-in-the-red-sea-matter-for-oil-markets/" target="_blank" class="story-source">▸ moderndiplomacy</a>
+              <a href="https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-request-to-buy-nearly-2-billion-of-counter-drone-platforms/" target="_blank" class="story-source">▸ Defense News</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Houthi Red Sea Threat Rattles Global Oil Shipping" data-l="https://dashboard.prism-osint.com#story-houthi-red-sea-threat-rattles-global-oil" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://moderndiplomacy.eu/2026/06/08/why-houthi-threats-in-the-red-sea-matter-for-oil-markets/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Kuwait Clears $2B Counter-Drone Platform Buy" data-l="https://dashboard.prism-osint.com#story-kuwait-clears-2b-counter-drone-platform-" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-request-to-buy-nearly-2-billion-of-counter-drone-platforms/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-trump-claims-us-near-total-victory-over-">
+          <img src="https://i.tribune.com.pk/media/images/trump-r1780944524-0/trump-r1780944524-0-640x480.webp" class="story-img" alt="Trump Claims US Near Total Victory Over Iran" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States — Middle East Policy</span>
+              <span class="story-score sc-crit">CRITICAL · 75</span>
+            </div>
+            <div class="story-head">Trump Claims US Near Total Victory Over Iran</div>
+            <div class="story-teaser">US President Trump stated that the United States would declare total victory over Iran within two weeks, saying the US has been a tough team and believes it is winning the broader strategic battle. The statement came as Iran declared a pause in missile operations, though Iranian officials continue to signal readiness to resume hostilities if conditions change.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Trumps victory framing could complicate ceasefire diplomacy and prolongs the planning uncertainty for defence contractors and regional operators seeking stable procurement and basing conditions in the Gulf.</div>
+            <div class="story-footer">
+              <a href="https://tribune.com.pk/story/2612197/trump-says-us-will-declare-total-victory-over-iran-within-2-weeks" target="_blank" class="story-source">▸ tribune_pk</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Trump Claims US Near Total Victory Over Iran" data-l="https://dashboard.prism-osint.com#story-trump-claims-us-near-total-victory-over-" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://tribune.com.pk/story/2612197/trump-says-us-will-declare-total-victory-over-iran-within-2-weeks" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+        <div class="section-header">
+          <div class="section-title">🤖 AI & TECHNOLOGY</div>
+          <div class="section-line"></div>
+          <div class="section-count">1 STORY · TOP 88</div>
+        </div>
+        <div class="stories-grid">
+        <div class="story story-crit" id="story-trump-signs-ai-memo-to-militarise-nation">
+          <img src="https://breakingdefense.com/wp-content/uploads/sites/13/2025/10/GettyImages-2243892975-scaled-e1761854159170.jpg" class="story-img" alt="Trump Signs AI Memo to Militarise National Security AI" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 88</span>
+            </div>
+            <div class="story-head">Trump Signs AI Memo to Militarise National Security AI</div>
+            <div class="story-teaser">The Trump administration has issued a National Security Presidential Memorandum on artificial intelligence aimed at avoiding a repeat of the Anthropic debacle, where a leading AI firm operated with limited Pentagon alignment. The memo urges closer collaboration between the US government and compliant AI companies while ordering a sweeping revision of Biden-era AI guardrails that the administration views as overly restrictive.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ The memo sets a new compliance framework that will determine which AI firms gain access to classified defence contracts, making regulatory alignment a critical differentiator for AI companies competing for national security revenue.</div>
+            <div class="story-footer">
+              <a href="https://breakingdefense.com/2026/06/trump-memo-on-ai-aims-to-avoid-repeat-of-anthropic-debacle/" target="_blank" class="story-source">▸ breakingdefense</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Trump Signs AI Memo to Militarise National Security AI" data-l="https://dashboard.prism-osint.com#story-trump-signs-ai-memo-to-militarise-nation" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://breakingdefense.com/2026/06/trump-memo-on-ai-aims-to-avoid-repeat-of-anthropic-debacle/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
@@ -771,114 +847,70 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
         <div class="section-header">
           <div class="section-title">💰 INVESTMENT & DEALS</div>
           <div class="section-line"></div>
-          <div class="section-count">5 STORIES · TOP 65</div>
+          <div class="section-count">3 STORIES · TOP 82</div>
         </div>
         <div class="stories-grid">
-        <div class="story story-high" id="story-lockheed-martin-expands-canadian-footpri">
+        <div class="story story-crit" id="story-airbus-alliance-lobbies-berlin-on-fighte">
           
           <div class="story-pad">
             <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">North America — Canada</span>
-              <span class="story-score sc-high">HIGH · 65</span>
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Europe — Germany</span>
+              <span class="story-score sc-crit">CRITICAL · 82</span>
             </div>
-            <div class="story-head">Lockheed Martin Expands Canadian Footprint Post-HIMARS</div>
-            <div class="story-teaser">Lockheed Martin has announced a major expansion of its operations in Canada following the country's acquisition of the HIMARS precision rocket artillery system, with plans to deepen industrial and supply chain presence across Canadian defence manufacturing. The move reflects a broader trend of US prime contractors building sovereign industrial partnerships with allied nations.</div>
+            <div class="story-head">Airbus Alliance Lobbies Berlin on Fighter Jet Future</div>
+            <div class="story-teaser">An Airbus-led industrial alliance is actively lobbying the German government to secure its position in the next-generation fighter jet project following the collapse of the Franco-German joint programme. The lobbying effort signals a competitive scramble among European primes to shape Berlins procurement decision before formal requirements are set.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Lockheed Martin deepening its Canadian industrial base signals growing allied defence co-production strategies that create new supply chain investment opportunities for component manufacturers and technology integrators across NATO countries.</div>
+            <div class="story-impl">◈ Early industrial lobbying of Berlin represents a high-stakes inflection point where defence investors should watch for preferred vendor signals that will determine multi-decade fighter spending across the Bundeswehr.</div>
             <div class="story-footer">
-              <a href="https://www.shephardmedia.com/news/landwarfareintl/lockheed-martin-plans-a-major-expansion-in-canada-following-the-himars-acquisition/" target="_blank" class="story-source">▸ Shephard Media</a>
+              <a href="https://www.defensenews.com/global/europe/2026/06/09/airbus-led-alliance-lobbies-germany-on-fighter-jet-project/" target="_blank" class="story-source">▸ Defense News</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Lockheed Martin Expands Canadian Footprint Post-HIMARS" data-l="https://dashboard.prism-osint.com#story-lockheed-martin-expands-canadian-footpri" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.shephardmedia.com/news/landwarfareintl/lockheed-martin-plans-a-major-expansion-in-canada-following-the-himars-acquisition/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Airbus Alliance Lobbies Berlin on Fighter Jet Future" data-l="https://dashboard.prism-osint.com#story-airbus-alliance-lobbies-berlin-on-fighte" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/global/europe/2026/06/09/airbus-led-alliance-lobbies-germany-on-fighter-jet-project/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-us-fy2027-budget-targets-historic-stockp">
+        <div class="story story-crit" id="story-us-congress-eyes-historic-fy2027-stockpi">
           
           <div class="story-pad">
             <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">North America — United States</span>
-              <span class="story-score sc-high">HIGH · 65</span>
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
             </div>
-            <div class="story-head">US FY2027 Budget Targets Historic Stockpile Replenishment</div>
-            <div class="story-teaser">US lawmakers are preparing a historically large investment in munitions stockpile replenishment as part of the FY2027 defence budget, responding to drawdowns caused by support for Ukraine and heightened global deterrence requirements. The scale of planned procurement is expected to drive multi-year contracts across the US defence industrial base.</div>
+            <div class="story-head">US Congress Eyes Historic FY2027 Stockpile Spend</div>
+            <div class="story-teaser">US lawmakers are preparing what Shephard Media describes as a historic investment in munitions stockpile replenishment in the fiscal year 2027 defence budget, driven by drawdowns from Ukraine support and rising threat assessments globally. The investment is expected to target precision guided munitions, artillery rounds, and air defence interceptors at scale.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A historic US stockpile replenishment cycle creates sustained long-term revenue visibility for precision munitions manufacturers and defence investors tracking the US defence industrial modernisation pipeline.</div>
+            <div class="story-impl">◈ A historic US stockpile replenishment budget cycle is a direct and durable revenue signal for Raytheon, Northrop Grumman, L3Harris, and any firm with qualified munitions production capacity entering FY2027.</div>
             <div class="story-footer">
               <a href="https://www.shephardmedia.com/news/defence-notes/us-lawmakers-prepare-a-historic-investment-in-stockpile-replenishment-in-fy2027/" target="_blank" class="story-source">▸ Shephard Media</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US FY2027 Budget Targets Historic Stockpile Replenishment" data-l="https://dashboard.prism-osint.com#story-us-fy2027-budget-targets-historic-stockp" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Congress Eyes Historic FY2027 Stockpile Spend" data-l="https://dashboard.prism-osint.com#story-us-congress-eyes-historic-fy2027-stockpi" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
                 <a href="https://www.shephardmedia.com/news/defence-notes/us-lawmakers-prepare-a-historic-investment-in-stockpile-replenishment-in-fy2027/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-isar-aerospace-raises-270m-euros-for-glo">
+        <div class="story story-high" id="story-lockheed-martin-expands-footprint-in-can">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">Europe — Germany</span>
-              <span class="story-score sc-high">HIGH · 55</span>
+              <span class="story-region">North America — Canada</span>
+              <span class="story-score sc-high">HIGH · 68</span>
             </div>
-            <div class="story-head">Isar Aerospace Raises 270M Euros for Global Launch Push</div>
-            <div class="story-teaser">German launch startup Isar Aerospace has secured 270 million euros in fresh funding to support a global launch expansion, building out its Spectrum rocket programme and targeting commercial and government customers across Europe and beyond. The raise positions Isar as a leading European alternative to US-dominated small launch providers.</div>
+            <div class="story-head">Lockheed Martin Expands Footprint in Canada</div>
+            <div class="story-teaser">Lockheed Martin is planning a major expansion into Canada following the country's acquisition of the HIMARS precision rocket artillery system, deepening the US prime contractors industrial presence in the Canadian defence market. The move is expected to include local manufacturing partnerships and maintenance support infrastructure aligned with Canadas broader defence spending growth.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Isar Aerospace gaining 270 million euros reinforces European launch sovereignty ambitions and signals investor confidence in non-US small-lift competitors at a time when reliable access to orbit is a strategic national security priority.</div>
+            <div class="story-impl">◈ Lockheed Martin Canada expansion signals that HIMARS-linked industrial offset commitments are converting into durable in-country revenue streams that could anchor further allied procurement decisions across NATO.</div>
             <div class="story-footer">
-              <a href="https://spacenews.com/isar-aerospace-raises-270-million-euros-for-global-launch-expansion/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://www.shephardmedia.com/news/landwarfareintl/lockheed-martin-plans-a-major-expansion-in-canada-following-the-himars-acquisition/" target="_blank" class="story-source">▸ Shephard Media</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Isar Aerospace Raises 270M Euros for Global Launch Push" data-l="https://dashboard.prism-osint.com#story-isar-aerospace-raises-270m-euros-for-glo" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacenews.com/isar-aerospace-raises-270-million-euros-for-global-launch-expansion/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high" id="story-impulse-space-crosses-1b-in-venture-fund">
-          <img src="https://spacedaily.com/wp-content/uploads/2026/06/Tom-Mueller-spent-nearly-two-decades-building-the-Merlin-and-Draco-engines-that-helped-make-SpaceX-possible.png" class="story-img" alt="Impulse Space Crosses $1B in Venture Funding" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">North America — United States</span>
-              <span class="story-score sc-high">HIGH · 50</span>
-            </div>
-            <div class="story-head">Impulse Space Crosses $1B in Venture Funding</div>
-            <div class="story-teaser">Impulse Space, the in-space mobility company founded by former SpaceX engine chief Tom Mueller, has crossed one billion dollars in venture funding before its fastest vehicle has reached geostationary orbit. The company is targeting last-mile orbital delivery, a segment seen as critical for defence and commercial satellite deployment flexibility.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Impulse Space reaching one billion dollars in funding before a GEO mission validates strong investor appetite for in-space propulsion and orbital transfer capabilities that will define next-generation satellite deployment economics.</div>
-            <div class="story-footer">
-              <a href="https://spacedaily.com/sd-tom-mueller-spent-nearly-two-decades-building-the-merlin-and-draco-engines-that-helped-make-spacex-possible-and-now-his-in-space-mobility-company-has-crossed-1-billion-in-venture-funding-before-i/" target="_blank" class="story-source">▸ spacedaily</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Impulse Space Crosses $1B in Venture Funding" data-l="https://dashboard.prism-osint.com#story-impulse-space-crosses-1b-in-venture-fund" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacedaily.com/sd-tom-mueller-spent-nearly-two-decades-building-the-merlin-and-draco-engines-that-helped-make-spacex-possible-and-now-his-in-space-mobility-company-has-crossed-1-billion-in-venture-funding-before-i/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high" id="story-blacksky-wins-expanded-nro-broad-area-co">
-          
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">North America — United States</span>
-              <span class="story-score sc-high">HIGH · 50</span>
-            </div>
-            <div class="story-head">BlackSky Wins Expanded NRO Broad-Area Collection Deal</div>
-            <div class="story-teaser">BlackSky has received a contract modification from the National Reconnaissance Office to accelerate broad-area collection work, expanding the scope of its tasking and data delivery obligations under an existing NRO agreement. The modification reflects growing US government demand for commercial remote sensing at scale.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ The NRO expanding its BlackSky contract underscores the accelerating integration of commercial satellite imagery into national intelligence architectures, validating investment in commercial Earth observation at the government tier.</div>
-            <div class="story-footer">
-              <a href="https://spacenews.com/blacksky-to-accelerate-broad-area-collection-work-under-nro-contract-modification/" target="_blank" class="story-source">▸ SpaceAgenda</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="BlackSky Wins Expanded NRO Broad-Area Collection Deal" data-l="https://dashboard.prism-osint.com#story-blacksky-wins-expanded-nro-broad-area-co" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacenews.com/blacksky-to-accelerate-broad-area-collection-work-under-nro-contract-modification/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Lockheed Martin Expands Footprint in Canada" data-l="https://dashboard.prism-osint.com#story-lockheed-martin-expands-footprint-in-can" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.shephardmedia.com/news/landwarfareintl/lockheed-martin-plans-a-major-expansion-in-canada-following-the-himars-acquisition/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
@@ -895,44 +927,44 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   <div class="outlook-grid">
     <div class="outlook-card" style="border-top:3px solid #4a9eff">
         <div class="outlook-domain" style="color:#4a9eff">🛰 SPACE</div>
-        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: SpaceX SPCX Nasdaq open price Friday June 13</div>
-        <div class="outlook-signal">SpaceX IPO pricing Thursday evening and Friday open on Nasdaq under ticker SPCX will set the market valuation benchmark for the entire commercial space sector and determine institutional appetite for downstream space investments.</div>
+        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: SpaceX SPCX Nasdaq debut pricing and first-day trading</div>
+        <div class="outlook-signal">The SpaceX IPO pricing Thursday evening and Friday Nasdaq debut under ticker SPCX represents the single most consequential capital market event for the commercial space sector this decade, setting valuation benchmarks for every downstream space investment.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-0')" id="btn-dd-0">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-0">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-0">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Strong open above IPO price confirms institutional demand, catalyzes re-rating of Rocket Lab, Planet Labs, and Iceye comps, and accelerates capital flows into Tom Mueller Impulse Space and Quantum Space SPAC deal already in motion.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Flat or broken IPO open signals valuation fatigue, freezes pending SPAC pipelines including Quantum Space 1.2B debut, and forces venture-backed launch and in-space mobility firms to reprice next funding rounds downward.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Strong first-day performance above IPO price unlocks a re-rating of pure-play space equities including Quantum Space, Iceye, and Isar Aerospace, compressing risk premiums and accelerating Series B and C closes across the LEO and in-space mobility stack.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">A flat or broken IPO signals institutional skepticism toward Musk-linked governance and Starlink revenue visibility, freezing follow-on capital for companies like Tom Muellers Impulse Space and putting Quantum Spaces 1.2B SPAC deal at renegotiation risk.</div></div>
           </div>
         </div>
       </div><div class="outlook-card" style="border-top:3px solid #ff4444">
         <div class="outlook-domain" style="color:#ff4444">🛡 DEFENCE</div>
-        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: Germany formal fighter procurement decision post-FCAS collapse</div>
-        <div class="outlook-signal">The collapse of the Franco-German FCAS program and Germanys simultaneous pivot toward additional F-35 procurement forces a near-term decision on whether Berlin endorses the Airbus-led MGCS alternative or locks into US platform dependency for the next decade.</div>
+        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: German government response to Airbus FCAS lobbying campaign</div>
+        <div class="outlook-signal">The collapse of the Franco-German FCAS fighter jet partnership and simultaneous Airbus-led lobbying of Berlin this week forces an imminent German procurement decision that will redraw Europes next-generation air combat industrial map.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-1')" id="btn-dd-1">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-1">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-1">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Germany commits to expanded F-35 order plus Airbus MGCS framework, triggering multi-billion procurement cycles that benefit Lockheed Martin, Rheinmetall, and European integrators expanding counter-drone and air defence capacity spotlighted at Eurosatory 2026.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Germany delays decision amid coalition disagreement, stalling European air power consolidation, undermining Airbus revenues, and signaling to NATO partners that the 180 to 400 next-gen fighter trajectory cited this week will not materialize on schedule.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Germany backing an Airbus-led European alternative to FCAS triggers a multi-decade program worth hundreds of billions, directly benefiting Dassault, MTU, and European tier-one defence suppliers while validating the 180 F-35 to 400 next-gen fighter expansion thesis.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Germany pivots toward accelerated F-35 procurement or delays any decision past Q3, ceding European defence industrial leadership to the US and stalling Rafale export momentum at a moment when Dassault order books are already under competitive pressure.</div></div>
           </div>
         </div>
       </div><div class="outlook-card" style="border-top:3px solid #ff8c00">
         <div class="outlook-domain" style="color:#ff8c00">🌍 GEOPOLITICS</div>
-        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: Iran-US ceasefire status and Lebanon deal announcement by June 12</div>
-        <div class="outlook-signal">Trumps claim that a Middle East peace deal could close within 2 to 3 days, set against simultaneous Israeli strikes on Lebanon, Iranian-Israeli fire exchange, and a fragile Iran-US ceasefire holding since April 8, creates a binary resolution window before end of week.</div>
+        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: Iran compliance with ceasefire and Hormuz reopening timeline</div>
+        <div class="outlook-signal">Trumps declared two-week timeline for announcing total victory over Iran, set against Irans own signaling that it will fight and negotiate on its own schedule, makes the next seven days the critical window determining whether the Hormuz closure becomes structural or temporary.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-2')" id="btn-dd-2">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-2">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-2">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Deal announcement holds ceasefire, reopens Strait of Hormuz fully, normalizes Red Sea shipping lanes disrupted by Houthi bans on Israeli-linked vessels, collapses oil risk premium, and stabilizes Gulf operator logistics costs for space and defence contractors based in the UAE.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Israeli strikes on Lebanon expand or Iran exits ceasefire, Strait of Hormuz closure extends per Brookings crisis analysis, Houthi Red Sea interdiction widens, oil prices spike again, and regional defence procurement in Kuwait and Gulf states accelerates emergency counter-drone and naval spend.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A verified Iranian pullback and Hormuz reopening within the week normalizes Brent pricing, removes the risk premium from Gulf shipping lanes, and reduces urgency on Gulf state defense procurement diversification, stabilizing regional operator cost structures.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Iran resumes strikes or Houthis enforce the Red Sea blockade beyond this week, cementing a dual-chokepoint crisis that drives Brent structurally higher, accelerates Gulf state counter-drone procurement such as Kuwaits near 2B platform buy, and forces rerouting decisions with lasting freight cost consequences.</div></div>
           </div>
         </div>
       </div>
@@ -969,61 +1001,61 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <div style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;background:#0d1f3c;padding:3px 10px;border-radius:20px;border:1px solid #1a2a4a">15MIN DELAYED</div>
   </div>
   <div class="stocks-grid">
-    <div class="stock-card"><div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div><div><div class="stock-price">$104.77</div><div class="stock-dn">▼ 7.81%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div><div><div class="stock-price">$526.10</div><div class="stock-up">▲ 1.16%</div></div></div><div class="stock-card"><div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div><div><div class="stock-price">$180.83</div><div class="stock-up">▲ 1.21%</div></div></div><div class="stock-card"><div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div><div><div class="stock-price">$542.51</div><div class="stock-up">▲ 0.31%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div><div><div class="stock-price">$213.52</div><div class="stock-dn">▼ 1.11%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div><div><div class="stock-price">$303.82</div><div class="stock-up">▲ 0.57%</div></div></div><div class="stock-card"><div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div><div><div class="stock-price">$44.09</div><div class="stock-dn">▼ 7.13%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div><div><div class="stock-price">$26.44</div><div class="stock-dn">▼ 11.08%</div></div></div><div class="stock-card"><div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div><div><div class="stock-price">$88.09</div><div class="stock-dn">▼ 4.31%</div></div></div><div class="stock-card"><div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div><div><div class="stock-price">$30.15</div><div class="stock-dn">▼ 7.91%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div><div><div class="stock-price">$30.78</div><div class="stock-dn">▼ 10.21%</div></div></div>
+    <div class="stock-card"><div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div><div><div class="stock-price">$113.65</div><div class="stock-up">▲ 3.24%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div><div><div class="stock-price">$520.07</div><div class="stock-dn">▼ 0.70%</div></div></div><div class="stock-card"><div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div><div><div class="stock-price">$178.66</div><div class="stock-dn">▼ 1.29%</div></div></div><div class="stock-card"><div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div><div><div class="stock-price">$540.81</div><div class="stock-dn">▼ 0.66%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div><div><div class="stock-price">$215.92</div><div class="stock-up">▲ 0.22%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div><div><div class="stock-price">$302.10</div><div class="stock-dn">▼ 1.86%</div></div></div><div class="stock-card"><div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div><div><div class="stock-price">$47.48</div><div class="stock-up">▲ 0.24%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div><div><div class="stock-price">$29.73</div><div class="stock-up">▲ 1.28%</div></div></div><div class="stock-card"><div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div><div><div class="stock-price">$92.06</div><div class="stock-dn">▼ 1.65%</div></div></div><div class="stock-card"><div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div><div><div class="stock-price">$32.74</div><div class="stock-up">▲ 1.61%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div><div><div class="stock-price">$34.28</div><div class="stock-dn">▼ 1.38%</div></div></div>
     <div class="stock-card"><div><div class="stock-ticker" style="color:#3a5a7a">SPACEX</div><div class="stock-name">Space Exploration</div></div><div><div class="stock-private">PRIVATE</div><div class="stock-private">Watch: SPCX</div></div></div>
   </div>
-  <div class="sector-note">European fighter rearmament, sustained Middle East tensions, and a wave of space capital raises position defence primes and satellite intelligence firms for a multi-year demand cycle that rewards execution over speculation.</div>
+  <div class="sector-note">The SpaceX IPO on Friday combined with the Amazon LEO spectrum ruling and fresh European rearmament contracts will keep new space and defence technology in active price discovery through the end of the week.</div>
 </div>
 <div class="events-section">
   <div class="sh"><div class="st">🗓️ Industry Events</div><div class="sl"></div></div>
   <div class="event-grid">
     
       <div class="event-card">
-        <div class="event-date">July 17-19 2026</div>
+        <div class="event-date">17–19 July 2026</div>
         <div class="event-name">Royal International Air Tattoo (RIAT) 2026</div>
-        <div class="event-loc">📍 RAF Fairford United Kingdom</div>
-        <div class="event-tag">Aerospace Defence Airshow</div>
+        <div class="event-loc">📍 RAF Fairford, United Kingdom</div>
+        <div class="event-tag">Aerospace, Defence, Airshow</div>
         <div style="margin-top:8px"><a href="https://www.airtattoo.com" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">July 20-26 2026</div>
+        <div class="event-date">20–24 July 2026</div>
         <div class="event-name">Farnborough International Airshow 2026</div>
-        <div class="event-loc">📍 Farnborough United Kingdom</div>
-        <div class="event-tag">Aerospace Defence Aviation</div>
+        <div class="event-loc">📍 Farnborough, United Kingdom</div>
+        <div class="event-tag">Aerospace, Defence, Aviation</div>
         <div style="margin-top:8px"><a href="https://www.farnboroughairshow.com" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">September 1-4 2026</div>
-        <div class="event-name">MSPO International Defence Industry Exhibition 2026</div>
-        <div class="event-loc">📍 Kielce Poland</div>
-        <div class="event-tag">Defence Industry Exhibition</div>
-        <div style="margin-top:8px"><a href="https://www.mspo.pl" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
+        <div class="event-date">19–22 October 2026</div>
+        <div class="event-name">Space Symposium 2026</div>
+        <div class="event-loc">📍 Colorado Springs, USA</div>
+        <div class="event-tag">Space, Defence, Industry</div>
+        <div style="margin-top:8px"><a href="https://www.spacesymposium.org" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">September 15-17 2026</div>
-        <div class="event-name">Defence and Security Equipment International (DSEI) Japan 2026</div>
-        <div class="event-loc">📍 Makuhari Messe Chiba Japan</div>
-        <div class="event-tag">Defence Security Aerospace</div>
-        <div style="margin-top:8px"><a href="https://www.dsei.co.uk/dsei-japan" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
-      </div>
-    
-      <div class="event-card">
-        <div class="event-date">October 19-23 2026</div>
+        <div class="event-date">19–23 October 2026</div>
         <div class="event-name">International Astronautical Congress (IAC) 2026</div>
-        <div class="event-loc">📍 Antalya Turkey</div>
-        <div class="event-tag">Space Astronautics Industry</div>
+        <div class="event-loc">📍 Antalya, Turkey</div>
+        <div class="event-tag">Space, Aerospace, Science</div>
         <div style="margin-top:8px"><a href="https://www.iafastro.org" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
       <div class="event-card">
-        <div class="event-date">December 8-10 2026</div>
+        <div class="event-date">20–23 October 2026</div>
+        <div class="event-name">Euronaval 2026</div>
+        <div class="event-loc">📍 Paris, France</div>
+        <div class="event-tag">Naval Defence, Maritime, Industry</div>
+        <div style="margin-top:8px"><a href="https://www.euronaval.fr" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
+      </div>
+    
+      <div class="event-card">
+        <div class="event-date">December 2026</div>
         <div class="event-name">MEBAA Show 2026</div>
-        <div class="event-loc">📍 Dubai UAE</div>
-        <div class="event-tag">Business Aviation Aerospace</div>
-        <div style="margin-top:8px"><a href="https://www.mebaashow.com" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
+        <div class="event-loc">📍 Dubai, UAE</div>
+        <div class="event-tag">Business Aviation, Aerospace</div>
+        <div style="margin-top:8px"><a href="https://www.mebaa.aero" target="_blank" style="font-size:9px;color:#4a9eff;font-family:'Space Mono',monospace;text-decoration:none;letter-spacing:1px">▸ MORE INFO</a></div>
       </div>
     
   </div>
@@ -1084,12 +1116,12 @@ function openMapPopup(item,col,catLabel){
 function closeMapPopup(e){if(e.target===document.getElementById('map-popup-overlay'))document.getElementById('map-popup-overlay').classList.remove('active');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('map-popup-overlay').classList.remove('active');});
 async function loadRegulatoryPulse(){
-  const briefing=`Beneath todays surface-level news of Middle East ceasefires and IPO pricing, the deeper structural story is a simultaneous acceleration of capital formation and military realignment — SpaceX prices its IPO on Friday, Quantum Space heads for a $1.2B public debut, Iceye raises 1 billion euros, and Europe abandons the FCAS joint fighter program while rushing to expand F-35 and next-gen fighter orders, signaling that both private and sovereign actors are betting heavily on a new era of contested space and air dominance. The central contradiction is that Iran and Israel are stepping back from the brink under US pressure while the US Navy simultaneously struck an oil tanker in the Gulf of Oman and a US Apache went down near the Strait of Hormuz — this gap between diplomatic signaling and kinetic action tells investors that the Hormuz risk premium is not priced out yet and energy and defence supply chains remain exposed. Watch the SpaceX IPO opening trade on Friday and whether the Strait of Hormuz reopens within 72 hours — if both occur simultaneously they will confirm that capital is pricing in stabilization across the space economy and energy corridor, but a gap between the two would signal that defence premiums are underpriced.`;
+  const briefing=`Converging signals across space finance, Middle East kinetics, and European rearmament reveal a single structural shift — the privatisation and commercialisation of strategic infrastructure is accelerating precisely as state actors demonstrate they can no longer guarantee the stability those infrastructures depend on. The contradiction sharpens when the SpaceX IPO prices into a market simultaneously digesting a near-closure of the Strait of Hormuz and a US Apache helicopter downed near it — retail optimism about commercial space is colliding with sovereign risk repricing that defence primes are not yet reflecting in their declining stock prices today. Watch the SpaceX IPO opening trade on Friday: if SPCX prices above its Thursday evening target and opens with volume above 50 million shares, it confirms that capital markets have fully decoupled commercial space valuation from geopolitical risk — a structural signal with direct implications for how defence and space assets are priced for the next 12 months.`;
   const sentiment=`BULLISH`;
   const risk=`HIGH`;
-  const spaceH=["SpaceX IPO Prices Thursday on Nasdaq as SPCX","FCC Penalises Amazon LEO on Spectrum Over Deployment Miss","Iceye Raises 1 Billion Euros to Expand SAR Constellation","Quantum Space Eyes 1.2B Public Debut via SPAC","Starship Booster 20 Enters Cryogenic Testing for Flight 13","NASA Unveils Artemis 3 Crew as SRB Segments Ship to Florida"];
-  const defH=["US Navy F/A-18 Strikes Oil Tanker in Gulf of Oman","Germany and France Kill FCAS Fighter Programme","Apache Down Near Strait of Hormuz, Pilots Rescued","US Approves 2 Billion Counter-Drone Sale to Kuwait","Pentagon Reveals Munition Choices for One-Way Attack Drones"];
-  const midH=["Iran and Israel Pull Back From All-Out War","Six Nations Sanction Enablers of West Bank Violence","Trump Eyes Peace Deal in Days as Lebanon Struck","Strait of Hormuz Closure Drives Oil Price Surge","Vance: US Pursuing Iran Nuclear Deal Regardless of Israel","Houthi Red Sea Threat Rattles Global Oil Shipping"];
+  const spaceH=["SpaceX IPO prices Thursday, trades Friday as SPCX","FCC penalises Amazon LEO for missing deploy deadline","Falcon 9 booster B1067 completes record 35th flight","Quantum Space targets 1.2B public debut via SPAC","BlackSky wins NRO contract modification for broad-area work","Iceye raises 1 billion euros to expand SAR constellation"];
+  const defH=["US Apache downed near Strait of Hormuz, crew rescued","Germany and France drop joint fighter jet project","US approves Kuwait 2 billion dollar counter-drone sale","French Rafale shoots down drone over Latvia for NATO","Pentagon adds BYD, Alibaba, Baidu to China blacklist"];
+  const midH=["Iran and Israel Pull Back From All-Out War","Strait of Hormuz Closure Triggers Oil Market Crisis","Houthis Block Red Sea to Israel-Linked Ships","Kuwait Clears $2B Counter-Drone Platform Buy","Trump Claims US Near Total Victory Over Iran"];
   const allH=[...spaceH,...defH,...midH].join('\n- ');
   const prompt=`You are a regulatory intelligence analyst for Prism, a space and defence dashboard. Today briefing: ${briefing}. Sentiment: ${sentiment}. Risk: ${risk}. Headlines:\n- ${allH}\n\nAnalyse the regulatory environment. Reply ONLY in this exact JSON with no other text:\n{"score":<0-100>,"status":"<STABLE|ELEVATED|HIGH PRESSURE|CRITICAL>","delta":"<e.g. +8 pts this week>","delta_direction":"<up|down|stable>","areas":[{"name":"<max 18 chars>","status":"<green|amber|red>","pill":"<STABLE|WATCH|ACTIVE|CRITICAL>","trend":"<up|stable|down>","text":"<2 sentences max>","countdown":"<72 HRS or 5 DAYS or PENDING or none>"}]}\nInclude exactly 4 areas. No apostrophes.`;
   try{
@@ -1122,7 +1154,6 @@ function getMoonPhase(){const phases=['🌑','🌒','🌓','🌔','🌕','🌖',
 document.getElementById('moonphase').textContent=getMoonPhase();
 const now=new Date();
 document.getElementById('datetime').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
-document.getElementById('lastupdated').textContent='◈ Briefing: '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 const RELEVANT_KEYWORDS=['nuclear','missile','satellite','space launch','rocket launch','defense','defence','ceasefire','invasion','weapons','cyber attack','drone strike','conflict','Iran','Russia','China','NATO','Taiwan','ballistic','hypersonic','radar','surveillance','SpaceX','Boeing','Lockheed','Raytheon','Northrop','Pentagon','CENTCOM','treaty','sanctions','proliferation','warhead','uranium','plutonium','North Korea','Pakistan','Israel','Gaza','Lebanon','Ukraine','Syria','coup','geopolit','orbit','ISS','Mars mission','asteroid'];
 function isRelevant(q){return RELEVANT_KEYWORDS.some(k=>q.toLowerCase().includes(k.toLowerCase()));}
 function getProbabilityColor(p){return p>=0.7?'#00aa40':p>=0.5?'#806000':p>=0.3?'#ff8c00':'#ff4444';}
@@ -1150,7 +1181,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.35}).addTo(map);
 const catColors={space:'#4a9eff',defence:'#ff4444',middle_east:'#ff8c00',investment:'#00aa40',ai_tech:'#a060ff',ipo_watch:'#ffcc00'};
 const catLabels={space:'🛰 SPACE',defence:'🛡 DEFENCE',middle_east:'🌍 MID EAST',investment:'💰 INVEST',ai_tech:'🤖 AI TECH',ipo_watch:'🚀 IPO'};
-const newsData={"space":[{"headline":"SpaceX IPO Prices Thursday on Nasdaq as SPCX","context":"The SpaceX IPO is expected to price Thursday evening with shares trading Friday on the Nasdaq under the ticker SPCX, marking one of the most anticipated public offerings in the history of the space industry. Analyst Gene Munster told CNBC he would buy at IPO price and potentially minutes later when the stock trades higher, citing SpaceX long-term fundamentals and market positioning as outweighing near-term volatility concerns.","implication":"The SpaceX IPO will immediately reprice the entire commercial space sector — RKLB, ASTS, PL and LUNR valuations will be measured against SPCX from Friday morning, creating both a benchmark pressure and a potential capital rotation event that every space fund manager must position for before Thursday close.","image":"https://fortune.com/img-assets/wp-content/uploads/2026/06/GettyImages-2074390138-e1780924286315.jpg?w=2048","region":"North America","urgency":"BREAKING","score":95,"source":"fortune","link":"https://fortune.com/2026/06/08/retail-investors-participate-spacex-ipo-spcx-elon-musk-brokerages/","lat":37.7749,"lng":-122.4194},{"headline":"FCC Penalises Amazon LEO on Spectrum Over Deployment Miss","context":"The FCC has allowed Amazon LEO to miss its July 30 deadline for deploying half of its planned 3,232 broadband satellites, but the reprieve comes with a temporary loss of spectrum priority that advantages SpaceX and other rivals in the broadband satellite market. Amazon LEO no longer faces an immediate cutoff but the spectrum penalty creates a measurable competitive disadvantage at the precise moment SpaceX is entering public markets.","implication":"The spectrum penalty handed to Amazon LEO directly strengthens Starlink commercial positioning ahead of the SpaceX IPO and signals that regulatory timing is now a strategic weapon in the LEO broadband competition that investors must factor into Amazon and SpaceX valuations.","image":"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/02/schwarz-smallsat2026.jpeg?fit=2500%2C1735&ssl=1","region":"North America","urgency":"URGENT","score":85,"source":"spacenews","link":"https://spacenews.com/fcc-lets-amazon-leo-miss-deployment-deadline-with-temporary-spectrum-penalty/","lat":38.9072,"lng":-77.0369},{"headline":"Iceye Raises 1 Billion Euros to Expand SAR Constellation","context":"Iceye has raised 1 billion euros to expand its synthetic aperture radar satellite systems, representing one of the largest single fundraising rounds in the commercial Earth observation sector to date. The raise comes amid intensifying demand from both defence and intelligence customers for persistent all-weather radar imaging, particularly in the context of ongoing conflicts in Ukraine and the Middle East.","implication":"Iceye at 1 billion euros signals institutional conviction that SAR surveillance is a critical warfighting and intelligence infrastructure asset, applying direct valuation pressure on BKSY and PL whose current selloff may represent a mispricing relative to the sector appetite Iceye just validated.","image":"none","region":"Europe","urgency":"URGENT","score":82,"source":"SpaceAgenda","link":"https://spacenews.com/iceye-raises-1-billion-euros-to-expand-sar-satellite-systems/","lat":60.1699,"lng":24.9384},{"headline":"Quantum Space Eyes 1.2B Public Debut via SPAC","context":"Quantum Space, led by former NASA Administrator Jim Bridenstine, is heading for a $1.2 billion public debut through a SPAC deal, targeting the spacecraft infrastructure needed for cislunar and deep space operations. The company positions itself at the intersection of the next space race, building the transport and services layer between low Earth orbit and the Moon.","implication":"Bridenstine lending his name and track record to a $1.2B SPAC signals that cislunar infrastructure is transitioning from programme concept to investable asset class, and defence-aligned investors should evaluate this as a long-duration bet on US strategic depth beyond LEO.","image":"https://techfundingnews.com/wp-content/uploads/2026/06/Spacetech.jpg","region":"North America","urgency":"NORMAL","score":75,"source":"techfundingnews","link":"https://techfundingnews.com/former-nasa-chiefs-quantum-space-heads-for-1-2b-public-debut-to-build-the-spacecraft-needed-for-the-next-space-race/","lat":38.9072,"lng":-77.0369},{"headline":"Starship Booster 20 Enters Cryogenic Testing for Flight 13","context":"Booster 20 has entered cryogenic testing at Boca Chica ahead of Starship Flight 13, marking the next major milestone in SpaceX incremental test campaign for its fully reusable super-heavy launch system. The timing of this test article progression puts Flight 13 on a trajectory that could coincide with heightened public attention immediately following the SpaceX IPO.","implication":"Starship Flight 13 test progress directly supports the SpaceX IPO narrative by demonstrating hardware velocity, giving retail and institutional investors a visible technical milestone to anchor their valuation thesis in the days following SPCX debut.","image":"none","region":"North America","urgency":"NORMAL","score":70,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/06/booster-20-cryogenic-testing-ahead-flight-13/","lat":26,"lng":-97.156},{"headline":"NASA Unveils Artemis 3 Crew as SRB Segments Ship to Florida","context":"NASA is set to unveil the Artemis 3 crew today with live coverage confirming the mission is advancing toward its lunar landing objective, while the remaining solid rocket booster segments have been shipped from Utah to Florida for integration. The convergence of crew announcement and hardware delivery signals Artemis 3 is entering its final pre-launch assembly phase.","implication":"Artemis 3 crew and hardware milestones validate sustained SLS and Orion programme spending, reinforcing LMT and NOC revenue visibility and supporting the case that government deep space investment remains on track despite commercial disruption from SpaceX.","image":"none","region":"North America","urgency":"URGENT","score":68,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/09/live-coverage-nasa-to-unveil-artemis-3-crew-provide-updates-on-mission/","lat":28.5728,"lng":-80.649}],"defence":[{"headline":"US Navy F/A-18 Strikes Oil Tanker in Gulf of Oman","context":"A US Navy F/A-18 Super Hornet struck and disabled an oil tanker in the Gulf of Oman, a direct kinetic action that occurred even as diplomatic channels between the US and Iran were signaling de-escalation from their April ceasefire framework. The strike represents a significant escalation of naval operations in the Gulf corridor and raises immediate questions about the rules of engagement governing US forces near the Strait of Hormuz.","implication":"A US Navy strike on a tanker in the Gulf of Oman while a fragile Iran-US ceasefire is nominally in place signals that the Hormuz corridor remains a live kinetic zone, directly threatening global oil flows and elevating the risk premium for every energy logistics and defence contractor operating in the region.","image":"none","region":"Middle East","urgency":"BREAKING","score":95,"source":"Defense News","link":"https://www.defensenews.com/flashpoints/2026/06/08/us-navy-fa-18-super-hornet-strikes-disables-oil-tanker-in-gulf-of-oman/","lat":24,"lng":58.5},{"headline":"Germany and France Kill FCAS Fighter Programme","context":"Germany and France have dropped their joint Future Combat Air System fighter jet project, ending one of the most ambitious and troubled European defence programmes in decades and leaving a significant capability gap in European air power planning. In the immediate aftermath, an Airbus-led alliance began lobbying Germany on an alternative fighter jet project while Germany simultaneously weighs ordering additional F-35 warplanes.","implication":"The FCAS collapse forces a binary choice for Germany between US-supplied F-35s and a reconstituted European alternative, and either outcome reshapes the industrial base beneficiaries — with LMT positioned to win near-term orders and Airbus and European primes fighting to stay relevant in the long cycle.","image":"none","region":"Europe","urgency":"BREAKING","score":92,"source":"Defense News","link":"https://www.defensenews.com/global/europe/2026/06/08/germany-and-france-drop-joint-fighter-jet-project/","lat":52.52,"lng":13.405},{"headline":"Apache Down Near Strait of Hormuz, Pilots Rescued","context":"US soldiers were rescued after an Apache helicopter went down near the coast of Oman, with US Central Command confirming the two pilots are safe following the incident near the Strait of Hormuz. The crash occurred during heightened US military operations in the Gulf region amid the fragile Iran-US ceasefire and Israel-Iran tensions.","implication":"A US military aircraft loss near the Strait of Hormuz — regardless of cause — will elevate operational risk assessments for Gulf-based defence contractors and logistics operators and may signal that US force posture in the region is under greater pressure than official statements acknowledge.","image":"none","region":"Middle East","urgency":"BREAKING","score":88,"source":"Defense News","link":"https://www.defensenews.com/news/your-military/2026/06/09/us-soldiers-rescued-after-apache-helicopter-goes-down-near-the-coast-of-oman/","lat":23.6,"lng":58.59},{"headline":"US Approves 2 Billion Counter-Drone Sale to Kuwait","context":"The United States has approved a Kuwaiti request to purchase nearly $2 billion worth of counter-drone platforms, one of the largest counter-UAS foreign military sales approvals in the Gulf region to date. The timing of the sale reflects accelerating Gulf state demand for layered drone defence as Houthi and Iranian-proxy drone threats continue to evolve across the region.","implication":"A $2 billion Kuwaiti counter-drone approval signals that Gulf state procurement of UAS defence systems is entering a sustained high-volume cycle, creating durable revenue visibility for RTX, Raytheon, and L3Harris counter-UAS programme offices that investors should weight in regional defence allocation models.","image":"none","region":"Middle East","urgency":"URGENT","score":82,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-","lat":0,"lng":0},{"headline":"Pentagon Reveals Munition Choices for One-Way Attack Drones","context":"The Pentagon has revealed its preferred munitions for one-way attack drones, providing the clearest public signal yet of the US military direction in kamikaze drone procurement and the weapons integration strategy that will define the next generation of autonomous strike systems. The disclosure follows sustained lessons from Ukraine where loitering munitions have proven decisive in shaping the tactical and operational battlefield.","implication":"Pentagon munitions selection for one-way attack drones defines the industrial winners in the fast-growing autonomous strike market and directly benefits companies in the Anduril, AeroVironment, and L3Harris supply chains that investors should be tracking for contract flow.","image":"none","region":"North America","urgency":"URGENT","score":80,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/06/09/pentagon-reveals-preferred-munitions-for-one-way-attack-drones/","lat":38.8719,"lng":-77.0563}],"middle_east":[{"headline":"Iran and Israel Pull Back From All-Out War","context":"After a flurry of tit-for-tat strikes, Iran and Israel both signalled de-escalation on Monday, stepping back from a broader military confrontation that had threatened to unravel the fragile Iran-US ceasefire in place since April 8. Both sides indicated restraint following a short but intense exchange of fire, with Iran declaring an end to military operations.","implication":"A temporary halt in direct Iran-Israel hostilities reduces near-term risk to Gulf-based space and defence infrastructure, but the fragility of the ceasefire keeps procurement and operational continuity planning elevated across the region.","image":"https://www.twz.com/wp-content/uploads/2026/06/F16-IAF.jpg","region":"Middle East — Iran, Israel","urgency":"BREAKING","score":95,"source":"twz","link":"https://www.twz.com/news-features/iran-and-israel-step-back-from-the-brink","lat":32,"lng":35},{"headline":"Six Nations Sanction Enablers of West Bank Violence","context":"Six countries announced coordinated sanctions targeting networks enabling settler violence in the occupied West Bank, marking a significant multilateral diplomatic response to ongoing instability in Palestinian territories. The move signals growing international willingness to apply economic pressure on actors fuelling ground-level conflict.","implication":"Multilateral sanctions on West Bank networks raise the diplomatic stakes for defence contractors and intelligence firms operating in Israeli-linked supply chains across allied nations.","image":"none","region":"Middle East — West Bank, Israel","urgency":"BREAKING","score":80,"source":"Al Jazeera","link":"https://www.aljazeera.com/news/2026/6/9/six-countries-sanction-networks-enabling-settler-violence-in-west-bank?traffic_source=rss","lat":31.9,"lng":35.2},{"headline":"Trump Eyes Peace Deal in Days as Lebanon Struck","context":"US President Donald Trump said a Middle East peace deal could come within two to three days, describing the situation as being in its final stages, even as Israeli strikes on Lebanon killed at least eight people in Tyre. Trump also warned Israeli Prime Minister Netanyahu that Israel would be on its own if attacks on Iran resumed.","implication":"US pressure on Israel to halt offensive operations while simultaneously pursuing a nuclear deal with Iran creates a volatile diplomatic environment that directly shapes the risk calculus for regional defence investment and basing decisions.","image":"https://media.assettype.com/gulfnews/2026-06-09/d37iyeby/HGL2U8xX0AIQXBb.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true","region":"Middle East — Lebanon, Israel, United States","urgency":"BREAKING","score":80,"source":"gulfnews","link":"https://gulfnews.com/world/mena/israel-bombs-lebanon-as-trump-says-middle-east-peace-deal-could-come-in-23-days-1.500567980","lat":33.8,"lng":35.5},{"headline":"Strait of Hormuz Closure Drives Oil Price Surge","context":"The Strait of Hormuz remains closed following the Iran-Israel exchange of fire, with Brookings analysis warning that oil prices are likely to rise further and that markets could take months to normalise once the strait reopens. The chokepoint handles roughly 20 percent of global oil trade, making its closure one of the most consequential supply disruptions possible.","implication":"Prolonged Hormuz closure accelerates defence procurement urgency across Gulf states and drives renewed investment in energy-resilient military logistics and satellite-based maritime surveillance systems.","image":"https://www.brookings.edu/wp-content/uploads/2026/06/GettyImages-2273105641.jpg?quality=50","region":"Middle East — Strait of Hormuz","urgency":"URGENT","score":75,"source":"brookings","link":"https://www.brookings.edu/articles/from-chokepoint-to-crisis-the-strait-of-hormuz-and-global-oil-markets/","lat":26.5,"lng":56.3},{"headline":"Vance: US Pursuing Iran Nuclear Deal Regardless of Israel","context":"US Vice President JD Vance stated that the United States will continue to pursue a nuclear agreement with Iran regardless of Israel's position, reinforcing the Trump administration's intention to decouple the Iran nuclear track from Israeli military actions. Vance described the US as being in a good position to achieve its goals in the ongoing talks.","implication":"US insistence on an Iran nuclear deal independent of Israeli preferences signals a potential realignment of American regional security guarantees that defence planners and Gulf-based operators must factor into long-term strategic assessments.","image":"https://media.assettype.com/gulfnews/2026-06-09/w9c4ult5/101.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true","region":"Middle East — United States, Iran, Israel","urgency":"URGENT","score":75,"source":"gulfnews","link":"https://gulfnews.com/world/mena/vance-us-in-good-position-to-achieve-goals-in-iran-talks-1.500567980","lat":35.6,"lng":51.4},{"headline":"Houthi Red Sea Threat Rattles Global Oil Shipping","context":"Yemen-based Houthis announced a ban on ships linked to Israel from transiting the Red Sea, citing renewed Israeli military attacks on Iran, escalating concerns for global shipping lanes and energy market stability. The declaration compounds existing pressure on maritime trade routes already strained by the Hormuz closure.","implication":"Renewed Houthi interdiction threats in the Red Sea reinforce demand for maritime domain awareness satellites and counter-drone naval systems among shipping nations and Gulf defence forces.","image":"https://moderndiplomacy.eu/wp-content/uploads/2025/10/Houthis-Yemen.jpg","region":"Middle East — Yemen, Red Sea","urgency":"URGENT","score":65,"source":"moderndiplomacy","link":"https://moderndiplomacy.eu/2026/06/08/why-houthi-threats-in-the-red-sea-matter-for-oil-markets/","lat":15.5,"lng":43}],"investment":[{"headline":"Lockheed Martin Expands Canadian Footprint Post-HIMARS","context":"Lockheed Martin has announced a major expansion of its operations in Canada following the country's acquisition of the HIMARS precision rocket artillery system, with plans to deepen industrial and supply chain presence across Canadian defence manufacturing. The move reflects a broader trend of US prime contractors building sovereign industrial partnerships with allied nations.","implication":"Lockheed Martin deepening its Canadian industrial base signals growing allied defence co-production strategies that create new supply chain investment opportunities for component manufacturers and technology integrators across NATO countries.","image":"none","region":"North America — Canada","urgency":"NORMAL","score":65,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/landwarfareintl/lockheed-martin-plans-a-major-expansion-in-canada-following-the-himars-acquisition/","lat":45.4,"lng":-75.7},{"headline":"US FY2027 Budget Targets Historic Stockpile Replenishment","context":"US lawmakers are preparing a historically large investment in munitions stockpile replenishment as part of the FY2027 defence budget, responding to drawdowns caused by support for Ukraine and heightened global deterrence requirements. The scale of planned procurement is expected to drive multi-year contracts across the US defence industrial base.","implication":"A historic US stockpile replenishment cycle creates sustained long-term revenue visibility for precision munitions manufacturers and defence investors tracking the US defence industrial modernisation pipeline.","image":"none","region":"North America — United States","urgency":"NORMAL","score":65,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/defence-notes/us-lawmakers-prepare-a-historic-investment-in-stockpile-replenishment-in-fy2027/","lat":38.9,"lng":-77},{"headline":"Isar Aerospace Raises 270M Euros for Global Launch Push","context":"German launch startup Isar Aerospace has secured 270 million euros in fresh funding to support a global launch expansion, building out its Spectrum rocket programme and targeting commercial and government customers across Europe and beyond. The raise positions Isar as a leading European alternative to US-dominated small launch providers.","implication":"Isar Aerospace gaining 270 million euros reinforces European launch sovereignty ambitions and signals investor confidence in non-US small-lift competitors at a time when reliable access to orbit is a strategic national security priority.","image":"none","region":"Europe — Germany","urgency":"NORMAL","score":55,"source":"SpaceAgenda","link":"https://spacenews.com/isar-aerospace-raises-270-million-euros-for-global-launch-expansion/","lat":48.1,"lng":11.6},{"headline":"Impulse Space Crosses $1B in Venture Funding","context":"Impulse Space, the in-space mobility company founded by former SpaceX engine chief Tom Mueller, has crossed one billion dollars in venture funding before its fastest vehicle has reached geostationary orbit. The company is targeting last-mile orbital delivery, a segment seen as critical for defence and commercial satellite deployment flexibility.","implication":"Impulse Space reaching one billion dollars in funding before a GEO mission validates strong investor appetite for in-space propulsion and orbital transfer capabilities that will define next-generation satellite deployment economics.","image":"https://spacedaily.com/wp-content/uploads/2026/06/Tom-Mueller-spent-nearly-two-decades-building-the-Merlin-and-Draco-engines-that-helped-make-SpaceX-possible.png","region":"North America — United States","urgency":"NORMAL","score":50,"source":"spacedaily","link":"https://spacedaily.com/sd-tom-mueller-spent-nearly-two-decades-building-the-merlin-and-draco-engines-that-helped-make-spacex-possible-and-now-his-in-space-mobility-company-has-crossed-1-billion-in-venture-funding-before-i/","lat":34,"lng":-118.2},{"headline":"BlackSky Wins Expanded NRO Broad-Area Collection Deal","context":"BlackSky has received a contract modification from the National Reconnaissance Office to accelerate broad-area collection work, expanding the scope of its tasking and data delivery obligations under an existing NRO agreement. The modification reflects growing US government demand for commercial remote sensing at scale.","implication":"The NRO expanding its BlackSky contract underscores the accelerating integration of commercial satellite imagery into national intelligence architectures, validating investment in commercial Earth observation at the government tier.","image":"none","region":"North America — United States","urgency":"NORMAL","score":50,"source":"SpaceAgenda","link":"https://spacenews.com/blacksky-to-accelerate-broad-area-collection-work-under-nro-contract-modification/","lat":38.9,"lng":-77}],"ai_tech":[],"ipo_watch":[]};
+const newsData={"space":[{"headline":"SpaceX IPO prices Thursday, trades Friday as SPCX","context":"The SpaceX IPO is expected to price Thursday evening with shares beginning to trade Friday on the Nasdaq under the ticker SPCX, marking one of the most anticipated public listings in technology and space history. Veteran analyst Gene Munster told CNBC he would buy at the IPO price and potentially minutes later when it trades higher, citing SpaceX fundamentals and long-term market positioning as outweighing near-term volatility concerns.","implication":"The SPCX listing will reprice the entire commercial space sector and force institutional portfolios to recalibrate exposure to RKLB, ASTS, PL and other listed space names relative to the new SpaceX benchmark.","image":"https://fortune.com/img-assets/wp-content/uploads/2026/06/GettyImages-2074390138-e1780924286315.jpg?w=2048","region":"North America","urgency":"BREAKING","score":90,"source":"fortune","link":"https://fortune.com/2026/06/08/retail-investors-participate-spacex-ipo-spcx-elon-musk-brokerages/","lat":37.7749,"lng":-122.4194},{"headline":"FCC penalises Amazon LEO for missing deploy deadline","context":"The FCC ruled that Amazon LEO no longer faces a hard July 30 cutoff for deploying half of its planned 3,232 broadband satellites, but the reprieve comes with a temporary loss of spectrum priority that directly advantages SpaceX Starlink and other rival constellations. The ruling confirms that Amazon LEOs build-out is running materially behind schedule, weakening its competitive position in the global broadband satellite market at a critical juncture.","implication":"Loss of spectrum priority during a deployment gap hands Starlink a structural window to lock in enterprise and government customers that Amazon LEO was targeting, compounding the competitive disadvantage that will persist beyond any eventual Amazon LEO catch-up launch cadence.","image":"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/02/schwarz-smallsat2026.jpeg?fit=2500%2C1735&ssl=1","region":"North America","urgency":"URGENT","score":80,"source":"spacenews","link":"https://spacenews.com/fcc-lets-amazon-leo-miss-deployment-deadline-with-temporary-spectrum-penalty/","lat":38.9072,"lng":-77.0369},{"headline":"Falcon 9 booster B1067 completes record 35th flight","context":"SpaceX booster B1067 completed its 35th flight during a Starlink mission, setting a new reusability record for an orbital launch vehicle and demonstrating that Falcon 9 hardware can sustain operational tempo far beyond original design assumptions. The milestone reinforces SpaceX cost leadership and its ability to compress per-launch economics ahead of the SPCX IPO, providing a tangible operational data point for prospective investors.","implication":"Each reusability record lowers SpaceX marginal launch cost and widens the price gap that competitors including Amazon LEO launch partners must close to remain commercially viable.","image":"https://techgenyz.com/wp-content/uploads/2026/06/falcon-9-booster.webp","region":"North America","urgency":"NORMAL","score":72,"source":"techgenyz","link":"https://techgenyz.com/spacex-falcon-9-booster-35th-flight-starlink-record/","lat":28.5623,"lng":-80.5774},{"headline":"Quantum Space targets 1.2B public debut via SPAC","context":"Quantum Space, led by former NASA Administrator Jim Bridenstine, is moving toward a 1.2 billion dollar public debut through a SPAC deal, targeting the cislunar and deep space mobility market as competition for NASA and DoD contracts in that domain intensifies. The company joins a wave of space infrastructure firms seeking public capital as the SpaceX IPO creates a liquidity event that is broadly re-energising investor appetite for space listings.","implication":"A Bridenstine-backed public vehicle in the cislunar domain signals that government-adjacent space infrastructure is now investable at scale, creating a new listed benchmark for operators and funds that previously had no liquid exposure to that segment.","image":"https://techfundingnews.com/wp-content/uploads/2026/06/Spacetech.jpg","region":"North America","urgency":"NORMAL","score":68,"source":"techfundingnews","link":"https://techfundingnews.com/former-nasa-chiefs-quantum-space-heads-for-1-2b-public-debut-to-build-the-spacecraft-needed-for-the-next-space-race/","lat":38.9072,"lng":-77.0369},{"headline":"BlackSky wins NRO contract modification for broad-area work","context":"BlackSky secured a contract modification with the National Reconnaissance Office to accelerate broad-area collection operations, deepening its role as a commercial imagery supplier to the US intelligence community at a time when geospatial demand from active conflict zones is at a multi-year high. The modification expands scope beyond prior tasking and signals NRO confidence in BlackSky operational cadence and data quality.","implication":"NRO contract expansions for commercial EO providers validate the dual-use revenue model and reduce BlackSky revenue concentration risk, a direct positive for BKSY despite its 1.38 percent decline today.","image":"none","region":"North America","urgency":"NORMAL","score":65,"source":"SpaceAgenda","link":"https://spacenews.com/blacksky-to-accelerate-broad-area-collection-work-under-nro-contract-modification/","lat":47.6062,"lng":-122.3321},{"headline":"Iceye raises 1 billion euros to expand SAR constellation","context":"Finnish SAR satellite operator Iceye has raised 1 billion euros to expand its synthetic aperture radar satellite systems, making it one of the largest private fundraises in European space history and significantly increasing its capacity to provide all-weather, day-night surveillance imagery. The raise arrives as SAR data demand surges from both defence customers monitoring active conflict zones and commercial insurance and maritime clients.","implication":"Iceye at 1 billion euros of fresh capital represents a direct competitive pressure on listed SAR and EO operators including BKSY and PL, and signals European sovereign appetite to build non-US imagery infrastructure as geopolitical fractures widen.","image":"none","region":"Europe","urgency":"URGENT","score":63,"source":"SpaceAgenda","link":"https://spacenews.com/iceye-raises-1-billion-euros-to-expand-sar-satellite-systems/","lat":60.1699,"lng":24.9384}],"defence":[{"headline":"US Apache downed near Strait of Hormuz, crew rescued","context":"A US Apache attack helicopter went down near the Strait of Hormuz and its flight crew was successfully rescued, according to reporting confirmed by the New York Times and acknowledged by President Trump who stated the pilots are fine. The incident occurred one day after Iran and Israel announced a halt to mutual strikes following pressure from Trump, with Iran having warned it would resume hostilities if Israeli attacks continued.","implication":"A US military aircraft loss in the Strait of Hormuz during an active ceasefire window elevates the risk of miscalculation that could instantly reopen the conflict and trigger oil price spikes, shipping disruptions, and a hard repricing of regional defence exposure.","image":"https://d3lzcn6mbbadaf.cloudfront.net/media/details/__sized__/ANI-20260609043312-thumbnail-320x180-70.jpg","region":"Middle East","urgency":"BREAKING","score":95,"source":"aninews","link":"https://www.aninews.in/news/world/us/us-crew-reported-rescued-after-helicopter-goes-down-near-strait-of-hormuz-reports-nyt20260609100322/","lat":26.5667,"lng":56.25},{"headline":"Germany and France drop joint fighter jet project","context":"Germany and France have abandoned their joint next-generation fighter jet programme, a major fracture in European defence industrial cooperation that will force both nations to pursue independent or alternative coalition paths to replace their ageing fast jet fleets. An Airbus-led alliance is now lobbying Berlin directly on a new fighter jet project, signalling that the industrial competition to fill the vacuum is already underway.","implication":"The collapse of the Franco-German fighter programme creates a significant procurement opening for Dassault Rafale exports, US F-35 orders, and potentially FCAS successor arrangements — directly affecting LMT, RTX and European prime valuations over the next 12 to 24 months.","image":"none","region":"Europe","urgency":"BREAKING","score":88,"source":"Defense News","link":"https://www.defensenews.com/global/europe/2026/06/08/germany-and-france-drop-joint-fighter-jet-project/","lat":48.8566,"lng":2.3522},{"headline":"US approves Kuwait 2 billion dollar counter-drone sale","context":"The United States has approved a Kuwaiti government request to purchase nearly 2 billion dollars worth of counter-drone platforms, one of the largest counter-UAS foreign military sales approvals in the Gulf region to date. The approval comes as Houthi drone and missile activity in the Red Sea and Strait of Hormuz reaches peak operational tempo, validating Gulf state demand for layered counter-drone infrastructure.","implication":"A 2 billion dollar counter-drone sale to Kuwait signals accelerating Gulf state procurement budgets for C-UAS systems, a direct revenue opportunity for RTX, LMT, and specialist counter-drone platform providers over the next 18 months.","image":"none","region":"Middle East","urgency":"URGENT","score":82,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-request-to-buy-nearly-2-billion-of-counter-drone-platforms/","lat":29.3759,"lng":47.9774},{"headline":"French Rafale shoots down drone over Latvia for NATO","context":"A French Rafale fighter jet on a NATO air policing mission shot down a drone in Latvian airspace, in what appears to be the first footage captured of this type of air-to-air drone engagement in European airspace and a direct demonstration of the growing drone threat to NATO eastern flank air sovereignty. The incident underscores that Russian drone activity has expanded from Ukraine into NATO-monitored airspace and is forcing a shift in air policing rules of engagement.","implication":"Live drone engagements in NATO airspace accelerate demand for air-to-air counter-drone weapons, sensor integration, and rules of engagement reform — directly relevant to Dassault, MBDA, and any prime with European air policing contracts.","image":"https://www.twz.com/wp-content/uploads/2026/06/RAFALE-LAUNCHES-MICA-MISSILE.jpg","region":"Europe","urgency":"URGENT","score":80,"source":"Defense News","link":"https://www.defensenews.com/global/europe/2026/06/08/french-jet-on-nato-mission-shoots-down-drone-in-latvian-airspace/","lat":56.8796,"lng":24.6032},{"headline":"Pentagon adds BYD, Alibaba, Baidu to China blacklist","context":"The Pentagon has added a broad set of Chinese companies including BYD, Alibaba, and Baidu to its list of entities linked to the Chinese military, restricting their access to US capital and government contracting channels in a significant escalation of technology decoupling policy. The action affects some of the most capitalised Chinese technology and industrial firms and signals that the US military-civil fusion designation process is expanding beyond traditional defence contractors.","implication":"Expanding the China military entity list to include major consumer tech and automotive firms signals a structural decoupling that will reshape allied procurement decisions and create indirect demand for Western-sourced alternatives across logistics, EV fleets, and AI infrastructure.","image":"https://images.timesnownews.com/thumb/msid-154521813,width-1280,height-720,resizemode-75/154521813.jpg","region":"Global","urgency":"URGENT","score":78,"source":"timesnownews","link":"","lat":0,"lng":0}],"middle_east":[{"headline":"Iran and Israel Pull Back From All-Out War","context":"After a sustained exchange of tit-for-tat missile and drone strikes lasting over 100 days, Israel and Iran both declared a halt to active hostilities following direct pressure from US President Trump. Iran declared an end to military operations while Israel paused further strikes, though Tehran warned it would resume if Israel escalated again.","implication":"A fragile halt in direct Iran-Israel exchanges reduces near-term escalation risk for regional defence operators but leaves procurement pipelines and forward basing decisions in flux until a durable ceasefire framework emerges.","image":"https://www.twz.com/wp-content/uploads/2026/06/F16-IAF.jpg","region":"Middle East — Iran and Israel","urgency":"BREAKING","score":95,"source":"twz","link":"https://www.twz.com/news-features/iran-and-israel-step-back-from-the-brink","lat":32,"lng":34.8},{"headline":"Strait of Hormuz Closure Triggers Oil Market Crisis","context":"The Strait of Hormuz remains closed following the escalation of the Israel-Iran conflict, with Brookings analysts warning that oil prices will rise further and markets could take months to normalise once the strait reopens. The closure represents one of the most consequential disruptions to global energy supply chains in years, given that roughly 20 percent of global oil transits the chokepoint.","implication":"Sustained Hormuz closure accelerates demand for maritime surveillance satellites, naval ISR assets, and energy-security contracts across Gulf states and allied navies operating in the region.","image":"https://www.brookings.edu/wp-content/uploads/2026/06/GettyImages-2273105641.jpg?quality=50","region":"Strait of Hormuz — Gulf Region","urgency":"BREAKING","score":93,"source":"brookings","link":"https://www.brookings.edu/articles/from-chokepoint-to-crisis-the-strait-of-hormuz-and-global-oil-markets/","lat":26.5,"lng":56.3},{"headline":"Houthis Block Red Sea to Israel-Linked Ships","context":"Yemen's Houthi movement announced a ban on all vessels linked to Israel from transiting the Red Sea, citing renewed Israeli military attacks on Iran as justification. A Houthi source confirmed the move is part of coordinated pressure operations alongside Iran, raising alarms for global shipping operators across a second major trade chokepoint simultaneously.","implication":"The simultaneous closure of both the Strait of Hormuz and the Red Sea corridor to Israel-linked shipping signals a multi-vector trade disruption that will drive urgent demand for maritime patrol, satellite AIS monitoring, and counter-drone naval platforms.","image":"https://moderndiplomacy.eu/wp-content/uploads/2025/10/Houthis-Yemen.jpg","region":"Red Sea — Yemen","urgency":"BREAKING","score":90,"source":"newsweek","link":"https://www.newsweek.com/iran-ally-joins-war-blockade-another-global-trade-chokepoint-12043202","lat":15.5,"lng":42.6},{"headline":"Kuwait Clears $2B Counter-Drone Platform Buy","context":"The United States has approved Kuwait's request to purchase nearly two billion dollars worth of counter-drone platforms in a significant Foreign Military Sale. The deal reflects growing Gulf state urgency to field layered drone defence systems as UAV threats from Iran-aligned actors have intensified across the region.","implication":"A near two billion dollar counter-drone approval for Kuwait signals accelerating Gulf procurement cycles and validates defence firms with mature counter-UAS product lines as priority vendors across the Arabian Peninsula.","image":"none","region":"Kuwait — Gulf Region","urgency":"URGENT","score":85,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/06/08/us-approves-kuwait-request-to-buy-nearly-2-billion-of-counter-drone-platforms/","lat":29.3,"lng":47.7},{"headline":"Trump Claims US Near Total Victory Over Iran","context":"US President Trump stated that the United States would declare total victory over Iran within two weeks, saying the US has been a tough team and believes it is winning the broader strategic battle. The statement came as Iran declared a pause in missile operations, though Iranian officials continue to signal readiness to resume hostilities if conditions change.","implication":"Trumps victory framing could complicate ceasefire diplomacy and prolongs the planning uncertainty for defence contractors and regional operators seeking stable procurement and basing conditions in the Gulf.","image":"https://i.tribune.com.pk/media/images/trump-r1780944524-0/trump-r1780944524-0-640x480.webp","region":"United States — Middle East Policy","urgency":"URGENT","score":75,"source":"tribune_pk","link":"https://tribune.com.pk/story/2612197/trump-says-us-will-declare-total-victory-over-iran-within-2-weeks","lat":35.7,"lng":51.4}],"investment":[{"headline":"Airbus Alliance Lobbies Berlin on Fighter Jet Future","context":"An Airbus-led industrial alliance is actively lobbying the German government to secure its position in the next-generation fighter jet project following the collapse of the Franco-German joint programme. The lobbying effort signals a competitive scramble among European primes to shape Berlins procurement decision before formal requirements are set.","implication":"Early industrial lobbying of Berlin represents a high-stakes inflection point where defence investors should watch for preferred vendor signals that will determine multi-decade fighter spending across the Bundeswehr.","image":"none","region":"Europe — Germany","urgency":"URGENT","score":82,"source":"Defense News","link":"https://www.defensenews.com/global/europe/2026/06/09/airbus-led-alliance-lobbies-germany-on-fighter-jet-project/","lat":52.5,"lng":13.4},{"headline":"US Congress Eyes Historic FY2027 Stockpile Spend","context":"US lawmakers are preparing what Shephard Media describes as a historic investment in munitions stockpile replenishment in the fiscal year 2027 defence budget, driven by drawdowns from Ukraine support and rising threat assessments globally. The investment is expected to target precision guided munitions, artillery rounds, and air defence interceptors at scale.","implication":"A historic US stockpile replenishment budget cycle is a direct and durable revenue signal for Raytheon, Northrop Grumman, L3Harris, and any firm with qualified munitions production capacity entering FY2027.","image":"none","region":"United States","urgency":"URGENT","score":80,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/defence-notes/us-lawmakers-prepare-a-historic-investment-in-stockpile-replenishment-in-fy2027/","lat":38.9,"lng":-77},{"headline":"Lockheed Martin Expands Footprint in Canada","context":"Lockheed Martin is planning a major expansion into Canada following the country's acquisition of the HIMARS precision rocket artillery system, deepening the US prime contractors industrial presence in the Canadian defence market. The move is expected to include local manufacturing partnerships and maintenance support infrastructure aligned with Canadas broader defence spending growth.","implication":"Lockheed Martin Canada expansion signals that HIMARS-linked industrial offset commitments are converting into durable in-country revenue streams that could anchor further allied procurement decisions across NATO.","image":"none","region":"North America — Canada","urgency":"NORMAL","score":68,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/landwarfareintl/lockheed-martin-plans-a-major-expansion-in-canada-following-the-himars-acquisition/","lat":45.4,"lng":-75.7}],"ai_tech":[{"headline":"Trump Signs AI Memo to Militarise National Security AI","context":"The Trump administration has issued a National Security Presidential Memorandum on artificial intelligence aimed at avoiding a repeat of the Anthropic debacle, where a leading AI firm operated with limited Pentagon alignment. The memo urges closer collaboration between the US government and compliant AI companies while ordering a sweeping revision of Biden-era AI guardrails that the administration views as overly restrictive.","implication":"The memo sets a new compliance framework that will determine which AI firms gain access to classified defence contracts, making regulatory alignment a critical differentiator for AI companies competing for national security revenue.","image":"https://breakingdefense.com/wp-content/uploads/sites/13/2025/10/GettyImages-2243892975-scaled-e1761854159170.jpg","region":"United States","urgency":"BREAKING","score":88,"source":"breakingdefense","link":"https://breakingdefense.com/2026/06/trump-memo-on-ai-aims-to-avoid-repeat-of-anthropic-debacle/","lat":38.9,"lng":0}],"ipo_watch":[]};
 const incidentListTop=document.getElementById('incident-list-top');
 let incidentCount=0;
 const mapStyle=document.createElement('style');
@@ -1276,6 +1307,35 @@ function shareStory(headline,link){
     document.body.appendChild(overlay);
   }
 }
+  async function loadNavLaunches(){
+  var list=document.getElementById('nav-launch-list');
+  var apiStatus=document.getElementById('nav-api-status');
+  if(!list) return;
+  try{
+    var r=await fetch('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=3&format=json');
+    var data=await r.json();
+    var launches=data.results||[];
+    if(!launches.length){list.innerHTML='<div style="padding:16px 18px;font-family:Space Mono,monospace;font-size:8px;color:rgba(200,220,255,0.25)">NO DATA</div>';return;}
+    apiStatus.textContent='LIVE';
+    list.innerHTML=launches.map(function(l){
+      var diff=new Date(l.net)-new Date();
+      var cd=diff<0?'LIVE':Math.floor(diff/(1000*60*60*24))===0?Math.floor((diff%(1000*60*60*24))/(1000*60*60))+'H':Math.floor(diff/(1000*60*60*24))+'D';
+      var st=(l.status&&l.status.name&&l.status.name.toLowerCase().includes('go'))?'<div class="drop-st dst-go">GO</div>':'<div class="drop-st dst-tbd">TBD</div>';
+      var rocket=(l.rocket&&l.rocket.configuration&&l.rocket.configuration.name)||'UNKNOWN';
+      var site=(l.pad&&l.pad.location&&l.pad.location.name)||'TBD';
+      return '<a href="https://prism-osint.com/launches" target="_blank" class="drop-launch-nav">'
+        +'<div class="drop-cd">'+cd+'</div>'
+        +'<div style="flex:1">'
+        +'<div class="drop-mission">'+(l.name||'CLASSIFIED')+'</div>'
+        +'<div class="drop-meta-nav">'+rocket.toUpperCase()+' · '+site.toUpperCase().substring(0,22)+'</div>'
+        +'</div>'+st+'</a>';
+    }).join('');
+  }catch(e){
+    apiStatus.textContent='OFFLINE';
+    list.innerHTML='<a href="https://prism-osint.com/launches" class="drop-launch-nav"><div class="drop-cd">3D</div><div style="flex:1"><div class="drop-mission">Starlink Group 15-3</div><div class="drop-meta-nav">FALCON 9 · CAPE CANAVERAL</div></div><div class="drop-st dst-go">GO</div></a>';
+  }
+}
+loadNavLaunches();
 </script>
 </body>
 </html>
