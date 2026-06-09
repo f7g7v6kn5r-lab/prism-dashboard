@@ -327,8 +327,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 
 <div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:500">
   <div style="display:flex;align-items:center;gap:0;height:56px">
-    <a href="https://prism-osint.com">
-      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:38px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+    <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:56px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+      <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center">BETA</span>
     </a>
     <div class="pnav-desktop" style="display:flex;align-items:stretch;height:56px;margin-left:24px">
 
@@ -364,29 +365,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
   </div>
 
   <div style="display:flex;align-items:center;gap:16px">
-    <a href="https://prism-osint.com/launches" target="_blank" class="launch-pill" style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#00d4ff;text-decoration:none;border:1px solid rgba(0,212,255,0.35);padding:5px 14px;border-radius:20px;background:rgba(0,212,255,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all 0.2s" onmouseover="this.style.background='rgba(0,212,255,0.18)'" onmouseout="this.style.background='rgba(0,212,255,0.08)'">🚀 LAUNCH TRACKER</a>
-    <a href="https://prism-consultant.vercel.app" target="_blank" class="analyst-pill">💬 PRISM ANALYST · AI CHAT</a>
     <div id="moonphase" style="font-size:16px;filter:grayscale(1);opacity:0.4"></div>
-    <div class="live"><div class="dot"></div>LIVE</div>
+    <div style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.28)"><div class="dot"></div>LIVE</div>
     <div class="ts" id="datetime"></div>
-  </div>
-</div>
-
-<div class="topbar">
-  <div class="topbar-left">
-    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:60px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
-    <span class="beta-badge">BETA</span>
-    <div class="topbar-divider">
-      <div class="topbar-tagline">SPACE & DEFENCE INTELLIGENCE</div>
-      <div class="early">◈ EARLY ACCESS BETA</div>
-    </div>
-  </div>
-  <div class="topbar-right">
-    <a href="https://prism-consultant.vercel.app" target="_blank" class="analyst-pill">💬 PRISM ANALYST · AI CHAT</a> <a href="https://prism-osint.com/launches" target="_blank" class="launch-pill" style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#00d4ff;text-decoration:none;border:1px solid rgba(0,212,255,0.35);padding:5px 14px;border-radius:20px;background:rgba(0,212,255,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all 0.2s" onmouseover="this.style.background='rgba(0,212,255,0.18)'" onmouseout="this.style.background='rgba(0,212,255,0.08)'">🚀 LAUNCH TRACKER</a>
-    <div id="moonphase" style="font-size:16px"></div>
-    <div class="live"><div class="dot"></div>Live Intelligence</div>
-    <div class="ts" id="datetime"></div>
-    <div class="ts" id="lastupdated"></div>
   </div>
 </div>
 <div class="search-bar-wrap" id="search-wrap">
@@ -1156,7 +1137,6 @@ function getMoonPhase(){const phases=['🌑','🌒','🌓','🌔','🌕','🌖',
 document.getElementById('moonphase').textContent=getMoonPhase();
 const now=new Date();
 document.getElementById('datetime').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
-document.getElementById('lastupdated').textContent='◈ Briefing: '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
 const RELEVANT_KEYWORDS=['nuclear','missile','satellite','space launch','rocket launch','defense','defence','ceasefire','invasion','weapons','cyber attack','drone strike','conflict','Iran','Russia','China','NATO','Taiwan','ballistic','hypersonic','radar','surveillance','SpaceX','Boeing','Lockheed','Raytheon','Northrop','Pentagon','CENTCOM','treaty','sanctions','proliferation','warhead','uranium','plutonium','North Korea','Pakistan','Israel','Gaza','Lebanon','Ukraine','Syria','coup','geopolit','orbit','ISS','Mars mission','asteroid'];
 function isRelevant(q){return RELEVANT_KEYWORDS.some(k=>q.toLowerCase().includes(k.toLowerCase()));}
 function getProbabilityColor(p){return p>=0.7?'#00aa40':p>=0.5?'#806000':p>=0.3?'#ff8c00':'#ff4444';}
