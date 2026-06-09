@@ -308,6 +308,12 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 .pnav-item:hover>.pnav-link-nav{color:rgba(200,220,255,0.95)}
 .pnav-dropdown-nav{display:none;position:absolute;top:56px;left:0;background:#0d1020;border:1px solid rgba(255,255,255,0.07);border-top:2px solid rgba(200,220,255,0.3);min-width:300px;z-index:9999}
 .pnav-item:hover>.pnav-dropdown-nav{display:block}
+  @media(max-width:768px){
+  #mob-menu-btn{display:flex!important}
+  #mob-menu.mob-open{display:flex!important}
+  #moonphase{display:none!important}
+  .ts{display:none!important}
+}
 .drop-header-nav{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(200,220,255,0.25);padding:12px 18px 8px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between}
 .drop-launch-nav{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;text-decoration:none}
 .drop-launch-nav:hover{background:rgba(255,255,255,0.03)}
@@ -327,7 +333,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
 
 <div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:500">
   <div style="display:flex;align-items:center;gap:0;height:56px">
-    <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px">
+    <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px;text-decoration:none">
       <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:56px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
       <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center">BETA</span>
     </a>
@@ -368,7 +374,17 @@ body{font-family:'Space Grotesk',sans-serif;background:#080f1c;color:#c8dff0;min
     <div id="moonphase" style="font-size:16px;filter:grayscale(1);opacity:0.4"></div>
     <div style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.28)"><div class="dot"></div>LIVE</div>
     <div class="ts" id="datetime"></div>
+    <div id="mob-menu-btn" onclick="document.getElementById('mob-menu').classList.toggle('mob-open')" style="display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px">
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+    </div>
   </div>
+  <div id="mob-menu" style="display:none;flex-direction:column;background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);z-index:499">
+  <a href="https://dashboard.prism-osint.com" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none">INTELLIGENCE</a>
+  <a href="https://prism-osint.com/launches" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none">UPCOMING LAUNCHES</a>
+  <a href="#" onclick="document.getElementById('events').scrollIntoView({behavior:'smooth'});document.getElementById('mob-menu').classList.remove('mob-open');return false;" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04);text-decoration:none">EVENTS</a>
+  <a href="https://prism-consultant.vercel.app" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(200,220,255,0.7);padding:14px 24px;text-decoration:none">PRISM AI</a>
 </div>
 <div class="search-bar-wrap" id="search-wrap">
   <div class="search-row">
