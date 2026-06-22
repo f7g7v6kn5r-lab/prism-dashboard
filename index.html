@@ -1155,16 +1155,16 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   </div>
   <div id="poly-grid" class="poly-grid"><div class="poly-loading">◈ LOADING PREDICTION MARKETS...</div></div>
 </div>
-<div class="stocks-section">
+<div class="stocks-section" id="stocks-section">
   <div class="sh">
     <div class="st">📈 Market Pulse — Space & Defence</div>
     <div class="sl"></div>
-    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;background:#1e1e1e;padding:3px 10px;border-radius:20px;border:1px solid #1a2a4a">15MIN DELAYED</div>
+    <div id="stocks-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:2px;background:rgba(0,232,122,0.08);padding:3px 10px;border-radius:20px;border:1px solid rgba(0,232,122,0.2)">LIVE</div>
   </div>
-  <div class="stocks-grid">
-    <div class="stock-card"><div><div class="stock-ticker">RKLB</div><div class="stock-name">Rocket Lab</div></div><div><div class="stock-price">$107.24</div><div class="stock-dn">▼ 0.69%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LMT</div><div class="stock-name">Lockheed Martin</div></div><div><div class="stock-price">$510.95</div><div class="stock-dn">▼ 4.01%</div></div></div><div class="stock-card"><div><div class="stock-ticker">RTX</div><div class="stock-name">Raytheon</div></div><div><div class="stock-price">$185.60</div><div class="stock-dn">▼ 3.62%</div></div></div><div class="stock-card"><div><div class="stock-ticker">NOC</div><div class="stock-name">Northrop Grumman</div></div><div><div class="stock-price">$521.50</div><div class="stock-dn">▼ 5.21%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BA</div><div class="stock-name">Boeing</div></div><div><div class="stock-price">$222.72</div><div class="stock-dn">▼ 1.29%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LHX</div><div class="stock-name">L3Harris</div></div><div><div class="stock-price">$294.82</div><div class="stock-dn">▼ 5.86%</div></div></div><div class="stock-card"><div><div class="stock-ticker">IRDM</div><div class="stock-name">Iridium</div></div><div><div class="stock-price">$44.57</div><div class="stock-dn">▼ 1.07%</div></div></div><div class="stock-card"><div><div class="stock-ticker">LUNR</div><div class="stock-name">Intuitive Machines</div></div><div><div class="stock-price">$22.85</div><div class="stock-up">▲ 0.57%</div></div></div><div class="stock-card"><div><div class="stock-ticker">ASTS</div><div class="stock-name">AST SpaceMobile</div></div><div><div class="stock-price">$80.66</div><div class="stock-dn">▼ 5.58%</div></div></div><div class="stock-card"><div><div class="stock-ticker">PL</div><div class="stock-name">Planet Labs</div></div><div><div class="stock-price">$28.23</div><div class="stock-up">▲ 0.04%</div></div></div><div class="stock-card"><div><div class="stock-ticker">BKSY</div><div class="stock-name">BlackSky</div></div><div><div class="stock-price">$28.99</div><div class="stock-dn">▼ 1.80%</div></div></div><div class="stock-card"><div><div class="stock-ticker">SPCX</div><div class="stock-name">SpaceX</div></div><div><div class="stock-price">$185.00</div><div class="stock-dn">▼ 3.56%</div></div></div>
+  <div class="stocks-grid" id="stocks-grid">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;padding:20px 0">◈ LOADING LIVE PRICES...</div>
   </div>
-  <div class="sector-note">The defence sector faces a compression of war-premium valuations as US-Iran diplomacy matures, while commercial space operators with government ISR and broadband contracts remain structurally insulated from ceasefire dynamics.</div>
+  <div class="sector-note" id="stocks-outlook">The defence sector faces a compression of war-premium valuations as US-Iran diplomacy matures, while commercial space operators with government ISR and broadband contracts remain structurally insulated from ceasefire dynamics.</div>
 </div>
 <div class="footer">
   <div class="footer-text">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · U.A.E.</div>
@@ -1448,6 +1448,49 @@ async function loadNavLaunches(){
   }
 }
 loadNavLaunches();
+  const FINNHUB_KEY='d8868qhr01qq4341phqgd8868qhr01qq4341phr';
+const STOCK_TICKERS=[
+  {t:'RKLB',n:'Rocket Lab'},
+  {t:'LMT',n:'Lockheed Martin'},
+  {t:'RTX',n:'Raytheon'},
+  {t:'NOC',n:'Northrop Grumman'},
+  {t:'BA',n:'Boeing'},
+  {t:'LHX',n:'L3Harris'},
+  {t:'IRDM',n:'Iridium'},
+  {t:'LUNR',n:'Intuitive Machines'},
+  {t:'ASTS',n:'AST SpaceMobile'},
+  {t:'PL',n:'Planet Labs'},
+  {t:'BKSY',n:'BlackSky'},
+  {t:'SPCX',n:'SpaceX'}
+];
+async function fetchLiveStocks(){
+  const grid=document.getElementById('stocks-grid');
+  const status=document.getElementById('stocks-status');
+  if(!grid||!status) return;
+  try{
+    const results=await Promise.all(STOCK_TICKERS.map(s=>
+      fetch('https://finnhub.io/api/v1/quote?symbol='+s.t+'&token='+FINNHUB_KEY)
+      .then(r=>r.json())
+      .then(d=>({...s,c:d.c||0,dp:d.dp||0,d:d.d||0}))
+      .catch(()=>({...s,c:0,dp:0,d:0}))
+    ));
+    grid.innerHTML=results.map(s=>{
+      const up=s.dp>=0;
+      if(s.t==='SPCX'){
+        return '<div class="stock-card"><div><div class="stock-ticker">'+s.t+'</div><div class="stock-name">'+s.n+'</div></div><div><div class="stock-price">$'+( s.c>0?s.c.toFixed(2):'135.00')+'</div><div class="stock-private">NASDAQ</div></div></div>';
+      }
+      return '<div class="stock-card"><div><div class="stock-ticker">'+s.t+'</div><div class="stock-name">'+s.n+'</div></div><div><div class="stock-price">$'+(s.c>0?s.c.toFixed(2):'—')+'</div><div class="'+(up?'stock-up':'stock-dn')+'">'+(up?'▲':'▼')+' '+Math.abs(s.dp).toFixed(2)+'%</div></div></div>';
+    }).join('');
+    const now=new Date();
+    status.textContent='LIVE · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+    status.style.color='#00e87a';
+  }catch(e){
+    status.textContent='DELAYED';
+    status.style.color='#ff8c00';
+  }
+}
+fetchLiveStocks();
+setInterval(fetchLiveStocks,60*1000);
 </script>
 </body>
 </html>
