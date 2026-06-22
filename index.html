@@ -11,6 +11,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
+.sector-filter{display:flex;gap:0;border-bottom:1px solid #1e1e1e;margin:0 0 24px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#141414;padding:0 32px}
+.sector-tab{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#444;padding:10px 20px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;outline:none}
+.sector-tab:hover{color:#888}
+.sector-tab.active{color:#4a9eff;border-bottom-color:#4a9eff}
+.story-section-wrap.hidden{display:none}
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{max-width:100%;overflow-x:hidden}
@@ -294,6 +299,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .search-count{display:none}
   .search-nav{flex-shrink:0}
   .chat-bubble-tooltip{display:none}
+  .sector-filter{padding:0 16px}
 }
 @media(max-width:480px){
   .stocks-grid{grid-template-columns:1fr}
@@ -311,7 +317,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .pnav-item:hover>.pnav-link-nav{color:rgba(200,220,255,0.95)}
 .pnav-dropdown-nav{display:none;position:absolute;top:56px;left:0;background:#0d1020;border:1px solid rgba(255,255,255,0.07);border-top:2px solid rgba(200,220,255,0.3);min-width:300px;z-index:9999}
 .pnav-item:hover>.pnav-dropdown-nav{display:block}
-  @media(max-width:768px){
+@media(max-width:768px){
   #mob-menu-btn{display:flex!important}
   #mob-menu.mob-open{display:flex!important}
   #moonphase{display:none!important}
@@ -333,7 +339,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .pnav-desktop{display:none!important}
 }
 </style>
-
 <div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:500">
   <div style="display:flex;align-items:center;gap:0;height:56px">
     <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px;text-decoration:none">
@@ -341,11 +346,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
       <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center">BETA</span>
     </a>
     <div class="pnav-desktop" style="display:flex;align-items:stretch;height:56px;margin-left:24px">
-
       <div class="pnav-item">
         <a href="https://dashboard.prism-osint.com" class="pnav-link-nav active">INTELLIGENCE</a>
       </div>
-
       <div class="pnav-item">
         <div class="pnav-link-nav">UPCOMING LAUNCHES ▾</div>
         <div class="pnav-dropdown-nav">
@@ -361,18 +364,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           </div>
         </div>
       </div>
-
       <div class="pnav-item">
         <a href="https://prism-osint.com/events" target="_blank" class="pnav-link-nav">EVENTS</a>
       </div>
-
       <div class="pnav-item">
         <a href="https://consultant.prism-osint.com" target="_blank" class="pnav-link-nav">PRISM AI</a>
       </div>
-
     </div>
   </div>
-
   <div style="display:flex;align-items:center;gap:16px">
     <div id="moonphase" style="font-size:16px;filter:grayscale(1);opacity:0.4"></div>
     <div style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.28)"><div class="dot"></div>LIVE</div>
@@ -383,8 +382,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
       <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
     </div>
   </div>
-  </div> 
- <div id="mob-menu" style="display:none;position:fixed;inset:0;background:#000000;z-index:9999;flex-direction:column;align-items:center;justify-content:center">
+</div>
+<div id="mob-menu" style="display:none;position:fixed;inset:0;background:#000000;z-index:9999;flex-direction:column;align-items:center;justify-content:center">
   <div style="position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid rgba(255,255,255,0.06)">
     <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:40px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
     <div onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:12px;color:rgba(200,220,255,0.5);cursor:pointer;padding:8px;border:1px solid rgba(200,220,255,0.12);border-radius:4px;line-height:1">✕</div>
@@ -396,7 +395,6 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
     <a href="https://consultant.prism-osint.com" target="_blank" onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left">PRISM AI</a>
   </div>
   <div style="position:absolute;bottom:40px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(200,220,255,0.15)">◈ PRISM · SPACE & DEFENCE</div>
-</div>
 </div>
 <div class="search-bar-wrap" id="search-wrap">
   <div class="search-row">
@@ -438,7 +436,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
     <div class="map-body-inner">
       <div id="prism-map" style="height:100%;min-height:220px"></div>
     </div>
-   <div id="incident-list-top" style="display:none"></div>
+    <div id="incident-list-top" style="display:none"></div>
   </div>
 </div>
 <div class="section-orr">
@@ -451,14 +449,27 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
     <div class="ocard-body"><div class="ocard-text">The single greatest risk in the next 48 hours is a breakdown in the Bürgenstock US-Iran talks -- first-round face-to-face meetings concluded June 22, 2026, with further sessions planned -- triggered by Trump public threats or renewed Israeli strikes in Lebanon (which Iran has cited as a precondition for progress), which would instantly reverse the diplomacy discount now embedded in prime valuations and reprice war-risk back into the sector sharply.</div></div>
   </div>
 </div>
+
+<!-- SECTOR FILTER BAR -->
+<div class="sector-filter" id="sector-filter-bar">
+  <button class="sector-tab active" onclick="filterSector('all',this)">ALL</button>
+  <button class="sector-tab" onclick="filterSector('space',this)">SPACE</button>
+  <button class="sector-tab" onclick="filterSector('defence',this)">DEFENCE</button>
+  <button class="sector-tab" onclick="filterSector('middle_east',this)">MIDDLE EAST</button>
+  <button class="sector-tab" onclick="filterSector('ai_tech',this)">AI & TECH</button>
+  <button class="sector-tab" onclick="filterSector('investment',this)">INVESTMENT</button>
+  <button class="sector-tab" onclick="filterSector('ipo_watch',this)">IPO WATCH</button>
+</div>
+
 <div class="page" id="news">
   
-        <div class="section-header">
-          <div class="section-title">🛰 SPACE</div>
-          <div class="section-line"></div>
-          <div class="section-count">6 STORIES · TOP 80</div>
-        </div>
-        <div class="stories-grid">
+        <div class="story-section-wrap" data-sector="space">
+          <div class="section-header">
+            <div class="section-title">🛰 SPACE</div>
+            <div class="section-line"></div>
+            <div class="section-count">6 STORIES · TOP 80</div>
+          </div>
+          <div class="stories-grid">
         <div class="story story-crit" id="story-spacex-ipo-on-nasdaq-first-falcon-9-post">
           
           <div class="story-pad">
@@ -591,13 +602,15 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           </div>
         </div>
       </div>
-      
-        <div class="section-header">
-          <div class="section-title">🛡 DEFENCE</div>
-          <div class="section-line"></div>
-          <div class="section-count">5 STORIES · TOP 85</div>
         </div>
-        <div class="stories-grid">
+      
+        <div class="story-section-wrap" data-sector="defence">
+          <div class="section-header">
+            <div class="section-title">🛡 DEFENCE</div>
+            <div class="section-line"></div>
+            <div class="section-count">5 STORIES · TOP 85</div>
+          </div>
+          <div class="stories-grid">
         <div class="story story-crit" id="story-pentagon-requests-80b-for-iran-war-expen">
           
           <div class="story-pad">
@@ -708,13 +721,15 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           </div>
         </div>
       </div>
-      
-        <div class="section-header">
-          <div class="section-title">🌍 MIDDLE EAST</div>
-          <div class="section-line"></div>
-          <div class="section-count">5 STORIES · TOP 90</div>
         </div>
-        <div class="stories-grid">
+      
+        <div class="story-section-wrap" data-sector="middle_east">
+          <div class="section-header">
+            <div class="section-title">🌍 MIDDLE EAST</div>
+            <div class="section-line"></div>
+            <div class="section-count">5 STORIES · TOP 90</div>
+          </div>
+          <div class="stories-grid">
         <div class="story story-crit" id="story-us-iran-roadmap-agreed-at-switzerland-ta">
           <img src="https://s.france24.com/media/display/c202247e-6db0-11f1-8a95-005056bf30b7/w:1280/p:16x9/000-B7T77FX.jpg" class="story-img" alt="US-Iran Roadmap Agreed at Switzerland Talks" onerror="this.style.display='none'">
           <div class="story-pad">
@@ -825,13 +840,15 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           </div>
         </div>
       </div>
-      
-        <div class="section-header">
-          <div class="section-title">🤖 AI & TECHNOLOGY</div>
-          <div class="section-line"></div>
-          <div class="section-count">3 STORIES · TOP 62</div>
         </div>
-        <div class="stories-grid">
+      
+        <div class="story-section-wrap" data-sector="ai_tech">
+          <div class="section-header">
+            <div class="section-title">🤖 AI & TECHNOLOGY</div>
+            <div class="section-line"></div>
+            <div class="section-count">3 STORIES · TOP 62</div>
+          </div>
+          <div class="stories-grid">
         <div class="story story-high" id="story-space-based-ai-data-centres-face-economi">
           <img src="https://image.cnbcfm.com/api/v1/image/108321449-1781295480618-IMG_9692.jpg?v=1781295701&w=1200&h=675" class="story-img" alt="Space-Based AI Data Centres Face Economic Doubt" onerror="this.style.display='none'">
           <div class="story-pad">
@@ -898,13 +915,15 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           </div>
         </div>
       </div>
-      
-        <div class="section-header">
-          <div class="section-title">💰 INVESTMENT & DEALS</div>
-          <div class="section-line"></div>
-          <div class="section-count">5 STORIES · TOP 72</div>
         </div>
-        <div class="stories-grid">
+      
+        <div class="story-section-wrap" data-sector="investment">
+          <div class="section-header">
+            <div class="section-title">💰 INVESTMENT & DEALS</div>
+            <div class="section-line"></div>
+            <div class="section-count">5 STORIES · TOP 72</div>
+          </div>
+          <div class="stories-grid">
         <div class="story story-high" id="story-mda-space-acquires-blue-canyon-technolog">
           
           <div class="story-pad">
@@ -1015,13 +1034,15 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           </div>
         </div>
       </div>
-      
-        <div class="section-header">
-          <div class="section-title">🚀 IPO WATCH</div>
-          <div class="section-line"></div>
-          <div class="section-count">1 STORY · TOP 65</div>
         </div>
-        <div class="stories-grid">
+      
+        <div class="story-section-wrap" data-sector="ipo_watch">
+          <div class="section-header">
+            <div class="section-title">🚀 IPO WATCH</div>
+            <div class="section-line"></div>
+            <div class="section-count">1 STORY · TOP 65</div>
+          </div>
+          <div class="stories-grid">
         <div class="story story-high" id="story-astrobotic-acquired-by-voyager-space-to-">
           
           <div class="story-pad">
@@ -1044,6 +1065,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           </div>
         </div>
       </div>
+        </div>
       
 </div>
 <div class="outlook-section">
@@ -1169,6 +1191,17 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   </a>
 </div>
 <script>
+function filterSector(sector, btn){
+  document.querySelectorAll('.sector-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.story-section-wrap').forEach(function(section){
+    if(sector==='all' || section.dataset.sector===sector){
+      section.classList.remove('hidden');
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+}
 function toggleDD(id){const c=document.getElementById(id);const a=document.getElementById('arr-'+id);const o=c.classList.contains('open');c.classList.toggle('open');if(a)a.textContent=o?'▾':'▴';}
 function openMapPopup(item,col,catLabel){
   document.getElementById('map-popup-overlay').classList.add('active');
@@ -1289,7 +1322,7 @@ function prismSearch(val){
     const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
     if(h)h.innerHTML=h.textContent;if(t)t.innerHTML=t.textContent;if(i)i.innerHTML=i.textContent;
   });
-  document.querySelectorAll('.section-header').forEach(h=>{h.style.display='';if(h.nextElementSibling)h.nextElementSibling.style.display='';});
+  document.querySelectorAll('.story-section-wrap').forEach(h=>{h.classList.remove('hidden');});
   const banner=document.getElementById('search-banner');
   if(!q){
     countEl.textContent='';
@@ -1310,12 +1343,9 @@ function prismSearch(val){
       if(i)i.innerHTML=hlText(i.textContent,q);
     }
   });
-  document.querySelectorAll('.section-header').forEach(h=>{
-    const grid=h.nextElementSibling;
-    if(!grid)return;
-    const visible=grid.querySelectorAll('.story:not(.story-hidden)').length;
+  document.querySelectorAll('.story-section-wrap').forEach(h=>{
+    const visible=h.querySelectorAll('.story:not(.story-hidden)').length;
     h.style.display=visible>0?'':'none';
-    grid.style.display=visible>0?'':'none';
   });
   countEl.textContent=`${searchResults.length} RESULT${searchResults.length!==1?'S':''}`;
   if(banner){
@@ -1378,7 +1408,7 @@ function shareStory(headline,link){
     document.body.appendChild(overlay);
   }
 }
-  async function loadNavLaunches(){
+async function loadNavLaunches(){
   var list=document.getElementById('nav-launch-list');
   var apiStatus=document.getElementById('nav-api-status');
   if(!list) return;
