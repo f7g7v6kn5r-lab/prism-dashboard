@@ -1471,7 +1471,7 @@ async function fetchLiveStocks(){
     const results=await Promise.all(STOCK_TICKERS.map(s=>
       fetch('https://finnhub.io/api/v1/quote?symbol='+s.t+'&token='+FINNHUB_KEY)
       .then(r=>r.json())
-      .then(d=>({...s,c:d.c||0,dp:d.dp||0,d:d.d||0}))
+      .then(d=>({...s,c:d.c||d.pc||0,dp:d.dp||0,d:d.d||0,pc:d.pc||0,closed:d.c===0}))
       .catch(()=>({...s,c:0,dp:0,d:0}))
     ));
     grid.innerHTML=results.map(s=>{
@@ -1479,7 +1479,7 @@ async function fetchLiveStocks(){
       if(s.t==='SPCX'){
         return '<div class="stock-card"><div><div class="stock-ticker">'+s.t+'</div><div class="stock-name">'+s.n+'</div></div><div><div class="stock-price">$'+( s.c>0?s.c.toFixed(2):'135.00')+'</div><div class="stock-private">NASDAQ</div></div></div>';
       }
-      return '<div class="stock-card"><div><div class="stock-ticker">'+s.t+'</div><div class="stock-name">'+s.n+'</div></div><div><div class="stock-price">$'+(s.c>0?s.c.toFixed(2):'—')+'</div><div class="'+(up?'stock-up':'stock-dn')+'">'+(up?'▲':'▼')+' '+Math.abs(s.dp).toFixed(2)+'%</div></div></div>';
+      return '<div class="stock-card"><div><div class="stock-ticker">'+s.t+'</div><div class="stock-name">'+s.n+'</div></div><div><div class="stock-price">$'+(s.c>0?s.c.toFixed(2):'—')+'</div>'+(s.closed?'<div class="stock-private">MKT CLOSED</div>':'<div class="'+(up?'stock-up':'stock-dn')+'">'+(up?'▲':'▼')+' '+Math.abs(s.dp).toFixed(2)+'%</div>')+'</div></div>';
     }).join('');
     const now=new Date();
     status.textContent='LIVE · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
