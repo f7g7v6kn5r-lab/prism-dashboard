@@ -262,10 +262,10 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .chat-tooltip-text{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4}
 .search-bar-wrap{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 32px;position:relative}
 .search-row{display:flex;align-items:center;gap:12px;width:100%}
-.search-inner{display:flex;align-items:center;gap:8px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:9px 14px;flex:1;transition:border-color 0.2s}
-.search-inner:focus-within{border-color:rgba(74,158,255,0.5);box-shadow:0 0 0 3px rgba(74,158,255,0.08)}
-.search-input{background:none;border:none;outline:none;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#c8dff0;width:100%}
-.search-input::placeholder{color:rgba(200,220,255,0.2);letter-spacing:2px}
+.search-inner{display:flex;align-items:center;gap:8px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:9px 14px;flex:1;transition:border-color 0.2s}
+.search-inner:focus-within{border-color:rgba(255,255,255,0.25);box-shadow:0 0 0 3px rgba(255,255,255,0.04)}
+.search-input{background:none;border:none;outline:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;color:#c8dff0;width:100%}
+.search-input::placeholder{color:rgba(255,255,255,0.25);letter-spacing:0.5px}
 .search-clear{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;cursor:pointer;padding:0 4px;transition:color 0.15s}
 .search-clear:hover{color:#c8dff0}
 .search-count{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;white-space:nowrap}
@@ -274,7 +274,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .search-nav-btn:hover{background:rgba(74,158,255,0.15)}
 .search-nav-btn:disabled{color:#3a5a7a;background:transparent;border-color:rgba(255,255,255,0.08);cursor:not-allowed}
 .search-pos{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:1px;min-width:40px;text-align:center}
-.search-dropdown{position:absolute;top:calc(100% + 2px);left:32px;right:32px;background:#1e1e1e;border:1.5px solid rgba(74,158,255,0.3);border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.6);z-index:1000;max-height:300px;overflow-y:auto}
+.search-dropdown{position:absolute;top:calc(100% + 2px);left:32px;right:32px;background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.6);z-index:1000;max-height:300px;overflow-y:auto}
 .search-drop-header{padding:8px 14px;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);font-family:'Space Mono',monospace;font-size:8px;color:#3a5a7a;letter-spacing:2px}
 .search-result-item{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;display:flex;align-items:flex-start;gap:10px}
 .search-result-item:hover{background:rgba(74,158,255,0.08)}
@@ -445,9 +445,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 <div class="search-bar-wrap" id="search-wrap">
   <div class="search-row">
     <div class="search-inner">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(74,158,255,0.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input class="search-input" id="prism-search" type="text" placeholder="SEARCH STORIES & ANALYSIS... PRESS ENTER" onkeydown="if(event.key==='Enter')prismSearch(this.value)"/>
-      <button onclick="prismSearch(document.getElementById('prism-search').value)" style="font-family:'Space Mono',monospace;font-size:8px;color:#4a9eff;background:rgba(74,158,255,0.12);border:1px solid rgba(74,158,255,0.3);padding:4px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;white-space:nowrap;flex-shrink:0">SEARCH</button>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" id="prism-search" type="text" placeholder="SEARCH PRISM" onkeydown="if(event.key==='Enter')prismSearch(this.value)"/>
+      <button onclick="prismSearch(document.getElementById('prism-search').value)" style="font-family:'Space Mono',monospace;font-size:8px;color:#ccc;background:#2e2e2e;border:1px solid rgba(255,255,255,0.15);padding:4px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;white-space:nowrap;flex-shrink:0">SEARCH</button>
       <div class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">✕</div>
     </div>
     <div class="search-count" id="search-count"></div>
@@ -458,7 +458,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
     </div>
   </div>
   <div class="search-dropdown" id="search-dropdown" style="display:none"></div>
-  <div id="search-banner" style="display:none;background:#141414;border-bottom:1px solid rgba(74,158,255,0.2);padding:8px 32px;font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;letter-spacing:2px;align-items:center;gap:10px"></div>
+  <div id="search-banner" style="display:none;background:#141414;border-bottom:1px solid rgba(255,255,255,0.12);padding:8px 32px;font-family:'Space Mono',monospace;font-size:9px;color:#ccc;letter-spacing:2px;align-items:center;gap:10px"></div>
 </div>
 <div class="section-briefing-map">
   <div class="briefing-left">
@@ -1223,7 +1223,7 @@ const newsData={"space":[{"headline":"SpaceX IPO Begins Trading on Nasdaq","cont
 const incidentListTop=document.getElementById('incident-list-top');
 let incidentCount=0;
 const mapStyle=document.createElement('style');
-mapStyle.textContent=`.leaflet-container{background:#0a0a0a!important;font-family:'Space Grotesk',sans-serif}.leaflet-control-zoom a{background:#141414!important;color:#4a9eff!important;border-color:rgba(255,255,255,0.08)!important}.leaflet-popup-content-wrapper,.leaflet-popup-tip{display:none!important}`;
+mapStyle.textContent=`.leaflet-container{background:#0a0a0a!important;font-family:'Space Grotesk',sans-serif}.leaflet-control-zoom a{background:#141414!important;color:#ccc!important;border-color:rgba(255,255,255,0.08)!important}.leaflet-popup-content-wrapper,.leaflet-popup-tip{display:none!important}`;
 document.head.appendChild(mapStyle);
 Object.keys(newsData).forEach(cat=>{
   (newsData[cat]||[]).forEach(item=>{
