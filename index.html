@@ -87,15 +87,17 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .map-popup-read{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;padding:5px 14px;border-radius:4px;border:1px solid rgba(74,158,255,0.3);background:rgba(74,158,255,0.08);text-decoration:none;transition:all 0.15s}
 .map-popup-read:hover{background:rgba(74,158,255,0.15)}
 .section-orr{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 32px;background:#141414;border-bottom:1px solid #1a2a4a}
-.ocard-green{background:#1e1e1e;border:1.5px solid rgba(0,140,60,0.3);border-radius:10px;overflow:hidden;animation:glowGreenFrame 3s ease-in-out infinite}
-.ocard-red{background:#1e1e1e;border:1.5px solid rgba(200,0,0,0.25);border-radius:10px;overflow:hidden;animation:glowRedFrame 3s ease-in-out infinite}
-.ocard-header-green{background:rgba(0,140,60,0.08);border-bottom:1px solid rgba(0,140,60,0.18);padding:12px 18px;display:flex;align-items:center;gap:10px}
-.ocard-header-red{background:rgba(200,0,0,0.06);border-bottom:1px solid rgba(200,0,0,0.14);padding:12px 18px;display:flex;align-items:center;gap:10px}
-.ocard-icon{font-size:18px}
-.ocard-title-green{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#00b050}
-.ocard-title-red{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#ff4444}
-.ocard-body{padding:14px 18px}
-.ocard-text{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.75}
+.ocard-green{background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+.ocard-red{background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+.ocard-header-green{padding:18px 18px 0;display:block}
+.ocard-header-red{padding:18px 18px 0;display:block}
+.ocard-icon{display:none}
+.ocard-title-green{font-family:'Space Mono',monospace;font-size:8px;font-weight:400;letter-spacing:3px;color:#888;display:block;margin-bottom:4px}
+.ocard-title-red{font-family:'Space Mono',monospace;font-size:8px;font-weight:400;letter-spacing:3px;color:#888;display:block;margin-bottom:4px}
+.ocard-title-green::after{content:'';display:block;height:1px;width:32px;background:#00b050;margin-top:4px}
+.ocard-title-red::after{content:'';display:block;height:1px;width:32px;background:#ff4444;margin-top:4px}
+.ocard-body{padding:12px 18px 18px}
+.ocard-text{font-size:13px;color:#cfcfcf;line-height:1.65}
 .page{padding:22px 32px;background:#141414}
 .section-header{margin-top:0;padding-top:0;border-top:none}
 .story-section-wrap{background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;margin-bottom:22px}
@@ -302,6 +304,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .badge-bullish,.badge-bearish,.badge-neutral,.badge-geo-low,.badge-geo-medium,.badge-geo-high,.badge-geo-critical{font-size:8px;padding:4px 8px;letter-spacing:1px;white-space:nowrap}
   .summary{font-size:12px}
   .map-right{min-height:240px}
+  .section-orr{grid-template-columns:1fr;gap:12px}
   .page{padding:14px 16px}
   .stories-grid{grid-template-columns:1fr}
   .story-section-wrap{background:none;border:none;border-radius:0;padding:0;margin-bottom:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12)}
@@ -474,11 +477,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 </div>
 <div class="section-orr">
   <div class="ocard-green">
-    <div class="ocard-header-green"><div class="ocard-icon">▲</div><div class="ocard-title-green">Opportunity of the Day</div></div>
+    <div class="ocard-header-green"><div class="ocard-title-green">OPPORTUNITY · TODAY</div></div>
     <div class="ocard-body"><div class="ocard-text">ASTS at its current level offers asymmetric exposure to both military and commercial broadband demand regardless of the Iran outcome, given the recent Block 2 BlueBird launches expanding its operational constellation.</div></div>
   </div>
   <div class="ocard-red">
-    <div class="ocard-header-red"><div class="ocard-icon">▼</div><div class="ocard-title-red">Risk of the Day</div></div>
+    <div class="ocard-header-red"><div class="ocard-title-red">RISK · TODAY</div></div>
     <div class="ocard-body"><div class="ocard-text">A breakdown in Swiss technical talks or a new Russian massive strike on Ukraine — warned by Zelensky — could reverse the diplomacy-driven prime selloff and drive a sharp re-rating across LMT, NOC, and RTX within 48 hours.</div></div>
   </div>
 </div>
