@@ -200,6 +200,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .poly-vol{font-size:9px;color:#3a5a7a;letter-spacing:1px;margin-top:6px;font-family:'Space Mono',monospace}
 .poly-loading{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;letter-spacing:2px;padding:20px 0}
 .stocks-section{background:#141414;border-bottom:1px solid #1a2a4a;padding:22px 32px}
+.mp-card{background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px}
 .mp-wrap{font-family:'Space Mono',monospace}
 .mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mp-col-adv{background:rgba(0,232,122,0.05);border-radius:10px;border:1px solid rgba(0,232,122,0.15);padding:12px}
@@ -467,8 +468,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   </div>
 </div>
         <div class="stocks-section" id="stocks-section">
+  <div class="mp-card">
   <div class="sh">
-    <div class="st">📈 Market Pulse — Space & Defence</div>
+    <div class="st" style="color:#888">Market Pulse — Space & Defence</div>
     <div class="sl"></div>
     <div id="stocks-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:2px;background:rgba(0,232,122,0.08);padding:3px 10px;border-radius:20px;border:1px solid rgba(0,232,122,0.2)">LIVE</div>
   </div>
@@ -479,9 +481,10 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
     <div class="mp-viewall" id="mp-viewall" style="display:none" onclick="toggleViewAll()">VIEW ALL 12 ↓</div>
     <div class="mp-all-table" id="mp-all-table"></div>
   </div>
-  <div class="sector-note" id="stocks-outlook">
+  <div class="sector-note" id="stocks-outlook" style="background:#141414">
     <div class="sector-note-label">◈ SECTOR ANALYSIS</div>
     <div class="sector-note-body">If Switzerland talks produce even a partial framework agreement, defence prime multiples face further compression while commercial LEO connectivity and satellite ISR plays exposed to post-conflict reconstruction demand may find a floor.</div>
+  </div>
   </div>
 </div>
 <div style="background:#0d1628;border-top:1px solid rgba(74,158,255,0.15);border-bottom:1px solid rgba(74,158,255,0.15);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px">
