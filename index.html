@@ -200,14 +200,24 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .poly-vol{font-size:9px;color:#3a5a7a;letter-spacing:1px;margin-top:6px;font-family:'Space Mono',monospace}
 .poly-loading{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;letter-spacing:2px;padding:20px 0}
 .stocks-section{background:#141414;border-bottom:1px solid #1a2a4a;padding:22px 32px}
-.stocks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
-.stock-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
-.stock-ticker{font-family:'Space Mono',monospace;font-size:11px;color:#c8dff0;font-weight:700;letter-spacing:2px}
-.stock-name{font-size:10px;color:#3a5a7a;margin-top:2px}
-.stock-price{font-size:13px;color:#c8dff0;font-weight:600;text-align:right}
-.stock-up{font-size:11px;color:#00aa40;text-align:right;font-weight:600}
-.stock-dn{font-size:11px;color:#ff4444;text-align:right;font-weight:600}
-.stock-private{font-size:10px;color:#3a5a7a;text-align:right}
+.mp-wrap{font-family:'Space Mono',monospace}
+.mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mp-col-adv{background:rgba(0,232,122,0.05);border-radius:10px;border:1px solid rgba(0,232,122,0.15);padding:12px}
+.mp-col-dec{background:rgba(255,68,68,0.05);border-radius:10px;border:1px solid rgba(255,68,68,0.15);padding:12px}
+.mp-col-hdr-adv{font-size:9px;color:#00e87a;letter-spacing:1px;margin-bottom:10px;text-align:center}
+.mp-col-hdr-dec{font-size:9px;color:#ff4444;letter-spacing:1px;margin-bottom:10px;text-align:center}
+.mp-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.mp-row:last-child{border-bottom:none}
+.mp-ticker{font-size:11px;font-weight:700;color:#c8dff0}
+.mp-name{font-size:10px;color:#888;margin-top:1px}
+.mp-price{font-size:13px;color:#c8dff0;text-align:right}
+.mp-pct-adv{font-size:11px;color:#00e87a;font-weight:700;text-align:right}
+.mp-pct-dec{font-size:11px;color:#ff4444;font-weight:700;text-align:right}
+.mp-empty{display:flex;align-items:center;justify-content:center;min-height:52px;opacity:0.25;font-size:9px;color:#888;text-align:center;line-height:1.4}
+.mp-viewall{text-align:center;font-size:9px;color:#4a9eff;margin-top:10px;cursor:pointer;letter-spacing:1px;user-select:none}
+.mp-all-grid{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px}
+.mp-all-grid.open{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mp-all-row{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:#1e1e1e;border-radius:6px;border:1px solid rgba(255,255,255,0.05)}
 .sector-note{margin-top:14px;font-size:13px;color:#4a9eff;font-style:italic;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px}
 .events-section{background:#141414;border-bottom:1px solid #1a2a4a;padding:22px 32px}
 .event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
@@ -289,7 +299,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .reg-inner{grid-template-columns:1fr;display:flex;flex-direction:column}
   .reg-areas-grid{grid-template-columns:1fr}
   .poly-section,.stocks-section,.events-section{padding:16px}
-  .stocks-grid{grid-template-columns:1fr 1fr}
+  .mp-name{display:none}.mp-price{font-size:12px}.mp-ticker{font-size:11px}
   .event-grid{grid-template-columns:1fr}
   .footer{padding:12px 16px}
   .chat-bubble{bottom:16px;right:16px}
@@ -302,7 +312,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .sector-filter{padding:0 16px}
 }
 @media(max-width:480px){
-  .stocks-grid{grid-template-columns:1fr}
+  .mp-grid{grid-template-columns:1fr 1fr}
   .story-head{font-size:16px}
   .pred-dd-content{grid-template-columns:1fr}
 }
@@ -422,9 +432,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
       </div>
       <div class="briefing-frame-body">
         <div class="badges">
-          <div class="badge-bullish"><div class="badge-dot" style="background:#00aa40"></div>BULLISH</div><div class="badge-geo-high"><div class="badge-dot" style="background:#ff8c00"></div>⚡ GEO RISK: HIGH</div>
+          <div class="badge-bearish"><div class="badge-dot" style="background:#ff4444"></div>BEARISH</div><div class="badge-geo-high"><div class="badge-dot" style="background:#ff8c00"></div>⚡ GEO RISK: HIGH</div>
         </div>
-        <div class="summary">Beneath todays surface noise of World Cup results and ceasefire diplomacy, a structural acceleration in responsive space operations, autonomous systems deployment, and critical mineral supply disruption is quietly reshaping the competitive landscape for defence-oriented space and industrial operators. The tension is sharp: US Senate and House both passed a concurrent war powers resolution directing the removal of US forces from the Iran conflict, though the measure is nonbinding and carries no force of law -- the White House has dismissed it as meaningless. The Pentagon simultaneously maintains A-10 deployments across the Middle East and Marco Rubio moves to reassure Gulf allies -- that contradiction signals that US military posture in the region is decoupling from its political posture, creating sustained demand for ISR, C5ISR, and rapid-launch capabilities regardless of the diplomatic outcome. The Starliner-1 mission has been reconfigured as an uncrewed cargo resupply flight (confirmed by NASA on May 2, 2026); as of June 2026 no launch date has been set, with teams still working through technical issues -- the crewed vehicle framing is no longer applicable and capital rotation toward Rocket Lab and AST SpaceMobile is reinforced by that status. RKLB last closed at approximately 95.14 on June 23 (Robinhood data) but is trading intraday on June 24 in the 104-110 range, up materially from the prior close.</div>
+        <div class="summary">The structural diplomatic force beneath todays session is the implementation phase of the June 17 US-Iran Memorandum of Understanding. High-level talks opened at Burgenstock on June 21 -- after a planned June 19 session was cancelled when VP Vance pulled out -- with Vance attending alongside Iranian parliamentary speaker Ghalibaf and mediators Qatar and Pakistan (Swiss FDFA, June 21). The first round concluded on June 21 with technical-level talks continuing through the 60-day MOU implementation window; Lebanon ceasefire compliance and the nuclear programme are the primary sticking points. The tension lies in the contradiction between a defence sector selling off sharply across all major primes -- LMT down 2.8%, NOC down 2.6%, LHX down 3.5%, RTX down 1.5% -- at precisely the moment the Pentagon has told lawmakers it requires 80 billion dollars to cover Iran war and other expenses, suggesting markets are pricing in a negotiated resolution faster than the institutional defence budget cycle can absorb it. Watch whether the ongoing technical talks in Switzerland produce a joint communique or break down -- a confirmed framework would accelerate the prime selloff and redirect capital toward commercial space and satellite connectivity plays already building out post-conflict infrastructure demand.</div>
       </div>
     </div>
   </div>
@@ -442,11 +452,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 <div class="section-orr">
   <div class="ocard-green">
     <div class="ocard-header-green"><div class="ocard-icon">▲</div><div class="ocard-title-green">Opportunity of the Day</div></div>
-    <div class="ocard-body"><div class="ocard-text">Rocket Labs Victus Haze mission -- launched June 19, 2026, just 16 hours and 42 minutes after receiving the US Space Force Notice to Launch, a new record beating the prior mark by more than 10 hours -- directly validates its pitch as the primary tactically responsive space provider. The brief described a sub-17-hour responsive launch, which is confirmed accurate at 16 hours 42 minutes. RKLB shares closed at approximately 95.14 on June 23 per Robinhood data; intraday on June 24 the stock is trading in the 104-110 range (Investing.com, June 24), well above the 95.12 last-close figure cited in the brief, reducing the re-entry case on a pullback basis.</div></div>
+    <div class="ocard-body"><div class="ocard-text">ASTS at its current level offers asymmetric exposure to both military and commercial broadband demand regardless of the Iran outcome, given the recent Block 2 BlueBird launches expanding its operational constellation.</div></div>
   </div>
   <div class="ocard-red">
     <div class="ocard-header-red"><div class="ocard-icon">▼</div><div class="ocard-title-red">Risk of the Day</div></div>
-    <div class="ocard-body"><div class="ocard-text">The US Senate vote to halt the Iran war, if it triggers an executive-legislative standoff over war powers, could create policy uncertainty that freezes near-term Middle East defence procurement decisions and pressures defence prime valuations in the next trading session.</div></div>
+    <div class="ocard-body"><div class="ocard-text">A breakdown in Swiss technical talks or a new Russian massive strike on Ukraine — warned by Zelensky — could reverse the diplomacy-driven prime selloff and drive a sharp re-rating across LMT, NOC, and RTX within 48 hours.</div></div>
   </div>
 </div>
         <div class="stocks-section" id="stocks-section">
@@ -455,10 +465,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
     <div class="sl"></div>
     <div id="stocks-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:2px;background:rgba(0,232,122,0.08);padding:3px 10px;border-radius:20px;border:1px solid rgba(0,232,122,0.2)">LIVE</div>
   </div>
-  <div class="stocks-grid" id="stocks-grid">
-    <div style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;padding:20px 0">◈ LOADING LIVE PRICES...</div>
+  <div class="mp-wrap" id="mp-wrap">
+    <div class="mp-grid" id="mp-grid">
+      <div style="grid-column:1/-1;font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;padding:20px 0">◈ LOADING LIVE PRICES...</div>
+    </div>
+    <div class="mp-viewall" id="mp-viewall" style="display:none" onclick="toggleViewAll()">VIEW ALL 12 ↓</div>
+    <div class="mp-all-grid" id="mp-all-grid"></div>
   </div>
-  <div class="sector-note" id="stocks-outlook">Sustained conflict in the Middle East, accelerating US and allied C5ISR investment, and China critical mineral export controls collectively support a multi-quarter tailwind for defence primes, responsive launch providers, and domestic rare-earth alternatives, with the C5ISR market projected to reach 30.18 billion by 2035.</div>
+  <div class="sector-note" id="stocks-outlook">If Switzerland talks produce even a partial framework agreement, defence prime multiples face further compression while commercial LEO connectivity and satellite ISR plays exposed to post-conflict reconstruction demand may find a floor.</div>
 </div>
 <div style="background:#0d1628;border-top:1px solid rgba(74,158,255,0.15);border-bottom:1px solid rgba(74,158,255,0.15);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px">
   <div style="display:flex;align-items:center;gap:16px">
@@ -489,136 +503,136 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           <div class="section-header">
             <div class="section-title">🛰 SPACE</div>
             <div class="section-line"></div>
-            <div class="section-count">6 STORIES · TOP 88</div>
+            <div class="section-count">6 STORIES · TOP 90</div>
           </div>
           <div class="stories-grid">
-        <div class="story story-crit" id="story-chinese-spaceplane-releases-object-in-or">
-          <img src="https://spacenews.com/wp-content/uploads/2025/11/Shenzhou22-launch-CZ2F-JSLC-25nov2025-CASC.jpg" class="story-img" alt="Chinese spaceplane releases object in orbit" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-spacex-ipo-begins-trading-on-nasdaq">
+          
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
-              <span class="story-region">Asia Pacific</span>
-              <span class="story-score sc-crit">CRITICAL · 88</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
             </div>
-            <div class="story-head">Chinese spaceplane releases object in orbit</div>
-            <div class="story-teaser">Commercial space surveillance firm LeoLabs confirmed that Chinas secretive spaceplane released an object into orbit during its ongoing fourth mission, marking a significant on-orbit activity event that is not publicly explained by Chinese authorities. The development raises immediate questions about the nature of the released object, whether it is a sub-satellite, a debris generator, or an inspection vehicle, and what military utility the mission is demonstrating.</div>
+            <div class="story-head">SpaceX IPO Begins Trading on Nasdaq</div>
+            <div class="story-teaser">SpaceX priced its IPO at $135 per share and began trading on Nasdaq under ticker SPCX on June 12, 2026 -- not simultaneous with a Falcon 9 mission as originally described. The offering raised approximately $86 billion at a valuation of $1.77 trillion, making it the largest IPO in history (Wikipedia, updated June 22). As of June 22, SPCX is trading at approximately $170.61, down from a previous close of $185.00, within a post-IPO range of $135 to $225.64 (Investing.com, June 22). The stock has continued to demonstrate operational tempo through additional Falcon 9 missions since listing.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Undisclosed on-orbit object releases from a military spaceplane signal active development of in-space servicing, inspection, or counterspace capabilities that directly challenge US and allied satellite survivability assumptions and elevate demand for space domain awareness assets including those operated by LeoLabs, Planet Labs, and BlackSky.</div>
+            <div class="story-impl">◈ SpaceX entering public markets reshapes the entire sector valuation landscape — every comparable new-space equity now has a live benchmark against which institutional capital will size positions, compressing or expanding multiples across RKLB, LUNR, and ASTS simultaneously.</div>
             <div class="story-footer">
-              <a href="https://spacenews.com/chinese-spaceplane-releases-object-into-orbit-according-to-commercial-space-surveillance/" target="_blank" class="story-source">▸ spacenews</a>
+              <a href="https://spaceflightnow.com/2026/06/12/live-coverage-spacex-to-launch-final-starlink-mission-as-it-begins-publicly-trade-its-stock-on-the-nasdaq-for-the-first-time/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Chinese spaceplane releases object in orbit" data-l="https://dashboard.prism-osint.com#story-chinese-spaceplane-releases-object-in-or" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacenews.com/chinese-spaceplane-releases-object-into-orbit-according-to-commercial-space-surveillance/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="SpaceX IPO Begins Trading on Nasdaq" data-l="https://dashboard.prism-osint.com#story-spacex-ipo-begins-trading-on-nasdaq" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spaceflightnow.com/2026/06/12/live-coverage-spacex-to-launch-final-starlink-mission-as-it-begins-publicly-trade-its-stock-on-the-nasdaq-for-the-first-time/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-rocket-lab-sets-17-hour-responsive-launc">
-          <img src="https://spacenews.com/wp-content/uploads/2026/06/9765529-scaled.jpg" class="story-img" alt="Rocket Lab sets 17-hour responsive launch record" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-starship-flight-13-preps-booster-20-cryo">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/06/COLLEEN-CRL01078-wmarked-622x350.jpg" class="story-img" alt="Starship Flight 13 Preps: Booster 20 Cryo Done, Ship 40 Nears Static Fire" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
               <span class="story-region">North America</span>
               <span class="story-score sc-crit">CRITICAL · 82</span>
             </div>
-            <div class="story-head">Rocket Lab sets 17-hour responsive launch record</div>
-            <div class="story-teaser">Rocket Lab launched a satellite for the US Space Force Victus Haze responsive space exercise, pairing its spacecraft with a True Anomaly vehicle in orbit to demonstrate rapid threat characterisation and rendezvous operations. The mission established a new record for time-from-notice-to-launch, undercutting the previous Victus Nox benchmark of 27 hours set by Firefly Aerospace in September 2023.</div>
+            <div class="story-head">Starship Flight 13 Preps: Booster 20 Cryo Done, Ship 40 Nears Static Fire</div>
+            <div class="story-teaser">Booster 20 has completed cryogenic testing at Boca Chica ahead of Starship Flight 13, while Ship 40 is approaching its static fire milestone according to NASASpaceFlight. Separately, new filings suggest the mission may include an orbital return demonstration, representing the next major capability step for the Starship programme.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Validation of sub-17-hour tactically responsive launch directly strengthens Rocket Labs competitive moat in Space Force responsive space contracting and reinforces the strategic case for dedicated small-launch infrastructure over rideshare alternatives.</div>
+            <div class="story-impl">◈ Progress toward orbital return on Flight 13 is the critical gating event for Starship-dependent contracts including NASA Artemis lunar lander delivery and commercial payload customers, making each milestone a direct signal for programme schedule risk.</div>
             <div class="story-footer">
-              <a href="https://spacenews.com/rocket-lab-launches-satellite-for-u-s-space-force-victus-haze-responsive-space-exercise/" target="_blank" class="story-source">▸ spacenews</a>
+              <a href="https://www.nasaspaceflight.com/2026/06/booster-20-cryo-ship-40-static-fire/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Rocket Lab sets 17-hour responsive launch record" data-l="https://dashboard.prism-osint.com#story-rocket-lab-sets-17-hour-responsive-launc" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacenews.com/rocket-lab-launches-satellite-for-u-s-space-force-victus-haze-responsive-space-exercise/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Starship Flight 13 Preps: Booster 20 Cryo Done, Ship 40 Nears Static Fire" data-l="https://dashboard.prism-osint.com#story-starship-flight-13-preps-booster-20-cryo" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/06/booster-20-cryo-ship-40-static-fire/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-nasa-boeing-commit-to-starliner-1-despit">
+        <div class="story story-crit" id="story-arianespace-launches-heaviest-payload-wi">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">North America</span>
-              <span class="story-score sc-high">HIGH · 72</span>
-            </div>
-            <div class="story-head">NASA Boeing commit to Starliner-1 despite unclear timeline</div>
-            <div class="story-teaser">NASA and Boeing publicly reaffirmed their commitment to the Starliner-1 crewed launch despite being unable to provide a clear launch timeline, according to SpaceFlightNow reporting from June 23. The ambiguity follows a period of sustained technical and programmatic difficulty on the Starliner programme and comes as Boeing already faces headwinds on its T-7 Red Hawk data rights dispute with the Air Force.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Continued Starliner schedule uncertainty reinforces SpaceX Crew Dragons structural monopoly on NASA crewed access to the ISS and raises programme risk for Boeings space systems division at a moment when the company can least afford further reputational damage with government customers.</div>
-            <div class="story-footer">
-              <a href="https://spaceflightnow.com/2026/06/23/nasa-boeing-committed-to-starliner-1-launch-despite-unclear-timeline/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="NASA Boeing commit to Starliner-1 despite unclear timeline" data-l="https://dashboard.prism-osint.com#story-nasa-boeing-commit-to-starliner-1-despit" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spaceflightnow.com/2026/06/23/nasa-boeing-committed-to-starliner-1-launch-despite-unclear-timeline/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high" id="story-spacex-starfall-reentry-demo-mission-lau">
-          
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">North America</span>
-              <span class="story-score sc-high">HIGH · 68</span>
-            </div>
-            <div class="story-head">SpaceX Starfall reentry demo mission launches</div>
-            <div class="story-teaser">SpaceX launched its Starfall demonstration mission on Tuesday, testing the companys upcoming reentry capsule vehicle in what NASASpaceFlight described as a dedicated demonstration flight. The mission signals SpaceX is advancing a distinct reentry vehicle programme separate from Dragon, potentially targeting cargo return, in-space manufacturing, or defense-oriented payload recovery markets.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ A successful Starfall reentry demonstration would give SpaceX a new product line in the high-value payload return and potential rapid-response cargo recovery segment, intensifying competitive pressure on emerging reentry vehicle developers and legacy capsule programmes.</div>
-            <div class="story-footer">
-              <a href="https://spaceflightnow.com/2026/06/23/live-coverage-spacex-to-launch-reentry-capsule-demo-mission-called-starfall/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="SpaceX Starfall reentry demo mission launches" data-l="https://dashboard.prism-osint.com#story-spacex-starfall-reentry-demo-mission-lau" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spaceflightnow.com/2026/06/23/live-coverage-spacex-to-launch-reentry-capsule-demo-mission-called-starfall/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high" id="story-arianespace-launches-heaviest-amazon-leo">
-          
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
               <span class="story-region">Europe</span>
-              <span class="story-score sc-high">HIGH · 62</span>
+              <span class="story-score sc-crit">CRITICAL · 78</span>
             </div>
-            <div class="story-head">Arianespace launches heaviest Amazon LEO payload</div>
-            <div class="story-teaser">Arianespace launched its heaviest payload to date on an Amazon LEO flight, according to SpaceFlightNow coverage from June 17. The mission marks a significant milestone for both the Ariane launch vehicle programme and the Amazon LEO broadband constellation build-out as it competes directly with SpaceX Starlink.</div>
+            <div class="story-head">Arianespace Launches Heaviest Payload With Amazon LEO</div>
+            <div class="story-teaser">Arianespace completed the launch of its heaviest payload to date on June 17, carrying satellites for Amazon LEO, the company formerly known as Project Kuiper. The mission marks a significant operational milestone for both the launch provider and Amazon LEOs constellation buildout, which is now in direct competition with Starlinks global broadband footprint.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Arianespaces ability to lift Amazon LEOs heaviest satellites to date validates Europes independent access to orbit for mega-constellation deployment and reduces the programmes dependence on SpaceX at a time when geopolitical pressure to diversify launch providers is intensifying.</div>
+            <div class="story-impl">◈ Amazon LEO securing Arianespace capacity for heavy payload batches signals the constellation is scaling faster than previously public timelines indicated, applying direct competitive pressure on Starlink revenue projections and broadening the addressable market for satellite ground infrastructure suppliers.</div>
             <div class="story-footer">
               <a href="https://spaceflightnow.com/2026/06/17/live-coverage-arianespace-to-launch-its-heaviest-payload-to-date-with-amazon-leo-flight/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Arianespace launches heaviest Amazon LEO payload" data-l="https://dashboard.prism-osint.com#story-arianespace-launches-heaviest-amazon-leo" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Arianespace Launches Heaviest Payload With Amazon LEO" data-l="https://dashboard.prism-osint.com#story-arianespace-launches-heaviest-payload-wi" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
                 <a href="https://spaceflightnow.com/2026/06/17/live-coverage-arianespace-to-launch-its-heaviest-payload-to-date-with-amazon-leo-flight/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-boeing-wins-2b-space-force-comms-satelli">
-          <img src="https://spacenews.com/wp-content/uploads/2024/01/8103353143_79569b1775_k.jpg" class="story-img" alt="Boeing wins $2B Space Force comms satellite contract" onerror="this.style.display='none'">
+        <div class="story story-high" id="story-ast-spacemobile-launches-3-block-2-blueb">
+          
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">AST SpaceMobile Launches 3 Block 2 BlueBird Satellites</div>
+            <div class="story-teaser">SpaceX launched three Block 2 BlueBird satellites for AST SpaceMobile on June 16, expanding the companys direct-to-device broadband constellation with its most capable hardware generation to date. Block 2 satellites carry significantly larger antenna arrays than Block 1, supporting higher throughput and broader geographic coverage.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Each Block 2 addition materially increases ASTSs revenue-generating capacity and de-risks its commercial launch timeline, which is the primary variable investors are watching ahead of expected service expansion agreements with its mobile operator partners.</div>
+            <div class="story-footer">
+              <a href="https://spaceflightnow.com/2026/06/16/live-coverage-spacex-to-launch-3-block-2-bluebird-satellites-for-ast-spacemobile/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="AST SpaceMobile Launches 3 Block 2 BlueBird Satellites" data-l="https://dashboard.prism-osint.com#story-ast-spacemobile-launches-3-block-2-blueb" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spaceflightnow.com/2026/06/16/live-coverage-spacex-to-launch-3-block-2-bluebird-satellites-for-ast-spacemobile/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-relativity-space-terran-r-stage-heads-to">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/06/IMG_4456.jpeg" class="story-img" alt="Relativity Space Terran R Stage Heads to Stennis" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 65</span>
+            </div>
+            <div class="story-head">Relativity Space Terran R Stage Heads to Stennis</div>
+            <div class="story-teaser">Relativity Spaces Terran R second stage has been shipped to the Stennis Space Center in Mississippi for engine testing, advancing the fully reusable medium-lift rocket toward its planned 2026 debut. The milestone confirms Relativity remains on track to enter a launch market that currently has limited reusable medium-lift competition outside Falcon 9.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A successful Stennis test campaign would validate Terran Rs propulsion architecture and unlock the next tranche of customer commitments, positioning Relativity as the primary domestically reusable alternative for government and commercial payloads in the 1,000 to 20,000 kilogram class.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/06/relativity-update-0626/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Relativity Space Terran R Stage Heads to Stennis" data-l="https://dashboard.prism-osint.com#story-relativity-space-terran-r-stage-heads-to" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/06/relativity-update-0626/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-nasa-roman-space-telescope-arrives-in-fl">
+          
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
               <span class="story-region">North America</span>
               <span class="story-score sc-high">HIGH · 60</span>
             </div>
-            <div class="story-head">Boeing wins $2B Space Force comms satellite contract</div>
-            <div class="story-teaser">Boeing secured a 2 billion dollar Space Force contract for communications satellites, according to SpaceAgenda reporting citing SpaceNews. The award provides Boeing Space a significant government anchor at a time when the company faces programme pressure on Starliner and data rights disputes on the T-7 Red Hawk.</div>
+            <div class="story-head">NASA Roman Space Telescope Arrives in Florida</div>
+            <div class="story-teaser">NASAs Nancy Grace Roman Space Telescope has arrived in Florida ahead of its planned launch processing campaign, marking a major logistics milestone for the flagship astrophysics mission. Roman is designed to conduct wide-field infrared surveys and dark energy investigations at a scale not previously possible from orbit.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A 2 billion dollar Space Force communications satellite award stabilises Boeings government space revenue base and signals that the Pentagon continues to value Boeings satellite integration capability despite the companys broader programmatic difficulties.</div>
+            <div class="story-impl">◈ Romans arrival in Florida confirms the launch schedule is holding, which matters to contractors across the mission supply chain and signals continued NASA commitment to flagship science missions even amid ongoing budget pressure discussions.</div>
             <div class="story-footer">
-              <a href="https://spacenews.com/boeing-wins-2-billion-space-force-contract-for-communications-satellites/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spaceflightnow.com/2026/06/22/nasas-nancy-grace-roman-space-telescope-arrives-in-florida/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Boeing wins $2B Space Force comms satellite contract" data-l="https://dashboard.prism-osint.com#story-boeing-wins-2b-space-force-comms-satelli" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacenews.com/boeing-wins-2-billion-space-force-contract-for-communications-satellites/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="NASA Roman Space Telescope Arrives in Florida" data-l="https://dashboard.prism-osint.com#story-nasa-roman-space-telescope-arrives-in-fl" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spaceflightnow.com/2026/06/22/nasas-nancy-grace-roman-space-telescope-arrives-in-florida/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
@@ -630,92 +644,114 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           <div class="section-header">
             <div class="section-title">🛡 DEFENCE</div>
             <div class="section-line"></div>
-            <div class="section-count">4 STORIES · TOP 90</div>
+            <div class="section-count">5 STORIES · TOP 90</div>
           </div>
           <div class="stories-grid">
-        <div class="story story-crit" id="story-us-senate-votes-to-halt-iran-war">
-          <img src="https://www.armytimes.com/resizer/v2/KSFMM5PEJBHGLHCMB3J5NCW73M.jpg?width=1200&auth=692f90b596cb002cfbb382c0d45f518c35db3b307aad2d663c76fdb0d328fc59" class="story-img" alt="US Senate votes to halt Iran war" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-pentagon-seeks-80-billion-for-iran-war-c">
+          <img src="https://www.armytimes.com/resizer/v2/EOMSFMDMGZFTPACXCRYOBHJBGU.JPG?width=1200&auth=819506a546e44740c2ddb795e02fbfb566cf9cf8e0ebcfa1b599a66b59ba223a" class="story-img" alt="Pentagon Seeks $80 Billion for Iran War Costs" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
-              <span class="story-region">Middle East / North America</span>
+              <span class="story-region">North America</span>
               <span class="story-score sc-crit">CRITICAL · 90</span>
             </div>
-            <div class="story-head">US Senate votes to halt Iran war</div>
-            <div class="story-teaser">The US Senate voted 50-48 on June 23, 2026 to pass a concurrent war powers resolution directing President Trump to remove US armed forces from hostilities against Iran unless explicitly authorized by Congress (CNN, Al Jazeera, NPR, June 23, 2026). This is the first time both chambers have passed such a measure. However, the resolution is nonbinding: as a concurrent resolution it does not go to the president for signature and carries no force of law; a White House official stated it has no significance. Four Republicans -- Rand Paul, Susan Collins, Lisa Murkowski, and Bill Cassidy -- joined nearly all Democrats; one Democrat, John Fetterman, voted against. Separately, Vice President Vance said talks in Switzerland had laid a good foundation for a final deal, not that progress was very very good -- and Iran has disputed US characterizations of what was agreed on nuclear inspections. No final ceasefire agreement has been confirmed as of June 24, 2026.</div>
+            <div class="story-head">Pentagon Seeks $80 Billion for Iran War Costs</div>
+            <div class="story-teaser">The Pentagon has told lawmakers it requires approximately 80 billion dollars to cover Iran war expenses and other non-war-related bills, according to the Wall Street Journal as cited by Reuters (June 18-19). Deputy Defense Secretary Stephen Feinberg communicated the figure to lawmakers by phone; a formal supplemental request had not yet been submitted to Congress as of June 19 and would require White House OMB approval before transmittal. The 80 billion figure encompasses both war and non-war costs; direct Iran war expenses were previously estimated at approximately 25 billion dollars by a Pentagon official in April.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ An executive-legislative war powers standoff over Iran operations creates procurement and budget uncertainty for defence contractors with Middle East-oriented programmes while simultaneously sustaining elevated demand signals for ISR, air defence, and rapid-deployment systems as long as US forces remain deployed.</div>
+            <div class="story-impl">◈ An 80 billion dollar supplemental request would represent one of the largest single war-cost appropriations in recent history and would structurally benefit prime contractors across munitions replenishment, ISR, and precision strike — but the diplomatic track in Switzerland makes the request politically vulnerable to reduction or delay.</div>
             <div class="story-footer">
-              <a href="https://www.defensenews.com/news/pentagon-congress/2026/06/24/us-senate-joins-house-in-voting-to-halt-iran-war/" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.defensenews.com/news/pentagon-congress/2026/06/19/pentagon-tells-lawmakers-it-needs-80-billion-for-iran-war-other-expenses-wsj/" target="_blank" class="story-source">▸ Defense News</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Senate votes to halt Iran war" data-l="https://dashboard.prism-osint.com#story-us-senate-votes-to-halt-iran-war" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.defensenews.com/news/pentagon-congress/2026/06/24/us-senate-joins-house-in-voting-to-halt-iran-war/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pentagon Seeks $80 Billion for Iran War Costs" data-l="https://dashboard.prism-osint.com#story-pentagon-seeks-80-billion-for-iran-war-c" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/news/pentagon-congress/2026/06/19/pentagon-tells-lawmakers-it-needs-80-billion-for-iran-war-other-expenses-wsj/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-china-antimony-export-ban-sends-prices-u">
-          <img src="https://d32r1sh890xpii.cloudfront.net/article/1200x675/2026-06-23_fii4jfwgq7.jpg" class="story-img" alt="China antimony export ban sends prices up 2600 percent" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-ukraine-strikes-both-sides-of-crimean-br">
+          <img src="https://assets.kyivindependent.com/content/images/2023/08/GettyImages-1556040259-2.jpg" class="story-img" alt="Ukraine Strikes Both Sides of Crimean Bridge" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
-              <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">Global</span>
-              <span class="story-score sc-crit">CRITICAL · 82</span>
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Europe</span>
+              <span class="story-score sc-crit">CRITICAL · 88</span>
             </div>
-            <div class="story-head">China antimony export ban sends prices up 2600 percent</div>
-            <div class="story-teaser">China announced export controls on antimony in 2024 and the resulting supply shock sent prices up 2,600 percent, with ongoing shortages now threatening supply chains for more than 200 types of military munitions, according to Oilprice.com reporting citing financialcontent sources naming KTOS, MP, USAR, CRML, and NB as affected or related tickers. Rare earth supply disruptions are flagged as the next phase of Chinese strategic resource leverage.</div>
+            <div class="story-head">Ukraine Strikes Both Sides of Crimean Bridge</div>
+            <div class="story-teaser">Ukraine struck energy and military targets on both sides of the Crimean Bridge overnight on June 20-21, with President Zelensky confirming the attack on June 21 (Kyiv Independent, June 21). The strikes targeted military logistics and oil infrastructure on both approaches to the bridge. Zelensky simultaneously warned of a new incoming massive Russian strike. The attack is part of a sustained campaign: Ukrainian forces have struck multiple Crimean bridges and supply routes since June 7, with Russian-installed authorities rationing fuel to civilians across the peninsula as a result.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Antimony and rare earth supply disruption represents a direct, structural vulnerability in Western defence munitions production that elevates the strategic and financial value of any domestic or allied alternative mining and processing company in the short to medium term.</div>
+            <div class="story-impl">◈ Successful dual-side strikes on the Crimean Bridge signal a maturation of Ukrainian long-range drone capability that will accelerate European demand for counter-UAS systems and precision strike munitions — directly relevant to primes and emerging drone defence firms presenting at Eurosatory 2026.</div>
             <div class="story-footer">
-              <a href="https://oilprice.com/Energy/Energy-General/Chinas-Antimony-Ban-Sent-Prices-Up-2600-Rare-Earths-Are-Next.html" target="_blank" class="story-source">▸ oilprice</a>
+              <a href="https://kyivindependent.com/ukraine-war-latest-ukraine-strikes-both-sides-of-crimean-bridge-zelensky-warns-of-new-massive-strike-by-russia/" target="_blank" class="story-source">▸ kyivindependent</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="China antimony export ban sends prices up 2600 percent" data-l="https://dashboard.prism-osint.com#story-china-antimony-export-ban-sends-prices-u" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://oilprice.com/Energy/Energy-General/Chinas-Antimony-Ban-Sent-Prices-Up-2600-Rare-Earths-Are-Next.html" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Ukraine Strikes Both Sides of Crimean Bridge" data-l="https://dashboard.prism-osint.com#story-ukraine-strikes-both-sides-of-crimean-br" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://kyivindependent.com/ukraine-war-latest-ukraine-strikes-both-sides-of-crimean-bridge-zelensky-warns-of-new-massive-strike-by-russia/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-fiber-optic-killer-drones-arrive-in-sout">
-          <img src="https://www.armytimes.com/resizer/v2/QTH3ZTH6RRDBVK6SGARZOTEA44.jpg?width=1200&auth=7f0d320847941aef5ebcf552177ed6a26466a8aefaa396f1c8177c3843c19c78" class="story-img" alt="Fiber-optic killer drones arrive in south Lebanon" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-us-iran-talks-conclude-in-switzerland-te">
+          <img src="https://i.brecorder.com/large/2026/06/22064642351d99a.webp" class="story-img" alt="US Iran Talks Conclude in Switzerland, Technical Talks Continue" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-break">BREAKING</span>
               <span class="story-region">Middle East</span>
-              <span class="story-score sc-crit">CRITICAL · 80</span>
+              <span class="story-score sc-crit">CRITICAL · 87</span>
             </div>
-            <div class="story-head">Fiber-optic killer drones arrive in south Lebanon</div>
-            <div class="story-teaser">Fiber-optic guided killer drone technology has arrived in southern Lebanon, frustrating Israeli countermeasures that rely on jamming radio-frequency or GPS signals, according to Defense News reporting from June 23. Fiber-optic guidance is not susceptible to electronic warfare disruption, representing a significant tactical escalation in the drone threat environment facing Israeli forces in the region.</div>
+            <div class="story-head">US Iran Talks Conclude in Switzerland, Technical Talks Continue</div>
+            <div class="story-teaser">A planned June 19 high-level session at Burgenstock was cancelled after VP Vance withdrew; talks ultimately opened on June 21 with Vance attending alongside Iranian parliamentary speaker Ghalibaf and mediators Qatar and Pakistan (Swiss FDFA, June 21; Al Jazeera, June 21). The first round concluded on June 21. Continuing technical-level talks are framed as the implementation phase of the June 17 MOU across a 60-day window; Lebanon ceasefire compliance and Irans nuclear programme are the primary sticking points. A regional ceasefire in Lebanon forms part of the broader diplomatic architecture but remains contested, with Iran citing ongoing Israeli strikes in Lebanon as a violation of the agreement.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ The proliferation of fiber-optic guided drones into non-state actor inventories in Lebanon signals that EW-immune precision attack capability is now reaching sub-state actors faster than defensive countermeasures are being deployed, driving urgent demand for kinetic close-in and directed-energy defeat systems.</div>
+            <div class="story-impl">◈ A negotiated Iran framework would reduce the probability of sustained high-tempo US offensive operations in the Gulf, compressing near-term munitions and strike platform demand forecasts while simultaneously reducing Hormuz transit risk and lowering launch insurance costs for commercial satellite operators.</div>
             <div class="story-footer">
-              <a href="https://www.defensenews.com/global/mideast-africa/2026/06/23/frustrating-israel-fiber-optic-killer-drone-technology-has-arrived-in-southern-lebanon/" target="_blank" class="story-source">▸ Defense News</a>
+              <a href="https://www.brecorder.com/news/40426723/us-and-iran-conclude-high-level-talks-in-switzerland-mediators-say/" target="_blank" class="story-source">▸ brecorder</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Fiber-optic killer drones arrive in south Lebanon" data-l="https://dashboard.prism-osint.com#story-fiber-optic-killer-drones-arrive-in-sout" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.defensenews.com/global/mideast-africa/2026/06/23/frustrating-israel-fiber-optic-killer-drone-technology-has-arrived-in-southern-lebanon/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Iran Talks Conclude in Switzerland, Technical Talks Continue" data-l="https://dashboard.prism-osint.com#story-us-iran-talks-conclude-in-switzerland-te" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.brecorder.com/news/40426723/us-and-iran-conclude-high-level-talks-in-switzerland-mediators-say/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-us-army-seeks-low-cost-missile-intercept">
+        <div class="story story-crit" id="story-only-25-of-f-35-fleet-fully-mission-capa">
           
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
               <span class="story-region">North America</span>
-              <span class="story-score sc-crit">CRITICAL · 75</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
             </div>
-            <div class="story-head">US Army seeks low-cost missile interceptors fast</div>
-            <div class="story-teaser">US Army Secretary Dan Driscoll issued a challenge to defence companies to develop a new generation of low-cost air-defence interceptors within one year, a move described as potentially reshaping one of the militarys most expensive procurement categories. The initiative targets the fundamental cost asymmetry between expensive interceptors and cheap attack drones or missiles, a gap made acute by operational experience in Ukraine and the Middle East.</div>
+            <div class="story-head">Only 25% of F-35 Fleet Fully Mission Capable, GAO Finds</div>
+            <div class="story-teaser">A GAO report has found that only 25% of the Pentagons F-35 fleet has been fully mission capable, a readiness figure that falls well below operational requirements for a high-intensity conflict such as the current Iran campaign. The finding raises urgent questions about sustainment contracts, spare parts supply chains, and the long-term reliability of the F-35 as a front-line strike platform.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A one-year Army interceptor development challenge signals urgent institutional appetite for non-traditional suppliers and rapid prototyping pathways, creating a near-term opportunity for drone defence and guided munitions startups that can move faster than legacy prime contractors.</div>
+            <div class="story-impl">◈ A 25% full mission capability rate during active combat operations creates immediate contract opportunities for F-35 sustainment, depot maintenance, and parts acceleration programmes — but also raises reputational risk for Lockheed Martin at precisely the moment its stock is under pressure.</div>
             <div class="story-footer">
-              <a href="https://freerepublic.com/focus/f-news/4385084/posts" target="_blank" class="story-source">▸ freerepublic</a>
+              <a href="https://www.shephardmedia.com/news/air-warfare/only-25-of-the-us-pentagons-f-35-fleet-has-been-fully-mission-capable-gao-says/" target="_blank" class="story-source">▸ Shephard Media</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Army seeks low-cost missile interceptors fast" data-l="https://dashboard.prism-osint.com#story-us-army-seeks-low-cost-missile-intercept" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://freerepublic.com/focus/f-news/4385084/posts" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Only 25% of F-35 Fleet Fully Mission Capable, GAO Finds" data-l="https://dashboard.prism-osint.com#story-only-25-of-f-35-fleet-fully-mission-capa" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.shephardmedia.com/news/air-warfare/only-25-of-the-us-pentagons-f-35-fleet-has-been-fully-mission-capable-gao-says/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-eurosatory-2026-loitering-munition-for-u">
+          
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Middle East</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">Eurosatory 2026 Loitering Munition for UAE Navy by MBDA</div>
+            <div class="story-teaser">MBDA revealed at Eurosatory 2026 that a locally produced loitering munition is destined for the UAE Navy, signalling a shift toward in-country production of precision strike systems in the Gulf region. MBDA and Thales are also looking to civilian manufacturing pipelines to scale loitering munition production volumes more broadly.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ UAE Navy acquisition of a locally produced loitering munition represents a structural shift in Gulf maritime strike doctrine and positions the UAE as a potential re-export hub for precision strike UAS technology across regional allies.</div>
+            <div class="story-footer">
+              <a href="https://www.shephardmedia.com/news/air-warfare/eurosatory-2026-locally-produced-loitering-munition-destined-for-uae-navy-mbda/" target="_blank" class="story-source">▸ Shephard Media</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Eurosatory 2026 Loitering Munition for UAE Navy by MBDA" data-l="https://dashboard.prism-osint.com#story-eurosatory-2026-loitering-munition-for-u" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.shephardmedia.com/news/air-warfare/eurosatory-2026-locally-produced-loitering-munition-destined-for-uae-navy-mbda/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
@@ -730,164 +766,89 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
             <div class="section-count">4 STORIES · TOP 90</div>
           </div>
           <div class="stories-grid">
-        <div class="story story-crit" id="story-rubio-reassures-gulf-allies-on-iran-ceas">
-          <img src="https://i.guim.co.uk/img/media/8bae0249e1909e37cc0e951ef613ef43fb2a15b2/0_53_3949_3160/master/3949.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=ea5baeb4210b0e2a2a9151193a426b8b" class="story-img" alt="Rubio Reassures Gulf Allies on Iran Ceasefire Deal" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-us-iran-high-level-talks-end-in-switzerl">
+          <img src="https://newsimg.koreatimes.co.kr/2026/06/22/c532821a-d6c0-4973-b8f3-4ba5b87d0527.jpg" class="story-img" alt="US-Iran High-Level Talks End in Switzerland" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Switzerland / Iran / United States</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">US-Iran High-Level Talks End in Switzerland</div>
+            <div class="story-teaser">The first round of high-level US and Iranian negotiations at Burgenstock concluded on June 21, 2026; the session had originally been scheduled for June 19 but was postponed after VP Vance cancelled his trip, with Switzerland confirming the cancellation that day (Times of Israel, June 19; Swiss FDFA). Talks ultimately began June 21 with Vance, Iranian parliamentary speaker Ghalibaf, and mediators Qatar and Pakistan in attendance. Technical-level talks are continuing under the 60-day MOU implementation framework. Tehran has not announced closure of enrichment facilities; rather, Iran entered the talks insisting that Israel must first implement the Lebanon ceasefire provisions of the MOU before substantive progress can occur.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A durable US-Iran agreement would reshape Strait of Hormuz transit risk calculations, directly affecting defence procurement timelines, insurance premiums for satellite launches transiting the region, and Gulf-based operator security postures.</div>
+            <div class="story-footer">
+              <a href="https://www.koreatimes.co.kr/world/20260622/us-and-iran-conclude-high-level-talks-in-switzerland-mediators-say" target="_blank" class="story-source">▸ koreatimes</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US-Iran High-Level Talks End in Switzerland" data-l="https://dashboard.prism-osint.com#story-us-iran-high-level-talks-end-in-switzerl" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.koreatimes.co.kr/world/20260622/us-and-iran-conclude-high-level-talks-in-switzerland-mediators-say" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-zelensky-pressures-belarus-on-russian-dr">
+          <img src="https://moderndiplomacy.eu/wp-content/uploads/2025/11/Lukashenko-Belarus.jpg" class="story-img" alt="Zelensky Pressures Belarus on Russian Drone Support" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">UAE / Kuwait / Bahrain</span>
-              <span class="story-score sc-crit">CRITICAL · 90</span>
+              <span class="story-region">Ukraine / Belarus</span>
+              <span class="story-score sc-high">HIGH · 70</span>
             </div>
-            <div class="story-head">Rubio Reassures Gulf Allies on Iran Ceasefire Deal</div>
-            <div class="story-teaser">US Secretary of State Marco Rubio is meeting with UAE, Kuwait, and Bahrain officials to reassure Gulf partners that Washington remains committed to their security amid division over the emerging US-Iran ceasefire framework. Gulf states have expressed concern that a deal with Tehran could reduce the US security umbrella in the region and embolden Iranian proxies.</div>
+            <div class="story-head">Zelensky Pressures Belarus on Russian Drone Support</div>
+            <div class="story-teaser">Ukrainian President Volodymyr Zelensky escalated diplomatic pressure on Belarus on June 19, demanding that Minsk dismantle communications infrastructure allegedly used to support Russian drone operations against Ukraine. The move marks a sharp intensification of tensions between Kyiv and Minsk and broadens the diplomatic front of the conflict beyond the direct Russia-Ukraine theatre.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Rubio diplomatic reassurance missions signal that Gulf defence partnerships and US arms commitments to the region remain politically active, sustaining near-term procurement and basing arrangements for defence operators in the UAE and wider Gulf.</div>
+            <div class="story-impl">◈ Belarus becoming a more active node in Russian drone operations expands the electronic warfare and counter-UAS battlespace, increasing demand for long-range detection and jamming systems among NATO-aligned defence operators.</div>
             <div class="story-footer">
-              <a href="https://www.theguardian.com/world/2026/jun/23/marco-rubio-gulf-allies-us-iran-ceasefire-deal" target="_blank" class="story-source">▸ theguardian</a>
+              <a href="https://moderndiplomacy.eu/2026/06/22/zelensky-pressures-belarus-over-support-for-russian-drone-operations/" target="_blank" class="story-source">▸ moderndiplomacy</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Rubio Reassures Gulf Allies on Iran Ceasefire Deal" data-l="https://dashboard.prism-osint.com#story-rubio-reassures-gulf-allies-on-iran-ceas" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.theguardian.com/world/2026/jun/23/marco-rubio-gulf-allies-us-iran-ceasefire-deal" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Zelensky Pressures Belarus on Russian Drone Support" data-l="https://dashboard.prism-osint.com#story-zelensky-pressures-belarus-on-russian-dr" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://moderndiplomacy.eu/2026/06/22/zelensky-pressures-belarus-over-support-for-russian-drone-operations/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-crit" id="story-iran-retains-asymmetric-fight-capacity-p">
-          <img src="https://www.thecipherbrief.com/media-library/propaganda-paintings-with-american-flag-an-down-with-the-usa-text-in-tehran-iran-stock-photo.jpg?id=67003609&width=1200&height=600&coordinates=0%2C167%2C0%2C168" class="story-img" alt="Iran Retains Asymmetric Fight Capacity Post-War" onerror="this.style.display='none'">
+        <div class="story story-high" id="story-graham-warns-us-iran-deal-will-fail">
+          <img src="https://assets1.cbsnewsstatic.com/hub/i/r/2026/06/21/072e3ed5-483f-4a14-9b3e-9b2e02adca36/thumbnail/1200x630/e294246d01ea6e67f05a8e9ff5f5d172/screenshot-2026-06-21-at-12-18-14-pm.png" class="story-img" alt="Graham Warns US-Iran Deal Will Fail" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">Iran / Middle East</span>
-              <span class="story-score sc-crit">CRITICAL · 80</span>
+              <span class="story-region">United States / Iran</span>
+              <span class="story-score sc-high">HIGH · 60</span>
             </div>
-            <div class="story-head">Iran Retains Asymmetric Fight Capacity Post-War</div>
-            <div class="story-teaser">Despite JD Vance touting progress in Switzerland ceasefire talks, analysts at The Cipher Brief warn that Iran retains significant capacity to wage asymmetric warfare even under a peace framework, including proxy networks and missile and drone arsenals. The analysis argues that what Iran wants from negotiations may not align with what Washington is offering, leaving structural tensions unresolved.</div>
+            <div class="story-head">Graham Warns US-Iran Deal Will Fail</div>
+            <div class="story-teaser">Senator Lindsey Graham voiced strong public skepticism about the US-Iran agreement on Face the Nation on June 21, predicting the deal would ultimately fail and warning that military action by the Trump administration remains a live option. His comments came as high-level talks were opening in Buergenstock, adding political pressure on the negotiating process from within the US Senate.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Persistent Iranian asymmetric capability means regional defence demand for missile defence, ISR, and drone countermeasures remains elevated regardless of diplomatic outcomes, supporting long-run investment theses in those segments.</div>
+            <div class="story-impl">◈ Congressional opposition to a diplomatic resolution keeps the probability of renewed military escalation elevated, sustaining defence sector demand signals for theatre missile defence and naval strike assets in the Gulf region.</div>
             <div class="story-footer">
-              <a href="https://www.thecipherbrief.com/what-iran-wants-and-how-it-can-still-fight" target="_blank" class="story-source">▸ thecipherbrief</a>
+              <a href="https://www.cbsnews.com/news/face-the-nation-full-transcript-06-21-2026/" target="_blank" class="story-source">▸ cbsnews</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Iran Retains Asymmetric Fight Capacity Post-War" data-l="https://dashboard.prism-osint.com#story-iran-retains-asymmetric-fight-capacity-p" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.thecipherbrief.com/what-iran-wants-and-how-it-can-still-fight" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Graham Warns US-Iran Deal Will Fail" data-l="https://dashboard.prism-osint.com#story-graham-warns-us-iran-deal-will-fail" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.cbsnews.com/news/face-the-nation-full-transcript-06-21-2026/" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-israel-sets-three-conditions-for-lebanon">
-          <img src="https://assets.zerohedge.com/s3fs-public/styles/16_9_max_700/public/2026-06/idfleb.jpg?h=7b905428&itok=IOGsaFSB" class="story-img" alt="Israel Sets Three Conditions for Lebanon Withdrawal" onerror="this.style.display='none'">
+        <div class="story story-high" id="story-middle-east-at-a-diplomatic-turning-poin">
+          <img src="https://www.arabnews.pk/sites/default/files/styles/660x371_watermarkpakistan/public/main-image/2026/06/21/4723967-463988826.png?itok=ZT46FZzW" class="story-img" alt="Middle East at a Diplomatic Turning Point" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">Israel / Lebanon</span>
-              <span class="story-score sc-high">HIGH · 65</span>
+              <span class="story-region">Middle East</span>
+              <span class="story-score sc-high">HIGH · 50</span>
             </div>
-            <div class="story-head">Israel Sets Three Conditions for Lebanon Withdrawal</div>
-            <div class="story-teaser">Israel has publicly outlined three conditions that must be met before it will withdraw its occupation forces from southern Lebanon, signalling that any near-term pullback remains contingent on security guarantees not yet in place. The conditions underscore the fragility of the ceasefire architecture in the north and the durability of Israeli forward positioning.</div>
+            <div class="story-head">Middle East at a Diplomatic Turning Point</div>
+            <div class="story-teaser">A professor of international relations cited by Arab News on June 21 argued that diplomacy remains the only viable path to lasting peace in the Middle East, following the US announcement on June 20 of progress in Iran-related negotiations. The assessment frames the current moment as a rare convergence of ceasefire conditions, diplomatic engagement, and reduced kinetic activity across multiple theatres.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Sustained Israeli forward presence in Lebanon extends the operational demand horizon for air defence, logistics, and ISR systems deployed to support that posture, keeping procurement cycles active for relevant defence suppliers.</div>
+            <div class="story-impl">◈ A sustained diplomatic de-escalation across the Middle East would reduce operational risk premiums for satellite ground stations, undersea cable infrastructure, and commercial aviation corridors serving Gulf-based space and defence operators.</div>
             <div class="story-footer">
-              <a href="https://www.zerohedge.com/geopolitical/israel-sets-3-key-conditions-ending-occupation-south-lebanon" target="_blank" class="story-source">▸ zerohedge</a>
+              <a href="https://www.arabnews.pk/node/2648039/middle-east" target="_blank" class="story-source">▸ arabnewspk</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Israel Sets Three Conditions for Lebanon Withdrawal" data-l="https://dashboard.prism-osint.com#story-israel-sets-three-conditions-for-lebanon" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.zerohedge.com/geopolitical/israel-sets-3-key-conditions-ending-occupation-south-lebanon" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-high" id="story-india-uae-defence-ties-hit-new-high">
-          <img src="https://feeds.abplive.com/onecms/images/uploaded-images/2026/06/20/cdf38dc01e8badfe09111fa08d3d5e2c17819751913161324_original.jpg?impolicy=abp_cdn&imwidth=1200" class="story-img" alt="India-UAE Defence Ties Hit New High" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">UAE / India</span>
-              <span class="story-score sc-high">HIGH · 55</span>
-            </div>
-            <div class="story-head">India-UAE Defence Ties Hit New High</div>
-            <div class="story-teaser">India's Ministry of External Affairs has described a major upswing in India-UAE defence cooperation, with the UAE expressing strong interest in acquiring Indian-made BrahMos cruise missiles and the Akashteer air defence control system. Talks are progressing on broader bilateral defence industrial agreements as both nations deepen strategic alignment.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Growing UAE appetite for Indian defence platforms such as BrahMos and Akashteer diversifies Gulf procurement away from traditional Western suppliers, creating new competitive dynamics and partnership opportunities for regional and global defence investors.</div>
-            <div class="story-footer">
-              <a href="https://news.abplive.com/news/india/major-upswing-in-india-uae-ties-mea-on-growing-defence-cooperation-1852199" target="_blank" class="story-source">▸ abplive</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="India-UAE Defence Ties Hit New High" data-l="https://dashboard.prism-osint.com#story-india-uae-defence-ties-hit-new-high" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://news.abplive.com/news/india/major-upswing-in-india-uae-ties-mea-on-growing-defence-cooperation-1852199" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        </div>
-      
-        <div class="story-section-wrap" data-sector="ai_tech">
-          <div class="section-header">
-            <div class="section-title">🤖 AI & TECHNOLOGY</div>
-            <div class="section-line"></div>
-            <div class="section-count">3 STORIES · TOP 90</div>
-          </div>
-          <div class="stories-grid">
-        <div class="story story-crit" id="story-china-reclaims-title-of-worlds-fastest-s">
-          <img src="https://www.aljazeera.com/wp-content/uploads/2026/06/AP23355580833813-1782264388.jpg?resize=1920%2C1440" class="story-img" alt="China Reclaims Title of Worlds Fastest Supercomputer" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-urgent">URGENT</span>
-              <span class="story-region">China</span>
-              <span class="story-score sc-crit">CRITICAL · 90</span>
-            </div>
-            <div class="story-head">China Reclaims Title of Worlds Fastest Supercomputer</div>
-            <div class="story-teaser">China has taken back the top position in the global supercomputer rankings from the United States, according to Al Jazeera reporting on the latest Top500 list, marking a significant milestone in the intensifying US-China competition for high-performance computing supremacy. The development has immediate implications for AI model training capacity, nuclear simulation, and advanced weapons design at national scale.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Chinese supercomputing leadership directly accelerates its AI and autonomous weapons development timeline, increasing pressure on US and allied defence programmes to accelerate their own HPC and AI infrastructure investments.</div>
-            <div class="story-footer">
-              <a href="https://www.aljazeera.com/economy/2026/6/24/china-takes-us-crown-for-worlds-fastest-supercomputer" target="_blank" class="story-source">▸ Al Jazeera</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="China Reclaims Title of Worlds Fastest Supercomputer" data-l="https://dashboard.prism-osint.com#story-china-reclaims-title-of-worlds-fastest-s" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.aljazeera.com/economy/2026/6/24/china-takes-us-crown-for-worlds-fastest-supercomputer" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-crit" id="story-us-army-tests-drone-kill-software-for-mo">
-          <img src="https://www.armytimes.com/resizer/v2/Q2GIUYU6IZCWBDYOWMIC6UNBCI.jpg?width=1200&auth=da4c6e07a62da7df2291491418c008292c42228532a314876a0b7b73d630e396" class="story-img" alt="US Army Tests Drone-Kill Software for Moving Vehicles" onerror="this.style.display='none'">
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">United States</span>
-              <span class="story-score sc-crit">CRITICAL · 80</span>
-            </div>
-            <div class="story-head">US Army Tests Drone-Kill Software for Moving Vehicles</div>
-            <div class="story-teaser">The US Army has successfully tested new fire control software that enables moving ground vehicles to detect and engage drone threats in real time, a capability that significantly reduces the sensor-to-shooter timeline for mobile counter-UAS operations. The software trial represents a step toward fully integrated kinetic drone defeat systems that do not require vehicles to halt before engaging aerial targets.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Validated moving-vehicle fire control software for drone engagement expands the addressable market for CUAS hardware integrators and creates a new procurement pathway for armies seeking to upgrade existing vehicle fleets without full platform replacement.</div>
-            <div class="story-footer">
-              <a href="https://www.defensenews.com/industry/techwatch/2026/06/23/us-army-tests-fire-control-software-that-helps-moving-vehicles-kill-drones/" target="_blank" class="story-source">▸ Defense News</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Army Tests Drone-Kill Software for Moving Vehicles" data-l="https://dashboard.prism-osint.com#story-us-army-tests-drone-kill-software-for-mo" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.defensenews.com/industry/techwatch/2026/06/23/us-army-tests-fire-control-software-that-helps-moving-vehicles-kill-drones/" target="_blank" class="story-read">READ FULL STORY ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="story story-crit" id="story-pearson-engineering-ai-mine-detection-he">
-          
-          <div class="story-pad">
-            <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">Ukraine / United Kingdom</span>
-              <span class="story-score sc-crit">CRITICAL · 80</span>
-            </div>
-            <div class="story-head">Pearson Engineering AI Mine Detection Heads to Ukraine</div>
-            <div class="story-teaser">Pearson Engineering announced at Eurosatory 2026 that it will send AI-powered mine detecting systems into Ukraine, providing frontline forces with autonomous detection capability to address one of the most lethal and persistent threats in the conflict. The system uses machine learning algorithms to identify mine signatures at speed, reducing the risk to human demining teams.</div>
-            <div class="story-divider"></div>
-            <div class="story-impl">◈ Live deployment of AI mine detection in an active conflict zone will generate critical real-world training data and operational validation that accelerates the broader market for autonomous route clearance and battlefield AI systems.</div>
-            <div class="story-footer">
-              <a href="https://www.shephardmedia.com/news/landwarfareintl/eurosatory-2026-pearson-engineering-sends-ai-mine-detecting-systems-into-ukraine/" target="_blank" class="story-source">▸ Shephard Media</a>
-              <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pearson Engineering AI Mine Detection Heads to Ukraine" data-l="https://dashboard.prism-osint.com#story-pearson-engineering-ai-mine-detection-he" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.shephardmedia.com/news/landwarfareintl/eurosatory-2026-pearson-engineering-sends-ai-mine-detecting-systems-into-ukraine/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Middle East at a Diplomatic Turning Point" data-l="https://dashboard.prism-osint.com#story-middle-east-at-a-diplomatic-turning-poin" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.arabnews.pk/node/2648039/middle-east" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
@@ -899,48 +860,92 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
           <div class="section-header">
             <div class="section-title">💰 INVESTMENT & DEALS</div>
             <div class="section-line"></div>
-            <div class="section-count">2 STORIES · TOP 70</div>
+            <div class="section-count">4 STORIES · TOP 90</div>
           </div>
           <div class="stories-grid">
-        <div class="story story-high" id="story-c5isr-market-heading-to-30-billion-by-20">
-          <img src="https://img.einnews.com/facebook/1137686/c5isr-market.png" class="story-img" alt="C5ISR Market Heading to 30 Billion by 2035" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-china-adds-10-us-firms-to-export-control">
+          <img src="https://www.aljazeera.com/wp-content/uploads/2026/02/2026-01-28T223535Z_178008069_RC2LAJAJ37I6_RTRMADP_3_USA-MINING-TRUMP-PRICE-1770293508.jpg?resize=1920%2C1440" class="story-img" alt="China Adds 10 US Firms to Export Control List" onerror="this.style.display='none'">
           <div class="story-pad">
             <div class="story-meta">
-              <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">Global</span>
-              <span class="story-score sc-high">HIGH · 70</span>
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">China / United States</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
             </div>
-            <div class="story-head">C5ISR Market Heading to 30 Billion by 2035</div>
-            <div class="story-teaser">The global C5ISR market is forecast to reach US 30.18 billion by 2035, driven by accelerating government investments in defence modernisation, battlefield digitisation, and networked command and control across NATO and Indo-Pacific nations. Rising military budgets globally and increasing demand for integrated intelligence and communications architectures are cited as primary growth drivers.</div>
+            <div class="story-head">China Adds 10 US Firms to Export Control List</div>
+            <div class="story-teaser">China added 10 US companies, including a rare-earth miner, to its export control list on June 22, in a move that escalates economic and strategic tensions between Washington and Beijing. The inclusion of a rare-earth miner is particularly significant given the critical role of rare-earth elements in producing aerospace components, guided munitions, and satellite hardware.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ A decade-long C5ISR expansion trajectory of this scale creates sustained revenue visibility for defence electronics, satellite communications, and space-based ISR platform providers, supporting long-term investor positioning across those segments.</div>
+            <div class="story-impl">◈ Restriction of rare-earth supply chains from China directly threatens production schedules for defence prime contractors and satellite manufacturers reliant on neodymium, dysprosium, and other critical minerals sourced from Chinese suppliers.</div>
             <div class="story-footer">
-              <a href="https://www.einpresswire.com/article/921588906/global-c5isr-market-growth-accelerates-with-rising-military-modernization-reaching-us-30-18-billion-by-2035" target="_blank" class="story-source">▸ einpresswire</a>
+              <a href="https://www.aljazeera.com/news/2026/6/22/china-adds-10-us-firms-including-rare-earth-miner-to-export-control-list" target="_blank" class="story-source">▸ Al Jazeera</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="C5ISR Market Heading to 30 Billion by 2035" data-l="https://dashboard.prism-osint.com#story-c5isr-market-heading-to-30-billion-by-20" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://www.einpresswire.com/article/921588906/global-c5isr-market-growth-accelerates-with-rising-military-modernization-reaching-us-30-18-billion-by-2035" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="China Adds 10 US Firms to Export Control List" data-l="https://dashboard.prism-osint.com#story-china-adds-10-us-firms-to-export-control" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.aljazeera.com/news/2026/6/22/china-adds-10-us-firms-including-rare-earth-miner-to-export-control-list" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
         </div>
       
-        <div class="story story-high" id="story-satellogic-and-synmax-partner-on-merlin-">
-          <img src="https://spacenews.com/wp-content/uploads/2026/06/Satellogic_Tabriz.jpg" class="story-img" alt="Satellogic and SynMax Partner on Merlin Constellation" onerror="this.style.display='none'">
+        <div class="story story-crit" id="story-eurosatory-2026-sees-surge-in-defence-pa">
+          
           <div class="story-pad">
             <div class="story-meta">
               <span class="ub ub-normal">NORMAL</span>
-              <span class="story-region">Global</span>
+              <span class="story-region">Europe</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
+            </div>
+            <div class="story-head">Eurosatory 2026 Sees Surge in Defence Partnerships</div>
+            <div class="story-teaser">Eurosatory 2026 recorded a significant surge in partnership agreements across the defence industry as major primes and mid-tier suppliers positioned themselves to capture growth from rising NATO and allied defence budgets. Shephard Media reported that deal volumes at the Paris-based exhibition exceeded prior cycles, reflecting accelerated procurement cycles driven by the Ukraine conflict and Middle East operations.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ A surge in Eurosatory partnership deals signals that prime contractors are locking in supply chain relationships ahead of multi-year defence budget commitments, creating investment momentum across European and allied defence equities.</div>
+            <div class="story-footer">
+              <a href="https://www.shephardmedia.com/news/defence-notes/eurosatory-2026-partnership-deals-surge-as-industry-prepares-for-defence-spending-growth/" target="_blank" class="story-source">▸ Shephard Media</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Eurosatory 2026 Sees Surge in Defence Partnerships" data-l="https://dashboard.prism-osint.com#story-eurosatory-2026-sees-surge-in-defence-pa" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.shephardmedia.com/news/defence-notes/eurosatory-2026-partnership-deals-surge-as-industry-prepares-for-defence-spending-growth/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-us-army-launches-indo-pacific-multi-doma">
+          <img src="https://www.armytimes.com/resizer/v2/N3FALVGSOBD3BC24LTJY6BFRUU.jpg?width=1200&auth=5336cac8655b666b1c122bf88947bfc5cac06a9d894d5f2af5390e9e17857135" class="story-img" alt="US Army Launches Indo-Pacific Multi-Domain Command" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Indo-Pacific</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">US Army Launches Indo-Pacific Multi-Domain Command</div>
+            <div class="story-teaser">The US Army stood up a new Indo-Pacific multi-domain command on June 19, designed to integrate land, air, sea, cyber, and space capabilities across the theatre in response to the growing strategic competition with China. The command structure formalises a shift toward integrated deterrence operations and is expected to drive procurement of long-range precision fires, space-based ISR, and resilient communications infrastructure across the Pacific.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl">◈ Establishment of a dedicated Indo-Pacific multi-domain command creates a sustained procurement pipeline for space-based surveillance, resilient satellite communications, and ground-based long-range strike systems serving the Pacific theatre.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/news/your-military/2026/06/19/army-launches-new-indo-pacific-multi-domain-command/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Army Launches Indo-Pacific Multi-Domain Command" data-l="https://dashboard.prism-osint.com#story-us-army-launches-indo-pacific-multi-doma" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/news/your-military/2026/06/19/army-launches-new-indo-pacific-multi-domain-command/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-mda-space-acquires-blue-canyon-technolog">
+          <img src="https://spacenews.com/wp-content/uploads/2020/07/Blackjack_Space_Image-copy.png" class="story-img" alt="MDA Space Acquires Blue Canyon Technologies" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Canada / United States</span>
               <span class="story-score sc-high">HIGH · 60</span>
             </div>
-            <div class="story-head">Satellogic and SynMax Partner on Merlin Constellation</div>
-            <div class="story-teaser">Satellogic has announced a commercial partnership with intelligence firm SynMax to build integrated intelligence services around its upcoming Merlin satellite constellation, combining high-frequency Earth observation data with SynMax analytics capabilities. The deal positions Satellogic to monetise its next-generation constellation through downstream intelligence products rather than raw data sales alone.</div>
+            <div class="story-head">MDA Space Acquires Blue Canyon Technologies</div>
+            <div class="story-teaser">MDA Space announced it will acquire Blue Canyon Technologies, a Colorado-based smallsat bus and spacecraft component manufacturer, in a move aimed at gaining a stronger foothold in the competitive US defence and commercial satellite market. The deal combines MDA Space expertise in large satellite systems and robotics with Blue Canyon Technologies established position supplying smallsat platforms to NASA, the US Space Force, and commercial operators.</div>
             <div class="story-divider"></div>
-            <div class="story-impl">◈ Constellation-to-intelligence vertical integration deals like this signal a maturing commercial space intelligence market where data alone is commoditising, and operators who lock in analytics partnerships early will capture higher-margin revenue streams.</div>
+            <div class="story-impl">◈ The MDA Space and Blue Canyon Technologies combination creates a vertically integrated North American satellite supplier capable of competing for US government contracts currently dominated by domestic-only vendors, reshaping the mid-tier satellite procurement landscape.</div>
             <div class="story-footer">
-              <a href="https://spacenews.com/satellogic-partners-with-synmax-to-build-intelligence-services-around-upcoming-merlin-constellation/" target="_blank" class="story-source">▸ SpaceAgenda</a>
+              <a href="https://spacenews.com/mda-space-to-buy-blue-canyon-technologies-to-gain-foothold-in-u-s-" target="_blank" class="story-source">▸ SpaceAgenda</a>
               <div style="display:flex;align-items:center;gap:8px">
-                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Satellogic and SynMax Partner on Merlin Constellation" data-l="https://dashboard.prism-osint.com#story-satellogic-and-synmax-partner-on-merlin-" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
-                <a href="https://spacenews.com/satellogic-partners-with-synmax-to-build-intelligence-services-around-upcoming-merlin-constellation/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="MDA Space Acquires Blue Canyon Technologies" data-l="https://dashboard.prism-osint.com#story-mda-space-acquires-blue-canyon-technolog" style="font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='rgba(74,158,255,0.15)'" onmouseout="this.style.background='rgba(74,158,255,0.08)'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4a9eff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spacenews.com/mda-space-to-buy-blue-canyon-technologies-to-gain-foothold-in-u-s-" target="_blank" class="story-read">READ FULL STORY ↗</a>
               </div>
             </div>
           </div>
@@ -958,44 +963,44 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   <div class="outlook-grid">
     <div class="outlook-card" style="border-top:3px solid #4a9eff">
         <div class="outlook-domain" style="color:#4a9eff">🛰 SPACE</div>
-        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: SpaceX formal response to post-IPO market cap collapse</div>
-        <div class="outlook-signal">Watch whether SpaceX management responds formally to the $600 billion post-IPO market cap drawdown this week, as any debt restructuring announcement or investor guidance revision will set the floor for competitor valuations across the commercial launch sector.</div>
+        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: Ship 40 static fire completion and Flight 13 manifest confirmation</div>
+        <div class="outlook-signal">Watch whether Ship 40 completes its static fire this week, as that result directly determines the timeline and market confidence for Starship Flight 13 and the orbital return demonstration hinted at in new FAA filings.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-0')" id="btn-dd-0">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-0">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-0">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A credible management statement stabilising investor confidence redirects institutional capital toward direct SpaceX competitors including Rocket Lab and AST SpaceMobile, which are already identified as primary beneficiaries of any SpaceX pullback.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Continued silence or a negative debt disclosure accelerates broader commercial space sector de-rating, pressuring launch and satellite connectivity names and raising cost of capital for Relativity, Stoke, and Isar Aerospace ahead of their own debut milestones.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A clean static fire clears the path to Flight 13 within weeks, validating the orbital return architecture, accelerating commercial payload commitments, and providing a direct catalyst for SpaceX-linked public equities including recently listed Nasdaq-traded SpaceX stock.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">A scrub or anomaly during static fire pushes Flight 13 into Q3 at minimum, delays orbital data center deployment timelines that SpaceX is actively marketing, and triggers a re-rating of near-term revenue assumptions for launch-dependent operators.</div></div>
           </div>
         </div>
       </div><div class="outlook-card" style="border-top:3px solid #ff4444">
         <div class="outlook-domain" style="color:#ff4444">🛡 DEFENCE</div>
-        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: Army low-cost interceptor proposal submission deadline</div>
-        <div class="outlook-signal">Watch the U.S. Army procurement response deadline for low-cost missile interceptor proposals this week, as Army Secretary Dan Driscoll has set a one-year development target that will define which tier-two defence primes and non-traditional contractors win near-term contract flow.</div>
+        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: Pentagon 80 billion Iran war supplemental confirmation by Congress</div>
+        <div class="outlook-signal">Watch the Pentagon confirmation or rejection of the reported 80 billion dollar supplemental request to Congress for Iran war costs this week, as that figure will set procurement velocity for drone, missile, and ISR programs that dominated Eurosatory 2026 deal flow.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-1')" id="btn-dd-1">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-1">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-1">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A high volume of credible non-traditional submissions signals market entry by agile contractors and validates the Army rewrite of legacy procurement doctrine, creating near-term revenue catalysts for firms such as Kratos Defence already positioned in low-cost attritable systems.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Sparse or incumbent-dominated submissions confirm the procurement reform is performative, leaving legacy cost structures intact and sustaining the conditions that drove the original challenge, with no near-term upside for smaller CUAS and interceptor-focused vendors.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Congressional acceptance unlocks rapid contract awards for loitering munitions, CUAS systems, and interceptor drones — sectors where MBDA, Thales, GDELS, and Japanese interceptor drone entrants are actively scaling — rewarding investors holding defence prime and tier-one supplier positions.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Congressional rejection or protracted debate freezes supplemental-dependent procurement, stalls Eurosatory partnership deals that were structured around expected spending growth, and pressures margins for primes already carrying elevated production ramp costs.</div></div>
           </div>
         </div>
       </div><div class="outlook-card" style="border-top:3px solid #ff8c00">
         <div class="outlook-domain" style="color:#ff8c00">🌍 GEOPOLITICS</div>
-        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: Trump veto or signature on Iran war powers resolution</div>
-        <div class="outlook-signal">Watch whether Trump vetoes or signs the war powers resolution passed by both the Senate and House this week to halt the Iran conflict, as that binary executive decision directly controls the operational tempo and duration of U.S. Middle East military deployments including the A-10 formations currently staged in the region.</div>
+        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: US-Iran Switzerland technical talks outcome by week end</div>
+        <div class="outlook-signal">Watch whether US-Iran technical-level talks continuing through this week in Switzerland produce a verifiable nuclear compliance framework, as the outcome directly controls Hormuz transit risk, regional oil supply pricing, and Gulf-based defence posture requirements.</div>
         <div class="pred-dropdown">
           <div class="pred-dd-btn" onclick="toggleDD('dd-2')" id="btn-dd-2">
             <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
             <span class="pred-dd-arrow" id="arr-dd-2">▾</span>
           </div>
           <div class="pred-dd-content" id="dd-2">
-            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A presidential signature accepting the resolution creates conditions for a durable ceasefire framework, accelerates the Switzerland diplomatic track that JD Vance has described as very very good, and reduces near-term tail risk for Gulf-based operators and UAE-Israel-India trilateral defence investment flows.</div></div>
-            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">A Trump veto sustains open-ended U.S. military engagement, signals Rubio Gulf reassurance talks failed to produce a unified allied position, and raises operational risk premiums for regional infrastructure and maritime routes that the India-UAE defence partnership and Wake Island reactivation are both designed to protect.</div></div>
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A verified compliance framework reduces Hormuz closure risk, normalises tanker insurance premiums, eases Indian refiner supply anxiety that drove the June Russian and UAE crude surge, and reduces the near-term case for additional US naval and air asset deployments to the Gulf.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Talks collapse or Iran again closes uranium enrichment access as it did at the tense Burgenstock opening, Senator Graham publicly calls for military action, gold futures extend their Iran-risk bid, and UAE-based defence operators face a materially higher probability of kinetic escalation requiring immediate force posture revision.</div></div>
           </div>
         </div>
       </div>
@@ -1092,12 +1097,12 @@ function openMapPopup(item,col,catLabel){
 function closeMapPopup(e){if(e.target===document.getElementById('map-popup-overlay'))document.getElementById('map-popup-overlay').classList.remove('active');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('map-popup-overlay').classList.remove('active');});
 async function loadRegulatoryPulse(){
-  const briefing=`Beneath todays surface noise of World Cup results and ceasefire diplomacy, a structural acceleration in responsive space operations, autonomous systems deployment, and critical mineral supply disruption is quietly reshaping the competitive landscape for defence-oriented space and industrial operators. The tension is sharp: US Senate and House both passed a concurrent war powers resolution directing the removal of US forces from the Iran conflict, though the measure is nonbinding and carries no force of law -- the White House has dismissed it as meaningless. The Pentagon simultaneously maintains A-10 deployments across the Middle East and Marco Rubio moves to reassure Gulf allies -- that contradiction signals that US military posture in the region is decoupling from its political posture, creating sustained demand for ISR, C5ISR, and rapid-launch capabilities regardless of the diplomatic outcome. The Starliner-1 mission has been reconfigured as an uncrewed cargo resupply flight (confirmed by NASA on May 2, 2026); as of June 2026 no launch date has been set, with teams still working through technical issues -- the crewed vehicle framing is no longer applicable and capital rotation toward Rocket Lab and AST SpaceMobile is reinforced by that status. RKLB last closed at approximately 95.14 on June 23 (Robinhood data) but is trading intraday on June 24 in the 104-110 range, up materially from the prior close.`;
-  const sentiment=`BULLISH`;
+  const briefing=`The structural diplomatic force beneath todays session is the implementation phase of the June 17 US-Iran Memorandum of Understanding. High-level talks opened at Burgenstock on June 21 -- after a planned June 19 session was cancelled when VP Vance pulled out -- with Vance attending alongside Iranian parliamentary speaker Ghalibaf and mediators Qatar and Pakistan (Swiss FDFA, June 21). The first round concluded on June 21 with technical-level talks continuing through the 60-day MOU implementation window; Lebanon ceasefire compliance and the nuclear programme are the primary sticking points. The tension lies in the contradiction between a defence sector selling off sharply across all major primes -- LMT down 2.8%, NOC down 2.6%, LHX down 3.5%, RTX down 1.5% -- at precisely the moment the Pentagon has told lawmakers it requires 80 billion dollars to cover Iran war and other expenses, suggesting markets are pricing in a negotiated resolution faster than the institutional defence budget cycle can absorb it. Watch whether the ongoing technical talks in Switzerland produce a joint communique or break down -- a confirmed framework would accelerate the prime selloff and redirect capital toward commercial space and satellite connectivity plays already building out post-conflict infrastructure demand.`;
+  const sentiment=`BEARISH`;
   const risk=`HIGH`;
-  const spaceH=["Chinese spaceplane releases object in orbit","Rocket Lab sets 17-hour responsive launch record","NASA Boeing commit to Starliner-1 despite unclear timeline","SpaceX Starfall reentry demo mission launches","Arianespace launches heaviest Amazon LEO payload","Boeing wins $2B Space Force comms satellite contract"];
-  const defH=["US Senate votes to halt Iran war","China antimony export ban sends prices up 2600 percent","Fiber-optic killer drones arrive in south Lebanon","US Army seeks low-cost missile interceptors fast"];
-  const midH=["Rubio Reassures Gulf Allies on Iran Ceasefire Deal","Iran Retains Asymmetric Fight Capacity Post-War","Israel Sets Three Conditions for Lebanon Withdrawal","India-UAE Defence Ties Hit New High"];
+  const spaceH=["SpaceX IPO Begins Trading on Nasdaq","Starship Flight 13 Preps: Booster 20 Cryo Done, Ship 40 Nears Static Fire","Arianespace Launches Heaviest Payload With Amazon LEO","AST SpaceMobile Launches 3 Block 2 BlueBird Satellites","Relativity Space Terran R Stage Heads to Stennis","NASA Roman Space Telescope Arrives in Florida"];
+  const defH=["Pentagon Seeks $80 Billion for Iran War Costs","Ukraine Strikes Both Sides of Crimean Bridge","US Iran Talks Conclude in Switzerland, Technical Talks Continue","Only 25% of F-35 Fleet Fully Mission Capable, GAO Finds","Eurosatory 2026 Loitering Munition for UAE Navy by MBDA"];
+  const midH=["US-Iran High-Level Talks End in Switzerland","Zelensky Pressures Belarus on Russian Drone Support","Graham Warns US-Iran Deal Will Fail","Middle East at a Diplomatic Turning Point"];
   const allH=[...spaceH,...defH,...midH].join('\n- ');
   const prompt=`You are a regulatory intelligence analyst for Prism, a space and defence dashboard. Today briefing: ${briefing}. Sentiment: ${sentiment}. Risk: ${risk}. Headlines:\n- ${allH}\n\nAnalyse the regulatory environment. Reply ONLY in this exact JSON with no other text:\n{"score":<0-100>,"status":"<STABLE|ELEVATED|HIGH PRESSURE|CRITICAL>","delta":"<e.g. +8 pts this week>","delta_direction":"<up|down|stable>","areas":[{"name":"<max 18 chars>","status":"<green|amber|red>","pill":"<STABLE|WATCH|ACTIVE|CRITICAL>","trend":"<up|stable|down>","text":"<2 sentences max>","countdown":"<72 HRS or 5 DAYS or PENDING or none>"}]}\nInclude exactly 4 areas. No apostrophes.`;
   try{
@@ -1157,7 +1162,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.35}).addTo(map);
 const catColors={space:'#4a9eff',defence:'#ff4444',middle_east:'#ff8c00',investment:'#00aa40',ai_tech:'#a060ff',ipo_watch:'#ffcc00'};
 const catLabels={space:'🛰 SPACE',defence:'🛡 DEFENCE',middle_east:'🌍 MID EAST',investment:'💰 INVEST',ai_tech:'🤖 AI TECH',ipo_watch:'🚀 IPO'};
-const newsData={"space":[{"headline":"Chinese spaceplane releases object in orbit","context":"Commercial space surveillance firm LeoLabs confirmed that Chinas secretive spaceplane released an object into orbit during its ongoing fourth mission, marking a significant on-orbit activity event that is not publicly explained by Chinese authorities. The development raises immediate questions about the nature of the released object, whether it is a sub-satellite, a debris generator, or an inspection vehicle, and what military utility the mission is demonstrating.","implication":"Undisclosed on-orbit object releases from a military spaceplane signal active development of in-space servicing, inspection, or counterspace capabilities that directly challenge US and allied satellite survivability assumptions and elevate demand for space domain awareness assets including those operated by LeoLabs, Planet Labs, and BlackSky.","image":"https://spacenews.com/wp-content/uploads/2025/11/Shenzhou22-launch-CZ2F-JSLC-25nov2025-CASC.jpg","region":"Asia Pacific","urgency":"BREAKING","score":88,"source":"spacenews","link":"https://spacenews.com/chinese-spaceplane-releases-object-into-orbit-according-to-commercial-space-surveillance/","lat":40.96,"lng":100.8512},{"headline":"Rocket Lab sets 17-hour responsive launch record","context":"Rocket Lab launched a satellite for the US Space Force Victus Haze responsive space exercise, pairing its spacecraft with a True Anomaly vehicle in orbit to demonstrate rapid threat characterisation and rendezvous operations. The mission established a new record for time-from-notice-to-launch, undercutting the previous Victus Nox benchmark of 27 hours set by Firefly Aerospace in September 2023.","implication":"Validation of sub-17-hour tactically responsive launch directly strengthens Rocket Labs competitive moat in Space Force responsive space contracting and reinforces the strategic case for dedicated small-launch infrastructure over rideshare alternatives.","image":"https://spacenews.com/wp-content/uploads/2026/06/9765529-scaled.jpg","region":"North America","urgency":"URGENT","score":82,"source":"spacenews","link":"https://spacenews.com/rocket-lab-launches-satellite-for-u-s-space-force-victus-haze-responsive-space-exercise/","lat":34.742,"lng":-120.5724},{"headline":"NASA Boeing commit to Starliner-1 despite unclear timeline","context":"NASA and Boeing publicly reaffirmed their commitment to the Starliner-1 crewed launch despite being unable to provide a clear launch timeline, according to SpaceFlightNow reporting from June 23. The ambiguity follows a period of sustained technical and programmatic difficulty on the Starliner programme and comes as Boeing already faces headwinds on its T-7 Red Hawk data rights dispute with the Air Force.","implication":"Continued Starliner schedule uncertainty reinforces SpaceX Crew Dragons structural monopoly on NASA crewed access to the ISS and raises programme risk for Boeings space systems division at a moment when the company can least afford further reputational damage with government customers.","image":"none","region":"North America","urgency":"URGENT","score":72,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/23/nasa-boeing-committed-to-starliner-1-launch-despite-unclear-timeline/","lat":28.5729,"lng":-80.649},{"headline":"SpaceX Starfall reentry demo mission launches","context":"SpaceX launched its Starfall demonstration mission on Tuesday, testing the companys upcoming reentry capsule vehicle in what NASASpaceFlight described as a dedicated demonstration flight. The mission signals SpaceX is advancing a distinct reentry vehicle programme separate from Dragon, potentially targeting cargo return, in-space manufacturing, or defense-oriented payload recovery markets.","implication":"A successful Starfall reentry demonstration would give SpaceX a new product line in the high-value payload return and potential rapid-response cargo recovery segment, intensifying competitive pressure on emerging reentry vehicle developers and legacy capsule programmes.","image":"none","region":"North America","urgency":"URGENT","score":68,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/23/live-coverage-spacex-to-launch-reentry-capsule-demo-mission-called-starfall/","lat":28.4731,"lng":-80.577},{"headline":"Arianespace launches heaviest Amazon LEO payload","context":"Arianespace launched its heaviest payload to date on an Amazon LEO flight, according to SpaceFlightNow coverage from June 17. The mission marks a significant milestone for both the Ariane launch vehicle programme and the Amazon LEO broadband constellation build-out as it competes directly with SpaceX Starlink.","implication":"Arianespaces ability to lift Amazon LEOs heaviest satellites to date validates Europes independent access to orbit for mega-constellation deployment and reduces the programmes dependence on SpaceX at a time when geopolitical pressure to diversify launch providers is intensifying.","image":"none","region":"Europe","urgency":"NORMAL","score":62,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/17/live-coverage-arianespace-to-launch-its-heaviest-payload-to-date-with-amazon-leo-flight/","lat":5.2365,"lng":-52.7695},{"headline":"Boeing wins $2B Space Force comms satellite contract","context":"Boeing secured a 2 billion dollar Space Force contract for communications satellites, according to SpaceAgenda reporting citing SpaceNews. The award provides Boeing Space a significant government anchor at a time when the company faces programme pressure on Starliner and data rights disputes on the T-7 Red Hawk.","implication":"A 2 billion dollar Space Force communications satellite award stabilises Boeings government space revenue base and signals that the Pentagon continues to value Boeings satellite integration capability despite the companys broader programmatic difficulties.","image":"https://spacenews.com/wp-content/uploads/2024/01/8103353143_79569b1775_k.jpg","region":"North America","urgency":"NORMAL","score":60,"source":"SpaceAgenda","link":"https://spacenews.com/boeing-wins-2-billion-space-force-contract-for-communications-satellites/","lat":38.8719,"lng":-77.0563}],"defence":[{"headline":"US Senate votes to halt Iran war","context":"The US Senate voted 50-48 on June 23, 2026 to pass a concurrent war powers resolution directing President Trump to remove US armed forces from hostilities against Iran unless explicitly authorized by Congress (CNN, Al Jazeera, NPR, June 23, 2026). This is the first time both chambers have passed such a measure. However, the resolution is nonbinding: as a concurrent resolution it does not go to the president for signature and carries no force of law; a White House official stated it has no significance. Four Republicans -- Rand Paul, Susan Collins, Lisa Murkowski, and Bill Cassidy -- joined nearly all Democrats; one Democrat, John Fetterman, voted against. Separately, Vice President Vance said talks in Switzerland had laid a good foundation for a final deal, not that progress was very very good -- and Iran has disputed US characterizations of what was agreed on nuclear inspections. No final ceasefire agreement has been confirmed as of June 24, 2026.","implication":"An executive-legislative war powers standoff over Iran operations creates procurement and budget uncertainty for defence contractors with Middle East-oriented programmes while simultaneously sustaining elevated demand signals for ISR, air defence, and rapid-deployment systems as long as US forces remain deployed.","image":"https://www.armytimes.com/resizer/v2/KSFMM5PEJBHGLHCMB3J5NCW73M.jpg?width=1200&auth=692f90b596cb002cfbb382c0d45f518c35db3b307aad2d663c76fdb0d328fc59","region":"Middle East / North America","urgency":"BREAKING","score":90,"source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/06/24/us-senate-joins-house-in-voting-to-halt-iran-war/","lat":35.6892,"lng":51.389},{"headline":"China antimony export ban sends prices up 2600 percent","context":"China announced export controls on antimony in 2024 and the resulting supply shock sent prices up 2,600 percent, with ongoing shortages now threatening supply chains for more than 200 types of military munitions, according to Oilprice.com reporting citing financialcontent sources naming KTOS, MP, USAR, CRML, and NB as affected or related tickers. Rare earth supply disruptions are flagged as the next phase of Chinese strategic resource leverage.","implication":"Antimony and rare earth supply disruption represents a direct, structural vulnerability in Western defence munitions production that elevates the strategic and financial value of any domestic or allied alternative mining and processing company in the short to medium term.","image":"https://d32r1sh890xpii.cloudfront.net/article/1200x675/2026-06-23_fii4jfwgq7.jpg","region":"Global","urgency":"URGENT","score":82,"source":"oilprice","link":"https://oilprice.com/Energy/Energy-General/Chinas-Antimony-Ban-Sent-Prices-Up-2600-Rare-Earths-Are-Next.html","lat":39.9042,"lng":116.4074},{"headline":"Fiber-optic killer drones arrive in south Lebanon","context":"Fiber-optic guided killer drone technology has arrived in southern Lebanon, frustrating Israeli countermeasures that rely on jamming radio-frequency or GPS signals, according to Defense News reporting from June 23. Fiber-optic guidance is not susceptible to electronic warfare disruption, representing a significant tactical escalation in the drone threat environment facing Israeli forces in the region.","implication":"The proliferation of fiber-optic guided drones into non-state actor inventories in Lebanon signals that EW-immune precision attack capability is now reaching sub-state actors faster than defensive countermeasures are being deployed, driving urgent demand for kinetic close-in and directed-energy defeat systems.","image":"https://www.armytimes.com/resizer/v2/QTH3ZTH6RRDBVK6SGARZOTEA44.jpg?width=1200&auth=7f0d320847941aef5ebcf552177ed6a26466a8aefaa396f1c8177c3843c19c78","region":"Middle East","urgency":"BREAKING","score":80,"source":"Defense News","link":"https://www.defensenews.com/global/mideast-africa/2026/06/23/frustrating-israel-fiber-optic-killer-drone-technology-has-arrived-in-southern-lebanon/","lat":33.2721,"lng":35.2033},{"headline":"US Army seeks low-cost missile interceptors fast","context":"US Army Secretary Dan Driscoll issued a challenge to defence companies to develop a new generation of low-cost air-defence interceptors within one year, a move described as potentially reshaping one of the militarys most expensive procurement categories. The initiative targets the fundamental cost asymmetry between expensive interceptors and cheap attack drones or missiles, a gap made acute by operational experience in Ukraine and the Middle East.","implication":"A one-year Army interceptor development challenge signals urgent institutional appetite for non-traditional suppliers and rapid prototyping pathways, creating a near-term opportunity for drone defence and guided munitions startups that can move faster than legacy prime contractors.","image":"none","region":"North America","urgency":"URGENT","score":75,"source":"freerepublic","link":"https://freerepublic.com/focus/f-news/4385084/posts","lat":38.8719,"lng":-77.0563}],"middle_east":[{"headline":"Rubio Reassures Gulf Allies on Iran Ceasefire Deal","context":"US Secretary of State Marco Rubio is meeting with UAE, Kuwait, and Bahrain officials to reassure Gulf partners that Washington remains committed to their security amid division over the emerging US-Iran ceasefire framework. Gulf states have expressed concern that a deal with Tehran could reduce the US security umbrella in the region and embolden Iranian proxies.","implication":"Rubio diplomatic reassurance missions signal that Gulf defence partnerships and US arms commitments to the region remain politically active, sustaining near-term procurement and basing arrangements for defence operators in the UAE and wider Gulf.","image":"https://i.guim.co.uk/img/media/8bae0249e1909e37cc0e951ef613ef43fb2a15b2/0_53_3949_3160/master/3949.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=ea5baeb4210b0e2a2a9151193a426b8b","region":"UAE / Kuwait / Bahrain","urgency":"URGENT","score":90,"source":"theguardian","link":"https://www.theguardian.com/world/2026/jun/23/marco-rubio-gulf-allies-us-iran-ceasefire-deal","lat":24.4539,"lng":54.3773},{"headline":"Iran Retains Asymmetric Fight Capacity Post-War","context":"Despite JD Vance touting progress in Switzerland ceasefire talks, analysts at The Cipher Brief warn that Iran retains significant capacity to wage asymmetric warfare even under a peace framework, including proxy networks and missile and drone arsenals. The analysis argues that what Iran wants from negotiations may not align with what Washington is offering, leaving structural tensions unresolved.","implication":"Persistent Iranian asymmetric capability means regional defence demand for missile defence, ISR, and drone countermeasures remains elevated regardless of diplomatic outcomes, supporting long-run investment theses in those segments.","image":"https://www.thecipherbrief.com/media-library/propaganda-paintings-with-american-flag-an-down-with-the-usa-text-in-tehran-iran-stock-photo.jpg?id=67003609&width=1200&height=600&coordinates=0%2C167%2C0%2C168","region":"Iran / Middle East","urgency":"NORMAL","score":80,"source":"thecipherbrief","link":"https://www.thecipherbrief.com/what-iran-wants-and-how-it-can-still-fight","lat":32.4279,"lng":53.688},{"headline":"Israel Sets Three Conditions for Lebanon Withdrawal","context":"Israel has publicly outlined three conditions that must be met before it will withdraw its occupation forces from southern Lebanon, signalling that any near-term pullback remains contingent on security guarantees not yet in place. The conditions underscore the fragility of the ceasefire architecture in the north and the durability of Israeli forward positioning.","implication":"Sustained Israeli forward presence in Lebanon extends the operational demand horizon for air defence, logistics, and ISR systems deployed to support that posture, keeping procurement cycles active for relevant defence suppliers.","image":"https://assets.zerohedge.com/s3fs-public/styles/16_9_max_700/public/2026-06/idfleb.jpg?h=7b905428&itok=IOGsaFSB","region":"Israel / Lebanon","urgency":"NORMAL","score":65,"source":"zerohedge","link":"https://www.zerohedge.com/geopolitical/israel-sets-3-key-conditions-ending-occupation-south-lebanon","lat":33.8547,"lng":35.8623},{"headline":"India-UAE Defence Ties Hit New High","context":"India's Ministry of External Affairs has described a major upswing in India-UAE defence cooperation, with the UAE expressing strong interest in acquiring Indian-made BrahMos cruise missiles and the Akashteer air defence control system. Talks are progressing on broader bilateral defence industrial agreements as both nations deepen strategic alignment.","implication":"Growing UAE appetite for Indian defence platforms such as BrahMos and Akashteer diversifies Gulf procurement away from traditional Western suppliers, creating new competitive dynamics and partnership opportunities for regional and global defence investors.","image":"https://feeds.abplive.com/onecms/images/uploaded-images/2026/06/20/cdf38dc01e8badfe09111fa08d3d5e2c17819751913161324_original.jpg?impolicy=abp_cdn&imwidth=1200","region":"UAE / India","urgency":"NORMAL","score":55,"source":"abplive","link":"https://news.abplive.com/news/india/major-upswing-in-india-uae-ties-mea-on-growing-defence-cooperation-1852199","lat":23.4241,"lng":53.8478}],"investment":[{"headline":"C5ISR Market Heading to 30 Billion by 2035","context":"The global C5ISR market is forecast to reach US 30.18 billion by 2035, driven by accelerating government investments in defence modernisation, battlefield digitisation, and networked command and control across NATO and Indo-Pacific nations. Rising military budgets globally and increasing demand for integrated intelligence and communications architectures are cited as primary growth drivers.","implication":"A decade-long C5ISR expansion trajectory of this scale creates sustained revenue visibility for defence electronics, satellite communications, and space-based ISR platform providers, supporting long-term investor positioning across those segments.","image":"https://img.einnews.com/facebook/1137686/c5isr-market.png","region":"Global","urgency":"NORMAL","score":70,"source":"einpresswire","link":"https://www.einpresswire.com/article/921588906/global-c5isr-market-growth-accelerates-with-rising-military-modernization-reaching-us-30-18-billion-by-2035","lat":38.9072,"lng":-77.0369},{"headline":"Satellogic and SynMax Partner on Merlin Constellation","context":"Satellogic has announced a commercial partnership with intelligence firm SynMax to build integrated intelligence services around its upcoming Merlin satellite constellation, combining high-frequency Earth observation data with SynMax analytics capabilities. The deal positions Satellogic to monetise its next-generation constellation through downstream intelligence products rather than raw data sales alone.","implication":"Constellation-to-intelligence vertical integration deals like this signal a maturing commercial space intelligence market where data alone is commoditising, and operators who lock in analytics partnerships early will capture higher-margin revenue streams.","image":"https://spacenews.com/wp-content/uploads/2026/06/Satellogic_Tabriz.jpg","region":"Global","urgency":"NORMAL","score":60,"source":"SpaceAgenda","link":"https://spacenews.com/satellogic-partners-with-synmax-to-build-intelligence-services-around-upcoming-merlin-constellation/","lat":-34.6037,"lng":-58.3816}],"ai_tech":[{"headline":"China Reclaims Title of Worlds Fastest Supercomputer","context":"China has taken back the top position in the global supercomputer rankings from the United States, according to Al Jazeera reporting on the latest Top500 list, marking a significant milestone in the intensifying US-China competition for high-performance computing supremacy. The development has immediate implications for AI model training capacity, nuclear simulation, and advanced weapons design at national scale.","implication":"Chinese supercomputing leadership directly accelerates its AI and autonomous weapons development timeline, increasing pressure on US and allied defence programmes to accelerate their own HPC and AI infrastructure investments.","image":"https://www.aljazeera.com/wp-content/uploads/2026/06/AP23355580833813-1782264388.jpg?resize=1920%2C1440","region":"China","urgency":"URGENT","score":90,"source":"Al Jazeera","link":"https://www.aljazeera.com/economy/2026/6/24/china-takes-us-crown-for-worlds-fastest-supercomputer","lat":39.9042,"lng":116.4074},{"headline":"US Army Tests Drone-Kill Software for Moving Vehicles","context":"The US Army has successfully tested new fire control software that enables moving ground vehicles to detect and engage drone threats in real time, a capability that significantly reduces the sensor-to-shooter timeline for mobile counter-UAS operations. The software trial represents a step toward fully integrated kinetic drone defeat systems that do not require vehicles to halt before engaging aerial targets.","implication":"Validated moving-vehicle fire control software for drone engagement expands the addressable market for CUAS hardware integrators and creates a new procurement pathway for armies seeking to upgrade existing vehicle fleets without full platform replacement.","image":"https://www.armytimes.com/resizer/v2/Q2GIUYU6IZCWBDYOWMIC6UNBCI.jpg?width=1200&auth=da4c6e07a62da7df2291491418c008292c42228532a314876a0b7b73d630e396","region":"United States","urgency":"NORMAL","score":80,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/06/23/us-army-tests-fire-control-software-that-helps-moving-vehicles-kill-drones/","lat":38.9072,"lng":-77.0369},{"headline":"Pearson Engineering AI Mine Detection Heads to Ukraine","context":"Pearson Engineering announced at Eurosatory 2026 that it will send AI-powered mine detecting systems into Ukraine, providing frontline forces with autonomous detection capability to address one of the most lethal and persistent threats in the conflict. The system uses machine learning algorithms to identify mine signatures at speed, reducing the risk to human demining teams.","implication":"Live deployment of AI mine detection in an active conflict zone will generate critical real-world training data and operational validation that accelerates the broader market for autonomous route clearance and battlefield AI systems.","image":"none","region":"Ukraine / United Kingdom","urgency":"NORMAL","score":80,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/landwarfareintl/eurosatory-2026-pearson-engineering-sends-ai-mine-detecting-systems-into-ukraine/","lat":48.3794,"lng":31.1656}],"ipo_watch":[]};
+const newsData={"space":[{"headline":"SpaceX IPO Begins Trading on Nasdaq","context":"SpaceX priced its IPO at $135 per share and began trading on Nasdaq under ticker SPCX on June 12, 2026 -- not simultaneous with a Falcon 9 mission as originally described. The offering raised approximately $86 billion at a valuation of $1.77 trillion, making it the largest IPO in history (Wikipedia, updated June 22). As of June 22, SPCX is trading at approximately $170.61, down from a previous close of $185.00, within a post-IPO range of $135 to $225.64 (Investing.com, June 22). The stock has continued to demonstrate operational tempo through additional Falcon 9 missions since listing.","implication":"SpaceX entering public markets reshapes the entire sector valuation landscape — every comparable new-space equity now has a live benchmark against which institutional capital will size positions, compressing or expanding multiples across RKLB, LUNR, and ASTS simultaneously.","image":"none","region":"North America","urgency":"BREAKING","score":90,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/12/live-coverage-spacex-to-launch-final-starlink-mission-as-it-begins-publicly-trade-its-stock-on-the-nasdaq-for-the-first-time/","lat":28.5623,"lng":-80.5774},{"headline":"Starship Flight 13 Preps: Booster 20 Cryo Done, Ship 40 Nears Static Fire","context":"Booster 20 has completed cryogenic testing at Boca Chica ahead of Starship Flight 13, while Ship 40 is approaching its static fire milestone according to NASASpaceFlight. Separately, new filings suggest the mission may include an orbital return demonstration, representing the next major capability step for the Starship programme.","implication":"Progress toward orbital return on Flight 13 is the critical gating event for Starship-dependent contracts including NASA Artemis lunar lander delivery and commercial payload customers, making each milestone a direct signal for programme schedule risk.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/06/COLLEEN-CRL01078-wmarked-622x350.jpg","region":"North America","urgency":"URGENT","score":82,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/06/booster-20-cryo-ship-40-static-fire/","lat":25.9972,"lng":-97.1571},{"headline":"Arianespace Launches Heaviest Payload With Amazon LEO","context":"Arianespace completed the launch of its heaviest payload to date on June 17, carrying satellites for Amazon LEO, the company formerly known as Project Kuiper. The mission marks a significant operational milestone for both the launch provider and Amazon LEOs constellation buildout, which is now in direct competition with Starlinks global broadband footprint.","implication":"Amazon LEO securing Arianespace capacity for heavy payload batches signals the constellation is scaling faster than previously public timelines indicated, applying direct competitive pressure on Starlink revenue projections and broadening the addressable market for satellite ground infrastructure suppliers.","image":"none","region":"Europe","urgency":"URGENT","score":78,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/17/live-coverage-arianespace-to-launch-its-heaviest-payload-to-date-with-amazon-leo-flight/","lat":5.2322,"lng":-52.7697},{"headline":"AST SpaceMobile Launches 3 Block 2 BlueBird Satellites","context":"SpaceX launched three Block 2 BlueBird satellites for AST SpaceMobile on June 16, expanding the companys direct-to-device broadband constellation with its most capable hardware generation to date. Block 2 satellites carry significantly larger antenna arrays than Block 1, supporting higher throughput and broader geographic coverage.","implication":"Each Block 2 addition materially increases ASTSs revenue-generating capacity and de-risks its commercial launch timeline, which is the primary variable investors are watching ahead of expected service expansion agreements with its mobile operator partners.","image":"none","region":"North America","urgency":"NORMAL","score":72,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/16/live-coverage-spacex-to-launch-3-block-2-bluebird-satellites-for-ast-spacemobile/","lat":28.5623,"lng":-80.5774},{"headline":"Relativity Space Terran R Stage Heads to Stennis","context":"Relativity Spaces Terran R second stage has been shipped to the Stennis Space Center in Mississippi for engine testing, advancing the fully reusable medium-lift rocket toward its planned 2026 debut. The milestone confirms Relativity remains on track to enter a launch market that currently has limited reusable medium-lift competition outside Falcon 9.","implication":"A successful Stennis test campaign would validate Terran Rs propulsion architecture and unlock the next tranche of customer commitments, positioning Relativity as the primary domestically reusable alternative for government and commercial payloads in the 1,000 to 20,000 kilogram class.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/06/IMG_4456.jpeg","region":"North America","urgency":"NORMAL","score":65,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/06/relativity-update-0626/","lat":30.3672,"lng":-89.5914},{"headline":"NASA Roman Space Telescope Arrives in Florida","context":"NASAs Nancy Grace Roman Space Telescope has arrived in Florida ahead of its planned launch processing campaign, marking a major logistics milestone for the flagship astrophysics mission. Roman is designed to conduct wide-field infrared surveys and dark energy investigations at a scale not previously possible from orbit.","implication":"Romans arrival in Florida confirms the launch schedule is holding, which matters to contractors across the mission supply chain and signals continued NASA commitment to flagship science missions even amid ongoing budget pressure discussions.","image":"none","region":"North America","urgency":"NORMAL","score":60,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/06/22/nasas-nancy-grace-roman-space-telescope-arrives-in-florida/","lat":28.5246,"lng":-80.6511}],"defence":[{"headline":"Pentagon Seeks $80 Billion for Iran War Costs","context":"The Pentagon has told lawmakers it requires approximately 80 billion dollars to cover Iran war expenses and other non-war-related bills, according to the Wall Street Journal as cited by Reuters (June 18-19). Deputy Defense Secretary Stephen Feinberg communicated the figure to lawmakers by phone; a formal supplemental request had not yet been submitted to Congress as of June 19 and would require White House OMB approval before transmittal. The 80 billion figure encompasses both war and non-war costs; direct Iran war expenses were previously estimated at approximately 25 billion dollars by a Pentagon official in April.","implication":"An 80 billion dollar supplemental request would represent one of the largest single war-cost appropriations in recent history and would structurally benefit prime contractors across munitions replenishment, ISR, and precision strike — but the diplomatic track in Switzerland makes the request politically vulnerable to reduction or delay.","image":"https://www.armytimes.com/resizer/v2/EOMSFMDMGZFTPACXCRYOBHJBGU.JPG?width=1200&auth=819506a546e44740c2ddb795e02fbfb566cf9cf8e0ebcfa1b599a66b59ba223a","region":"North America","urgency":"BREAKING","score":90,"source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/06/19/pentagon-tells-lawmakers-it-needs-80-billion-for-iran-war-other-expenses-wsj/","lat":38.8719,"lng":-77.0563},{"headline":"Ukraine Strikes Both Sides of Crimean Bridge","context":"Ukraine struck energy and military targets on both sides of the Crimean Bridge overnight on June 20-21, with President Zelensky confirming the attack on June 21 (Kyiv Independent, June 21). The strikes targeted military logistics and oil infrastructure on both approaches to the bridge. Zelensky simultaneously warned of a new incoming massive Russian strike. The attack is part of a sustained campaign: Ukrainian forces have struck multiple Crimean bridges and supply routes since June 7, with Russian-installed authorities rationing fuel to civilians across the peninsula as a result.","implication":"Successful dual-side strikes on the Crimean Bridge signal a maturation of Ukrainian long-range drone capability that will accelerate European demand for counter-UAS systems and precision strike munitions — directly relevant to primes and emerging drone defence firms presenting at Eurosatory 2026.","image":"https://assets.kyivindependent.com/content/images/2023/08/GettyImages-1556040259-2.jpg","region":"Europe","urgency":"BREAKING","score":88,"source":"kyivindependent","link":"https://kyivindependent.com/ukraine-war-latest-ukraine-strikes-both-sides-of-crimean-bridge-zelensky-warns-of-new-massive-strike-by-russia/","lat":45.3447,"lng":36.0681},{"headline":"US Iran Talks Conclude in Switzerland, Technical Talks Continue","context":"A planned June 19 high-level session at Burgenstock was cancelled after VP Vance withdrew; talks ultimately opened on June 21 with Vance attending alongside Iranian parliamentary speaker Ghalibaf and mediators Qatar and Pakistan (Swiss FDFA, June 21; Al Jazeera, June 21). The first round concluded on June 21. Continuing technical-level talks are framed as the implementation phase of the June 17 MOU across a 60-day window; Lebanon ceasefire compliance and Irans nuclear programme are the primary sticking points. A regional ceasefire in Lebanon forms part of the broader diplomatic architecture but remains contested, with Iran citing ongoing Israeli strikes in Lebanon as a violation of the agreement.","implication":"A negotiated Iran framework would reduce the probability of sustained high-tempo US offensive operations in the Gulf, compressing near-term munitions and strike platform demand forecasts while simultaneously reducing Hormuz transit risk and lowering launch insurance costs for commercial satellite operators.","image":"https://i.brecorder.com/large/2026/06/22064642351d99a.webp","region":"Middle East","urgency":"BREAKING","score":87,"source":"brecorder","link":"https://www.brecorder.com/news/40426723/us-and-iran-conclude-high-level-talks-in-switzerland-mediators-say/","lat":46.9748,"lng":8.2136},{"headline":"Only 25% of F-35 Fleet Fully Mission Capable, GAO Finds","context":"A GAO report has found that only 25% of the Pentagons F-35 fleet has been fully mission capable, a readiness figure that falls well below operational requirements for a high-intensity conflict such as the current Iran campaign. The finding raises urgent questions about sustainment contracts, spare parts supply chains, and the long-term reliability of the F-35 as a front-line strike platform.","implication":"A 25% full mission capability rate during active combat operations creates immediate contract opportunities for F-35 sustainment, depot maintenance, and parts acceleration programmes — but also raises reputational risk for Lockheed Martin at precisely the moment its stock is under pressure.","image":"none","region":"North America","urgency":"URGENT","score":80,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/air-warfare/only-25-of-the-us-pentagons-f-35-fleet-has-been-fully-mission-capable-gao-says/","lat":38.8719,"lng":-77.0563},{"headline":"Eurosatory 2026 Loitering Munition for UAE Navy by MBDA","context":"MBDA revealed at Eurosatory 2026 that a locally produced loitering munition is destined for the UAE Navy, signalling a shift toward in-country production of precision strike systems in the Gulf region. MBDA and Thales are also looking to civilian manufacturing pipelines to scale loitering munition production volumes more broadly.","implication":"UAE Navy acquisition of a locally produced loitering munition represents a structural shift in Gulf maritime strike doctrine and positions the UAE as a potential re-export hub for precision strike UAS technology across regional allies.","image":"none","region":"Middle East","urgency":"NORMAL","score":72,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/air-warfare/eurosatory-2026-locally-produced-loitering-munition-destined-for-uae-navy-mbda/","lat":24.4539,"lng":54.3773}],"middle_east":[{"headline":"US-Iran High-Level Talks End in Switzerland","context":"The first round of high-level US and Iranian negotiations at Burgenstock concluded on June 21, 2026; the session had originally been scheduled for June 19 but was postponed after VP Vance cancelled his trip, with Switzerland confirming the cancellation that day (Times of Israel, June 19; Swiss FDFA). Talks ultimately began June 21 with Vance, Iranian parliamentary speaker Ghalibaf, and mediators Qatar and Pakistan in attendance. Technical-level talks are continuing under the 60-day MOU implementation framework. Tehran has not announced closure of enrichment facilities; rather, Iran entered the talks insisting that Israel must first implement the Lebanon ceasefire provisions of the MOU before substantive progress can occur.","implication":"A durable US-Iran agreement would reshape Strait of Hormuz transit risk calculations, directly affecting defence procurement timelines, insurance premiums for satellite launches transiting the region, and Gulf-based operator security postures.","image":"https://newsimg.koreatimes.co.kr/2026/06/22/c532821a-d6c0-4973-b8f3-4ba5b87d0527.jpg","region":"Switzerland / Iran / United States","urgency":"BREAKING","score":90,"source":"koreatimes","link":"https://www.koreatimes.co.kr/world/20260622/us-and-iran-conclude-high-level-talks-in-switzerland-mediators-say","lat":46.9748,"lng":7.4421},{"headline":"Zelensky Pressures Belarus on Russian Drone Support","context":"Ukrainian President Volodymyr Zelensky escalated diplomatic pressure on Belarus on June 19, demanding that Minsk dismantle communications infrastructure allegedly used to support Russian drone operations against Ukraine. The move marks a sharp intensification of tensions between Kyiv and Minsk and broadens the diplomatic front of the conflict beyond the direct Russia-Ukraine theatre.","implication":"Belarus becoming a more active node in Russian drone operations expands the electronic warfare and counter-UAS battlespace, increasing demand for long-range detection and jamming systems among NATO-aligned defence operators.","image":"https://moderndiplomacy.eu/wp-content/uploads/2025/11/Lukashenko-Belarus.jpg","region":"Ukraine / Belarus","urgency":"URGENT","score":70,"source":"moderndiplomacy","link":"https://moderndiplomacy.eu/2026/06/22/zelensky-pressures-belarus-over-support-for-russian-drone-operations/","lat":53.9006,"lng":27.559},{"headline":"Graham Warns US-Iran Deal Will Fail","context":"Senator Lindsey Graham voiced strong public skepticism about the US-Iran agreement on Face the Nation on June 21, predicting the deal would ultimately fail and warning that military action by the Trump administration remains a live option. His comments came as high-level talks were opening in Buergenstock, adding political pressure on the negotiating process from within the US Senate.","implication":"Congressional opposition to a diplomatic resolution keeps the probability of renewed military escalation elevated, sustaining defence sector demand signals for theatre missile defence and naval strike assets in the Gulf region.","image":"https://assets1.cbsnewsstatic.com/hub/i/r/2026/06/21/072e3ed5-483f-4a14-9b3e-9b2e02adca36/thumbnail/1200x630/e294246d01ea6e67f05a8e9ff5f5d172/screenshot-2026-06-21-at-12-18-14-pm.png","region":"United States / Iran","urgency":"NORMAL","score":60,"source":"cbsnews","link":"https://www.cbsnews.com/news/face-the-nation-full-transcript-06-21-2026/","lat":35.6892,"lng":51.389},{"headline":"Middle East at a Diplomatic Turning Point","context":"A professor of international relations cited by Arab News on June 21 argued that diplomacy remains the only viable path to lasting peace in the Middle East, following the US announcement on June 20 of progress in Iran-related negotiations. The assessment frames the current moment as a rare convergence of ceasefire conditions, diplomatic engagement, and reduced kinetic activity across multiple theatres.","implication":"A sustained diplomatic de-escalation across the Middle East would reduce operational risk premiums for satellite ground stations, undersea cable infrastructure, and commercial aviation corridors serving Gulf-based space and defence operators.","image":"https://www.arabnews.pk/sites/default/files/styles/660x371_watermarkpakistan/public/main-image/2026/06/21/4723967-463988826.png?itok=ZT46FZzW","region":"Middle East","urgency":"NORMAL","score":50,"source":"arabnewspk","link":"https://www.arabnews.pk/node/2648039/middle-east","lat":24.7136,"lng":46.6753}],"investment":[{"headline":"China Adds 10 US Firms to Export Control List","context":"China added 10 US companies, including a rare-earth miner, to its export control list on June 22, in a move that escalates economic and strategic tensions between Washington and Beijing. The inclusion of a rare-earth miner is particularly significant given the critical role of rare-earth elements in producing aerospace components, guided munitions, and satellite hardware.","implication":"Restriction of rare-earth supply chains from China directly threatens production schedules for defence prime contractors and satellite manufacturers reliant on neodymium, dysprosium, and other critical minerals sourced from Chinese suppliers.","image":"https://www.aljazeera.com/wp-content/uploads/2026/02/2026-01-28T223535Z_178008069_RC2LAJAJ37I6_RTRMADP_3_USA-MINING-TRUMP-PRICE-1770293508.jpg?resize=1920%2C1440","region":"China / United States","urgency":"BREAKING","score":90,"source":"Al Jazeera","link":"https://www.aljazeera.com/news/2026/6/22/china-adds-10-us-firms-including-rare-earth-miner-to-export-control-list","lat":39.9042,"lng":116.4074},{"headline":"Eurosatory 2026 Sees Surge in Defence Partnerships","context":"Eurosatory 2026 recorded a significant surge in partnership agreements across the defence industry as major primes and mid-tier suppliers positioned themselves to capture growth from rising NATO and allied defence budgets. Shephard Media reported that deal volumes at the Paris-based exhibition exceeded prior cycles, reflecting accelerated procurement cycles driven by the Ukraine conflict and Middle East operations.","implication":"A surge in Eurosatory partnership deals signals that prime contractors are locking in supply chain relationships ahead of multi-year defence budget commitments, creating investment momentum across European and allied defence equities.","image":"none","region":"Europe","urgency":"NORMAL","score":85,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/defence-notes/eurosatory-2026-partnership-deals-surge-as-industry-prepares-for-defence-spending-growth/","lat":48.8566,"lng":2.3522},{"headline":"US Army Launches Indo-Pacific Multi-Domain Command","context":"The US Army stood up a new Indo-Pacific multi-domain command on June 19, designed to integrate land, air, sea, cyber, and space capabilities across the theatre in response to the growing strategic competition with China. The command structure formalises a shift toward integrated deterrence operations and is expected to drive procurement of long-range precision fires, space-based ISR, and resilient communications infrastructure across the Pacific.","implication":"Establishment of a dedicated Indo-Pacific multi-domain command creates a sustained procurement pipeline for space-based surveillance, resilient satellite communications, and ground-based long-range strike systems serving the Pacific theatre.","image":"https://www.armytimes.com/resizer/v2/N3FALVGSOBD3BC24LTJY6BFRUU.jpg?width=1200&auth=5336cac8655b666b1c122bf88947bfc5cac06a9d894d5f2af5390e9e17857135","region":"Indo-Pacific","urgency":"NORMAL","score":80,"source":"Defense News","link":"https://www.defensenews.com/news/your-military/2026/06/19/army-launches-new-indo-pacific-multi-domain-command/","lat":21.3069,"lng":157.8583},{"headline":"MDA Space Acquires Blue Canyon Technologies","context":"MDA Space announced it will acquire Blue Canyon Technologies, a Colorado-based smallsat bus and spacecraft component manufacturer, in a move aimed at gaining a stronger foothold in the competitive US defence and commercial satellite market. The deal combines MDA Space expertise in large satellite systems and robotics with Blue Canyon Technologies established position supplying smallsat platforms to NASA, the US Space Force, and commercial operators.","implication":"The MDA Space and Blue Canyon Technologies combination creates a vertically integrated North American satellite supplier capable of competing for US government contracts currently dominated by domestic-only vendors, reshaping the mid-tier satellite procurement landscape.","image":"https://spacenews.com/wp-content/uploads/2020/07/Blackjack_Space_Image-copy.png","region":"Canada / United States","urgency":"NORMAL","score":60,"source":"SpaceAgenda","link":"https://spacenews.com/mda-space-to-buy-blue-canyon-technologies-to-gain-foothold-in-u-s-","lat":0,"lng":0}],"ai_tech":[],"ipo_watch":[]};
 const incidentListTop=document.getElementById('incident-list-top');
 let incidentCount=0;
 const mapStyle=document.createElement('style');
@@ -1328,32 +1333,89 @@ const STOCK_TICKERS=[
     return (Date.now()-s.ts*1000)/60000 < 3;
   });
 }
+
+function toggleViewAll(){
+  const btn=document.getElementById('mp-viewall');
+  const grid=document.getElementById('mp-all-grid');
+  const open=grid.classList.toggle('open');
+  btn.textContent=open?'VIEW ALL 12 ↑':'VIEW ALL 12 ↓';
+}
+
 async function fetchLiveStocks(){
-  const grid=document.getElementById('stocks-grid');
+  const mpGrid=document.getElementById('mp-grid');
   const status=document.getElementById('stocks-status');
-  if(!grid||!status) return;
+  const viewAllBtn=document.getElementById('mp-viewall');
+  const allGrid=document.getElementById('mp-all-grid');
+  if(!mpGrid||!status) return;
   try{
     const results=await Promise.all(STOCK_TICKERS.map(s=>
       fetch('https://finnhub.io/api/v1/quote?symbol='+s.t+'&token='+FINNHUB_KEY)
       .then(r=>r.json())
       .then(d=>({...s,c:d.c||d.pc||0,dp:d.dp||0,d:d.d||0,pc:d.pc||0,ts:d.t||0,closed:d.c===0}))
-      .catch(()=>({...s,c:0,dp:0,d:0}))
+      .catch(()=>({...s,c:0,dp:0,d:0,ts:0,closed:true}))
     ));
-    grid.innerHTML=results.map(s=>{
+
+    const adv=results.filter(s=>s.t!=='SPCX'&&s.dp>=0).sort((a,b)=>b.dp-a.dp);
+    const dec=results.filter(s=>s.t!=='SPCX'&&s.dp<0).sort((a,b)=>a.dp-b.dp);
+    const top3adv=adv.slice(0,3);
+    const top3dec=dec.slice(0,3);
+
+    function rowHtml(s){
       const up=s.dp>=0;
-      if(s.t==='SPCX'){
-        return '<div class="stock-card"><div><div class="stock-ticker">'+s.t+'</div><div class="stock-name">'+s.n+'</div></div><div><div class="stock-price">$'+( s.c>0?s.c.toFixed(2):'135.00')+'</div><div class="stock-private">NASDAQ</div></div></div>';
+      const pctClass=up?'mp-pct-adv':'mp-pct-dec';
+      const arrow=up?'▲':'▼';
+      const price=s.c>0?'$'+s.c.toFixed(2):'—';
+      const pct=s.closed?'<span style="font-size:9px;color:#3a5a7a">CLOSED</span>':'<span class="'+pctClass+'">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
+      return '<div class="mp-row"><div><div class="mp-ticker">'+s.t+'</div><div class="mp-name">'+s.n+'</div></div><div style="text-align:right"><div class="mp-price">'+price+'</div>'+pct+'</div></div>';
+    }
+
+    function fillerHtml(count,side){
+      if(count>=3) return '';
+      const needed=3-count;
+      let html='';
+      const msg=side==='adv'?(count===0?'none<br>advancing<br>today':(count===1?'only one<br>advancing<br>today':'')):(count===0?'none<br>declining<br>today':(count===1?'only one<br>declining<br>today':''));
+      for(let i=0;i<needed;i++){
+        html+='<div class="mp-empty">'+(i===0?msg:'')+'</div>';
       }
-      return '<div class="stock-card"><div><div class="stock-ticker">'+s.t+'</div><div class="stock-name">'+s.n+'</div></div><div><div class="stock-price">$'+(s.c>0?s.c.toFixed(2):'—')+'</div>'+(s.closed?'<div class="stock-private">MKT CLOSED</div>':'<div class="'+(up?'stock-up':'stock-dn')+'">'+(up?'▲':'▼')+' '+Math.abs(s.dp).toFixed(2)+'%</div>')+'</div></div>';
+      return html;
+    }
+
+    mpGrid.innerHTML=
+      '<div class="mp-col-adv">'+
+        '<div class="mp-col-hdr-adv">▲ ADVANCING · '+adv.length+'</div>'+
+        top3adv.map(rowHtml).join('')+
+        fillerHtml(top3adv.length,'adv')+
+      '</div>'+
+      '<div class="mp-col-dec">'+
+        '<div class="mp-col-hdr-dec">▼ DECLINING · '+dec.length+'</div>'+
+        top3dec.map(rowHtml).join('')+
+        fillerHtml(top3dec.length,'dec')+
+      '</div>';
+
+    const spcx=results.find(s=>s.t==='SPCX');
+    const allSorted=[...adv,...dec,...(spcx?[spcx]:[])];
+    allGrid.innerHTML=allSorted.map(s=>{
+      if(s.t==='SPCX'){
+        const price=s.c>0?'$'+s.c.toFixed(2):'$135.00';
+        return '<div class="mp-all-row"><div><div class="mp-ticker">'+s.t+'</div><div class="mp-name">'+s.n+'</div></div><div style="text-align:right"><div class="mp-price">'+price+'</div><span style="font-size:9px;color:#3a5a7a">NASDAQ</span></div></div>';
+      }
+      return '<div class="mp-all-row">'+rowHtml(s)+'</div>';
     }).join('');
+
+    viewAllBtn.style.display='block';
+
     const now=new Date();
     const tt=now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'});
     if(isMarketLive(results)){
       status.textContent='● MARKET OPEN · '+tt+' GST';
       status.style.color='#00e87a';
+      status.style.background='rgba(0,232,122,0.08)';
+      status.style.borderColor='rgba(0,232,122,0.2)';
     }else{
       status.textContent='● MARKET CLOSED · '+tt+' GST';
       status.style.color='#ff8c00';
+      status.style.background='rgba(255,140,0,0.08)';
+      status.style.borderColor='rgba(255,140,0,0.2)';
     }
   }catch(e){
     status.textContent='DELAYED';
