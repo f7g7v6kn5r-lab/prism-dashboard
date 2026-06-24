@@ -260,6 +260,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .chat-bubble-tooltip:hover{border-color:#2a4a6a}
 .chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#4a9eff;margin-bottom:4px}
 .chat-tooltip-text{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4}
+.analyst-banner{background:linear-gradient(135deg,#1a1a1a,#0a0a0a);border-top:1px solid rgba(255,255,255,0.14);border-bottom:1px solid rgba(255,255,255,0.14);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.analyst-banner-text{flex:1}
+.analyst-banner-kicker{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:#888;margin-bottom:10px}
+.analyst-banner-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:500;letter-spacing:2px;color:#fff;line-height:1.1;margin-bottom:10px}
+.analyst-banner-sub{font-size:13px;color:#cfcfcf;line-height:1.6;max-width:520px}
+.analyst-banner-cta{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#fff;padding:13px 26px;border-radius:6px;white-space:nowrap;text-decoration:none;flex-shrink:0;transition:opacity 0.2s}
+.analyst-banner-cta:hover{opacity:0.85}
 .search-bar-wrap{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 32px;position:relative}
 .search-row{display:flex;align-items:center;gap:12px;width:100%}
 .search-inner{display:flex;align-items:center;gap:8px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:9px 14px;flex:1;transition:border-color 0.2s}
@@ -346,6 +353,10 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .search-nav{flex-shrink:0}
   .chat-bubble-tooltip{display:none}
   .sector-filter{padding:0 16px}
+  .analyst-banner{flex-direction:column;align-items:stretch;padding:24px 16px;gap:20px}
+  .analyst-banner-title{font-size:22px;letter-spacing:1px}
+  .analyst-banner-sub{max-width:none}
+  .analyst-banner-cta{text-align:center;padding:14px}
 }
 @media(max-width:480px){
   .mp-grid{grid-template-columns:1fr 1fr}
@@ -517,17 +528,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   </div>
   </div>
 </div>
-<div style="background:#0d1628;border-top:1px solid rgba(74,158,255,0.15);border-bottom:1px solid rgba(74,158,255,0.15);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px">
-  <div style="display:flex;align-items:center;gap:16px">
-    <div style="width:40px;height:40px;border-radius:50%;background:rgba(74,158,255,0.12);border:1.5px solid rgba(74,158,255,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#4a9eff"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"/></svg>
-    </div>
-    <div>
-      <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#4a9eff;margin-bottom:4px">◈ PRISM ANALYST</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.4)">Ask anything about today's intelligence — get briefed like a principal in seconds</div>
-    </div>
+<div class="analyst-banner">
+  <div class="analyst-banner-text">
+    <div class="analyst-banner-kicker">◆ INTELLIGENCE ANALYST</div>
+    <div class="analyst-banner-title">ASK PRISM ANALYST</div>
+    <div class="analyst-banner-sub">Consult the analyst behind the briefing — deep-dive any development, stress-test the data, and surface the second-order implications.</div>
   </div>
-  <a href="https://consultant.prism-osint.com" target="_blank" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#4a9eff;background:rgba(74,158,255,0.12);border:1px solid rgba(74,158,255,0.35);padding:12px 24px;border-radius:6px;white-space:nowrap;text-decoration:none;flex-shrink:0" onmouseover="this.style.background='rgba(74,158,255,0.2)'" onmouseout="this.style.background='rgba(74,158,255,0.12)'">▸ ASK PRISM ANALYST</a>
+  <a href="https://consultant.prism-osint.com" target="_blank" class="analyst-banner-cta">▸ LAUNCH ANALYST</a>
 </div>
 <!-- SECTOR FILTER BAR -->
 <div class="sector-filter" id="sector-filter-bar">
