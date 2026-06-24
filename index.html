@@ -306,6 +306,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .stories-grid{grid-template-columns:1fr}
   .story-section-wrap{background:none;border:none;border-radius:0;padding:0;margin-bottom:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12)}
   .section-title{font-size:20px;letter-spacing:2px;white-space:normal}
+  .outlook-section .section-header,.reg-section .section-header{display:flex;flex-direction:column;align-items:flex-start}
+  .outlook-section .section-header-row,.reg-section .section-header-row{display:contents}
+  .outlook-section .section-title,.reg-section .section-title{order:1;font-size:19px;letter-spacing:1px;white-space:nowrap}
+  .outlook-section .section-underline,.reg-section .section-underline{order:2;margin-top:6px;margin-bottom:12px}
+  .outlook-section .section-header-row>:nth-child(2),.reg-section .section-header-row>:nth-child(2){order:3}
   .stories-grid{grid-template-columns:1fr}
   .outlook-section{padding:16px}
   .outlook-grid{grid-template-columns:1fr}
