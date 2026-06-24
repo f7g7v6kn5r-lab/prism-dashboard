@@ -253,13 +253,13 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .footer-text{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.12);letter-spacing:3px}
 .scan{height:3px;background:linear-gradient(90deg,#1a1a1a,#4a9eff,#1a1a1a)}
 .chat-bubble{position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.chat-bubble-btn{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#1a5fa0,#4a9eff);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(74,158,255,0.35);animation:chatPulse 3s ease-in-out infinite;transition:transform 0.2s;position:relative}
-.chat-bubble-btn:hover{transform:scale(1.08);animation:none;box-shadow:0 6px 28px rgba(74,158,255,0.5)}
+.chat-bubble-btn{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.18),transparent 60%),linear-gradient(180deg,#242424,#0a0a0a);border:1px solid rgba(255,255,255,0.2);border-top:1px solid rgba(255,255,255,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 32px rgba(0,0,0,0.6);transition:transform 0.2s;position:relative}
+.chat-bubble-btn:hover{transform:scale(1.08);box-shadow:0 12px 38px rgba(0,0,0,0.7)}
 .chat-bubble-btn svg{width:26px;height:26px;fill:#fff}
-.chat-bubble-badge{position:absolute;top:-3px;right:-3px;background:#00e87a;color:#04060f;font-family:'Space Mono',monospace;font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 5px;border-radius:10px;border:2px solid #04060f;white-space:nowrap}
+.chat-bubble-badge{position:absolute;top:-3px;right:-3px;background:#fff;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 5px;border-radius:10px;border:2px solid #141414;white-space:nowrap}
 .chat-bubble-tooltip{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;max-width:200px;box-shadow:0 4px 20px rgba(0,0,0,0.4);cursor:pointer;transition:border-color 0.2s;text-decoration:none;display:block;animation:bubbleIn 0.3s ease}
 .chat-bubble-tooltip:hover{border-color:#2a4a6a}
-.chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#4a9eff;margin-bottom:4px}
+.chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:4px}
 .chat-tooltip-text{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4}
 .analyst-banner-wrap{background:#141414;padding:22px 32px}
 .analyst-banner{background:radial-gradient(circle at 18% 40%,rgba(255,255,255,0.13),transparent 55%),linear-gradient(180deg,#242424,#0a0a0a);border:1px solid rgba(255,255,255,0.18);border-top:1px solid rgba(255,255,255,0.35);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:30px;box-shadow:0 12px 44px rgba(0,0,0,0.6)}
