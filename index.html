@@ -260,7 +260,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .chat-bubble-tooltip:hover{border-color:#2a4a6a}
 .chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#4a9eff;margin-bottom:4px}
 .chat-tooltip-text{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4}
-.analyst-banner{background:linear-gradient(135deg,#1a1a1a,#0a0a0a);border-top:1px solid rgba(255,255,255,0.14);border-bottom:1px solid rgba(255,255,255,0.14);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.analyst-banner-wrap{background:#141414;padding:22px 32px}
+.analyst-banner{background:linear-gradient(135deg,#1f1f1f,#0a0a0a);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:30px}
 .analyst-banner-text{flex:1}
 .analyst-banner-kicker{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:#888;margin-bottom:10px}
 .analyst-banner-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:500;letter-spacing:2px;color:#fff;line-height:1.1;margin-bottom:10px}
@@ -353,7 +354,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   .search-nav{flex-shrink:0}
   .chat-bubble-tooltip{display:none}
   .sector-filter{padding:0 16px}
-  .analyst-banner{flex-direction:column;align-items:stretch;padding:24px 16px;gap:20px}
+  .analyst-banner-wrap{padding:16px}
+  .analyst-banner{flex-direction:column;align-items:stretch;padding:24px;gap:20px}
   .analyst-banner-title{font-size:22px;letter-spacing:1px}
   .analyst-banner-sub{max-width:none}
   .analyst-banner-cta{text-align:center;padding:14px}
@@ -528,14 +530,14 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
   </div>
   </div>
 </div>
-<div class="analyst-banner">
+<div class="analyst-banner-wrap"><div class="analyst-banner">
   <div class="analyst-banner-text">
     <div class="analyst-banner-kicker">◆ INTELLIGENCE ANALYST</div>
     <div class="analyst-banner-title">ASK PRISM ANALYST</div>
     <div class="analyst-banner-sub">Consult the analyst behind the briefing — deep-dive any development, stress-test the data, and surface the second-order implications.</div>
   </div>
   <a href="https://consultant.prism-osint.com" target="_blank" class="analyst-banner-cta">▸ LAUNCH ANALYST</a>
-</div>
+</div></div>
 <!-- SECTOR FILTER BAR -->
 <div class="sector-filter" id="sector-filter-bar">
   <button class="sector-tab active" onclick="filterSector('all',this)">ALL</button>
