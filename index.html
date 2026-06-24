@@ -209,7 +209,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .mp-row{display:grid;grid-template-columns:1fr auto 60px;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
 .mp-pct-adv,.mp-pct-dec{text-align:right}
 .mp-all-table{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px}
-.mp-all-table.open{display:block}
+.mp-all-table.open{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
 .mp-all-row2{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:12px;padding:8px 2px;border-bottom:1px solid rgba(255,255,255,0.05)}
 .mp-all-row2:last-child{border-bottom:none}
 .mp-row:last-child{border-bottom:none}
@@ -1360,8 +1360,8 @@ async function fetchLiveStocks(){
       .catch(()=>({...s,c:0,dp:0,d:0,ts:0,closed:true}))
     ));
 
-    const adv=results.filter(s=>s.t!=='SPCX'&&s.dp>=0).sort((a,b)=>b.dp-a.dp);
-    const dec=results.filter(s=>s.t!=='SPCX'&&s.dp<0).sort((a,b)=>a.dp-b.dp);
+    const adv=results.filter(s=>s.dp>=0).sort((a,b)=>b.dp-a.dp);
+    const dec=results.filter(s=>s.dp<0).sort((a,b)=>a.dp-b.dp);
     const top3adv=adv.slice(0,3);
     const top3dec=dec.slice(0,3);
 
@@ -1397,13 +1397,8 @@ async function fetchLiveStocks(){
         fillerHtml(top3dec.length,'dec')+
       '</div>';
 
-    const spcx=results.find(s=>s.t==='SPCX');
-    const allSorted=[...adv,...dec,...(spcx?[spcx]:[])];
+    const allSorted=[...adv,...dec];
     allGrid.innerHTML=allSorted.map(s=>{
-      if(s.t==='SPCX'){
-        const price=s.c>0?'$'+s.c.toFixed(2):'$135.00';
-        return '<div class="mp-all-row2"><span class="mp-ticker">'+s.t+'</span><span class="mp-price" style="text-align:left">'+price+'</span><span style="font-size:10px;color:#3a5a7a;text-align:right">NASDAQ</span></div>';
-      }
       const up=s.dp>=0;
       const arrow=up?'▲':'▼';
       const price=s.c>0?'$'+s.c.toFixed(2):'—';
