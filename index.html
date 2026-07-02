@@ -48,11 +48,11 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .section-briefing-map{display:grid;grid-template-columns:1fr 1fr;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);min-height:300px}
 .briefing-left{padding:0;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .briefing-frame{background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin:18px 24px;flex:1}
-.briefing-frame-header{background:#0a0a0a;padding:22px 22px 18px;display:block}
-.briefing-frame-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:500;letter-spacing:5px;color:#fff;white-space:nowrap;line-height:1;display:block;margin-bottom:6px}
-.briefing-frame-title::after{content:'';display:block;height:2px;width:44px;background:#fff;margin-top:6px;margin-bottom:20px}
+.briefing-frame-header{background:#0a0a0a;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.briefing-frame-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:500;letter-spacing:5px;color:#fff;white-space:nowrap;line-height:1;display:block;margin-bottom:0}
+.briefing-frame-title::after{content:'';display:block;height:2px;width:44px;background:#fff;margin-top:8px;margin-bottom:0}
 .briefing-frame-body{padding:20px 22px;border-top:1px solid rgba(255,255,255,0.1)}
-.badges{display:flex;gap:24px;margin-bottom:20px;align-items:stretch}
+.badges{display:flex;gap:24px;margin-bottom:0;align-items:center}
 .brief-field-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#666;margin-bottom:4px}
 .brief-field-val{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px}
 .brief-divider{width:1px;background:rgba(255,255,255,0.12)}
@@ -1690,6 +1690,7 @@ setInterval(fetchLiveStocks,60*1000);
     </div>
     <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px">◈ DAILY PRISM BRIEF</div>
     <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px">Space and defence intelligence in your inbox at 7am, your local time.</div>
+    <input id="sub-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px"/>
     <input id="sub-hp" type="text" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
     <button id="sub-btn" onclick="prismSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer">SUBSCRIBE</button>
     <div id="sub-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;text-align:center;min-height:14px"></div>
