@@ -1683,19 +1683,19 @@ fetchLiveStocks();
 setInterval(fetchLiveStocks,60*1000);
 </script>
 <style>@keyframes dawnFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}</style>
-<div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:#000;border:1px solid rgba(255,255,255,0.18);width:90%;max-width:400px">
-    <div style="padding:36px 36px 0;text-align:center">
-      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:52px;display:inline-block" alt="PRISM"/>
+<div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#fff;width:90%;max-width:400px;overflow:hidden">
+    <div style="background:#000;padding:28px 36px;text-align:center">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:48px;display:inline-block" alt="PRISM"/>
     </div>
-    <div style="padding:24px 36px 36px;text-align:center">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:rgba(255,255,255,0.5);margin-bottom:14px">DAILY INTELLIGENCE BRIEF</div>
-      <div style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.65;margin-bottom:6px;font-weight:300">Space and defence intelligence.</div>
-      <div style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.65;margin-bottom:28px;font-weight:300">In your inbox at 7:00 AM, your local time.</div>
-      <input id="sub-email" type="email" placeholder="YOUR@EMAIL.COM" style="width:100%;box-sizing:border-box;background:transparent;border:1px solid rgba(255,255,255,0.3);padding:14px 16px;color:#fff;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;outline:none;margin-bottom:14px;border-radius:0"/>
-      <button id="sub-btn" onclick="prismSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:4px;color:#000;background:#fff;border:none;padding:15px;cursor:pointer;border-radius:0">SUBSCRIBE</button>
+    <div style="padding:26px 36px 32px;text-align:center">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:#888;margin-bottom:14px">DAILY INTELLIGENCE BRIEF</div>
+      <div style="font-size:15px;color:#333;line-height:1.65;margin-bottom:6px;font-weight:300">Space and defence intelligence.</div>
+      <div style="font-size:15px;color:#333;line-height:1.65;margin-bottom:24px;font-weight:300">In your inbox at 7:00 AM, your local time.</div>
+      <input id="sub-email" type="email" placeholder="YOUR@EMAIL.COM" style="width:100%;box-sizing:border-box;background:#fff;border:1px solid #ccc;padding:14px 16px;color:#333;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;outline:none;margin-bottom:14px;border-radius:0"/>
+      <button id="sub-btn" onclick="prismSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:4px;color:#fff;background:#000;border:none;padding:15px;cursor:pointer;border-radius:0">SUBSCRIBE</button>
       <div id="sub-msg" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;margin-top:14px;min-height:14px"></div>
-      <div onclick="document.getElementById('sub-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);margin-top:16px;cursor:pointer">CLOSE</div>
+      <div onclick="document.getElementById('sub-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#bbb;margin-top:14px;cursor:pointer">CLOSE</div>
     </div>
   </div>
 </div>
@@ -1720,11 +1720,11 @@ async function prismSubscribe(){
       body:JSON.stringify({email:email,timezone:tz})
     });
     if(r.status===201){
-      msg.style.color='#34E0C4';msg.textContent='CONFIRMED — SEE YOU AT 7:00 AM';
+      msg.style.color='#0F6E56';msg.textContent='CONFIRMED — SEE YOU AT 7:00 AM';
       btn.textContent='DONE';
       setTimeout(function(){document.getElementById('sub-modal').style.display='none';},2500);
     }else if(r.status===409){
-      msg.style.color='#FFC24B';msg.textContent='ALREADY SUBSCRIBED';
+      msg.style.color='#BA7517';msg.textContent='ALREADY SUBSCRIBED';
       btn.disabled=false;btn.textContent='SUBSCRIBE';
     }else{
       msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';
