@@ -436,7 +436,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:16px">
-    <button onclick="document.getElementById('sub-modal').style.display='flex'" style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#0a0a0a;background:#34E0C4;border:none;padding:6px 14px;border-radius:20px;cursor:pointer;white-space:nowrap;font-weight:700">✉ DAILY BRIEF</button>
+    <button onclick="document.getElementById('sub-modal').style.display='flex'" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#fff;background:linear-gradient(90deg,#2B2D5E,#B44A7A,#FF8C42,#2B2D5E);background-size:300% 100%;border:none;padding:9px 18px;cursor:pointer;font-weight:700;white-space:nowrap;animation:dawnFlow 6s ease infinite">EMAIL BRIEFING</button>
     <div id="moonphase" style="font-size:16px;filter:grayscale(1);opacity:0.4"></div>
     <div style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.28)"><div class="dot"></div>LIVE</div>
     <div class="ts" id="datetime"></div>
@@ -1682,14 +1682,21 @@ async function fetchLiveStocks(){
 fetchLiveStocks();
 setInterval(fetchLiveStocks,60*1000);
 </script>
-<div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.75);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
-    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#34E0C4;margin-bottom:8px">◈ DAILY PRISM BRIEF</div>
-    <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px">Space and defence intelligence in your inbox at 7am, your local time.</div>
-    <input id="sub-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px"/>
-    <button id="sub-btn" onclick="prismSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#34E0C4;border:none;padding:13px;border-radius:6px;cursor:pointer">SUBSCRIBE</button>
-    <div id="sub-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;text-align:center;min-height:14px"></div>
-    <div onclick="document.getElementById('sub-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:10px;cursor:pointer;letter-spacing:1px">✕ CLOSE</div>
+<style>@keyframes dawnFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}</style>
+<div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#000;border:1px solid rgba(255,255,255,0.18);width:90%;max-width:400px">
+    <div style="padding:36px 36px 0;text-align:center">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:52px;display:inline-block" alt="PRISM"/>
+    </div>
+    <div style="padding:24px 36px 36px;text-align:center">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:5px;color:rgba(255,255,255,0.5);margin-bottom:14px">DAILY INTELLIGENCE BRIEF</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.65;margin-bottom:6px;font-weight:300">Space and defence intelligence.</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.85);line-height:1.65;margin-bottom:28px;font-weight:300">In your inbox at 7:00 AM, your local time.</div>
+      <input id="sub-email" type="email" placeholder="YOUR@EMAIL.COM" style="width:100%;box-sizing:border-box;background:transparent;border:1px solid rgba(255,255,255,0.3);padding:14px 16px;color:#fff;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;outline:none;margin-bottom:14px;border-radius:0"/>
+      <button id="sub-btn" onclick="prismSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:4px;color:#000;background:#fff;border:none;padding:15px;cursor:pointer;border-radius:0">SUBSCRIBE</button>
+      <div id="sub-msg" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;margin-top:14px;min-height:14px"></div>
+      <div onclick="document.getElementById('sub-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);margin-top:16px;cursor:pointer">CLOSE</div>
+    </div>
   </div>
 </div>
 <script>
@@ -1697,7 +1704,7 @@ async function prismSubscribe(){
   var email=document.getElementById('sub-email').value.trim();
   var msg=document.getElementById('sub-msg');
   var btn=document.getElementById('sub-btn');
-  if(!email||email.indexOf('@')<1){msg.style.color='#ff4444';msg.textContent='ENTER A VALID EMAIL';return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
   var tz='UTC';
   try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){}
   btn.disabled=true;btn.textContent='SUBSCRIBING...';
@@ -1713,18 +1720,18 @@ async function prismSubscribe(){
       body:JSON.stringify({email:email,timezone:tz})
     });
     if(r.status===201){
-      msg.style.color='#34E0C4';msg.textContent='✓ SUBSCRIBED — SEE YOU AT 7AM';
+      msg.style.color='#34E0C4';msg.textContent='CONFIRMED — SEE YOU AT 7:00 AM';
       btn.textContent='DONE';
       setTimeout(function(){document.getElementById('sub-modal').style.display='none';},2500);
     }else if(r.status===409){
       msg.style.color='#FFC24B';msg.textContent='ALREADY SUBSCRIBED';
       btn.disabled=false;btn.textContent='SUBSCRIBE';
     }else{
-      msg.style.color='#ff4444';msg.textContent='ERROR — TRY AGAIN';
+      msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';
       btn.disabled=false;btn.textContent='SUBSCRIBE';
     }
   }catch(e){
-    msg.style.color='#ff4444';msg.textContent='NETWORK ERROR — TRY AGAIN';
+    msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR — TRY AGAIN';
     btn.disabled=false;btn.textContent='SUBSCRIBE';
   }
 }
