@@ -1587,13 +1587,13 @@ let PRISM_USER = null;
 function openLogin(){ document.getElementById('prism-login-modal').style.display='flex'; }
 
 async function prismGoogleLogin(){
-  await PRISM_SB.auth.signInWithOAuth({ provider:'google', options:{ redirectTo:'https://consultant.prism-osint.com/auth/callback?next=https://dashboard.prism-osint.com' } });
+  await PRISM_SB.auth.signInWithOAuth({ provider:'google', options:{ redirectTo:'https://dashboard.prism-osint.com' } });
 }
 async function prismMagicLogin(){
   var email=document.getElementById('plm-email').value.trim();
   var msg=document.getElementById('plm-msg');
   if(!email||email.indexOf('@')<1){ msg.style.color='#E24B4A'; msg.textContent='ENTER A VALID EMAIL'; return; }
-  var r=await PRISM_SB.auth.signInWithOtp({ email:email, options:{ emailredirectTo:'https://consultant.prism-osint.com/auth/callback?next=https://dashboard.prism-osint.com' } });
+  var r=await PRISM_SB.auth.signInWithOtp({ email:email, options:{ emailredirectTo:'https://dashboard.prism-osint.com' } });
   if(r.error){ msg.style.color='#E24B4A'; msg.textContent='ERROR — TRY AGAIN'; }
   else{ msg.style.color='#7DC8F0'; msg.textContent='CHECK YOUR EMAIL FOR THE LINK'; }
 }
