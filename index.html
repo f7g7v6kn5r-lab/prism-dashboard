@@ -1618,6 +1618,12 @@ async function prismCheckSession(){
 }
 
 function isUnlocked(){ return PRISM_USER !== null && PRISM_TIER === 'pro'; }
+  function applyUnlockState(){
+  document.querySelectorAll('.prism-locked').forEach(function(el){
+    if(isUnlocked()) el.classList.add('prism-unlocked');
+    else el.classList.remove('prism-unlocked');
+  });
+}
 
 function updateAuthUI(){
   var btn=document.getElementById('prism-auth-btn');
