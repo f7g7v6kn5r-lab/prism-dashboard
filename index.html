@@ -112,12 +112,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 .prism-lock-icon{font-size:20px;color:#7DC8F0}
 .prism-lock-hint{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.55)}
 .prism-unlocked .prism-blur{filter:none;user-select:auto;pointer-events:auto;opacity:1}
-.prism-unlocked .prism-lock-overlay{display:none}
-#prism-unlock-modal{display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-#prism-unlock-modal .pum-box{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
-#prism-unlock-modal input[type=email]{width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px}
-#prism-unlock-modal .pum-btn{width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer}
-#prism-unlock-modal .pum-check{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.7)}  
+.prism-unlocked .prism-lock-overlay{display:none} 
 .page{padding:22px 32px;background:#141414}
 .section-header{margin-top:0;padding-top:0;border-top:none}
 .story-section-wrap{background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;margin-bottom:22px}
@@ -1570,61 +1565,6 @@ async function prismSubscribe(){
     btn.disabled=false;btn.textContent='SUBSCRIBE';
   }
 }
-</script> 
-<div id="prism-unlock-modal" onclick="if(event.target===this)this.style.display='none'">
-  <div class="pum-box">
-    <div style="text-align:center;margin-bottom:18px;">
-      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block;" alt="PRISM"/>
-    </div>
-    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px;">◈ UNLOCK PRISM INTELLIGENCE</div>
-    <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px;">Enter your email to unlock Opportunity of the Day, Risk of the Day and Predictive Signals.</div>
-    <input id="pum-email" type="email" placeholder="your@email.com" />
-    <label class="pum-check"><input type="checkbox" id="pum-brief" checked style="accent-color:#7DC8F0;width:15px;height:15px;" /> Also send me the daily brief at 7am</label>
-    <button class="pum-btn" id="pum-btn" onclick="prismUnlock()">UNLOCK</button>
-    <div id="pum-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;text-align:center;min-height:14px;"></div>
-    <div onclick="document.getElementById('prism-unlock-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:10px;cursor:pointer;letter-spacing:1px;">✕ CLOSE</div>
-  </div>
-</div>
-<script>
-function isUnlocked(){
-  try{ return localStorage.getItem('prism_unlocked')==='1'; }catch(e){ return false; }
-}
-function applyUnlockState(){
-  document.querySelectorAll('.prism-locked').forEach(function(el){
-    if(isUnlocked()) el.classList.add('prism-unlocked');
-    else el.classList.remove('prism-unlocked');
-  });
-}
-function openUnlock(){ document.getElementById('prism-unlock-modal').style.display='flex'; }
-async function prismUnlock(){
-  var email=document.getElementById('pum-email').value.trim();
-  var wantsBrief=document.getElementById('pum-brief').checked;
-  var msg=document.getElementById('pum-msg');
-  var btn=document.getElementById('pum-btn');
-  if(!email||email.indexOf('@')<1){ msg.style.color='#E24B4A'; msg.textContent='ENTER A VALID EMAIL'; return; }
-  var tz='UTC';
-  try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC'; }catch(e){}
-  btn.disabled=true; btn.textContent='UNLOCKING...';
-  try{
-    await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/subscribers',{
-      method:'POST',
-      headers:{
-        'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf',
-
-        'Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf',
-        'Content-Type':'application/json',
-        'Prefer':'return=minimal'
-      },
-      body:JSON.stringify({ email:email, timezone:tz, status: wantsBrief ? 'active' : 'unlocked_only' })
-    });
-  }catch(e){}
-  try{ localStorage.setItem('prism_unlocked','1'); }catch(e){}
-  applyUnlockState();
-  msg.style.color='#7DC8F0'; msg.textContent='UNLOCKED';
-  btn.textContent='DONE';
-  setTimeout(function(){ document.getElementById('prism-unlock-modal').style.display='none'; },1200);
-}
-document.addEventListener('DOMContentLoaded', applyUnlockState);
 </script> 
 <div id="prism-login-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
   <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
