@@ -419,7 +419,8 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 <div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:500">
   <div style="display:flex;align-items:center;gap:0;height:56px">
     <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px;text-decoration:none">
-      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:56px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:64
+        px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
       <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center">BETA</span>
     </a>
     <div class="pnav-desktop" style="display:flex;align-items:stretch;height:56px;margin-left:24px">
@@ -464,7 +465,7 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 </div>
 <div id="mob-menu" style="display:none;position:fixed;inset:0;background:#000000;z-index:9999;flex-direction:column;align-items:center;justify-content:center">
   <div style="position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid rgba(255,255,255,0.06)">
-    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:40px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:64px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
     <div onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:12px;color:rgba(200,220,255,0.5);cursor:pointer;padding:8px;border:1px solid rgba(200,220,255,0.12);border-radius:4px;line-height:1">✕</div>
   </div>
   <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;width:100%">
@@ -1519,7 +1520,7 @@ setInterval(fetchLiveStocks,60*1000);
 <div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.75);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
   <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
     <div style="text-align:center;margin-bottom:18px">
-      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:48px;display:inline-block" alt="PRISM"/>
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block" alt="PRISM"/>
     </div>
     <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px">◈ DAILY PRISM BRIEF</div>
     <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px">Space and defence intelligence in your inbox at 7am, your local time.</div>
@@ -1571,7 +1572,7 @@ async function prismSubscribe(){
 <div id="prism-unlock-modal" onclick="if(event.target===this)this.style.display='none'">
   <div class="pum-box">
     <div style="text-align:center;margin-bottom:18px;">
-      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:44px;display:inline-block;" alt="PRISM"/>
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block;" alt="PRISM"/>
     </div>
     <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px;">◈ UNLOCK PRISM INTELLIGENCE</div>
     <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px;">Enter your email to unlock Opportunity of the Day, Risk of the Day and Predictive Signals.</div>
@@ -1624,10 +1625,10 @@ document.addEventListener('DOMContentLoaded', applyUnlockState);
 </script> 
 <div id="prism-login-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
   <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
-    <div style="text-align:center;margin-bottom:18px;"><img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:44px;display:inline-block;" alt="PRISM"/></div>
+    <div style="text-align:center;margin-bottom:18px;"><img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block;" alt="PRISM"/></div>
     <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px;">◈ PRO MEMBER LOGIN</div>
     <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px;">Sign in to access your premium intelligence.</div>
-    <button id="plm-google" onclick="prismGoogleLogin()" style="width:100%;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;color:#0a0a0a;background:#fff;border:none;padding:12px;border-radius:6px;cursor:pointer;margin-bottom:14px;">Continue with Google</button>
+    <button id="plm-google" onclick="prismGoogleLogin()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;color:#0a0a0a;background:#fff;border:none;padding:12px;border-radius:6px;cursor:pointer;margin-bottom:14px;"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button> style="width:100%;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;color:#0a0a0a;background:#fff;border:none;padding:12px;border-radius:6px;cursor:pointer;margin-bottom:14px;">Continue with Google</button>
     <div style="text-align:center;color:#555;font-family:'Space Mono',monospace;font-size:10px;margin-bottom:14px;">— OR —</div>
     <input id="plm-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px;"/>
     <button id="plm-btn" onclick="prismMagicLogin()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer;">EMAIL ME A LOGIN LINK</button>
