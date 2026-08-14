@@ -440,7 +440,7 @@ async function gateSubscribe(){
   }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
 }
 </script>
-<div id="prism-archive-bar" data-built="2026-08-14T08:32:41.982Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
+<div id="prism-archive-bar" data-built="2026-08-14T09:45:03.011Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:12px">
       <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#0a0a0a;background:#FFC24B;padding:4px 9px;border-radius:3px;font-weight:700">ARCHIVED EDITION</span>
@@ -1735,6 +1735,13 @@ document.addEventListener('DOMContentLoaded', prismCheckSession);
 </div>
 <script>
 function openPro(){ document.getElementById('prism-pro-modal').style.display='flex'; }
+document.addEventListener('click',function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[href*="consultant.prism-osint.com"]'):null;
+  if(!a)return;
+  e.preventDefault();
+  e.stopPropagation();
+  openPro();
+},true);
 (function(){
   var pv=new URLSearchParams(window.location.search).get('preview');
   if(pv==='pro'){try{localStorage.setItem('prism_preview','pro');}catch(e){}}
