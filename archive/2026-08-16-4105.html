@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WP0JD169N"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1WP0JD169N');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PRISM — Space & Defence Intelligence</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+.sector-filter{display:flex;gap:0;border-bottom:1px solid #1e1e1e;margin:0 0 24px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#141414;padding:0 32px}
+.sector-tab{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#444;padding:10px 20px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;outline:none}
+.sector-tab:hover{color:#888}
+.sector-tab.active{color:#fff;border-bottom-color:#fff}
+.story-section-wrap.hidden{display:none}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min-height:100vh}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
+@keyframes glowGreenFrame{0%,100%{box-shadow:0 0 10px rgba(0,180,80,0.2)}50%{box-shadow:0 0 20px rgba(0,180,80,0.35)}}
+@keyframes glowRedFrame{0%,100%{box-shadow:0 0 10px rgba(200,0,0,0.18)}50%{box-shadow:0 0 20px rgba(200,0,0,0.3)}}
+@keyframes glowDotGreen{0%,100%{box-shadow:0 0 4px rgba(0,180,80,0.6)}50%{box-shadow:0 0 10px rgba(0,180,80,0.9)}}
+@keyframes glowDotAmber{0%,100%{box-shadow:0 0 4px rgba(200,120,0,0.6)}50%{box-shadow:0 0 10px rgba(200,120,0,0.9)}}
+@keyframes glowDotRed{0%,100%{box-shadow:0 0 4px rgba(200,0,0,0.6)}50%{box-shadow:0 0 10px rgba(200,0,0,0.9)}}
+@keyframes slideIn{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes slideDown{0%{max-height:0;opacity:0;transform:translateY(-4px)}100%{max-height:300px;opacity:1;transform:translateY(0)}}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes ping{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}75%,100%{transform:translate(-50%,-50%) scale(2.5);opacity:0}}
+@keyframes chatPulse{0%,100%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 0 rgba(74,158,255,0.4)}70%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 10px rgba(74,158,255,0)}}
+@keyframes bubbleIn{0%{opacity:0;transform:translateY(10px) scale(0.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes fadeOverlay{0%{opacity:0}100%{opacity:1}}
+.topbar{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-divider{border-left:1px solid rgba(255,255,255,0.08);padding-left:14px}
+.topbar-tagline{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#4a7a9a}
+.topbar-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.live{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:3px;color:#4a9eff;font-family:'Space Mono',monospace}
+.dot{width:5px;height:5px;background:#00e87a;border-radius:50%;animation:pulse 2s infinite}
+.ts{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.3);letter-spacing:2px}
+.beta-badge{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center;margin-top:0}
+.early{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#ff8c00;margin-top:2px}
+.analyst-pill{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4a9eff;text-decoration:none;border:1px solid rgba(74,158,255,0.35);padding:5px 14px;border-radius:20px;background:rgba(74,158,255,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all 0.2s}
+.analyst-pill:hover{background:rgba(74,158,255,0.15);border-color:rgba(74,158,255,0.6)}
+.section-briefing-map{display:grid;grid-template-columns:1fr 1fr;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);min-height:300px}
+.briefing-left{padding:0;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.briefing-frame{background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin:18px 24px;flex:1}
+.briefing-frame-header{background:#0a0a0a;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.briefing-frame-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:500;letter-spacing:5px;color:#fff;white-space:nowrap;line-height:1;display:block;margin-bottom:0}
+.briefing-frame-title::after{content:'';display:block;height:2px;width:44px;background:#fff;margin-top:8px;margin-bottom:0}
+.briefing-frame-body{padding:20px 22px;border-top:1px solid rgba(255,255,255,0.1)}
+.badges{display:flex;gap:24px;margin-bottom:0;align-items:center}
+.brief-field-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#666;margin-bottom:4px}
+.brief-field-val{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px}
+.brief-divider{width:1px;background:rgba(255,255,255,0.12)}
+.badge-bullish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(0,160,70,0.4);background:rgba(0,160,70,0.1);color:#00cc60;display:flex;align-items:center;gap:8px}
+.badge-bearish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.4);background:rgba(200,0,0,0.1);color:#ff5555;display:flex;align-items:center;gap:8px}
+.badge-neutral{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(74,158,255,0.35);background:rgba(74,158,255,0.08);color:#4a9eff;display:flex;align-items:center;gap:8px}
+.badge-geo-low{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(0,160,70,0.35);background:rgba(0,160,70,0.08);color:#00cc60;display:flex;align-items:center;gap:8px}
+.badge-geo-medium{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(74,158,255,0.35);background:rgba(74,158,255,0.08);color:#4a9eff;display:flex;align-items:center;gap:8px}
+.badge-geo-high{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,100,0,0.4);background:rgba(200,100,0,0.1);color:#ff8c00;display:flex;align-items:center;gap:8px}
+.badge-geo-critical{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.5);background:rgba(200,0,0,0.12);color:#ff5555;display:flex;align-items:center;gap:8px}
+.badge-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.summary{font-size:14px;color:rgba(255,255,255,0.72);line-height:1.75;text-align:left}
+.map-right{display:flex;flex-direction:column;overflow:hidden;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;margin:18px 24px 18px 0}
+.map-header-inner{padding:12px 16px;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.map-title-inner{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:500;letter-spacing:3px;color:#fff;line-height:1}
+.map-title-inner::after{content:'';display:block;height:2px;width:44px;background:#fff;margin-top:8px}
+.map-count{font-family:'Space Mono',monospace;font-size:8px;color:#00e87a;background:rgba(0,232,122,0.1);padding:2px 10px;border-radius:10px;border:1px solid rgba(0,232,122,0.25)}
+.map-body-inner{flex:1;min-height:200px;position:relative}
+.inc-list-inner{background:#141414;border-top:1px solid rgba(255,255,255,0.06);padding:8px 14px;display:flex;flex-direction:column;gap:5px;max-height:85px;overflow:hidden;flex-shrink:0}
+.inc-item{font-size:11px;color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:8px;font-weight:500;cursor:pointer;transition:color 0.15s}
+.inc-item:hover{color:#c8dff0}
+.inc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.map-popup-overlay{position:fixed;inset:0;background:rgba(4,6,15,0.7);z-index:9000;display:none;align-items:center;justify-content:center;animation:fadeOverlay 0.2s ease;backdrop-filter:blur(3px)}
+.map-popup-overlay.active{display:flex}
+.map-popup-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;width:90%;max-width:520px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.6);animation:bubbleIn 0.2s ease}
+.map-popup-top{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
+.map-popup-cat{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;font-weight:700}
+.map-popup-close{font-family:'Space Mono',monospace;font-size:12px;color:rgba(255,255,255,0.3);cursor:pointer;padding:2px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);transition:all 0.15s}
+.map-popup-close:hover{color:#fff;border-color:rgba(255,255,255,0.3)}
+.map-popup-body{padding:20px}
+.map-popup-img{width:100%;max-height:220px;object-fit:cover;border-radius:6px;margin-bottom:14px;display:block}
+.map-popup-head{font-size:20px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:10px}
+.map-popup-context{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:12px}
+.map-popup-impl{font-size:13px;color:#e8e8e8;background:#0a0a0a;border-radius:6px;padding:12px 14px;margin-bottom:16px;line-height:1.6}
+.map-popup-impl-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#888;margin-bottom:5px}
+.map-popup-footer{display:flex;align-items:center;justify-content:space-between}
+.map-popup-src{font-family:'Space Mono',monospace;font-size:10px;color:#9aa7b4;text-decoration:none}
+.map-popup-read{font-family:'Space Mono',monospace;font-size:9px;color:#ccc;padding:5px 14px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:#2e2e2e;text-decoration:none;transition:all 0.15s}
+.map-popup-read:hover{background:#3a3a3a}
+.section-orr{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 32px;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08)}
+.ocard-green{background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+.ocard-red{background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+.ocard-header-green{padding:18px 18px 0;display:block}
+.ocard-header-red{padding:18px 18px 0;display:block}
+.ocard-icon{display:none}
+.ocard-title-green{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:500;letter-spacing:3px;color:#fff;display:block;margin-bottom:4px}
+.ocard-title-red{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:500;letter-spacing:3px;color:#fff;display:block;margin-bottom:4px}
+.ocard-title-green::after{content:'';display:block;height:1px;width:32px;background:#00b050;margin-top:4px}
+.ocard-title-red::after{content:'';display:block;height:1px;width:32px;background:#ff4444;margin-top:4px}
+.ocard-body{padding:12px 18px 18px}
+.ocard-text{font-size:13px;color:#cfcfcf;line-height:1.65}
+.prism-locked{position:relative;overflow:hidden}
+.prism-locked .prism-blur{filter:blur(6px);user-select:none;pointer-events:none;opacity:0.85}
+.prism-lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:5}
+.prism-lock-btn{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#0a0a0a;background:#7DC8F0;border:none;padding:11px 24px;border-radius:6px;cursor:pointer}
+.prism-lock-icon{font-size:20px;color:#7DC8F0}
+.prism-lock-hint{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.55)}
+.prism-unlocked .prism-blur{filter:none;user-select:auto;pointer-events:auto;opacity:1}
+.prism-unlocked .prism-lock-overlay{display:none} 
+.page{padding:22px 32px;background:#141414}
+.section-header{margin-top:0;padding-top:0;border-top:none}
+.story-section-wrap{background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;margin-bottom:22px}
+.section-header-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.section-header:first-child{margin-top:0}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:500;letter-spacing:5px;color:#fff;white-space:nowrap;line-height:1}
+.section-count-box{font-family:'Space Mono',monospace;font-size:9px;font-weight:400;letter-spacing:1px;color:#888;border:1px solid rgba(255,255,255,0.2);padding:2px 7px}
+.section-underline{height:2px;width:48px;background:#fff;margin-bottom:18px}
+.section-line{flex:1;height:2px;background:rgba(255,255,255,0.1);border-radius:1px}
+.section-count{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.4);letter-spacing:1px;background:#1e1e1e;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);white-space:nowrap}
+.stories-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:10px}
+.story{background:#fff;border:1.5px solid #a8c0d8;border-radius:10px;overflow:hidden;transition:border-color 0.2s}
+.story:hover{border-color:#4a9eff}
+.story-crit{border-top:4px solid #cc0000}
+.story-high{border-top:4px solid #c06000}
+.story-med{border-top:4px solid #4a9eff}
+.story-img{width:100%;max-height:280px;min-height:160px;object-fit:contain;object-position:center;display:block;background:#dce8f4;border-bottom:1px solid #a8c0d8}
+.story-pad{padding:16px 18px}
+.story-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.ub{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:3px;font-weight:700}
+.ub-break{background:rgba(200,0,0,0.2);color:#cc0000}
+.ub-urgent{background:rgba(200,120,0,0.2);color:#c06000}
+.ub-normal{background:rgba(74,158,255,0.15);color:#1a5fa0}
+.story-region{font-family:'Space Mono',monospace;font-size:9px;color:#4a6a8a;letter-spacing:1px}
+.story-score{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:3px;font-weight:700;margin-left:auto}
+.sc-crit{background:rgba(200,0,0,0.2);color:#cc0000}
+.sc-high{background:rgba(200,120,0,0.2);color:#c06000}
+.sc-med{background:rgba(74,158,255,0.15);color:#1a5fa0}
+.story-head{font-size:18px;font-weight:700;color:#0a1628;line-height:1.3;margin-bottom:8px}
+.story-teaser{font-size:14px;color:#2a4a6a;line-height:1.75;margin-bottom:12px}
+.story-divider{height:1px;background:#a8c0d8;margin-bottom:12px}
+.story-impl{font-size:13px;color:#2a3a4a;background:#f0f3f6;border:1px solid #e0e6ec;border-radius:6px;padding:12px 14px;line-height:1.6;margin-bottom:12px}
+.story-impl-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#0a1628;margin-bottom:5px}
+.story-footer{display:flex;align-items:center;justify-content:space-between}
+.story-source{font-family:'Space Mono',monospace;font-size:10px;color:#5a6a7a;text-decoration:none;letter-spacing:1px}
+.story-source:hover{color:#0a1628}
+.story-read{font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;letter-spacing:1px;background:#f0f3f6;padding:5px 12px;border-radius:4px;border:1px solid #d8e0e8;text-decoration:none;transition:all 0.15s}
+.story-read:hover{background:#e4e9ee}
+.outlook-section{background:#141414;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.outlook-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.outlook-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#888;white-space:nowrap}
+.outlook-line{flex:1;height:2px;background:rgba(255,255,255,0.08);border-radius:1px}
+.outlook-sub{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;background:#1e1e1e;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);white-space:nowrap}
+.outlook-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.outlook-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px}
+.outlook-domain{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:3px;margin-bottom:10px}
+.outlook-watch{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:10px;padding:5px 10px;border:1px solid;border-radius:3px;display:inline-block}
+.outlook-signal{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:12px;border-left:2px solid #4a9eff;padding-left:10px}
+.pred-dropdown{border:1px solid rgba(255,255,255,0.08);border-radius:6px;overflow:hidden}
+.pred-dd-btn{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#141414;color:#4a9eff;transition:background 0.15s;user-select:none}
+.pred-dd-btn:hover{background:#141414}
+.pred-dd-arrow{font-size:11px;transition:transform 0.25s}
+.pred-dd-content{display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#06090f}
+.pred-dd-content.open{display:grid;animation:slideDown 0.25s ease}
+.pred-bull{background:rgba(0,140,60,0.07);border:1px solid rgba(0,140,60,0.2);border-radius:4px;padding:10px}
+.pred-bear{background:rgba(200,0,0,0.07);border:1px solid rgba(200,0,0,0.18);border-radius:4px;padding:10px}
+.pred-lbl{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:5px}
+.pred-txt{font-size:12px;color:#6a8aaa;line-height:1.5}
+.reg-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.reg-inner{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-top:16px}
+.reg-score-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.reg-score-num{font-family:'Space Mono',monospace;font-size:36px;font-weight:700;line-height:1}
+.reg-score-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;margin-top:2px}
+.reg-bar-wrap{height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden}
+.reg-bar{height:10px;border-radius:5px;background:linear-gradient(90deg,#006830 0%,#ffa000 50%,#cc0000 100%)}
+.reg-bar-labels{display:flex;justify-content:space-between;margin-top:4px}
+.reg-bar-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px}
+.reg-delta{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px}
+.reg-areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.reg-area{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px}
+.reg-area-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.reg-area-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-green{background:#006830;animation:glowDotGreen 2s infinite}
+.dot-amber{background:#c06000;animation:glowDotAmber 2s infinite}
+.dot-red{background:#cc0000;animation:glowDotRed 2s infinite}
+.reg-area-name{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;flex:1}
+.name-green{color:#00aa40}
+.name-amber{color:#cc8800}
+.name-red{color:#ff4444}
+.reg-area-trend{font-size:13px;font-weight:700}
+.trend-up{color:#ff4444}
+.trend-stable{color:#3a5a7a}
+.trend-down{color:#00aa40}
+.reg-area-pill{font-family:'Space Mono',monospace;font-size:7px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:3px}
+.pill-green{background:rgba(0,180,80,0.1);color:#00aa40;border:1px solid rgba(0,180,80,0.2)}
+.pill-amber{background:rgba(200,130,0,0.1);color:#cc8800;border:1px solid rgba(200,130,0,0.2)}
+.pill-red{background:rgba(200,0,0,0.1);color:#ff4444;border:1px solid rgba(200,0,0,0.2)}
+.reg-area-text{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.55;margin-bottom:6px}
+.reg-area-cd{display:flex;align-items:center;gap:6px}
+.reg-area-cd-lbl{font-family:'Space Mono',monospace;font-size:7px;color:#3a5a7a;letter-spacing:1px}
+.reg-area-cd-val{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;color:#4a9eff;background:rgba(74,158,255,0.08);padding:2px 8px;border-radius:3px;border:1px solid rgba(74,158,255,0.2)}
+.reg-loading-inner{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:20px;font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px}
+.reg-spinner{width:20px;height:20px;border:2px solid rgba(255,255,255,0.08);border-top-color:#4a9eff;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0}
+.reg-footer-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.reg-footer-text{font-family:'Space Mono',monospace;font-size:7px;color:#3a5a7a;letter-spacing:1px}
+.reg-footer-btn{font-family:'Space Mono',monospace;font-size:7px;color:#4a9eff;letter-spacing:1px;background:rgba(74,158,255,0.08);padding:4px 10px;border-radius:3px;border:1px solid rgba(74,158,255,0.2);text-decoration:none}
+.poly-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.poly-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
+.poly-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;transition:border-color 0.2s;cursor:pointer}
+.poly-card:hover{border-color:#2a4a6a}
+.poly-question{font-size:13px;font-weight:600;color:#c8dff0;line-height:1.5;margin-bottom:10px}
+.poly-bar-wrap{height:5px;background:rgba(255,255,255,0.08);border-radius:3px;margin-bottom:6px;overflow:hidden}
+.poly-bar{height:5px;border-radius:3px}
+.poly-odds{display:flex;justify-content:space-between}
+.poly-yes{font-family:'Space Mono',monospace;font-size:11px;font-weight:700}
+.poly-no{font-family:'Space Mono',monospace;font-size:11px;color:#3a5a7a}
+.poly-vol{font-size:9px;color:#3a5a7a;letter-spacing:1px;margin-top:6px;font-family:'Space Mono',monospace}
+.poly-loading{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;letter-spacing:2px;padding:20px 0}
+.stocks-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.mp-card{background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px}
+.mp-wrap{font-family:'Space Mono',monospace}
+.mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mp-col-adv{background:rgba(0,232,122,0.05);border-radius:10px;border:1px solid rgba(0,232,122,0.15);padding:12px}
+.mp-col-dec{background:rgba(255,68,68,0.05);border-radius:10px;border:1px solid rgba(255,68,68,0.15);padding:12px}
+.mp-col-hdr-adv{font-size:9px;color:#00e87a;letter-spacing:1px;margin-bottom:10px;text-align:center}
+.mp-col-hdr-dec{font-size:9px;color:#ff4444;letter-spacing:1px;margin-bottom:10px;text-align:center}
+.mp-row{display:grid;grid-template-columns:1fr auto 60px;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mp-pct-adv,.mp-pct-dec{text-align:right}
+.mp-all-table{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px}
+.mp-all-table.open{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.mp-all-row2{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:12px;padding:8px 2px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.mp-all-row2:last-child{border-bottom:none}
+.mp-row:last-child{border-bottom:none}
+.mp-ticker{font-size:11px;font-weight:700;color:#c8dff0}
+.mp-name{font-size:10px;color:#888;margin-top:1px}
+.mp-price{font-size:13px;color:#c8dff0;text-align:right}
+.mp-pct-adv{font-size:11px;color:#00e87a;font-weight:700;text-align:right}
+.mp-pct-dec{font-size:11px;color:#ff4444;font-weight:700;text-align:right}
+.mp-empty{display:flex;align-items:center;justify-content:center;min-height:52px;opacity:0.25;font-size:9px;color:#888;text-align:center;line-height:1.4}
+.mp-viewall{text-align:center;font-size:9px;color:#ccc;margin-top:10px;cursor:pointer;letter-spacing:1px;user-select:none}
+.mp-all-grid{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px}
+.mp-all-grid.open{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mp-all-row{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:#1e1e1e;border-radius:6px;border:1px solid rgba(255,255,255,0.05)}
+.sector-note{margin-top:16px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px 18px}
+.sector-note-label{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#888;margin-bottom:10px}
+.sector-note-body{font-size:14px;line-height:1.7;color:#b8c4d0}
+.events-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.event-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px}
+.event-date{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;letter-spacing:2px;margin-bottom:6px}
+.event-name{font-size:14px;font-weight:700;color:#c8dff0;margin-bottom:4px}
+.event-loc{font-size:12px;color:rgba(255,255,255,0.35)}
+.event-tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:1px;padding:3px 10px;border-radius:3px;background:rgba(74,158,255,0.08);color:#4a9eff;border:1px solid rgba(74,158,255,0.2);font-family:'Space Mono',monospace}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.st{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#888}
+.sl{flex:1;height:2px;background:rgba(255,255,255,0.08);border-radius:1px}
+.footer{padding:14px 32px;display:flex;justify-content:space-between;background:#0a0a0a;flex-wrap:wrap;gap:8px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-text{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.12);letter-spacing:3px}
+.scan{height:3px;background:linear-gradient(90deg,#1a1a1a,#4a9eff,#1a1a1a)}
+.chat-bubble{position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.chat-bubble-btn{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.18),transparent 60%),linear-gradient(180deg,#242424,#0a0a0a);border:1px solid rgba(255,255,255,0.2);border-top:1px solid rgba(255,255,255,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 32px rgba(0,0,0,0.6);transition:transform 0.2s;position:relative}
+.chat-bubble-btn:hover{transform:scale(1.08);box-shadow:0 12px 38px rgba(0,0,0,0.7)}
+.chat-bubble-btn svg{width:26px;height:26px;fill:#fff}
+.chat-bubble-badge{position:absolute;top:-3px;right:-3px;background:#fff;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 5px;border-radius:10px;border:2px solid #141414;white-space:nowrap}
+.chat-bubble-tooltip{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;max-width:200px;box-shadow:0 4px 20px rgba(0,0,0,0.4);cursor:pointer;transition:border-color 0.2s;text-decoration:none;display:block;animation:bubbleIn 0.3s ease}
+.chat-bubble-tooltip:hover{border-color:#2a4a6a}
+.chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:4px}
+.chat-tooltip-text{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4}
+.analyst-banner-wrap{background:#141414;padding:22px 32px}
+.analyst-banner{background:radial-gradient(circle at 18% 40%,rgba(255,255,255,0.13),transparent 55%),linear-gradient(180deg,#242424,#0a0a0a);border:1px solid rgba(255,255,255,0.18);border-top:1px solid rgba(255,255,255,0.35);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:30px;box-shadow:0 12px 44px rgba(0,0,0,0.6)}
+.analyst-banner-text{flex:1}
+.analyst-banner-kicker{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:#888;margin-bottom:10px}
+.analyst-banner-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:500;letter-spacing:2px;color:#fff;line-height:1.1;margin-bottom:10px}
+.analyst-banner-sub{font-size:13px;color:#cfcfcf;line-height:1.6;max-width:520px}
+.analyst-banner-cta{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#fff;padding:13px 26px;border-radius:6px;white-space:nowrap;text-decoration:none;flex-shrink:0;transition:opacity 0.2s;box-shadow:0 4px 18px rgba(255,255,255,0.15)}
+.analyst-banner-cta:hover{opacity:0.85}
+.search-bar-wrap{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 32px;position:relative}
+.search-row{display:flex;align-items:center;gap:12px;width:100%}
+.search-inner{display:flex;align-items:center;gap:8px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:9px 14px;flex:1;transition:border-color 0.2s}
+.search-inner:focus-within{border-color:rgba(255,255,255,0.25);box-shadow:0 0 0 3px rgba(255,255,255,0.04)}
+.search-input{background:none;border:none;outline:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;color:#c8dff0;width:100%}
+.search-input::placeholder{color:rgba(255,255,255,0.25);letter-spacing:0.5px}
+.search-clear{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;cursor:pointer;padding:0 4px;transition:color 0.15s}
+.search-clear:hover{color:#c8dff0}
+.search-count{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;white-space:nowrap}
+.search-nav{display:flex;align-items:center;gap:6px}
+.search-nav-btn{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;transition:all 0.15s}
+.search-nav-btn:hover{background:rgba(74,158,255,0.15)}
+.search-nav-btn:disabled{color:#3a5a7a;background:transparent;border-color:rgba(255,255,255,0.08);cursor:not-allowed}
+.search-pos{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:1px;min-width:40px;text-align:center}
+.search-dropdown{position:absolute;top:calc(100% + 2px);left:32px;right:32px;background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.6);z-index:1000;max-height:300px;overflow-y:auto}
+.search-drop-header{padding:8px 14px;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);font-family:'Space Mono',monospace;font-size:8px;color:#3a5a7a;letter-spacing:2px}
+.search-result-item{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;display:flex;align-items:flex-start;gap:10px}
+.search-result-item:hover{background:rgba(74,158,255,0.08)}
+.search-result-item:last-child{border-bottom:none}
+.sri-cat{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.sri-head{font-size:12px;font-weight:600;color:#c8dff0;line-height:1.4;margin-bottom:3px}
+.sri-excerpt{font-size:11px;color:#3a5a7a;line-height:1.5}
+.sri-head mark,.sri-excerpt mark,.story-head mark,.story-teaser mark{background:rgba(74,158,255,0.25);color:#1a5fa0;border-radius:2px;padding:0 2px;font-style:normal;font-weight:700}
+.story-hidden{display:none!important}
+.story.active-result{border-color:#4a9eff!important;box-shadow:0 0 0 2px rgba(74,158,255,0.2),0 0 20px rgba(74,158,255,0.12)!important}
+.story.dimmed{opacity:0.2}
+@media(max-width:768px){
+  .topbar{padding:6px 12px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .topbar-left{flex-direction:row;align-items:center;gap:6px}
+  .topbar-divider{display:none}
+  .topbar-right{gap:6px;flex-wrap:nowrap}
+  .topbar-left{gap:5px}
+  .live{font-size:7px;letter-spacing:1px;white-space:nowrap}
+  .dot{width:4px;height:4px}
+  #moonphase{display:none}
+  .ts{display:none}
+  .beta-badge{display:inline-flex;align-items:center;font-size:6px;padding:1px 4px;color:rgba(200,220,255,0.3);border-color:rgba(255,255,255,0.1);margin-top:0;align-self:center}
+  .early{display:none}
+  .analyst-pill{font-size:7px;padding:2px 8px;letter-spacing:1px}
+  .launch-pill{font-size:7px!important;padding:2px 8px!important;letter-spacing:1px!important;border-radius:12px!important;gap:4px!important;white-space:nowrap!important}
+  img[alt="PRISM"]{height:36px!important;opacity:0.85}
+  #prism-auth-btn{font-size:7px!important;padding:6px 10px!important;letter-spacing:1px!important;margin-right:5px!important;white-space:nowrap}
+  button[onclick*="sub-modal"]{font-size:7px!important;padding:6px 10px!important;letter-spacing:1px!important;white-space:nowrap}
+  .beta-badge{display:none!important}
+  .section-briefing-map{grid-template-columns:1fr;display:flex;flex-direction:column;background:#141414}
+  .briefing-left{padding:0;border-right:none;border-bottom:none}
+  .briefing-frame{margin:10px;border-radius:8px}
+  .map-right{margin:10px;border-radius:8px}
+  .map-header-inner{flex-direction:column;align-items:flex-start;gap:10px}
+  .map-title-inner{font-size:19px;letter-spacing:1px;white-space:nowrap}
+  .map-count{align-self:flex-start}
+  .briefing-frame-title{font-size:20px;letter-spacing:2px;white-space:normal}
+  .badges{flex-wrap:nowrap;gap:6px;margin-bottom:10px}
+  .badge-bullish,.badge-bearish,.badge-neutral,.badge-geo-low,.badge-geo-medium,.badge-geo-high,.badge-geo-critical{font-size:8px;padding:4px 8px;letter-spacing:1px;white-space:nowrap}
+  .summary{font-size:14px}
+  .map-right{min-height:240px}
+  .section-orr{grid-template-columns:1fr;gap:12px;padding:16px}
+  .page{padding:14px 16px}
+  .stories-grid{grid-template-columns:1fr}
+  .story-section-wrap{background:none;border:none;border-radius:0;padding:0;margin-bottom:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12)}
+  .section-title{font-size:20px;letter-spacing:2px;white-space:normal}
+  .outlook-section .section-header,.reg-section .section-header{display:flex;flex-direction:column;align-items:flex-start}
+  .outlook-section .section-header-row,.reg-section .section-header-row{display:contents}
+  .outlook-section .section-title,.reg-section .section-title{order:1;font-size:19px;letter-spacing:1px;white-space:nowrap}
+  .outlook-section .section-underline,.reg-section .section-underline{order:2;margin-top:6px;margin-bottom:12px}
+  .outlook-section .section-header-row>:nth-child(2),.reg-section .section-header-row>:nth-child(2){order:3}
+  .stories-grid{grid-template-columns:1fr}
+  .outlook-section{padding:16px}
+  .outlook-grid{grid-template-columns:1fr}
+  .reg-section{padding:16px}
+  .reg-inner{grid-template-columns:1fr;display:flex;flex-direction:column}
+  .reg-areas-grid{grid-template-columns:1fr}
+  .poly-section,.stocks-section,.events-section{padding:16px}
+  .mp-name{display:none}.mp-price{font-size:12px}.mp-ticker{font-size:11px}
+  .stocks-section .section-header{display:flex;flex-direction:column;align-items:flex-start}
+  .stocks-section .section-header-row{display:contents}
+  .stocks-section .section-title{order:1;font-size:19px;letter-spacing:1px;white-space:nowrap}
+  .stocks-section .section-underline{order:2;margin-top:6px;margin-bottom:12px}
+  .stocks-section #stocks-status{order:3;margin-bottom:6px}
+  .event-grid{grid-template-columns:1fr}
+  .footer{padding:12px 16px}
+  .chat-bubble{bottom:16px;right:16px}
+  .search-bar-wrap{padding:8px 12px}
+  .search-row{width:100%}
+  .search-inner{max-width:none;flex:1;width:100%}
+  .search-count{display:none}
+  .search-nav{flex-shrink:0}
+  .chat-bubble-tooltip{display:none}
+  .sector-filter{padding:12px 16px;border-bottom:none;flex-wrap:wrap;justify-content:center;gap:6px;overflow-x:visible}
+  .sector-tab{font-size:8px;letter-spacing:1px;padding:8px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;color:#888;margin-bottom:0;background:#1e1e1e}
+  .sector-tab.active{color:#0a0a0a;background:#fff;border-color:#fff;border-bottom-color:#fff}
+  .analyst-banner-wrap{padding:16px}
+  .analyst-banner{flex-direction:column;align-items:stretch;padding:24px;gap:20px;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,0.15),transparent 55%),linear-gradient(180deg,#242424,#0a0a0a)}
+  .analyst-banner-title{font-size:22px;letter-spacing:1px}
+  .analyst-banner-sub{max-width:none}
+  .analyst-banner-cta{text-align:center;padding:14px}
+}
+@media(max-width:480px){
+  .mp-grid{grid-template-columns:1fr 1fr}
+  .story-head{font-size:16px}
+  .pred-dd-content{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="prism-gate" style="position:fixed;inset:0;z-index:99999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto">
+  <div style="max-width:640px;width:100%;text-align:center;font-family:'Space Grotesk',sans-serif">
+    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:72px;display:block;margin:0 auto 14px" alt="PRISM"/>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:rgba(200,220,255,0.35);margin-bottom:44px">SPACE &amp; DEFENCE INTELLIGENCE</div>
+    <div style="height:1px;background:rgba(255,255,255,0.08);margin-bottom:40px"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:#34E0C4;margin-bottom:18px">◈ LAUNCHING SOON</div>
+    <div style="font-size:28px;font-weight:500;color:#fff;line-height:1.25;margin-bottom:20px">Real-time space &amp;<br/>defence intelligence</div>
+    <div style="font-size:15px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:460px;margin:0 auto 40px">PRISM aggregates global intelligence across space, defence, geopolitics and markets, delivering actionable insight to professionals who cannot afford to miss a signal. Access is currently limited to early members.</div>
+    <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px;max-width:400px;margin:0 auto">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:16px">REQUEST EARLY ACCESS</div>
+      <input id="gate-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#0a0a0a;border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px"/>
+      <input id="gate-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+      <button id="gate-btn" onclick="gateSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer">REQUEST ACCESS</button>
+      <div id="gate-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;min-height:14px"></div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(200,220,255,0.15);margin-top:44px">◈ PRISM </div>
+  </div>
+</div>
+<script>
+(function(){
+  var TOKEN='earlyaccess';
+  var p=new URLSearchParams(window.location.search).get('access');
+  var stored=null;
+  try{stored=localStorage.getItem('prism_access');}catch(e){}
+  if(p===TOKEN){try{localStorage.setItem('prism_access',TOKEN);}catch(e){} stored=TOKEN;}
+  if(stored===TOKEN){
+    var g=document.getElementById('prism-gate');
+    if(g)g.parentNode.removeChild(g);
+  }else{
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+  }
+})();
+window.gateLoadTime=Date.now();
+async function gateSubscribe(){
+  var email=document.getElementById('gate-email').value.trim();
+  var msg=document.getElementById('gate-msg');
+  var btn=document.getElementById('gate-btn');
+  if(document.getElementById('gate-hp').value){msg.textContent='';return;}
+  if(Date.now()-window.gateLoadTime<3000){msg.style.color='#E24B4A';msg.textContent='PLEASE TRY AGAIN';return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  var tz='UTC';
+  try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){}
+  btn.disabled=true;btn.textContent='SENDING...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/subscribers',{
+      method:'POST',
+      headers:{'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:email,timezone:tz})
+    });
+    if(r.status===201){msg.style.color='#7DC8F0';msg.textContent='REQUEST RECEIVED';btn.textContent='DONE';}
+    else if(r.status===409){msg.style.color='#FFC24B';msg.textContent='ALREADY ON THE LIST';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
+    else{msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
+  }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
+}
+</script>
+<div id="prism-archive-bar" data-built="2026-08-16T20:05:40.960Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#0a0a0a;background:#FFC24B;padding:4px 9px;border-radius:3px;font-weight:700">ARCHIVED EDITION</span>
+      <span id="prism-archive-time" style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:1px"></span>
+    </div>
+    <a href="https://dashboard.prism-osint.com" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#0a0a0a;background:#34E0C4;padding:8px 16px;border-radius:20px;text-decoration:none;font-weight:700;white-space:nowrap">LIVE DASHBOARD →</a>
+  </div>
+</div>
+<script>
+(function(){
+  if(!window.location.pathname.includes('/archive/')) return;
+  var bar=document.getElementById('prism-archive-bar');
+  if(!bar) return;
+  var t=document.getElementById('prism-archive-time');
+  try{
+    var d=new Date(bar.getAttribute('data-built'));
+    var s=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',timeZone:'Asia/Dubai'}).toUpperCase();
+    var h=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Dubai'});
+    if(t)t.textContent=s+' · '+h+' GST';
+  }catch(e){}
+  bar.style.display='block';
+  document.body.style.paddingTop=bar.offsetHeight+'px';
+  window.PRISM_BAR_H=bar.offsetHeight;
+})();
+</script>
+  <div class="scan"></div>
+  <style>
+.pnav-item{position:relative}
+.pnav-link-nav{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(200,220,255,0.4);padding:0 20px;display:flex;align-items:center;cursor:pointer;white-space:nowrap;transition:color 0.2s;height:56px;border-bottom:2px solid transparent;user-select:none;text-decoration:none}
+.pnav-link-nav.active{color:rgba(200,220,255,0.95);border-bottom:2px solid rgba(200,220,255,0.55)}
+.pnav-item:hover>.pnav-link-nav{color:rgba(200,220,255,0.95)}
+.pnav-dropdown-nav{display:none;position:absolute;top:56px;left:0;background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-top:2px solid rgba(255,255,255,0.5);min-width:300px;z-index:9999}
+.pnav-item:hover>.pnav-dropdown-nav{display:block}
+@media(max-width:768px){
+  #mob-menu-btn{display:flex!important}
+  #mob-menu.mob-open{display:flex!important}
+  #moonphase{display:none!important}
+  .ts{display:none!important}
+}
+.drop-header-nav{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:#666;padding:12px 18px 8px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between}
+.drop-launch-nav{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;text-decoration:none}
+.drop-launch-nav:hover{background:rgba(255,255,255,0.03)}
+.drop-cd{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#fff;min-width:40px;text-align:center}
+.drop-mission{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#e8e8e8;margin-bottom:3px}
+.drop-meta-nav{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:#666}
+.drop-st{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 7px;border-radius:2px;white-space:nowrap}
+.dst-go{background:rgba(0,180,80,0.12);color:#00cc60;border:1px solid rgba(0,180,80,0.25)}
+.dst-tbd{background:rgba(200,120,0,0.12);color:#cc8800;border:1px solid rgba(200,120,0,0.25)}
+.drop-footer-nav{padding:10px 18px;border-top:1px solid rgba(255,255,255,0.05);text-align:center}
+.drop-footer-nav a{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#888;text-decoration:none;transition:color 0.2s}
+.drop-footer-nav a:hover{color:#fff}
+@media(max-width:768px){
+  .pnav-desktop{display:none!important}
+}
+</style>
+<div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:500">
+  <div style="display:flex;align-items:center;gap:0;height:56px">
+    <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:36px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+      <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center">BETA</span>
+    </a>
+    <div class="pnav-desktop" style="display:flex;align-items:stretch;height:56px;margin-left:24px">
+      <div class="pnav-item">
+        <a href="https://dashboard.prism-osint.com" class="pnav-link-nav active">INTELLIGENCE</a>
+      </div>
+      <div class="pnav-item">
+        <div class="pnav-link-nav">UPCOMING LAUNCHES ▾</div>
+        <div class="pnav-dropdown-nav">
+          <div class="drop-header-nav">
+            <span>NEXT 3 LAUNCHES</span>
+            <span id="nav-api-status" style="font-size:7px;color:rgba(200,220,255,0.2)">LOADING...</span>
+          </div>
+          <div id="nav-launch-list">
+            <div style="padding:20px 18px;font-family:'Space Mono',monospace;font-size:8px;color:rgba(200,220,255,0.25);letter-spacing:2px">◈ FETCHING LIVE DATA...</div>
+          </div>
+          <div class="drop-footer-nav">
+            <a href="https://prism-osint.com/launches">VIEW ALL LAUNCHES →</a>
+          </div>
+        </div>
+      </div>
+      <div class="pnav-item">
+        <a href="https://prism-osint.com/events" class="pnav-link-nav">EVENTS</a>
+      </div>
+      <div class="pnav-item">
+        <a href="https://consultant.prism-osint.com" class="pnav-link-nav">PRISM AI</a>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <button onclick="document.getElementById('sub-modal').style.display='flex'" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#0a0a0a;background:#7DC8F0;border:none;padding:9px 18px;border-radius:20px;cursor:pointer;font-weight:700;white-space:nowrap">EMAIL BRIEFING</button>
+    <button id="prism-auth-btn" onclick="openLogin()" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#7DC8F0;background:transparent;border:1px solid #7DC8F0;padding:9px 18px;border-radius:20px;cursor:pointer;font-weight:700;white-space:nowrap;margin-right:10px;display:none;">LOG IN</button>
+    <div id="moonphase" style="font-size:16px;filter:grayscale(1);opacity:0.4"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.28)"><div class="dot"></div>LIVE</div>
+    <div class="ts" id="datetime"></div>
+    <div id="mob-menu-btn" onclick="document.getElementById('mob-menu').classList.toggle('mob-open')" style="display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px">
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+    </div>
+  </div>
+</div>
+<div id="mob-menu" style="display:none;position:fixed;inset:0;background:#000000;z-index:9999;flex-direction:column;align-items:center;justify-content:center">
+  <div style="position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid rgba(255,255,255,0.06)">
+    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:64px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+    <div onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:12px;color:rgba(200,220,255,0.5);cursor:pointer;padding:8px;border:1px solid rgba(200,220,255,0.12);border-radius:4px;line-height:1">✕</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;width:100%">
+    <a href="https://dashboard.prism-osint.com" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04)">INTELLIGENCE</a>
+    <a href="https://prism-osint.com/launches" onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04)">UPCOMING LAUNCHES</a>
+    <a href="https://prism-osint.com/events" onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04)">EVENTS</a>
+    <a href="https://consultant.prism-osint.com" onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left">PRISM AI</a>
+  </div>
+  <div style="position:absolute;bottom:40px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(200,220,255,0.15)">◈ PRISM · SPACE & DEFENCE</div>
+</div>
+<div class="search-bar-wrap" id="search-wrap">
+  <div class="search-row">
+    <div class="search-inner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" id="prism-search" type="text" placeholder="SEARCH PRISM" onkeydown="if(event.key==='Enter')prismSearch(this.value)"/>
+      <button onclick="prismSearch(document.getElementById('prism-search').value)" style="font-family:'Space Mono',monospace;font-size:8px;color:#ccc;background:#2e2e2e;border:1px solid rgba(255,255,255,0.15);padding:4px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;white-space:nowrap;flex-shrink:0">SEARCH</button>
+      <div class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">✕</div>
+    </div>
+    <div class="search-count" id="search-count"></div>
+    <div class="search-nav" id="search-nav" style="display:none">
+      <button class="search-nav-btn" id="btn-prev" onclick="navResult(-1)">▲ PREV</button>
+      <div class="search-pos" id="search-pos">1 / 1</div>
+      <button class="search-nav-btn" id="btn-next" onclick="navResult(1)">▼ NEXT</button>
+    </div>
+  </div>
+  <div class="search-dropdown" id="search-dropdown" style="display:none"></div>
+  <div id="search-banner" style="display:none;background:#141414;border-bottom:1px solid rgba(255,255,255,0.12);padding:8px 32px;font-family:'Space Mono',monospace;font-size:9px;color:#ccc;letter-spacing:2px;align-items:center;gap:10px"></div>
+</div>
+<div class="section-briefing-map">
+  <div class="briefing-left">
+    <div class="briefing-frame">
+      <div class="briefing-frame-header">
+        <div class="briefing-frame-title">INTELLIGENCE BRIEFING</div>
+        <div class="badges">
+          <div><div class="brief-field-lbl">SENTIMENT</div><div class="brief-field-val" style="color:#fff">BEARISH</div></div><div class="brief-divider"></div><div><div class="brief-field-lbl">GEO RISK</div><div class="brief-field-val" style="color:#ff4444">CRITICAL</div></div>
+        </div>
+      </div>
+      <div class="briefing-frame-body">
+        <div class="summary">Concurrent escalation across the Strait of Hormuz, the Lebanon-Israel front, and the Russia-Ukraine theater is crystallizing a single structural truth: the global security environment is fragmenting faster than Western industrial capacity can respond, and every space and defence asset from surveillance satellites to precision munitions is being stress-tested simultaneously against real operational demand. The tension lies between the Pentagon ordering industry to submit accelerated production plans within 21 days while the General Dynamics artillery plant scandal reveals that existing defense contracts are delivering nothing, exposing a dangerous gap between procurement ambition and manufacturing reality that investors pricing defence primes at elevated multiples must now weigh carefully. In the next 24 to 72 hours, watch whether CENTCOM formally activates its multinational attack drone task force and names participating contractors, because confirmation would identify the specific companies capturing urgent wartime demand and validate whether the current premium in drone-adjacent names is justified.</div>
+      </div>
+    </div>
+  </div>
+  <div class="map-right">
+    <div class="map-header-inner" style="align-items:flex-start">
+      <div class="map-title-inner">GLOBAL INTELLIGENCE MAP</div>
+      <span id="incident-count" class="map-count">LIVE · 0 INCIDENTS</span>
+    </div>
+    <div class="map-body-inner">
+      <div id="prism-map" style="height:100%;min-height:220px"></div>
+    </div>
+    <div id="incident-list-top" style="display:none"></div>
+  </div>
+</div>
+<div class="section-orr">
+  <div class="ocard-green prism-locked">
+    <div class="ocard-header-green"><div class="ocard-title-green">OPPORTUNITY · TODAY</div></div>
+    <div class="ocard-body prism-blur"><div class="ocard-text">The CENTCOM multinational attack drone task force launch directly benefits drone-adjacent suppliers such as AeroVironment, which carries a consensus Moderate Buy rating, as urgent wartime demand bypasses normal procurement cycles and compresses the timeline to contract award and revenue recognition.</div></div>
+    <div class="prism-lock-overlay"><svg class="prism-lock-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7DC8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><button class="prism-lock-btn" onclick="openPro()">PRO · COMING SOON</button></div>
+  </div>
+  <div class="ocard-red prism-locked">
+    <div class="ocard-header-red"><div class="ocard-title-red">RISK · TODAY</div></div>
+    <div class="ocard-body prism-blur"><div class="ocard-text">Further escalation in the Strait of Hormuz, where ship attacks are mounting and Yemen has already suspended Red Sea port operations, represents the single most dangerous near-term catalyst, as any closure or sustained disruption of that chokepoint would simultaneously shock energy markets, accelerate defence spending, and destabilize Gulf-based operators and investors including those in Dubai.</div></div>
+    <div class="prism-lock-overlay"><svg class="prism-lock-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7DC8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><button class="prism-lock-btn" onclick="openPro()">PRO · COMING SOON</button></div>
+  </div>
+</div>
+        <div class="stocks-section" id="stocks-section">
+  <div class="mp-card">
+  <div class="section-header" style="margin-top:0;padding-top:0;border-top:none">
+    <div class="section-header-row">
+      <div class="section-title">MARKET PULSE</div>
+      <div id="stocks-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:1px;background:rgba(0,232,122,0.08);padding:3px 9px;border:1px solid rgba(0,232,122,0.3)">LIVE</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+  <div class="mp-wrap" id="mp-wrap">
+    <div class="mp-grid" id="mp-grid">
+      <div style="grid-column:1/-1;font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;padding:20px 0">◈ LOADING LIVE PRICES...</div>
+    </div>
+    <div class="mp-viewall" id="mp-viewall" style="display:none" onclick="toggleViewAll()">VIEW ALL 12 ↓</div>
+    <div class="mp-all-table" id="mp-all-table"></div>
+  </div>
+  <div class="sector-note" id="stocks-outlook" style="background:#141414">
+    <div class="sector-note-label">◈ SECTOR ANALYSIS</div>
+    <div class="sector-note-body">Sustained multi-theater conflict combined with accelerating Pentagon procurement timelines and expanding space infrastructure investment creates a structurally supportive environment for defence primes, drone manufacturers, and commercial space operators over the next quarter, though manufacturing execution risk remains the critical variable separating winners from underperformers.</div>
+  </div>
+  </div>
+</div>
+<div class="analyst-banner-wrap"><div class="analyst-banner">
+  <div class="analyst-banner-text">
+    <div class="analyst-banner-kicker">◆ INTELLIGENCE ANALYST</div>
+    <div class="analyst-banner-title">ASK PRISM ANALYST</div>
+    <div class="analyst-banner-sub">Consult the analyst behind the briefing — deep-dive any development, stress-test the data, and surface the second-order implications.</div>
+  </div>
+  <a href="https://consultant.prism-osint.com" target="_blank" class="analyst-banner-cta">▸ LAUNCH ANALYST</a>
+</div></div>
+<!-- SECTOR FILTER BAR -->
+<div class="sector-filter" id="sector-filter-bar">
+  <button class="sector-tab active" onclick="filterSector('all',this)">ALL</button>
+  <button class="sector-tab" onclick="filterSector('space',this)">SPACE</button>
+  <button class="sector-tab" onclick="filterSector('defence',this)">DEFENCE</button>
+  <button class="sector-tab" onclick="filterSector('middle_east',this)">MIDDLE EAST</button>
+  <button class="sector-tab" onclick="filterSector('ai_tech',this)">AI & TECH</button>
+  <button class="sector-tab" onclick="filterSector('investment',this)">INVESTMENT</button>
+  <button class="sector-tab" onclick="filterSector('ipo_watch',this)">IPO WATCH</button>
+</div>
+
+<div class="page" id="news">
+  
+        <div class="story-section-wrap" data-sector="space">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">SPACE</div>
+              <div class="section-count-box">06 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-high" id="story-rocket-lab-posts-series-of-programme-adv">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-15-04-32-28-725.jpg" class="story-img" alt="Rocket Lab posts series of programme advances" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">Rocket Lab posts series of programme advances</div>
+            <div class="story-teaser">NASASpaceFlight reports Rocket Lab has made a series of announcements signaling broad programme momentum across its launch and spacecraft divisions. Separately, SpaceFlightNow notes the window for a 2026 launch debut of the Neutron rocket is narrowing as development continues, introducing schedule risk into the companys medium-lift ambitions.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Investors holding RKLB must now weigh near-term execution gains against the compressing Neutron debut window, which if it slips to 2027 would delay the revenue inflection that medium-lift contracts represent.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/08/rocket-lab-advances-announcements/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Rocket Lab posts series of programme advances" data-l="https://dashboard.prism-osint.com#story-rocket-lab-posts-series-of-programme-adv" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/08/rocket-lab-advances-announcements/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-spacex-launches-back-to-back-falcon-9-ro">
+          <img src="http://spaceflightnow.com/wp-content/uploads/2026/08/20260815_Globalstar_streak_MC-1.jpeg" class="story-img" alt="SpaceX launches back-to-back Falcon 9 rockets" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 68</span>
+            </div>
+            <div class="story-head">SpaceX launches back-to-back Falcon 9 rockets</div>
+            <div class="story-teaser">SpaceX executed record-breaking back-to-back Falcon 9 launches from Cape Canaveral, delivering a Globalstar satellite replenishment mission and a US Space Force payload in rapid succession. The milestone underscores the operational tempo SpaceX is sustaining as it simultaneously expands Starship infrastructure with four new or upgraded launch pads across Starbase and Florida.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>SpaceX launch cadence records raise the competitive bar for every emerging launch provider seeking to demonstrate comparable reliability and throughput to institutional customers.</div>
+            <div class="story-footer">
+              <a href="https://spaceflightnow.com/2026/08/15/live-coverage-spacex-to-launch-satellite-replenishment-mission-for-globalstar-from-cape-canaveral/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="SpaceX launches back-to-back Falcon 9 rockets" data-l="https://dashboard.prism-osint.com#story-spacex-launches-back-to-back-falcon-9-ro" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spaceflightnow.com/2026/08/15/live-coverage-spacex-to-launch-satellite-replenishment-mission-for-globalstar-from-cape-canaveral/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-us-space-force-adds-second-sensor-to-jap">
+          <img src="https://spacenews.com/wp-content/uploads/2026/08/260814-X-X0813-1001.png" class="story-img" alt="US Space Force adds second sensor to Japan constellation" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Asia-Pacific</span>
+              <span class="story-score sc-high">HIGH · 65</span>
+            </div>
+            <div class="story-head">US Space Force adds second sensor to Japan constellation</div>
+            <div class="story-teaser">The August 10 launch of QZS-7 completed a bilateral programme to host US Space Force surveillance sensors aboard Japanese navigation satellites, with a second sensor now operational in the constellation. The arrangement embeds US military space situational awareness directly into an allied nations civil navigation infrastructure, deepening interoperability without requiring a dedicated US satellite launch.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>This bilateral sensor-hosting model signals a cost-efficient template for expanding US space domain awareness across Indo-Pacific allied constellations, with direct implications for prime contractors building hosted payload systems.</div>
+            <div class="story-footer">
+              <a href="https://spacenews.com/u-s-space-force-adds-second-surveillance-sensor-to-japanese-constellation/" target="_blank" class="story-source">▸ spacenews</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US Space Force adds second sensor to Japan constellation" data-l="https://dashboard.prism-osint.com#story-us-space-force-adds-second-sensor-to-jap" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spacenews.com/u-s-space-force-adds-second-surveillance-sensor-to-japanese-constellation/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-blue-origin-plans-dual-pad-ops-at-cape-c">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-15-23-52-07-432.jpg" class="story-img" alt="Blue Origin plans dual pad ops at Cape Canaveral" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 63</span>
+            </div>
+            <div class="story-head">Blue Origin plans dual pad ops at Cape Canaveral</div>
+            <div class="story-teaser">Blue Origin has outlined plans for a second Cape Canaveral launch pad, targeting dual pad operations as it works through engine resolutions following the New Glenn explosion, the cause of which has now been identified as an engine issue. The dual-pad strategy signals Blue Origins intent to match competitor launch cadence once its reliability programme is resolved.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Until Blue Origin demonstrates a successful New Glenn return-to-flight following the engine failure investigation, institutional customers will continue to route payloads to competitors, making the engine resolution timeline the single most investable data point for the company.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/08/blue-origin-launch-pad-cape-canaveral/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Blue Origin plans dual pad ops at Cape Canaveral" data-l="https://dashboard.prism-osint.com#story-blue-origin-plans-dual-pad-ops-at-cape-c" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/08/blue-origin-launch-pad-cape-canaveral/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-nasa-extremely-confident-in-artemis-3-fo">
+          <img src="http://spaceflightnow.com/wp-content/uploads/2026/08/20260814_max_power_jared_SFN_AB-1.jpeg" class="story-img" alt="NASA extremely confident in Artemis 3 for 2027" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 60</span>
+            </div>
+            <div class="story-head">NASA extremely confident in Artemis 3 for 2027</div>
+            <div class="story-teaser">The NASA Administrator stated confidence in the Artemis 3 crewed lunar landing mission proceeding in 2027, with NASASpaceFlight separately reporting Artemis progress building a lunar return roadmap. NASA and Northrop Grumman have also repurposed Gateway elements for Moon Base demonstration missions, reshaping the near-term lunar infrastructure pipeline.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A confirmed 2027 Artemis 3 timeline accelerates procurement timelines for lunar surface systems suppliers and sustains LUNR-adjacent commercial lunar services demand heading into the next fiscal cycle.</div>
+            <div class="story-footer">
+              <a href="https://spaceflightnow.com/2026/08/14/nasa-administrator-extremely-confident-in-artemis-3-launch-in-2027/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="NASA extremely confident in Artemis 3 for 2027" data-l="https://dashboard.prism-osint.com#story-nasa-extremely-confident-in-artemis-3-fo" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spaceflightnow.com/2026/08/14/nasa-administrator-extremely-confident-in-artemis-3-launch-in-2027/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-relativity-space-hits-terran-r-engine-in">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-07-21-46-19-317.jpg" class="story-img" alt="Relativity Space hits Terran-R engine integration milestone" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 52</span>
+            </div>
+            <div class="story-head">Relativity Space hits Terran-R engine integration milestone</div>
+            <div class="story-teaser">Relativity Space has completed an engine integration milestone for the first stage of its Terran-R rocket, marking a tangible step forward for the reusable medium-lift vehicle that represents the companys primary commercial offering. The milestone comes as the broader launch market sees multiple competitors at critical development inflection points simultaneously.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Terran-R engine integration progress validates Relativity as a credible future competitor to Neutron and Falcon 9 in the medium-lift segment, which matters to investors assessing how fragmented launch market revenues will be distributed post-2027.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/08/relativity-engine-integration-milestone-terran-r/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Relativity Space hits Terran-R engine integration milestone" data-l="https://dashboard.prism-osint.com#story-relativity-space-hits-terran-r-engine-in" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/08/relativity-engine-integration-milestone-terran-r/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+        <div class="story-section-wrap" data-sector="defence">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">DEFENCE</div>
+              <div class="section-count-box">05 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-crit" id="story-centcom-launches-multinational-attack-dr">
+          <img src="https://www.armytimes.com/resizer/v2/TVT3DSUTGFHTFMFJ6DXZRAAU7I.jpg?width=1200&auth=2f84fe1fee5782a12542caa61593299de5cf01a777a1bad0e08bf5369a3172a4" class="story-img" alt="CENTCOM launches multinational attack drone task force" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Middle East</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">CENTCOM launches multinational attack drone task force</div>
+            <div class="story-teaser">On Aug. 13, 2026, CENTCOM announced efforts to establish Task Force Falcon Strike, designated the first-ever multi-domain, multinational attack drone task force. The unit will employ one-way attack drones operating from above, on, and below the sea, operated by U.S. military support staff and regional partners. As of Aug. 14, CENTCOM had initiated the process of consulting with and inviting regional partners; no participating contractors or partner nations had been formally named. The task force follows Task Force Scorpion Strike, established in December 2025 as the first U.S. dedicated one-way attack drone squadron in the Middle East. (Source: CENTCOM official release, Aug. 13, 2026; Defense News, Aug. 14, 2026)</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Formalisation of a CENTCOM drone task force creates an urgent and named procurement channel that disproportionately benefits established attack drone suppliers already qualified for US and allied operations, compressing the timeline to contract award.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/news/pentagon-congress/2026/08/14/centcom-launches-multinational-attack-drone-task-force/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="CENTCOM launches multinational attack drone task force" data-l="https://dashboard.prism-osint.com#story-centcom-launches-multinational-attack-dr" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/news/pentagon-congress/2026/08/14/centcom-launches-multinational-attack-drone-task-force/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-pentagon-demands-faster-weapons-producti">
+          <img src="https://www.armytimes.com/resizer/v2/7DVUUCB6LBDRRLK7TGMPPSWODA.jpg?width=1200&auth=78045ef51355796b9406e6dc52af6f10a7d4bc4bbdf0766c2e1789ddc115a43e" class="story-img" alt="Pentagon demands faster weapons production in 21 days" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
+            </div>
+            <div class="story-head">Pentagon demands faster weapons production in 21 days</div>
+            <div class="story-teaser">The Pentagon has given the defence industry a 21-day deadline to submit plans for significantly faster weapons production, a directive that reflects acute concern over stockpile depletion across multiple active and contingency theatres. The order follows visible strain on munitions supply chains exposed by simultaneous demand from Ukraine, the Iran conflict, and Indo-Pacific deterrence commitments.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A hard 21-day submission deadline compresses the planning cycle for every major prime and sub-tier supplier, favoring those with existing surge capacity and penalizing those with capital-intensive but unproven production scale-up plans.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/news/pentagon-congress/2026/08/11/pentagon-gives-industry-21-days-to-submit-plans-for-significantly-faster-weapons-production/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pentagon demands faster weapons production in 21 days" data-l="https://dashboard.prism-osint.com#story-pentagon-demands-faster-weapons-producti" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/news/pentagon-congress/2026/08/11/pentagon-gives-industry-21-days-to-submit-plans-for-significantly-faster-weapons-production/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-general-dynamics-533m-artillery-plant-pr">
+          <img src="https://cdn.defenseone.com/media/img/cd/2026/08/15/shells_240521_DRios_GDOT_190_maxHeight_3000_maxWidth_3000-1/open-graph.jpg" class="story-img" alt="General Dynamics $533M artillery plant produced nothing" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 82</span>
+            </div>
+            <div class="story-head">General Dynamics $533M artillery plant produced nothing</div>
+            <div class="story-teaser">The Army awarded General Dynamics $533 million to build an artillery shell production facility, but the plant has produced no shells due to repeated and bizarre failures of its assembly robots. The scandal directly undermines the narrative that the US defence industrial base can rapidly scale precision munitions output at a moment of maximum operational demand.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>This failure creates both a reputational liability for General Dynamics and a procurement opportunity for alternative munitions suppliers who can demonstrate working production lines, reshaping competitive positioning ahead of the Pentagons 21-day surge-capacity review.</div>
+            <div class="story-footer">
+              <a href="https://www.defenseone.com/business/2026/08/artillery-plant-made-nothing/415443/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="General Dynamics $533M artillery plant produced nothing" data-l="https://dashboard.prism-osint.com#story-general-dynamics-533m-artillery-plant-pr" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defenseone.com/business/2026/08/artillery-plant-made-nothing/415443/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-pentagon-inks-sm-3-production-deals-with">
+          <img src="https://www.armytimes.com/resizer/v2/EJZB67TVR5DZ7KLPY6KK7DHJ34.jpg?width=1200&auth=52e385a8ba01e7da3b6c9624e735346d74f5f186ccb771815c6f95962d48a9d3" class="story-img" alt="Pentagon inks SM-3 production deals with Boeing and RTX" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">Pentagon inks SM-3 production deals with Boeing and RTX</div>
+            <div class="story-teaser">The Pentagon has signed contracts with Boeing and RTX to boost production of SM-3 missile defense components, a direct response to accelerating missile threats from Iran and its proxies across the Middle East theater. The SM-3 is a critical element of layered ballistic missile defense for US forces and allied nations including Israel and Gulf partners.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Expanded SM-3 production contracts directly benefit RTX and Boeing revenue lines and validate continued elevated demand for upper-tier missile defense systems as Iran rebuilds its missile programme faster than diplomacy can contain it.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/industry/techwatch/2026/08/14/pentagon-inks-deals-with-boeing-rtx-to-boost-production-of-sm-3-components/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pentagon inks SM-3 production deals with Boeing and RTX" data-l="https://dashboard.prism-osint.com#story-pentagon-inks-sm-3-production-deals-with" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/industry/techwatch/2026/08/14/pentagon-inks-deals-with-boeing-rtx-to-boost-production-of-sm-3-components/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-ukrainian-flamingo-strike-hits-samara-ro">
+          <img src="https://finchannel.com/wp-content/uploads/2026/08/самара.webp" class="story-img" alt="Ukrainian Flamingo strike hits Samara rocket center" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Europe</span>
+              <span class="story-score sc-crit">CRITICAL · 78</span>
+            </div>
+            <div class="story-head">Ukrainian Flamingo strike hits Samara rocket center</div>
+            <div class="story-teaser">On the night of Aug. 15, 2026, Ukrainian forces struck Russia's TsSKB-Progress facility in Samara using domestically produced FP-5 Flamingo cruise missiles, confirmed by President Zelensky the same day. The facility is Russia's sole plant for serial assembly of Soyuz-2 launch vehicles, which are used to deploy military satellites and the Rassvet low-Earth-orbit constellation. The target is more precisely identified as an aerospace and Soyuz rocket production center, not a generic rocket and missile component facility. Russia acknowledged a strike on an unnamed industrial facility; Samara Mayor Ivan Noskov cited localized damage. Two people were reported injured. The fuel crisis reference in the original draft relates to a separate Ukrainian strike on a refinery in Orenburg on Aug. 11; no Samara-specific fuel crisis has been confirmed by credible sources as of Aug. 15, 2026. (Source: Kyiv Independent, SpacePolicyOnline, United24Media, Aug. 15, 2026)</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Strikes on Russian aerospace manufacturing infrastructure directly degrade Moscows medium-term capacity to sustain precision strike operations, which accelerates the timeline for Western allies to assess whether Russian missile stockpile attrition is reaching a strategically meaningful threshold.</div>
+            <div class="story-footer">
+              <a href="https://finchannel.com/russia-downplays-damage-after-ukrainian-flamingo-strike-on-samara-rocket-center-as-fuel-crisis-deepens/133533/russian-invasion-of-ukraine/2026/08/" target="_blank" class="story-source">▸ finchannel</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Ukrainian Flamingo strike hits Samara rocket center" data-l="https://dashboard.prism-osint.com#story-ukrainian-flamingo-strike-hits-samara-ro" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://finchannel.com/russia-downplays-damage-after-ukrainian-flamingo-strike-on-samara-rocket-center-as-fuel-crisis-deepens/133533/russian-invasion-of-ukraine/2026/08/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+        <div class="story-section-wrap" data-sector="middle_east">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">MIDDLE EAST</div>
+              <div class="section-count-box">06 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-crit" id="story-hormuz-attacks-mount-as-us-vows-to-cripp">
+          <img src="https://gcaptain.com/wp-content/uploads/2026/08/2026-07-28T082931Z_1028318024_RC2M5KA0F5NR_RTRMADP_3_INDIA-LPG-USA-800x529.jpg" class="story-img" alt="Hormuz Attacks Mount as US Vows to Cripple Iran" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Strait of Hormuz</span>
+              <span class="story-score sc-crit">CRITICAL · 95</span>
+            </div>
+            <div class="story-head">Hormuz Attacks Mount as US Vows to Cripple Iran</div>
+            <div class="story-teaser">As of Aug. 15, 2026, attacks on vessels in the Strait of Hormuz continued, with the UK Maritime Trade Operations reporting a projectile striking a bulk carrier and two ADNOC vessels attacked while transiting the strait. Talks to end the US-Iran war remain stalled; the US is readying new economic measures. A mid-June interim truce has already broken down, with Iranian forces having resumed attacks on vessels and the US reinstating a blockade of Iranian ports. The conflict has been ongoing since Feb. 28, 2026. As of early August, some conflict abatement had been reported amid Iran-Oman talks, though attacks resumed. (Source: Bloomberg, Aug. 15, 2026; CNN, Aug. 15, 2026; CRS, early August 2026)</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Sustained Hormuz disruption raises insurance and routing costs for defence logistics chains and accelerates demand for maritime surveillance and escort capabilities across the Indo-Pacific and Gulf regions.</div>
+            <div class="story-footer">
+              <a href="https://gcaptain.com/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-economy/" target="_blank" class="story-source">▸ gcaptain</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Hormuz Attacks Mount as US Vows to Cripple Iran" data-l="https://dashboard.prism-osint.com#story-hormuz-attacks-mount-as-us-vows-to-cripp" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://gcaptain.com/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-economy/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-yemen-halts-red-sea-port-ops-after-houth">
+          
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-break">BREAKING</span>
+              <span class="story-region">Yemen / Red Sea</span>
+              <span class="story-score sc-crit">CRITICAL · 95</span>
+            </div>
+            <div class="story-head">Yemen Halts Red Sea Port Ops After Houthi Strikes</div>
+            <div class="story-teaser">Yemen's Mokha port, not Red Sea port operations generally, has suspended commercial and maritime operations after being struck by more than 25 Houthi missiles since Aug. 9, 2026, according to the port director as of Aug. 15, 2026. The attacks killed seven people and caused an estimated $16 million in damage. Mokha is located near the Bab al-Mandab Strait, not directly in the Red Sea shipping lane, and has a smaller cargo capacity than Yemen's main ports of Aden and Hodeidah. The suspension is specific to Mokha; broader Red Sea port operations have not been confirmed suspended. The Houthi strikes are linked to the broader regional escalation tied to the US-Iran conflict. (Source: Al Arabiya, TRT World, Reuters via US News, Aug. 15, 2026)</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Simultaneous closure of Hormuz and Red Sea shipping corridors would force rerouting around the Cape of Good Hope, significantly increasing fuel and logistics costs for defence supply chains and satellite component shipments.</div>
+            <div class="story-footer">
+              <a href="https://www.cnn.com/2026/08/16/world/live-news/iran-war-trump" target="_blank" class="story-source">▸ cnn</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Yemen Halts Red Sea Port Ops After Houthi Strikes" data-l="https://dashboard.prism-osint.com#story-yemen-halts-red-sea-port-ops-after-houth" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.cnn.com/2026/08/16/world/live-news/iran-war-trump" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-uae-oil-vessel-attacked-africa-fuel-supp">
+          <img src="https://ocdn.eu/pulscms-transforms/1/c3kktkpTURBXy82M2UxYTU4NGNiYWU3NTAyNDYzNWU2NmU5MjRhYmZhMS5qcGeSlQMAAM0DUc0B3pMFzQSwzQJ2" class="story-img" alt="UAE Oil Vessel Attacked, Africa Fuel Supplies at Risk" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">UAE / Gulf of Aden</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">UAE Oil Vessel Attacked, Africa Fuel Supplies at Risk</div>
+            <div class="story-teaser">A fresh attack on a vessel linked to the UAEs state-owned oil company has raised concerns about fuel supply disruptions for import-dependent African economies, who rely heavily on Gulf oil shipments. The incident marks another escalation in maritime aggression targeting UAE-linked shipping assets.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Repeated targeting of UAE state oil assets signals that adversarial actors are deliberately attempting to erode Abu Dhabis energy influence, raising the strategic value of maritime protection contracts and Gulf-based naval defence systems.</div>
+            <div class="story-footer">
+              <a href="https://africa.businessinsider.com/local/markets/fresh-attack-on-uae-oil-vessel-raises-fuel-supply-risks-for-import-dependent-african/x4knr3m" target="_blank" class="story-source">▸ businessinsider_za</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="UAE Oil Vessel Attacked, Africa Fuel Supplies at Risk" data-l="https://dashboard.prism-osint.com#story-uae-oil-vessel-attacked-africa-fuel-supp" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://africa.businessinsider.com/local/markets/fresh-attack-on-uae-oil-vessel-raises-fuel-supply-risks-for-import-dependent-african/x4knr3m" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-erdogan-demands-hormuz-reopening-amid-oi">
+          <img src="https://www.aljazeera.com/wp-content/uploads/2026/08/image-1786907846.jpg?resize=1920%2C1080&quality=80" class="story-img" alt="Erdogan Demands Hormuz Reopening Amid Oil Crisis" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Turkey / Strait of Hormuz</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">Erdogan Demands Hormuz Reopening Amid Oil Crisis</div>
+            <div class="story-teaser">Turkish President Erdogan has publicly called for the reopening of the Strait of Hormuz amid growing oil price disruption caused by the US-Iran conflict, signalling Ankara is positioning itself as a diplomatic broker in the crisis. Erdogan also reiterated that Israeli attacks on Lebanon represent a serious concern for Turkiye.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Turkeys active diplomatic intervention in both the Hormuz and Lebanon crises expands Ankaras regional leverage and could complicate NATO cohesion on Middle East posture, affecting allied defence cooperation frameworks.</div>
+            <div class="story-footer">
+              <a href="https://www.aljazeera.com/video/newsfeed/2026/8/16/16-08-clip-erdogan-hormuz-tr?traffic_source=rss" target="_blank" class="story-source">▸ Al Jazeera</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Erdogan Demands Hormuz Reopening Amid Oil Crisis" data-l="https://dashboard.prism-osint.com#story-erdogan-demands-hormuz-reopening-amid-oi" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.aljazeera.com/video/newsfeed/2026/8/16/16-08-clip-erdogan-hormuz-tr?traffic_source=rss" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-iran-claims-qatar-holds-three-downed-pil">
+          <img src="https://static.indiatvnews.com/responsive/images/logo-black.webp" class="story-img" alt="Iran Claims Qatar Holds Three Downed Pilots" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Iran / Qatar</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
+            </div>
+            <div class="story-head">Iran Claims Qatar Holds Three Downed Pilots</div>
+            <div class="story-teaser">Iranian authorities have alleged that three Iranian pilots who ejected from their aircraft during the early stages of the Middle East conflict are being held by Qatar following their capture, a claim that Doha has flatly denied as misleading. Iran had previously reported one pilot killed and others missing after a sortie toward Qatar in March 2026, but news of captures was not publicised at the time.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>The diplomatic standoff between Iran and Qatar over detained pilots introduces a new flashpoint that could destabilise the Gulf Cooperation Council alignment and complicate US basing arrangements at Al Udeid Air Base in Doha.</div>
+            <div class="story-footer">
+              <a href="https://www.indiatvnews.com/news/world/iran-claims-three-pilots-captured-by-qatar-after-downing-jets-doha-calls-it-misleading-2026-08-16-1051517" target="_blank" class="story-source">▸ indiatvnews</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Iran Claims Qatar Holds Three Downed Pilots" data-l="https://dashboard.prism-osint.com#story-iran-claims-qatar-holds-three-downed-pil" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.indiatvnews.com/news/world/iran-claims-three-pilots-captured-by-qatar-after-downing-jets-doha-calls-it-misleading-2026-08-16-1051517" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-kushner-meets-hamas-in-egypt-to-push-gaz">
+          <img src="https://www.aljazeera.com/wp-content/uploads/2026/08/afp_6a81fe0c1af9-1786904076.jpg?resize=1920%2C1440" class="story-img" alt="Kushner Meets Hamas in Egypt to Push Gaza Plan" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Egypt / Gaza</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">Kushner Meets Hamas in Egypt to Push Gaza Plan</div>
+            <div class="story-teaser">Jared Kushner met with Hamas leaders in Egypt in an effort to advance the Trump administrations Gaza plan, representing one of the most direct US-Hamas engagement efforts since the outbreak of the conflict. The meeting signals the White House is pursuing back-channel diplomacy even as fighting continues across multiple fronts.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A potential Gaza deal brokered by the Trump administration could reshape the broader regional security architecture and alter the calculus for defence procurement and alliance posture across the Eastern Mediterranean.</div>
+            <div class="story-footer">
+              <a href="https://www.aljazeera.com/news/2026/8/16/kushner-meets-hamas-in-egypt-to-push-trumps-gaza-plan?traffic_source=rss" target="_blank" class="story-source">▸ Al Jazeera</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Kushner Meets Hamas in Egypt to Push Gaza Plan" data-l="https://dashboard.prism-osint.com#story-kushner-meets-hamas-in-egypt-to-push-gaz" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.aljazeera.com/news/2026/8/16/kushner-meets-hamas-in-egypt-to-push-trumps-gaza-plan?traffic_source=rss" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+</div>
+<div class="outlook-section">
+  <div class="section-header" style="margin-top:0">
+    <div class="section-header-row">
+      <div class="section-title">PREDICTIVE SIGNALS</div>
+      <div class="section-count-box">POWERED BY PRISM ANALYST</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+ <div class="prism-locked" style="position:relative">
+<div class="outlook-grid prism-blur">
+    <div class="outlook-card" style="border-top:3px solid #4a9eff">
+        <div class="outlook-domain" style="color:#4a9eff">🛰 SPACE</div>
+        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: Rocket Lab Neutron 2026 launch window update</div>
+        <div class="outlook-signal">Rocket Labs Neutron debut window for 2026 is narrowing per SpaceFlightNow, making any launch schedule announcement this week a binary signal for the companys medium-lift competitive positioning against SpaceX Falcon 9 and the emerging Terran-R from Relativity Space, which just hit an engine integration milestone.</div>
+        <div class="pred-dropdown">
+          <div class="pred-dd-btn" onclick="toggleDD('dd-0')" id="btn-dd-0">
+            <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
+            <span class="pred-dd-arrow" id="arr-dd-0">▾</span>
+          </div>
+          <div class="pred-dd-content" id="dd-0">
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A confirmed Q4 2026 Neutron launch slot forces constellation operators and DoD payload customers to immediately price Rocket Lab into multi-vendor launch procurement strategies, lifting RKLB and compressing SpaceX monopoly pricing on medium-lift rideshare.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">A slip into 2027 cedes the medium-lift gap entirely to SpaceX Falcon 9 and the newly dual-pad-capable Blue Origin New Glenn at Cape Canaveral, concentrating launch vendor risk for operators and removing a key competitive pressure on Falcon 9 pricing.</div></div>
+          </div>
+        </div>
+      </div><div class="outlook-card" style="border-top:3px solid #ff4444">
+        <div class="outlook-domain" style="color:#ff4444">🛡 DEFENCE</div>
+        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: Pentagon 21-day accelerated production submission deadline</div>
+        <div class="outlook-signal">CENTCOM has launched a multinational attack drone task force per Defense News, and the Pentagon has given industry 21 days to submit plans for significantly faster weapons production, meaning the submission deadline falls within this weeks forward window and will reveal which primes and non-traditionals are positioned to capture urgent drone and munitions contracts.</div>
+        <div class="pred-dropdown">
+          <div class="pred-dd-btn" onclick="toggleDD('dd-1')" id="btn-dd-1">
+            <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
+            <span class="pred-dd-arrow" id="arr-dd-1">▾</span>
+          </div>
+          <div class="pred-dd-content" id="dd-1">
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Strong submission volume from non-traditional vendors and primes signals a structural ramp in DoD drone and munitions throughput, directly benefiting AeroVironment which carries a consensus Moderate Buy from 24 brokerages and stands as the most liquid pure-play attack drone name in the public market.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Thin or delayed industry submissions expose the same production bottleneck that cost General Dynamics a $533 million artillery plant contract with zero shells delivered, triggering investor repricing of defence primes on execution risk and extending delivery timelines for CENTCOM drone task force operationalization.</div></div>
+          </div>
+        </div>
+      </div><div class="outlook-card" style="border-top:3px solid #ff8c00">
+        <div class="outlook-domain" style="color:#ff8c00">🌍 GEOPOLITICS</div>
+        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: Qatar formal response to Iran pilot detention claim</div>
+        <div class="outlook-signal">Iran has publicly claimed three pilots are being held by Qatar following the downing of Iranian jets in a sortie dating to March 2026, Qatar has denied the claim, and Strait of Hormuz ship attacks are mounting simultaneously per Bloomberg and CNN, making any Qatari government formal response or Iranian military action in or around the strait this week the decisive escalation indicator for Gulf energy and shipping markets.</div>
+        <div class="pred-dropdown">
+          <div class="pred-dd-btn" onclick="toggleDD('dd-2')" id="btn-dd-2">
+            <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
+            <span class="pred-dd-arrow" id="arr-dd-2">▾</span>
+          </div>
+          <div class="pred-dd-content" id="dd-2">
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">Qatar publicly rejects Iranian demands with US backing, Gulf Cooperation Council states consolidate around the UAE-Israel alignment, Hormuz transit partially restores, and the UAE oil vessel attack risk premium priced into African fuel supply chains and regional shipping insurance begins to compress.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Iran escalates by linking pilot release demands to Hormuz access terms, Yemen suspends further port operations beyond the Red Sea pause already reported by CNN, and UAE-linked shipping faces compounding interdiction risk across two chokepoints simultaneously, forcing Gulf operators and energy investors to price in a sustained dual-corridor disruption scenario.</div></div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="prism-lock-overlay"><svg class="prism-lock-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7DC8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><button class="prism-lock-btn" onclick="openPro()">PRO · COMING SOON</button></div>
+</div>
+</div>
+<div class="reg-section">
+  <div class="section-header" style="margin-top:0;padding-top:0;border-top:none">
+    <div class="section-header-row">
+      <div class="section-title">REGULATORY PULSE</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:1px;background:rgba(0,232,122,0.08);padding:3px 9px;border:1px solid rgba(0,232,122,0.3)">● PRISM ANALYST · LIVE</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+  <div class="reg-inner" id="reg-inner">
+    <div class="reg-loading-inner" id="reg-loading">
+      <div class="reg-spinner"></div>◈ ANALYSING REGULATORY ENVIRONMENT...
+    </div>
+  </div>
+  <div class="reg-footer-row">
+    <div class="reg-footer-text" id="reg-footer-time">POWERED BY PRISM AI</div>
+    <a href="https://consultant.prism-osint.com" target="_blank" class="reg-footer-btn">▸ ASK PRISM ANALYST</a>
+  </div>
+</div>
+<div class="poly-section">
+  <div class="section-header" style="margin-top:0;padding-top:0;border-top:none">
+    <div class="section-header-row">
+      <div class="section-title">PREDICTION MARKETS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#888;letter-spacing:1px;background:#1e1e1e;padding:3px 9px;border:1px solid rgba(255,255,255,0.2)">LIVE · POLYMARKET</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+  <div id="poly-grid" class="poly-grid"><div class="poly-loading">◈ LOADING PREDICTION MARKETS...</div></div>
+</div>
+<div class="footer">
+  <div class="footer-text">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · U.A.E.</div>
+  <div class="footer-text">CONFIDENTIAL · 2026</div>
+</div>
+<div class="scan"></div>
+<div class="map-popup-overlay" id="map-popup-overlay" onclick="closeMapPopup(event)">
+  <div class="map-popup-card" id="map-popup-card">
+    <div class="map-popup-top">
+      <div class="map-popup-cat" id="map-popup-cat"></div>
+      <div class="map-popup-close" onclick="document.getElementById('map-popup-overlay').classList.remove('active')">✕ CLOSE</div>
+    </div>
+    <div class="map-popup-body">
+      <img class="map-popup-img" id="map-popup-img" src="" alt="" style="display:none"/>
+      <div class="map-popup-head" id="map-popup-head"></div>
+      <div class="map-popup-context" id="map-popup-context"></div>
+      <div class="map-popup-impl" id="map-popup-impl" style="display:none"></div>
+      <div class="map-popup-footer">
+        <a class="map-popup-src" id="map-popup-src" href="#" target="_blank"></a>
+        <a class="map-popup-read" id="map-popup-read" href="#" target="_blank">READ FULL STORY ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="chat-bubble">
+  <a href="https://consultant.prism-osint.com" target="_blank" class="chat-bubble-tooltip">
+    <div class="chat-tooltip-title">💬 PRISM ANALYST</div>
+    <div class="chat-tooltip-text">Ask me anything about today's intelligence briefing</div>
+  </a>
+  <a href="https://consultant.prism-osint.com" target="_blank">
+    <button class="chat-bubble-btn">
+      <div class="chat-bubble-badge">AI</div>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"/></svg>
+    </button>
+  </a>
+</div>
+<script>
+function filterSector(sector, btn){
+  document.querySelectorAll('.sector-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.story-section-wrap').forEach(function(section){
+    if(sector==='all' || section.dataset.sector===sector){
+      section.classList.remove('hidden');
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+}
+function toggleDD(id){const c=document.getElementById(id);const a=document.getElementById('arr-'+id);const o=c.classList.contains('open');c.classList.toggle('open');if(a)a.textContent=o?'▾':'▴';}
+function openMapPopup(item,col,catLabel){
+  document.getElementById('map-popup-overlay').classList.add('active');
+  document.getElementById('map-popup-cat').textContent=catLabel;
+  document.getElementById('map-popup-cat').style.color=col;
+  document.getElementById('map-popup-head').textContent=item.headline||'';
+  document.getElementById('map-popup-context').textContent=item.context||'';
+  const impl=document.getElementById('map-popup-impl');
+  if(item.implication){impl.innerHTML='<div class="map-popup-impl-lbl">◆ PRISM ANALYSIS</div>'+item.implication;impl.style.display='block';}else{impl.style.display='none';}
+  const img=document.getElementById('map-popup-img');
+  if(item.image&&item.image!=='none'&&item.image!==''){img.src=item.image;img.style.display='block';img.onerror=()=>img.style.display='none';}else{img.style.display='none';}
+  const src=document.getElementById('map-popup-src');
+  src.textContent='▸ '+(item.source||'Prism Analysis');
+  if(item.link&&item.link!=='none'){src.href=item.link;}else{src.href='#';}
+  const read=document.getElementById('map-popup-read');
+  if(item.link&&item.link!=='none'){read.href=item.link;read.style.display='inline-block';}else{read.style.display='none';}
+}
+function closeMapPopup(e){if(e.target===document.getElementById('map-popup-overlay'))document.getElementById('map-popup-overlay').classList.remove('active');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('map-popup-overlay').classList.remove('active');});
+async function loadRegulatoryPulse(){
+  const briefing=`Concurrent escalation across the Strait of Hormuz, the Lebanon-Israel front, and the Russia-Ukraine theater is crystallizing a single structural truth: the global security environment is fragmenting faster than Western industrial capacity can respond, and every space and defence asset from surveillance satellites to precision munitions is being stress-tested simultaneously against real operational demand. The tension lies between the Pentagon ordering industry to submit accelerated production plans within 21 days while the General Dynamics artillery plant scandal reveals that existing defense contracts are delivering nothing, exposing a dangerous gap between procurement ambition and manufacturing reality that investors pricing defence primes at elevated multiples must now weigh carefully. In the next 24 to 72 hours, watch whether CENTCOM formally activates its multinational attack drone task force and names participating contractors, because confirmation would identify the specific companies capturing urgent wartime demand and validate whether the current premium in drone-adjacent names is justified.`;
+  const sentiment=`BEARISH`;
+  const risk=`CRITICAL`;
+  const spaceH=["Rocket Lab posts series of programme advances","SpaceX launches back-to-back Falcon 9 rockets","US Space Force adds second sensor to Japan constellation","Blue Origin plans dual pad ops at Cape Canaveral","NASA extremely confident in Artemis 3 for 2027","Relativity Space hits Terran-R engine integration milestone"];
+  const defH=["CENTCOM launches multinational attack drone task force","Pentagon demands faster weapons production in 21 days","General Dynamics $533M artillery plant produced nothing","Pentagon inks SM-3 production deals with Boeing and RTX","Ukrainian Flamingo strike hits Samara rocket center"];
+  const midH=["Hormuz Attacks Mount as US Vows to Cripple Iran","Yemen Halts Red Sea Port Ops After Houthi Strikes","UAE Oil Vessel Attacked, Africa Fuel Supplies at Risk","Erdogan Demands Hormuz Reopening Amid Oil Crisis","Iran Claims Qatar Holds Three Downed Pilots","Kushner Meets Hamas in Egypt to Push Gaza Plan"];
+  const allH=[...spaceH,...defH,...midH].join('\n- ');
+  const prompt=`You are a regulatory intelligence analyst for Prism, a space and defence dashboard. Today briefing: ${briefing}. Sentiment: ${sentiment}. Risk: ${risk}. Headlines:\n- ${allH}\n\nAnalyse the regulatory environment. Reply ONLY in this exact JSON with no other text:\n{"score":<0-100>,"status":"<STABLE|ELEVATED|HIGH PRESSURE|CRITICAL>","delta":"<e.g. +8 pts this week>","delta_direction":"<up|down|stable>","areas":[{"name":"<max 18 chars>","status":"<green|amber|red>","pill":"<STABLE|WATCH|ACTIVE|CRITICAL>","trend":"<up|stable|down>","text":"<2 sentences max>","countdown":"<72 HRS or 5 DAYS or PENDING or none>"}]}\nInclude exactly 4 areas. No apostrophes.`;
+  try{
+    const resp=await fetch('/api/regulatory',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
+    const data=await resp.json();
+    const text=data.content&&data.content[0]&&data.content[0].text?data.content[0].text:'';
+    const parsed=JSON.parse(text.replace(/```json|```/g,'').trim());
+    renderRegPulse(parsed);
+  }catch(e){document.getElementById('reg-inner').innerHTML='<div style="font-family:Space Mono,monospace;font-size:9px;color:#ff4444;padding:20px;letter-spacing:2px">◈ REGULATORY DATA UNAVAILABLE</div>';}
+}
+function renderRegPulse(data){
+  const inner=document.getElementById('reg-inner');
+  const score=data.score||0;
+  const dir=data.delta_direction||'stable';
+  const scoreColor=score>=75?'#ff4444':score>=50?'#ff8c00':'#00aa40';
+  const dotClass={green:'dot-green',amber:'dot-amber',red:'dot-red'};
+  const nameClass={green:'name-green',amber:'name-amber',red:'name-red'};
+  const pillClass={green:'pill-green',amber:'pill-amber',red:'pill-red'};
+  const trendHtml={up:'<span class="reg-area-trend trend-up">▲</span>',stable:'<span class="reg-area-trend trend-stable">→</span>',down:'<span class="reg-area-trend trend-down">▼</span>'};
+  const areasHtml=(data.areas||[]).map((a,i)=>{
+    const s=a.status||'green';const t=a.trend||'stable';
+    return `<div class="reg-area" style="animation:slideIn 0.3s ease ${i*0.1}s both"><div class="reg-area-hdr"><div class="reg-area-dot ${dotClass[s]||'dot-green'}"></div><div class="reg-area-name ${nameClass[s]||'name-green'}">${a.name||''}</div>${trendHtml[t]||trendHtml.stable}<div class="reg-area-pill ${pillClass[s]||'pill-green'}">${a.pill||'STABLE'}</div></div><div class="reg-area-text">${a.text||''}</div>${a.countdown&&a.countdown!=='none'?`<div class="reg-area-cd"><div class="reg-area-cd-lbl">NEXT DECISION</div><div class="reg-area-cd-val">${a.countdown}</div></div>`:''}</div>`;
+  }).join('');
+  inner.innerHTML=`<div class="reg-score-card"><div><div class="reg-score-num" style="color:${scoreColor}">${score}</div><div class="reg-score-lbl" style="color:${scoreColor}">${data.status||'STABLE'}</div></div><div class="reg-bar-wrap"><div class="reg-bar" style="width:${Math.min(score,100)}%"></div></div><div class="reg-bar-labels"><span class="reg-bar-lbl" style="color:#00aa40">STABLE</span><span class="reg-bar-lbl" style="color:#ff8c00">ELEVATED</span><span class="reg-bar-lbl" style="color:#ff4444">CRITICAL</span></div><div class="reg-delta" style="color:${dir==='up'?'#ff4444':dir==='down'?'#00aa40':'#3a5a7a'}">${dir==='up'?'▲ ':dir==='down'?'▼ ':'→ '}${data.delta||''}</div></div><div class="reg-areas-grid">${areasHtml}</div>`;
+  const n=new Date();
+  document.getElementById('reg-footer-time').textContent='UPDATED BY PRISM AI · '+n.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+}
+loadRegulatoryPulse();
+function getMoonPhase(){const phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];const known=new Date(2000,0,6);const now=new Date();const diff=(now-known)/(1000*60*60*24);const cycle=diff%29.53;return phases[Math.floor(cycle/29.53*8)];}
+document.getElementById('moonphase').textContent=getMoonPhase();
+const now=new Date();
+document.getElementById('datetime').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+const RELEVANT_KEYWORDS=['nuclear','missile','satellite','space launch','rocket launch','defense','defence','ceasefire','invasion','weapons','cyber attack','drone strike','conflict','Iran','Russia','China','NATO','Taiwan','ballistic','hypersonic','radar','surveillance','SpaceX','Boeing','Lockheed','Raytheon','Northrop','Pentagon','CENTCOM','treaty','sanctions','proliferation','warhead','uranium','plutonium','North Korea','Pakistan','Israel','Gaza','Lebanon','Ukraine','Syria','coup','geopolit','orbit','ISS','Mars mission','asteroid'];
+function isRelevant(q){return RELEVANT_KEYWORDS.some(k=>q.toLowerCase().includes(k.toLowerCase()));}
+function getProbabilityColor(p){return p>=0.7?'#00aa40':p>=0.5?'#806000':p>=0.3?'#ff8c00':'#ff4444';}
+function formatVolume(v){return v>=1000000?'$'+(v/1000000).toFixed(1)+'M':v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v.toFixed(0);}
+async function loadPolymarkets(){
+  const grid=document.getElementById('poly-grid');
+  try{
+    const urls=['https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=geopolitics&order=volume24hr&ascending=false','https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=nuclear-weapons&order=volume24hr&ascending=false','https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=defense&order=volume24hr&ascending=false','https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=space&order=volume24hr&ascending=false'];
+    const results=await Promise.allSettled(urls.map(u=>fetch(u).then(r=>r.json())));
+    let all=[];results.forEach(r=>{if(r.status==='fulfilled'&&Array.isArray(r.value))all=all.concat(r.value);});
+    const seen=new Set();
+    const filtered=all.filter(m=>{if(seen.has(m.id))return false;seen.add(m.id);if(!m.question||!m.active||m.closed)return false;return isRelevant(m.question);}).sort((a,b)=>(b.volume24hr||0)-(a.volume24hr||0)).slice(0,10);
+    if(!filtered.length){grid.innerHTML='<div class="poly-loading">◈ NO RELEVANT MARKETS FOUND</div>';return;}
+    grid.innerHTML=filtered.map(m=>{
+      let prices=[];try{prices=JSON.parse(m.outcomePrices||'[]');}catch(e){}
+      const yp=prices[0]?parseFloat(prices[0]):0.5;const np=prices[1]?parseFloat(prices[1]):0.5;
+      const pct=Math.round(yp*100);const col=getProbabilityColor(yp);
+      return`<a href="https://polymarket.com/event/${m.slug||m.id}" target="_blank" style="text-decoration:none"><div class="poly-card"><div class="poly-question">${m.question}</div><div class="poly-bar-wrap"><div class="poly-bar" style="width:${pct}%;background:${col}"></div></div><div class="poly-odds"><span class="poly-yes" style="color:${col}">YES ${pct}%</span><span class="poly-no">NO ${Math.round(np*100)}%</span></div><div class="poly-vol">24H VOL ${formatVolume(m.volume24hr||0)}</div></div></a>`;
+    }).join('');
+  }catch(e){grid.innerHTML='<div class="poly-loading">◈ POLYMARKET DATA UNAVAILABLE</div>';}
+}
+loadPolymarkets();
+const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true,attributionControl:false});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{maxZoom:18,opacity:0.35}).addTo(map);
+const catColors={space:'#4a9eff',defence:'#ff4444',middle_east:'#ff8c00',investment:'#00aa40',ai_tech:'#a060ff',ipo_watch:'#ffcc00'};
+const catLabels={space:'SPACE',defence:'DEFENCE',middle_east:'MID EAST',investment:'INVEST',ai_tech:'AI TECH',ipo_watch:'IPO'};
+const newsData={"space":[{"headline":"Rocket Lab posts series of programme advances","context":"NASASpaceFlight reports Rocket Lab has made a series of announcements signaling broad programme momentum across its launch and spacecraft divisions. Separately, SpaceFlightNow notes the window for a 2026 launch debut of the Neutron rocket is narrowing as development continues, introducing schedule risk into the companys medium-lift ambitions.","implication":"Investors holding RKLB must now weigh near-term execution gains against the compressing Neutron debut window, which if it slips to 2027 would delay the revenue inflection that medium-lift contracts represent.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-15-04-32-28-725.jpg","region":"North America","urgency":"URGENT","score":72,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/08/rocket-lab-advances-announcements/","lat":40.7128,"lng":-74.006},{"headline":"SpaceX launches back-to-back Falcon 9 rockets","context":"SpaceX executed record-breaking back-to-back Falcon 9 launches from Cape Canaveral, delivering a Globalstar satellite replenishment mission and a US Space Force payload in rapid succession. The milestone underscores the operational tempo SpaceX is sustaining as it simultaneously expands Starship infrastructure with four new or upgraded launch pads across Starbase and Florida.","implication":"SpaceX launch cadence records raise the competitive bar for every emerging launch provider seeking to demonstrate comparable reliability and throughput to institutional customers.","image":"http://spaceflightnow.com/wp-content/uploads/2026/08/20260815_Globalstar_streak_MC-1.jpeg","region":"North America","urgency":"NORMAL","score":68,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/08/15/live-coverage-spacex-to-launch-satellite-replenishment-mission-for-globalstar-from-cape-canaveral/","lat":28.5623,"lng":-80.5774},{"headline":"US Space Force adds second sensor to Japan constellation","context":"The August 10 launch of QZS-7 completed a bilateral programme to host US Space Force surveillance sensors aboard Japanese navigation satellites, with a second sensor now operational in the constellation. The arrangement embeds US military space situational awareness directly into an allied nations civil navigation infrastructure, deepening interoperability without requiring a dedicated US satellite launch.","implication":"This bilateral sensor-hosting model signals a cost-efficient template for expanding US space domain awareness across Indo-Pacific allied constellations, with direct implications for prime contractors building hosted payload systems.","image":"https://spacenews.com/wp-content/uploads/2026/08/260814-X-X0813-1001.png","region":"Asia-Pacific","urgency":"NORMAL","score":65,"source":"spacenews","link":"https://spacenews.com/u-s-space-force-adds-second-surveillance-sensor-to-japanese-constellation/","lat":35.6762,"lng":139.6503},{"headline":"Blue Origin plans dual pad ops at Cape Canaveral","context":"Blue Origin has outlined plans for a second Cape Canaveral launch pad, targeting dual pad operations as it works through engine resolutions following the New Glenn explosion, the cause of which has now been identified as an engine issue. The dual-pad strategy signals Blue Origins intent to match competitor launch cadence once its reliability programme is resolved.","implication":"Until Blue Origin demonstrates a successful New Glenn return-to-flight following the engine failure investigation, institutional customers will continue to route payloads to competitors, making the engine resolution timeline the single most investable data point for the company.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-15-23-52-07-432.jpg","region":"North America","urgency":"URGENT","score":63,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/08/blue-origin-launch-pad-cape-canaveral/","lat":28.5623,"lng":-80.5774},{"headline":"NASA extremely confident in Artemis 3 for 2027","context":"The NASA Administrator stated confidence in the Artemis 3 crewed lunar landing mission proceeding in 2027, with NASASpaceFlight separately reporting Artemis progress building a lunar return roadmap. NASA and Northrop Grumman have also repurposed Gateway elements for Moon Base demonstration missions, reshaping the near-term lunar infrastructure pipeline.","implication":"A confirmed 2027 Artemis 3 timeline accelerates procurement timelines for lunar surface systems suppliers and sustains LUNR-adjacent commercial lunar services demand heading into the next fiscal cycle.","image":"http://spaceflightnow.com/wp-content/uploads/2026/08/20260814_max_power_jared_SFN_AB-1.jpeg","region":"North America","urgency":"NORMAL","score":60,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/08/14/nasa-administrator-extremely-confident-in-artemis-3-launch-in-2027/","lat":28.5623,"lng":-80.5774},{"headline":"Relativity Space hits Terran-R engine integration milestone","context":"Relativity Space has completed an engine integration milestone for the first stage of its Terran-R rocket, marking a tangible step forward for the reusable medium-lift vehicle that represents the companys primary commercial offering. The milestone comes as the broader launch market sees multiple competitors at critical development inflection points simultaneously.","implication":"Terran-R engine integration progress validates Relativity as a credible future competitor to Neutron and Falcon 9 in the medium-lift segment, which matters to investors assessing how fragmented launch market revenues will be distributed post-2027.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-07-21-46-19-317.jpg","region":"North America","urgency":"NORMAL","score":52,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/08/relativity-engine-integration-milestone-terran-r/","lat":34.0522,"lng":-118.2437}],"defence":[{"headline":"CENTCOM launches multinational attack drone task force","context":"On Aug. 13, 2026, CENTCOM announced efforts to establish Task Force Falcon Strike, designated the first-ever multi-domain, multinational attack drone task force. The unit will employ one-way attack drones operating from above, on, and below the sea, operated by U.S. military support staff and regional partners. As of Aug. 14, CENTCOM had initiated the process of consulting with and inviting regional partners; no participating contractors or partner nations had been formally named. The task force follows Task Force Scorpion Strike, established in December 2025 as the first U.S. dedicated one-way attack drone squadron in the Middle East. (Source: CENTCOM official release, Aug. 13, 2026; Defense News, Aug. 14, 2026)","implication":"Formalisation of a CENTCOM drone task force creates an urgent and named procurement channel that disproportionately benefits established attack drone suppliers already qualified for US and allied operations, compressing the timeline to contract award.","image":"https://www.armytimes.com/resizer/v2/TVT3DSUTGFHTFMFJ6DXZRAAU7I.jpg?width=1200&auth=2f84fe1fee5782a12542caa61593299de5cf01a777a1bad0e08bf5369a3172a4","region":"Middle East","urgency":"BREAKING","score":90,"source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/08/14/centcom-launches-multinational-attack-drone-task-force/","lat":25.2048,"lng":55.2708},{"headline":"Pentagon demands faster weapons production in 21 days","context":"The Pentagon has given the defence industry a 21-day deadline to submit plans for significantly faster weapons production, a directive that reflects acute concern over stockpile depletion across multiple active and contingency theatres. The order follows visible strain on munitions supply chains exposed by simultaneous demand from Ukraine, the Iran conflict, and Indo-Pacific deterrence commitments.","implication":"A hard 21-day submission deadline compresses the planning cycle for every major prime and sub-tier supplier, favoring those with existing surge capacity and penalizing those with capital-intensive but unproven production scale-up plans.","image":"https://www.armytimes.com/resizer/v2/7DVUUCB6LBDRRLK7TGMPPSWODA.jpg?width=1200&auth=78045ef51355796b9406e6dc52af6f10a7d4bc4bbdf0766c2e1789ddc115a43e","region":"North America","urgency":"URGENT","score":85,"source":"Defense News","link":"https://www.defensenews.com/news/pentagon-congress/2026/08/11/pentagon-gives-industry-21-days-to-submit-plans-for-significantly-faster-weapons-production/","lat":38.8719,"lng":-77.0563},{"headline":"General Dynamics $533M artillery plant produced nothing","context":"The Army awarded General Dynamics $533 million to build an artillery shell production facility, but the plant has produced no shells due to repeated and bizarre failures of its assembly robots. The scandal directly undermines the narrative that the US defence industrial base can rapidly scale precision munitions output at a moment of maximum operational demand.","implication":"This failure creates both a reputational liability for General Dynamics and a procurement opportunity for alternative munitions suppliers who can demonstrate working production lines, reshaping competitive positioning ahead of the Pentagons 21-day surge-capacity review.","image":"https://cdn.defenseone.com/media/img/cd/2026/08/15/shells_240521_DRios_GDOT_190_maxHeight_3000_maxWidth_3000-1/open-graph.jpg","region":"North America","urgency":"URGENT","score":82,"source":"Defense News","link":"https://www.defenseone.com/business/2026/08/artillery-plant-made-nothing/415443/","lat":38.8719,"lng":-77.0563},{"headline":"Pentagon inks SM-3 production deals with Boeing and RTX","context":"The Pentagon has signed contracts with Boeing and RTX to boost production of SM-3 missile defense components, a direct response to accelerating missile threats from Iran and its proxies across the Middle East theater. The SM-3 is a critical element of layered ballistic missile defense for US forces and allied nations including Israel and Gulf partners.","implication":"Expanded SM-3 production contracts directly benefit RTX and Boeing revenue lines and validate continued elevated demand for upper-tier missile defense systems as Iran rebuilds its missile programme faster than diplomacy can contain it.","image":"https://www.armytimes.com/resizer/v2/EJZB67TVR5DZ7KLPY6KK7DHJ34.jpg?width=1200&auth=52e385a8ba01e7da3b6c9624e735346d74f5f186ccb771815c6f95962d48a9d3","region":"North America","urgency":"URGENT","score":80,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/08/14/pentagon-inks-deals-with-boeing-rtx-to-boost-production-of-sm-3-components/","lat":38.8719,"lng":-77.0563},{"headline":"Ukrainian Flamingo strike hits Samara rocket center","context":"On the night of Aug. 15, 2026, Ukrainian forces struck Russia's TsSKB-Progress facility in Samara using domestically produced FP-5 Flamingo cruise missiles, confirmed by President Zelensky the same day. The facility is Russia's sole plant for serial assembly of Soyuz-2 launch vehicles, which are used to deploy military satellites and the Rassvet low-Earth-orbit constellation. The target is more precisely identified as an aerospace and Soyuz rocket production center, not a generic rocket and missile component facility. Russia acknowledged a strike on an unnamed industrial facility; Samara Mayor Ivan Noskov cited localized damage. Two people were reported injured. The fuel crisis reference in the original draft relates to a separate Ukrainian strike on a refinery in Orenburg on Aug. 11; no Samara-specific fuel crisis has been confirmed by credible sources as of Aug. 15, 2026. (Source: Kyiv Independent, SpacePolicyOnline, United24Media, Aug. 15, 2026)","implication":"Strikes on Russian aerospace manufacturing infrastructure directly degrade Moscows medium-term capacity to sustain precision strike operations, which accelerates the timeline for Western allies to assess whether Russian missile stockpile attrition is reaching a strategically meaningful threshold.","image":"https://finchannel.com/wp-content/uploads/2026/08/самара.webp","region":"Europe","urgency":"BREAKING","score":78,"source":"finchannel","link":"https://finchannel.com/russia-downplays-damage-after-ukrainian-flamingo-strike-on-samara-rocket-center-as-fuel-crisis-deepens/133533/russian-invasion-of-ukraine/2026/08/","lat":53.1959,"lng":50.1667}],"middle_east":[{"headline":"Hormuz Attacks Mount as US Vows to Cripple Iran","context":"As of Aug. 15, 2026, attacks on vessels in the Strait of Hormuz continued, with the UK Maritime Trade Operations reporting a projectile striking a bulk carrier and two ADNOC vessels attacked while transiting the strait. Talks to end the US-Iran war remain stalled; the US is readying new economic measures. A mid-June interim truce has already broken down, with Iranian forces having resumed attacks on vessels and the US reinstating a blockade of Iranian ports. The conflict has been ongoing since Feb. 28, 2026. As of early August, some conflict abatement had been reported amid Iran-Oman talks, though attacks resumed. (Source: Bloomberg, Aug. 15, 2026; CNN, Aug. 15, 2026; CRS, early August 2026)","implication":"Sustained Hormuz disruption raises insurance and routing costs for defence logistics chains and accelerates demand for maritime surveillance and escort capabilities across the Indo-Pacific and Gulf regions.","image":"https://gcaptain.com/wp-content/uploads/2026/08/2026-07-28T082931Z_1028318024_RC2M5KA0F5NR_RTRMADP_3_INDIA-LPG-USA-800x529.jpg","region":"Strait of Hormuz","urgency":"BREAKING","score":95,"source":"gcaptain","link":"https://gcaptain.com/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-economy/","lat":26.5,"lng":56.3},{"headline":"Yemen Halts Red Sea Port Ops After Houthi Strikes","context":"Yemen's Mokha port, not Red Sea port operations generally, has suspended commercial and maritime operations after being struck by more than 25 Houthi missiles since Aug. 9, 2026, according to the port director as of Aug. 15, 2026. The attacks killed seven people and caused an estimated $16 million in damage. Mokha is located near the Bab al-Mandab Strait, not directly in the Red Sea shipping lane, and has a smaller cargo capacity than Yemen's main ports of Aden and Hodeidah. The suspension is specific to Mokha; broader Red Sea port operations have not been confirmed suspended. The Houthi strikes are linked to the broader regional escalation tied to the US-Iran conflict. (Source: Al Arabiya, TRT World, Reuters via US News, Aug. 15, 2026)","implication":"Simultaneous closure of Hormuz and Red Sea shipping corridors would force rerouting around the Cape of Good Hope, significantly increasing fuel and logistics costs for defence supply chains and satellite component shipments.","image":"","region":"Yemen / Red Sea","urgency":"BREAKING","score":95,"source":"cnn","link":"https://www.cnn.com/2026/08/16/world/live-news/iran-war-trump","lat":15.5,"lng":42.5},{"headline":"UAE Oil Vessel Attacked, Africa Fuel Supplies at Risk","context":"A fresh attack on a vessel linked to the UAEs state-owned oil company has raised concerns about fuel supply disruptions for import-dependent African economies, who rely heavily on Gulf oil shipments. The incident marks another escalation in maritime aggression targeting UAE-linked shipping assets.","implication":"Repeated targeting of UAE state oil assets signals that adversarial actors are deliberately attempting to erode Abu Dhabis energy influence, raising the strategic value of maritime protection contracts and Gulf-based naval defence systems.","image":"https://ocdn.eu/pulscms-transforms/1/c3kktkpTURBXy82M2UxYTU4NGNiYWU3NTAyNDYzNWU2NmU5MjRhYmZhMS5qcGeSlQMAAM0DUc0B3pMFzQSwzQJ2","region":"UAE / Gulf of Aden","urgency":"URGENT","score":90,"source":"businessinsider_za","link":"https://africa.businessinsider.com/local/markets/fresh-attack-on-uae-oil-vessel-raises-fuel-supply-risks-for-import-dependent-african/x4knr3m","lat":12,"lng":44},{"headline":"Erdogan Demands Hormuz Reopening Amid Oil Crisis","context":"Turkish President Erdogan has publicly called for the reopening of the Strait of Hormuz amid growing oil price disruption caused by the US-Iran conflict, signalling Ankara is positioning itself as a diplomatic broker in the crisis. Erdogan also reiterated that Israeli attacks on Lebanon represent a serious concern for Turkiye.","implication":"Turkeys active diplomatic intervention in both the Hormuz and Lebanon crises expands Ankaras regional leverage and could complicate NATO cohesion on Middle East posture, affecting allied defence cooperation frameworks.","image":"https://www.aljazeera.com/wp-content/uploads/2026/08/image-1786907846.jpg?resize=1920%2C1080&quality=80","region":"Turkey / Strait of Hormuz","urgency":"URGENT","score":90,"source":"Al Jazeera","link":"https://www.aljazeera.com/video/newsfeed/2026/8/16/16-08-clip-erdogan-hormuz-tr?traffic_source=rss","lat":39.9,"lng":32.9},{"headline":"Iran Claims Qatar Holds Three Downed Pilots","context":"Iranian authorities have alleged that three Iranian pilots who ejected from their aircraft during the early stages of the Middle East conflict are being held by Qatar following their capture, a claim that Doha has flatly denied as misleading. Iran had previously reported one pilot killed and others missing after a sortie toward Qatar in March 2026, but news of captures was not publicised at the time.","implication":"The diplomatic standoff between Iran and Qatar over detained pilots introduces a new flashpoint that could destabilise the Gulf Cooperation Council alignment and complicate US basing arrangements at Al Udeid Air Base in Doha.","image":"https://static.indiatvnews.com/responsive/images/logo-black.webp","region":"Iran / Qatar","urgency":"URGENT","score":85,"source":"indiatvnews","link":"https://www.indiatvnews.com/news/world/iran-claims-three-pilots-captured-by-qatar-after-downing-jets-doha-calls-it-misleading-2026-08-16-1051517","lat":25.3,"lng":51.5},{"headline":"Kushner Meets Hamas in Egypt to Push Gaza Plan","context":"Jared Kushner met with Hamas leaders in Egypt in an effort to advance the Trump administrations Gaza plan, representing one of the most direct US-Hamas engagement efforts since the outbreak of the conflict. The meeting signals the White House is pursuing back-channel diplomacy even as fighting continues across multiple fronts.","implication":"A potential Gaza deal brokered by the Trump administration could reshape the broader regional security architecture and alter the calculus for defence procurement and alliance posture across the Eastern Mediterranean.","image":"https://www.aljazeera.com/wp-content/uploads/2026/08/afp_6a81fe0c1af9-1786904076.jpg?resize=1920%2C1440","region":"Egypt / Gaza","urgency":"URGENT","score":80,"source":"Al Jazeera","link":"https://www.aljazeera.com/news/2026/8/16/kushner-meets-hamas-in-egypt-to-push-trumps-gaza-plan?traffic_source=rss","lat":30,"lng":31.2}],"investment":[],"ai_tech":[],"ipo_watch":[]};
+const incidentListTop=document.getElementById('incident-list-top');
+let incidentCount=0;
+const mapStyle=document.createElement('style');
+mapStyle.textContent=`.leaflet-container{background:#0a0a0a!important;font-family:'Space Grotesk',sans-serif}.leaflet-control-zoom a{background:#141414!important;color:#ccc!important;border-color:rgba(255,255,255,0.08)!important}.leaflet-popup-content-wrapper,.leaflet-popup-tip{display:none!important}`;
+document.head.appendChild(mapStyle);
+Object.keys(newsData).forEach(cat=>{
+  (newsData[cat]||[]).forEach(item=>{
+    if(item.lat&&item.lng&&item.headline){
+      incidentCount++;
+      const col=catColors[cat]||'#4a9eff';
+      const hex=col.replace('#','');
+      const r=parseInt(hex.substring(0,2),16);const g=parseInt(hex.substring(2,4),16);const b=parseInt(hex.substring(4,6),16);
+      const icon=L.divIcon({className:'',html:`<div style="position:relative;width:22px;height:22px;cursor:pointer"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:${col};border:2px solid rgba(255,255,255,0.7);z-index:2;box-shadow:0 0 8px ${col}"></div><div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.7);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite;z-index:1"></div><div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.3);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite 0.7s;z-index:1"></div></div>`,iconSize:[22,22],iconAnchor:[11,11]});
+      const marker=L.marker([item.lat,item.lng],{icon}).addTo(map);
+      marker.on('click',()=>openMapPopup(item,col,catLabels[cat]||cat));
+    }
+  });
+});
+document.getElementById('incident-count').textContent=`LIVE · ${incidentCount} INCIDENTS`;
+let searchResults=[];let searchCurrent=0;
+function hlText(text,q){if(!q)return text;const re=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');return text.replace(re,'<mark>$1</mark>');}
+function prismSearch(val){
+  const q=val.toLowerCase().trim();
+  const countEl=document.getElementById('search-count');
+  const clearBtn=document.getElementById('search-clear');
+  const nav=document.getElementById('search-nav');
+  const dropdown=document.getElementById('search-dropdown');
+  dropdown.style.display='none';
+  nav.style.display='none';
+  document.querySelectorAll('.story').forEach(s=>{
+    s.classList.remove('active-result','dimmed','story-hidden');
+    const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
+    if(h)h.innerHTML=h.textContent;if(t)t.innerHTML=t.textContent;if(i)i.innerHTML=i.textContent;
+  });
+  document.querySelectorAll('.story-section-wrap').forEach(h=>{h.classList.remove('hidden');});
+  const banner=document.getElementById('search-banner');
+  if(!q){
+    countEl.textContent='';
+    clearBtn.style.display='none';
+    if(banner)banner.style.display='none';
+    searchResults=[];
+    return;
+  }
+  clearBtn.style.display='block';
+  searchResults=Array.from(document.querySelectorAll('.story')).filter(s=>s.textContent.toLowerCase().includes(q));
+  document.querySelectorAll('.story').forEach(s=>{
+    if(!searchResults.includes(s)){
+      s.classList.add('story-hidden');
+    } else {
+      const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
+      if(h)h.innerHTML=hlText(h.textContent,q);
+      if(t)t.innerHTML=hlText(t.textContent,q);
+      if(i)i.innerHTML=hlText(i.textContent,q);
+    }
+  });
+  document.querySelectorAll('.story-section-wrap').forEach(h=>{
+    const visible=h.querySelectorAll('.story:not(.story-hidden)').length;
+    h.style.display=visible>0?'':'none';
+  });
+  countEl.textContent=`${searchResults.length} RESULT${searchResults.length!==1?'S':''}`;
+  if(banner){
+    if(searchResults.length>0){
+      banner.innerHTML=`◈ ${searchResults.length} RESULT${searchResults.length!==1?'S':''} FOR "<span style="color:#fff">${val.toUpperCase()}</span>" &nbsp;<span onclick="clearSearch()" style="cursor:pointer;color:#ff4444;border:1px solid rgba(255,68,68,0.3);padding:2px 8px;border-radius:4px;font-size:8px">✕ CLEAR</span>`;
+      banner.style.display='flex';
+    } else {
+      banner.innerHTML=`◈ NO RESULTS FOR "<span style="color:#fff">${val.toUpperCase()}</span>" &nbsp;<span onclick="clearSearch()" style="cursor:pointer;color:#ff4444;border:1px solid rgba(255,68,68,0.3);padding:2px 8px;border-radius:4px;font-size:8px">✕ CLEAR</span>`;
+      banner.style.display='flex';
+    }
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelector('.section-briefing-map').style.display=q?'none':'';
+  document.querySelector('.section-orr').style.display=q?'none':'';
+  document.querySelector('.outlook-section').style.display=q?'none':'';
+  document.querySelector('.reg-section').style.display=q?'none':'';
+  document.querySelector('.poly-section').style.display=q?'none':'';
+  document.querySelector('.stocks-section').style.display=q?'none':'';
+}
+function jumpToResult(idx){searchResults.forEach(s=>s.classList.remove('active-result'));if(!searchResults[idx])return;searchCurrent=idx;searchResults[idx].classList.add('active-result');searchResults[idx].scrollIntoView({behavior:'smooth',block:'center'});updateSearchNav();}
+function navResult(dir){const next=searchCurrent+dir;if(next>=0&&next<searchResults.length)jumpToResult(next);}
+function updateSearchNav(){document.getElementById('search-pos').textContent=`${searchCurrent+1} / ${searchResults.length}`;document.getElementById('btn-prev').disabled=searchCurrent===0;document.getElementById('btn-next').disabled=searchCurrent===searchResults.length-1;}
+function clearSearch(){
+  document.getElementById('prism-search').value='';
+  const banner=document.getElementById('search-banner');
+  if(banner)banner.style.display='none';
+  document.querySelector('.section-briefing-map').style.display='';
+  document.querySelector('.section-orr').style.display='';
+  document.querySelector('.outlook-section').style.display='';
+  document.querySelector('.reg-section').style.display='';
+  document.querySelector('.poly-section').style.display='';
+  document.querySelector('.stocks-section').style.display='';
+  prismSearch('');
+}
+setTimeout(()=>map.invalidateSize(),300);
+function shareStory(headline,link){
+  const dashboardUrl='https://dashboard.prism-osint.com';
+  const shareUrl=link||dashboardUrl;
+  const text='◈ '+headline+'\n\nVia PRISM — Space & Defence Intelligence';
+  if(navigator.share){
+    navigator.share({title:headline,text:text,url:shareUrl});
+  } else {
+    const twitterUrl='https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(shareUrl)+'&via=PRISMIntel';
+    const linkedinUrl='https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(shareUrl);
+    const overlay=document.createElement('div');
+    overlay.id='share-overlay';
+    overlay.style.cssText='position:fixed;inset:0;background:rgba(4,6,15,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)';
+    overlay.onclick=function(e){if(e.target===overlay)overlay.remove();};
+    overlay.innerHTML='<div onclick="event.stopPropagation()" style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">'
+      +'<div style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#4a9eff;margin-bottom:16px">◈ SHARE INTELLIGENCE</div>'
+      +'<div style="font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:20px;line-height:1.5">'+headline+'</div>'
+      +'<div style="display:flex;flex-direction:column;gap:10px">'
+      +'<a href="'+twitterUrl+'" target="_blank" onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#c8dff0;background:#141414;border:1px solid rgba(255,255,255,0.08);padding:12px 16px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:10px" onmouseover="this.style.borderColor=\'#4a9eff\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.08)\'">𝕏 &nbsp;SHARE ON X / TWITTER</a>'
+      +'<a href="'+linkedinUrl+'" target="_blank" onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#c8dff0;background:#141414;border:1px solid rgba(255,255,255,0.08);padding:12px 16px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:10px" onmouseover="this.style.borderColor=\'#4a9eff\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.08)\'">in &nbsp;SHARE ON LINKEDIN</a>'
+      +'<button onclick="navigator.clipboard.writeText(\''+shareUrl+'\').then(function(){this.textContent=\'✓ LINK COPIED\';var self=this;setTimeout(function(){document.getElementById(\'share-overlay\').remove();},1000);}.bind(this))" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#c8dff0;background:#141414;border:1px solid rgba(255,255,255,0.08);padding:12px 16px;border-radius:6px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px" onmouseover="this.style.borderColor=\'#4a9eff\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.08)\'">⬡ &nbsp;COPY LINK</button>'
+      +'<a href="'+dashboardUrl+'" target="_blank" onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:12px 16px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:10px" onmouseover="this.style.background=\'rgba(74,158,255,0.15)\'" onmouseout="this.style.background=\'rgba(74,158,255,0.08)\'">◈ &nbsp;VIEW PRISM DASHBOARD</a>'
+      +'</div>'
+      +'<div onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:16px;cursor:pointer;letter-spacing:1px">✕ CLOSE</div>'
+      +'</div>';
+    document.body.appendChild(overlay);
+  }
+}
+async function loadNavLaunches(){
+  var list=document.getElementById('nav-launch-list');
+  var apiStatus=document.getElementById('nav-api-status');
+  if(!list) return;
+  try{
+    var r=await fetch('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=3&format=json');
+    var data=await r.json();
+    var launches=data.results||[];
+    if(!launches.length){list.innerHTML='<div style="padding:16px 18px;font-family:Space Mono,monospace;font-size:8px;color:rgba(200,220,255,0.25)">NO DATA</div>';return;}
+    apiStatus.textContent='LIVE';
+    list.innerHTML=launches.map(function(l){
+      var diff=new Date(l.net)-new Date();
+      var cd=diff<0?'LIVE':Math.floor(diff/(1000*60*60*24))===0?Math.floor((diff%(1000*60*60*24))/(1000*60*60))+'H':Math.floor(diff/(1000*60*60*24))+'D';
+      var st=(l.status&&l.status.name&&l.status.name.toLowerCase().includes('go'))?'<div class="drop-st dst-go">GO</div>':'<div class="drop-st dst-tbd">TBD</div>';
+      var rocket=(l.rocket&&l.rocket.configuration&&l.rocket.configuration.name)||'UNKNOWN';
+      var site=(l.pad&&l.pad.location&&l.pad.location.name)||'TBD';
+      return '<a href="https://prism-osint.com/launches" class="drop-launch-nav">'
+        +'<div class="drop-cd">'+cd+'</div>'
+        +'<div style="flex:1">'
+        +'<div class="drop-mission">'+(l.name||'CLASSIFIED')+'</div>'
+        +'<div class="drop-meta-nav">'+rocket.toUpperCase()+' · '+site.toUpperCase().substring(0,22)+'</div>'
+        +'</div>'+st+'</a>';
+    }).join('');
+  }catch(e){
+    apiStatus.textContent='OFFLINE';
+    list.innerHTML='<a href="https://prism-osint.com/launches" class="drop-launch-nav"><div class="drop-cd">3D</div><div style="flex:1"><div class="drop-mission">Starlink Group 15-3</div><div class="drop-meta-nav">FALCON 9 · CAPE CANAVERAL</div></div><div class="drop-st dst-go">GO</div></a>';
+  }
+}
+loadNavLaunches();
+  if (window.location.hash) {
+     setTimeout(function() {
+       const target = document.querySelector(window.location.hash);
+       if (target) {
+         target.scrollIntoView({ behavior: 'auto', block: 'start' });
+         if (window.PRISM_BAR_H) window.scrollBy(0, -(window.PRISM_BAR_H + 12));
+       }
+     }, 1200);
+   }
+  const FINNHUB_KEY='d8868qhr01qq4341phqgd8868qhr01qq4341phr0';
+const STOCK_TICKERS=[
+  {t:'RKLB',n:'Rocket Lab'},
+  {t:'LMT',n:'Lockheed Martin'},
+  {t:'RTX',n:'Raytheon'},
+  {t:'NOC',n:'Northrop Grumman'},
+  {t:'BA',n:'Boeing'},
+  {t:'LHX',n:'L3Harris'},
+  {t:'IRDM',n:'Iridium'},
+  {t:'LUNR',n:'Intuitive Machines'},
+  {t:'ASTS',n:'AST SpaceMobile'},
+  {t:'PL',n:'Planet Labs'},
+  {t:'BKSY',n:'BlackSky'},
+  {t:'SPCX',n:'SpaceX'}
+];
+  function isMarketLive(results){
+  return results.some(s=>{
+    if(!s.ts) return false;
+    return (Date.now()-s.ts*1000)/60000 < 3;
+  });
+}
+
+function toggleViewAll(){
+  const btn=document.getElementById('mp-viewall');
+  const grid=document.getElementById('mp-all-table');
+  const open=grid.classList.toggle('open');
+  btn.textContent=open?'VIEW ALL 12 ↑':'VIEW ALL 12 ↓';
+}
+
+async function fetchLiveStocks(){
+  const mpGrid=document.getElementById('mp-grid');
+  const status=document.getElementById('stocks-status');
+  const viewAllBtn=document.getElementById('mp-viewall');
+  const allGrid=document.getElementById('mp-all-table');
+  if(!mpGrid||!status) return;
+  try{
+    const results=await Promise.all(STOCK_TICKERS.map(s=>
+      fetch('https://finnhub.io/api/v1/quote?symbol='+s.t+'&token='+FINNHUB_KEY)
+      .then(r=>r.json())
+      .then(d=>({...s,c:d.c||d.pc||0,dp:d.dp||0,d:d.d||0,pc:d.pc||0,ts:d.t||0,closed:d.c===0}))
+      .catch(()=>({...s,c:0,dp:0,d:0,ts:0,closed:true}))
+    ));
+
+    const adv=results.filter(s=>s.dp>=0).sort((a,b)=>b.dp-a.dp);
+    const dec=results.filter(s=>s.dp<0).sort((a,b)=>a.dp-b.dp);
+    const top3adv=adv.slice(0,3);
+    const top3dec=dec.slice(0,3);
+
+    function rowHtml(s){
+      const up=s.dp>=0;
+      const pctClass=up?'mp-pct-adv':'mp-pct-dec';
+      const arrow=up?'▲':'▼';
+      const price=s.c>0?'$'+s.c.toFixed(2):'—';
+      const pct=s.closed?'<span style="font-size:9px;color:#3a5a7a">CLOSED</span>':'<span class="'+pctClass+'">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
+      return '<div class="mp-row"><div><div class="mp-ticker">'+s.t+'</div><div class="mp-name">'+s.n+'</div></div><span class="mp-price">'+price+'</span>'+pct+'</div>';
+    }
+
+    function fillerHtml(count,side){
+      if(count>=3) return '';
+      const needed=3-count;
+      let html='';
+      const msg=side==='adv'?(count===0?'none<br>advancing<br>today':(count===1?'only one<br>advancing<br>today':'')):(count===0?'none<br>declining<br>today':(count===1?'only one<br>declining<br>today':''));
+      for(let i=0;i<needed;i++){
+        html+='<div class="mp-empty">'+(i===0?msg:'')+'</div>';
+      }
+      return html;
+    }
+
+    mpGrid.innerHTML=
+      '<div class="mp-col-adv">'+
+        '<div class="mp-col-hdr-adv">▲ ADVANCING · '+adv.length+'</div>'+
+        top3adv.map(rowHtml).join('')+
+        fillerHtml(top3adv.length,'adv')+
+      '</div>'+
+      '<div class="mp-col-dec">'+
+        '<div class="mp-col-hdr-dec">▼ DECLINING · '+dec.length+'</div>'+
+        top3dec.map(rowHtml).join('')+
+        fillerHtml(top3dec.length,'dec')+
+      '</div>';
+
+    const allSorted=[...adv,...dec];
+    allGrid.innerHTML=allSorted.map(s=>{
+      const up=s.dp>=0;
+      const arrow=up?'▲':'▼';
+      const price=s.c>0?'$'+s.c.toFixed(2):'—';
+      const pct=s.closed?'<span style="font-size:9px;color:#3a5a7a;text-align:right">CLOSED</span>':'<span class="'+(up?'mp-pct-adv':'mp-pct-dec')+'" style="text-align:right">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
+      return '<div class="mp-all-row2"><span class="mp-ticker">'+s.t+'</span><span class="mp-price" style="text-align:left">'+price+'</span>'+pct+'</div>';
+    }).join('');
+
+    viewAllBtn.style.display='block';
+
+    const now=new Date();
+    const tt=now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'});
+    if(isMarketLive(results)){
+      status.textContent='● MARKET OPEN · '+tt+' GST';
+      status.style.color='#00e87a';
+      status.style.background='rgba(0,232,122,0.08)';
+      status.style.borderColor='rgba(0,232,122,0.2)';
+    }else{
+      status.textContent='● MARKET CLOSED · '+tt+' GST';
+      status.style.color='#ff8c00';
+      status.style.background='rgba(255,140,0,0.08)';
+      status.style.borderColor='rgba(255,140,0,0.2)';
+    }
+  }catch(e){
+    status.textContent='DELAYED';
+    status.style.color='#ff8c00';
+  }
+}
+fetchLiveStocks();
+setInterval(fetchLiveStocks,60*1000);
+</script>
+<style>@keyframes dawnFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}</style>
+<div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.75);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
+    <div style="text-align:center;margin-bottom:18px">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block" alt="PRISM"/>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px">◈ DAILY PRISM BRIEF</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px">Space and defence intelligence in your inbox at 7am, your local time.</div>
+    <input id="sub-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px"/>
+    <input id="sub-hp" type="text" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+    <button id="sub-btn" onclick="prismSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer">SUBSCRIBE</button>
+    <div id="sub-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;text-align:center;min-height:14px"></div>
+    <div onclick="document.getElementById('sub-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:10px;cursor:pointer;letter-spacing:1px">✕ CLOSE</div>
+  </div>
+</div>
+<script>
+async function prismSubscribe(){
+  var email=document.getElementById('sub-email').value.trim();
+  var msg=document.getElementById('sub-msg');
+  var btn=document.getElementById('sub-btn');
+  if(document.getElementById('sub-hp').value){msg.textContent='';return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  var tz='UTC';
+  try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){}
+  btn.disabled=true;btn.textContent='SUBSCRIBING...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/subscribers',{
+      method:'POST',
+      headers:{
+        'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf',
+        'Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf',
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({email:email,timezone:tz})
+    });
+    if(r.status===201){
+      msg.style.color='#7DC8F0';msg.textContent='CONFIRMED — SEE YOU AT 7:00 AM';
+      btn.textContent='DONE';
+      setTimeout(function(){document.getElementById('sub-modal').style.display='none';},2500);
+    }else if(r.status===409){
+      msg.style.color='#FFC24B';msg.textContent='ALREADY SUBSCRIBED';
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }else{
+      msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }
+  }catch(e){
+    msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR — TRY AGAIN';
+    btn.disabled=false;btn.textContent='SUBSCRIBE';
+  }
+}
+</script> 
+<div id="prism-login-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
+    <div style="text-align:center;margin-bottom:18px;"><img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block;" alt="PRISM"/></div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px;">◈ PRO MEMBER LOGIN</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px;">Sign in to access your premium intelligence.</div>
+    <button id="plm-google" onclick="prismGoogleLogin()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;color:#0a0a0a;background:#fff;border:none;padding:12px;border-radius:6px;cursor:pointer;margin-bottom:14px;"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button>
+    <div style="text-align:center;color:#555;font-family:'Space Mono',monospace;font-size:10px;margin-bottom:14px;">— OR —</div>
+    <input id="plm-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px;"/>
+    <button id="plm-btn" onclick="prismMagicLogin()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer;">EMAIL ME A LOGIN LINK</button>
+    <div id="plm-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;text-align:center;min-height:14px;"></div>
+    <div onclick="document.getElementById('prism-login-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:10px;cursor:pointer;letter-spacing:1px;">✕ CLOSE</div>
+  </div>
+</div>
+<script>
+const PRISM_SB = window.supabase.createClient('https://xzslopptbphrtddzsvdy.supabase.co','sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf');
+let PRISM_TIER = 'free';
+let PRISM_USER = null;
+
+function openLogin(){ document.getElementById('prism-login-modal').style.display='flex'; }
+
+async function prismGoogleLogin(){
+  await PRISM_SB.auth.signInWithOAuth({ provider:'google', options:{ redirectTo:'https://dashboard.prism-osint.com'  } });
+}
+async function prismMagicLogin(){
+  var email=document.getElementById('plm-email').value.trim();
+  var msg=document.getElementById('plm-msg');
+  if(!email||email.indexOf('@')<1){ msg.style.color='#E24B4A'; msg.textContent='ENTER A VALID EMAIL'; return; }
+  var r=await PRISM_SB.auth.signInWithOtp({ email:email, options:{ emailredirectTo:'https://dashboard.prism-osint.com' } });
+  if(r.error){ msg.style.color='#E24B4A'; msg.textContent='ERROR — TRY AGAIN'; }
+  else{ msg.style.color='#7DC8F0'; msg.textContent='CHECK YOUR EMAIL FOR THE LINK'; }
+}
+async function prismLogout(){
+  await PRISM_SB.auth.signOut();
+  PRISM_TIER='free'; PRISM_USER=null;
+  applyUnlockState(); updateAuthUI();
+}
+
+async function prismCheckSession(){
+  const { data:{ session } } = await PRISM_SB.auth.getSession();
+  if(session && session.user){
+    PRISM_USER = session.user;
+    try{
+      const { data } = await PRISM_SB.from('profiles').select('tier').eq('id', session.user.id).single();
+      PRISM_TIER = (data && data.tier) ? data.tier : 'free';
+    }catch(e){ PRISM_TIER='free'; }
+  } else {
+    PRISM_USER=null; PRISM_TIER='free';
+  }
+  applyUnlockState(); updateAuthUI();
+}
+
+function isUnlocked(){ var pv=false; try{pv=localStorage.getItem('prism_preview')==='pro';}catch(e){} return pv || (PRISM_USER !== null && PRISM_TIER === 'pro'); }
+  function applyUnlockState(){
+  document.querySelectorAll('.prism-locked').forEach(function(el){
+    if(isUnlocked()) el.classList.add('prism-unlocked');
+    else el.classList.remove('prism-unlocked');
+  });
+}
+
+function updateAuthUI(){
+  var btn=document.getElementById('prism-auth-btn');
+  if(!btn) return;
+  if(PRISM_USER){ btn.textContent = PRISM_TIER==='pro' ? 'PRO ✓' : 'ACCOUNT'; btn.onclick=prismLogout; }
+  else { btn.textContent='LOG IN'; btn.onclick=openLogin; }
+}
+
+PRISM_SB.auth.onAuthStateChange(function(_e, _s){ prismCheckSession(); });
+document.addEventListener('DOMContentLoaded', prismCheckSession);
+  if(window.location.hash==='#subscribe'){
+  setTimeout(function(){
+    var m=document.getElementById('sub-modal');
+    if(m)m.style.display='flex';
+  },600);
+}
+</script>  
+<div id="prism-pro-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#1e1e1e;border:1.5px solid rgba(125,200,240,0.3);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
+    <div style="text-align:center;margin-bottom:16px;"><img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:56px;display:inline-block;" alt="PRISM"/></div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;text-align:center;margin-bottom:6px;">◈ PRISM PRO</div>
+    <div style="text-align:center;margin-bottom:18px;"><span style="font-family:'Space Mono',monospace;font-size:32px;font-weight:700;color:#fff;">$29</span><span style="font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.5);">/month</span></div>
+    <div style="text-align:center;margin-bottom:18px;"><span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#0a0a0a;background:#FFC24B;padding:4px 10px;border-radius:3px;font-weight:700;">LAUNCHING SOON</span></div>
+    <div style="border-top:0.5px solid rgba(255,255,255,0.1);border-bottom:0.5px solid rgba(255,255,255,0.1);padding:16px 0;margin-bottom:18px;">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.4);margin-bottom:12px;">UNLOCKS</div>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> Opportunity of the Day</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> Risk of the Day</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> Predictive Signals</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> PRISM Analyst — unlimited</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:14px;">Pro is not open yet. Leave your email and we will let you know the moment it is.</div>
+    <input id="pro-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px;"/>
+    <input id="pro-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+    <button id="pro-btn" onclick="proNotify()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:14px;border-radius:6px;text-align:center;cursor:pointer;margin-bottom:12px;">NOTIFY ME AT LAUNCH</button>
+    <div id="pro-msg" style="font-family:'Space Mono',monospace;font-size:10px;text-align:center;min-height:14px;"></div>
+    <div onclick="document.getElementById('prism-pro-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:14px;cursor:pointer;letter-spacing:1px;">✕ CLOSE</div>
+  </div>
+</div>
+<script>
+function openPro(){ document.getElementById('prism-pro-modal').style.display='flex'; }
+document.addEventListener('click',function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[href*="consultant.prism-osint.com"]'):null;
+  if(!a)return;
+  e.preventDefault();
+  e.stopPropagation();
+  openPro();
+},true);
+(function(){
+  var pv=new URLSearchParams(window.location.search).get('preview');
+  if(pv==='pro'){try{localStorage.setItem('prism_preview','pro');}catch(e){}}
+  if(pv==='off'){try{localStorage.removeItem('prism_preview');}catch(e){}}
+  try{
+    if(localStorage.getItem('prism_preview')==='pro'){
+      document.querySelectorAll('.prism-locked').forEach(function(el){el.classList.add('prism-unlocked');});
+    }
+  }catch(e){}
+})();
+window.proLoadTime=Date.now();
+async function proNotify(){
+  var email=document.getElementById('pro-email').value.trim();
+  var msg=document.getElementById('pro-msg');
+  var btn=document.getElementById('pro-btn');
+  if(document.getElementById('pro-hp').value){msg.textContent='';return;}
+  if(Date.now()-window.proLoadTime<2000){msg.style.color='#E24B4A';msg.textContent='PLEASE TRY AGAIN';return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  btn.disabled=true;btn.textContent='SENDING...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/pro_waitlist',{
+      method:'POST',
+      headers:{'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:email})
+    });
+    if(r.status===201){msg.style.color='#7DC8F0';msg.textContent='YOU ARE ON THE LIST';btn.textContent='DONE';}
+    else if(r.status===409){msg.style.color='#FFC24B';msg.textContent='ALREADY ON THE LIST';btn.disabled=false;btn.textContent='NOTIFY ME AT LAUNCH';}
+    else{msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';btn.disabled=false;btn.textContent='NOTIFY ME AT LAUNCH';}
+  }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='NOTIFY ME AT LAUNCH';}
+}
+</script>      
+</body>
+</html>
