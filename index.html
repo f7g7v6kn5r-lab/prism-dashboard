@@ -440,7 +440,7 @@ async function gateSubscribe(){
   }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
 }
 </script>
-<div id="prism-archive-bar" data-built="2026-08-20T09:11:32.661Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
+<div id="prism-archive-bar" data-built="2026-08-20T09:33:45.937Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:12px">
       <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#0a0a0a;background:#FFC24B;padding:4px 9px;border-radius:3px;font-weight:700">ARCHIVED EDITION</span>
@@ -1660,6 +1660,19 @@ fetchLiveStocks();
 setInterval(fetchLiveStocks,60*1000);
 </script>
 <style>@keyframes dawnFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}</style>
+                  <div id="prism-sub-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:8500;background:#0a0a0a;border-top:1px solid rgba(125,200,240,0.3);padding:13px 18px;box-shadow:0 -4px 24px rgba(0,0,0,0.6)">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;min-width:200px"><span style="color:#7DC8F0;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px">◈ DAILY BRIEF</span>&nbsp;&nbsp;Tomorrow's edition, every morning.</div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <input id="bar-email" type="email" placeholder="your@email.com" style="background:#141414;border:1px solid rgba(255,255,255,0.14);border-radius:5px;padding:8px 12px;font-family:'Space Mono',monospace;font-size:11px;color:#c8dff0;outline:none;min-width:170px"/>
+      <input id="bar-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+      <button id="bar-btn" onclick="barSubscribe()" style="background:#7DC8F0;border:none;border-radius:5px;padding:9px 18px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;color:#0a0a0a;cursor:pointer;white-space:nowrap">SUBSCRIBE</button>
+      <div onclick="dismissSubBar()" style="font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.25);padding:0 6px;cursor:pointer">✕</div>
+    </div>
+  </div>
+  <div id="bar-msg" style="max-width:1100px;margin:8px auto 0;font-family:'Space Mono',monospace;font-size:10px;text-align:right;min-height:12px"></div>
+</div>
+<style>@media(max-width:768px){#prism-sub-bar>div{flex-direction:column;align-items:stretch}#prism-sub-bar input#bar-email{width:100%}#prism-sub-bar button#bar-btn{width:100%}#bar-msg{text-align:center}}</style>
 <div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.75);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
   <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
     <div style="text-align:center;margin-bottom:18px">
@@ -1788,6 +1801,59 @@ document.addEventListener('DOMContentLoaded', prismCheckSession);
 }
 if(window.location.hash==='#subscribe'){setTimeout(prismOpenSubModal,600);}
 window.addEventListener('hashchange',prismOpenSubModal);
+(function(){
+  if(window.location.pathname.includes('/archive/'))return;
+  try{if(localStorage.getItem('prism_bar_done'))return;}catch(e){}
+  var shown=false,timeOk=false,scrollOk=false;
+  function maybeShow(){
+    if(shown||!timeOk||!scrollOk)return;
+    var m=document.getElementById('sub-modal');
+    if(m&&m.style.display==='flex')return;
+    shown=true;
+    var b=document.getElementById('prism-sub-bar');
+    if(b)b.style.display='block';
+  }
+  setTimeout(function(){timeOk=true;maybeShow();},45000);
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    if(h>0&&(window.scrollY/h)>=0.5){scrollOk=true;maybeShow();}
+  },{passive:true});
+})();
+function dismissSubBar(){
+  var b=document.getElementById('prism-sub-bar');
+  if(b)b.style.display='none';
+  try{localStorage.setItem('prism_bar_done','1');}catch(e){}
+}
+async function barSubscribe(){
+  var email=document.getElementById('bar-email').value.trim();
+  var msg=document.getElementById('bar-msg');
+  var btn=document.getElementById('bar-btn');
+  if(document.getElementById('bar-hp').value){return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  var tz='UTC';
+  try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){}
+  btn.disabled=true;btn.textContent='...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/subscribers',{
+      method:'POST',
+      headers:{'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:email,timezone:tz})
+    });
+    if(r.status===201){
+      msg.style.color='#7DC8F0';msg.textContent='CONFIRMED — SEE YOU AT 7:00 AM';
+      if(window.gtag)gtag('event','subscribe');
+      try{localStorage.setItem('prism_bar_done','1');}catch(e){}
+      setTimeout(dismissSubBar,2500);
+    }else if(r.status===409){
+      msg.style.color='#FFC24B';msg.textContent='ALREADY SUBSCRIBED';
+      try{localStorage.setItem('prism_bar_done','1');}catch(e){}
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }else{
+      msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }
+  }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='SUBSCRIBE';}
+}
 </script>  
 <div id="prism-pro-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
   <div style="background:#1e1e1e;border:1.5px solid rgba(125,200,240,0.3);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
