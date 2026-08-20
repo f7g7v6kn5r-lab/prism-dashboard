@@ -440,7 +440,7 @@ async function gateSubscribe(){
   }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
 }
 </script>
-<div id="prism-archive-bar" data-built="2026-08-20T09:43:27.768Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
+<div id="prism-archive-bar" data-built="2026-08-20T09:55:47.599Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:12px">
       <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#0a0a0a;background:#FFC24B;padding:4px 9px;border-radius:3px;font-weight:700">ARCHIVED EDITION</span>
@@ -1804,20 +1804,16 @@ window.addEventListener('hashchange',prismOpenSubModal);
 (function(){
   if(window.location.pathname.includes('/archive/'))return;
   try{if(localStorage.getItem('prism_bar_done'))return;}catch(e){}
-  var shown=false,timeOk=false,scrollOk=false;
+    var shown=false;
   function maybeShow(){
-    if(shown||!timeOk||!scrollOk)return;
+    if(shown)return;
     var m=document.getElementById('sub-modal');
-    if(m&&m.style.display==='flex')return;
+    if(m&&m.style.display==='flex'){setTimeout(maybeShow,5000);return;}
     shown=true;
     var b=document.getElementById('prism-sub-bar');
     if(b)b.style.display='block';
   }
-  setTimeout(function(){timeOk=true;maybeShow();},45000);
-  window.addEventListener('scroll',function(){
-    var h=document.documentElement.scrollHeight-window.innerHeight;
-    if(h>0&&(window.scrollY/h)>=0.5){scrollOk=true;maybeShow();}
-  },{passive:true});
+  setTimeout(maybeShow,15000);
 })();
 function dismissSubBar(){
   var b=document.getElementById('prism-sub-bar');
