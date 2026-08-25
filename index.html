@@ -386,39 +386,9 @@ body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min
 </style>
 </head>
 <body>
-<div id="prism-gate" style="position:fixed;inset:0;z-index:99999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto">
-  <div style="max-width:640px;width:100%;text-align:center;font-family:'Space Grotesk',sans-serif">
-    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:72px;display:block;margin:0 auto 14px" alt="PRISM"/>
-    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:rgba(200,220,255,0.35);margin-bottom:44px">SPACE &amp; DEFENCE INTELLIGENCE</div>
-    <div style="height:1px;background:rgba(255,255,255,0.08);margin-bottom:40px"></div>
-    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:#34E0C4;margin-bottom:18px">◈ LAUNCHING SOON</div>
-    <div style="font-size:28px;font-weight:500;color:#fff;line-height:1.25;margin-bottom:20px">Real-time space &amp;<br/>defence intelligence</div>
-    <div style="font-size:15px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:460px;margin:0 auto 40px">PRISM aggregates global intelligence across space, defence, geopolitics and markets, delivering actionable insight to professionals who cannot afford to miss a signal. Access is currently limited to early members.</div>
-    <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px;max-width:400px;margin:0 auto">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:16px">REQUEST EARLY ACCESS</div>
-      <input id="gate-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#0a0a0a;border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px"/>
-      <input id="gate-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
-      <button id="gate-btn" onclick="gateSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer">REQUEST ACCESS</button>
-      <div id="gate-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;min-height:14px"></div>
-    </div>
-    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(200,220,255,0.15);margin-top:44px">◈ PRISM </div>
-  </div>
-</div>
+
 <script>
-(function(){
-  var TOKEN='earlyaccess';
-  var p=new URLSearchParams(window.location.search).get('access');
-  var stored=null;
-  try{stored=localStorage.getItem('prism_access');}catch(e){}
-  if(p===TOKEN){try{localStorage.setItem('prism_access',TOKEN);}catch(e){} stored=TOKEN;}
-  if(stored===TOKEN){
-    var g=document.getElementById('prism-gate');
-    if(g)g.parentNode.removeChild(g);
-  }else{
-    document.documentElement.style.overflow='hidden';
-    document.body.style.overflow='hidden';
-  }
-})();
+
 window.gateLoadTime=Date.now();
 async function gateSubscribe(){
   var email=document.getElementById('gate-email').value.trim();
