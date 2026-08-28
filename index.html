@@ -587,14 +587,12 @@ async function gateSubscribe(){
   <div class="section-header" style="margin-top:0;padding-top:0;border-top:none">
     <div class="section-header-row">
       <div class="section-title">MARKET PULSE</div>
-      <div id="stocks-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:1px;background:rgba(0,232,122,0.08);padding:3px 9px;border:1px solid rgba(0,232,122,0.3)">LIVE</div>
+      <div id="stocks-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:1px;background:rgba(0,232,122,0.08);padding:3px 9px;border:1px solid rgba(0,232,122,0.3)">● MARKET OPEN</div>
     </div>
     <div class="section-underline"></div>
   </div>
   <div class="mp-wrap" id="mp-wrap">
-    <div class="mp-grid" id="mp-grid">
-      <div style="grid-column:1/-1;font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;padding:20px 0">◈ LOADING LIVE PRICES...</div>
-    </div>
+    <div class="mp-grid" id="mp-grid"><div class="mp-col-adv"><div class="mp-col-hdr-adv">▲ ADVANCING · 1</div><div class="mp-row"><div><div class="mp-ticker">RTX</div><div class="mp-name">Raytheon</div></div><span class="mp-price">$211.82</span><span class="mp-pct-adv">▲0.91%</span></div><div class="mp-empty">only one advancing today</div><div class="mp-empty"></div></div><div class="mp-col-dec"><div class="mp-col-hdr-dec">▼ DECLINING · 10</div><div class="mp-row"><div><div class="mp-ticker">LUNR</div><div class="mp-name">Intuitive Machines</div></div><span class="mp-price">$15.56</span><span class="mp-pct-dec">▼15.07%</span></div><div class="mp-row"><div><div class="mp-ticker">BKSY</div><div class="mp-name">BlackSky</div></div><span class="mp-price">$23.89</span><span class="mp-pct-dec">▼13.91%</span></div><div class="mp-row"><div><div class="mp-ticker">ASTS</div><div class="mp-name">AST SpaceMobile</div></div><span class="mp-price">$59.12</span><span class="mp-pct-dec">▼13.88%</span></div></div></div>
     <div class="mp-viewall" id="mp-viewall" style="display:none" onclick="toggleViewAll()">VIEW ALL ↓</div>
     <div class="mp-all-table" id="mp-all-table"></div>
   </div>
@@ -1591,21 +1589,24 @@ async function fetchLiveStocks(){
     const results=await Promise.all(STOCK_TICKERS.map(s=>
       fetch('https://finnhub.io/api/v1/quote?symbol='+s.t+'&token='+FINNHUB_KEY)
       .then(r=>r.json())
-      .then(d=>({...s,c:d.c||d.pc||0,dp:d.dp||0,d:d.d||0,pc:d.pc||0,ts:d.t||0,closed:d.c===0}))
-      .catch(()=>({...s,c:0,dp:0,d:0,ts:0,closed:true}))
+      .then(d=>{var bad=!d||d.error||d.c==null||d.c===0;var px=(d&&d.c!=null&&d.c!==0)?d.c:((d&&d.pc)?d.pc:0);return {...s,c:px,dp:bad?null:(d.dp||0),d:bad?null:(d.d||0),pc:(d&&d.pc)||0,ts:(d&&d.t)||0,closed:bad};})
+      .catch(()=>({...s,c:0,dp:null,d:null,ts:0,closed:true}))
     ));
 
-    const adv=results.filter(s=>s.dp>=0).sort((a,b)=>b.dp-a.dp);
-    const dec=results.filter(s=>s.dp<0).sort((a,b)=>a.dp-b.dp);
+    if(!results.some(s=>s.c>0&&s.dp!=null)){return;}
+    const adv=results.filter(s=>s.dp!=null&&s.dp>=0).sort((a,b)=>b.dp-a.dp);
+    const dec=results.filter(s=>s.dp!=null&&s.dp<0).sort((a,b)=>a.dp-b.dp);
+    const noq=results.filter(s=>s.dp==null);
+    adv.push(...noq);
     const top3adv=adv.slice(0,3);
     const top3dec=dec.slice(0,3);
 
     function rowHtml(s){
-      const up=s.dp>=0;
+      const up=(s.dp==null)?true:s.dp>=0;
       const pctClass=up?'mp-pct-adv':'mp-pct-dec';
       const arrow=up?'▲':'▼';
       const price=s.c>0?'$'+s.c.toFixed(2):'—';
-      const pct=s.closed?'<span style="font-size:9px;color:#3a5a7a">CLOSED</span>':'<span class="'+pctClass+'">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
+      const pct=(s.closed||s.dp==null)?'<span style="font-size:9px;color:#3a5a7a">LAST CLOSE</span>':'<span class="'+pctClass+'">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
       return '<div class="mp-row"><div><div class="mp-ticker">'+s.t+'</div><div class="mp-name">'+s.n+'</div></div><span class="mp-price">'+price+'</span>'+pct+'</div>';
     }
 
@@ -1637,7 +1638,7 @@ async function fetchLiveStocks(){
       const up=s.dp>=0;
       const arrow=up?'▲':'▼';
       const price=s.c>0?'$'+s.c.toFixed(2):'—';
-      const pct=s.closed?'<span style="font-size:9px;color:#3a5a7a;text-align:right">CLOSED</span>':'<span class="'+(up?'mp-pct-adv':'mp-pct-dec')+'" style="text-align:right">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
+      const pct=(s.closed||s.dp==null)?'<span style="font-size:9px;color:#3a5a7a;text-align:right">LAST CLOSE</span>':'<span class="'+(up?'mp-pct-adv':'mp-pct-dec')+'" style="text-align:right">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
       return '<div class="mp-all-row2"><span class="mp-ticker">'+s.t+'</span><span class="mp-price" style="text-align:left">'+price+'</span>'+pct+'</div>';
     }).join('');
 
