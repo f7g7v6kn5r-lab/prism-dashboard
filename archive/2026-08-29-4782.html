@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1WP0JD169N"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1WP0JD169N');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PRISM — Space & Defence Intelligence</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+.sector-filter{display:flex;gap:0;border-bottom:1px solid #1e1e1e;margin:0 0 24px;overflow-x:auto;-webkit-overflow-scrolling:touch;background:#141414;padding:0 32px}
+.sector-tab{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#444;padding:10px 20px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;outline:none}
+.sector-tab:hover{color:#888}
+.sector-tab.active{color:#fff;border-bottom-color:#fff}
+.story-section-wrap.hidden{display:none}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{font-family:'Space Grotesk',sans-serif;background:#141414;color:#c8dff0;min-height:100vh}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
+@keyframes glowGreenFrame{0%,100%{box-shadow:0 0 10px rgba(0,180,80,0.2)}50%{box-shadow:0 0 20px rgba(0,180,80,0.35)}}
+@keyframes glowRedFrame{0%,100%{box-shadow:0 0 10px rgba(200,0,0,0.18)}50%{box-shadow:0 0 20px rgba(200,0,0,0.3)}}
+@keyframes glowDotGreen{0%,100%{box-shadow:0 0 4px rgba(0,180,80,0.6)}50%{box-shadow:0 0 10px rgba(0,180,80,0.9)}}
+@keyframes glowDotAmber{0%,100%{box-shadow:0 0 4px rgba(200,120,0,0.6)}50%{box-shadow:0 0 10px rgba(200,120,0,0.9)}}
+@keyframes glowDotRed{0%,100%{box-shadow:0 0 4px rgba(200,0,0,0.6)}50%{box-shadow:0 0 10px rgba(200,0,0,0.9)}}
+@keyframes slideIn{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes slideDown{0%{max-height:0;opacity:0;transform:translateY(-4px)}100%{max-height:300px;opacity:1;transform:translateY(0)}}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes ping{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}75%,100%{transform:translate(-50%,-50%) scale(2.5);opacity:0}}
+@keyframes chatPulse{0%,100%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 0 rgba(74,158,255,0.4)}70%{box-shadow:0 4px 20px rgba(74,158,255,0.3),0 0 0 10px rgba(74,158,255,0)}}
+@keyframes bubbleIn{0%{opacity:0;transform:translateY(10px) scale(0.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes fadeOverlay{0%{opacity:0}100%{opacity:1}}
+.topbar{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-divider{border-left:1px solid rgba(255,255,255,0.08);padding-left:14px}
+.topbar-tagline{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:#4a7a9a}
+.topbar-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.live{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:3px;color:#4a9eff;font-family:'Space Mono',monospace}
+.dot{width:5px;height:5px;background:#00e87a;border-radius:50%;animation:pulse 2s infinite}
+.ts{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.3);letter-spacing:2px}
+.beta-badge{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center;margin-top:0}
+.early{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#ff8c00;margin-top:2px}
+.analyst-pill{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4a9eff;text-decoration:none;border:1px solid rgba(74,158,255,0.35);padding:5px 14px;border-radius:20px;background:rgba(74,158,255,0.08);display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all 0.2s}
+.analyst-pill:hover{background:rgba(74,158,255,0.15);border-color:rgba(74,158,255,0.6)}
+.section-briefing-map{display:grid;grid-template-columns:1fr 1fr;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);min-height:300px}
+.briefing-left{padding:0;border-right:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.briefing-frame{background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin:18px 24px;flex:1}
+.briefing-frame-header{background:#0a0a0a;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.briefing-frame-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:500;letter-spacing:5px;color:#fff;white-space:nowrap;line-height:1;display:block;margin-bottom:0}
+.briefing-frame-title::after{content:'';display:block;height:2px;width:44px;background:#fff;margin-top:8px;margin-bottom:0}
+.briefing-frame-body{padding:20px 22px;border-top:1px solid rgba(255,255,255,0.1)}
+.badges{display:flex;gap:24px;margin-bottom:0;align-items:center}
+.brief-field-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:#666;margin-bottom:4px}
+.brief-field-val{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px}
+.brief-divider{width:1px;background:rgba(255,255,255,0.12)}
+.badge-bullish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(0,160,70,0.4);background:rgba(0,160,70,0.1);color:#00cc60;display:flex;align-items:center;gap:8px}
+.badge-bearish{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.4);background:rgba(200,0,0,0.1);color:#ff5555;display:flex;align-items:center;gap:8px}
+.badge-neutral{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(74,158,255,0.35);background:rgba(74,158,255,0.08);color:#4a9eff;display:flex;align-items:center;gap:8px}
+.badge-geo-low{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(0,160,70,0.35);background:rgba(0,160,70,0.08);color:#00cc60;display:flex;align-items:center;gap:8px}
+.badge-geo-medium{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(74,158,255,0.35);background:rgba(74,158,255,0.08);color:#4a9eff;display:flex;align-items:center;gap:8px}
+.badge-geo-high{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,100,0,0.4);background:rgba(200,100,0,0.1);color:#ff8c00;display:flex;align-items:center;gap:8px}
+.badge-geo-critical{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:6px;border:1.5px solid rgba(200,0,0,0.5);background:rgba(200,0,0,0.12);color:#ff5555;display:flex;align-items:center;gap:8px}
+.badge-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.summary{font-size:14px;color:rgba(255,255,255,0.72);line-height:1.75;text-align:left}
+.map-right{display:flex;flex-direction:column;overflow:hidden;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:10px;margin:18px 24px 18px 0}
+.map-header-inner{padding:12px 16px;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.map-title-inner{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:500;letter-spacing:3px;color:#fff;line-height:1}
+.map-title-inner::after{content:'';display:block;height:2px;width:44px;background:#fff;margin-top:8px}
+.map-count{font-family:'Space Mono',monospace;font-size:8px;color:#00e87a;background:rgba(0,232,122,0.1);padding:2px 10px;border-radius:10px;border:1px solid rgba(0,232,122,0.25)}
+.map-body-inner{flex:1;min-height:200px;position:relative}
+.inc-list-inner{background:#141414;border-top:1px solid rgba(255,255,255,0.06);padding:8px 14px;display:flex;flex-direction:column;gap:5px;max-height:85px;overflow:hidden;flex-shrink:0}
+.inc-item{font-size:11px;color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:8px;font-weight:500;cursor:pointer;transition:color 0.15s}
+.inc-item:hover{color:#c8dff0}
+.inc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.map-popup-overlay{position:fixed;inset:0;background:rgba(4,6,15,0.7);z-index:9000;display:none;align-items:center;justify-content:center;animation:fadeOverlay 0.2s ease;backdrop-filter:blur(3px)}
+.map-popup-overlay.active{display:flex}
+.map-popup-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;width:90%;max-width:520px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.6);animation:bubbleIn 0.2s ease}
+.map-popup-top{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
+.map-popup-cat{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;font-weight:700}
+.map-popup-close{font-family:'Space Mono',monospace;font-size:12px;color:rgba(255,255,255,0.3);cursor:pointer;padding:2px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);transition:all 0.15s}
+.map-popup-close:hover{color:#fff;border-color:rgba(255,255,255,0.3)}
+.map-popup-body{padding:20px}
+.map-popup-img{width:100%;max-height:220px;object-fit:cover;border-radius:6px;margin-bottom:14px;display:block}
+.map-popup-head{font-size:20px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:10px}
+.map-popup-context{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:12px}
+.map-popup-impl{font-size:13px;color:#e8e8e8;background:#0a0a0a;border-radius:6px;padding:12px 14px;margin-bottom:16px;line-height:1.6}
+.map-popup-impl-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#888;margin-bottom:5px}
+.map-popup-footer{display:flex;align-items:center;justify-content:space-between}
+.map-popup-src{font-family:'Space Mono',monospace;font-size:10px;color:#9aa7b4;text-decoration:none}
+.map-popup-read{font-family:'Space Mono',monospace;font-size:9px;color:#ccc;padding:5px 14px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:#2e2e2e;text-decoration:none;transition:all 0.15s}
+.map-popup-read:hover{background:#3a3a3a}
+.section-orr{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 32px;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08)}
+.ocard-green{background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+.ocard-red{background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+.ocard-header-green{padding:18px 18px 0;display:block}
+.ocard-header-red{padding:18px 18px 0;display:block}
+.ocard-icon{display:none}
+.ocard-title-green{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:500;letter-spacing:3px;color:#fff;display:block;margin-bottom:4px}
+.ocard-title-red{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:500;letter-spacing:3px;color:#fff;display:block;margin-bottom:4px}
+.ocard-title-green::after{content:'';display:block;height:1px;width:32px;background:#00b050;margin-top:4px}
+.ocard-title-red::after{content:'';display:block;height:1px;width:32px;background:#ff4444;margin-top:4px}
+.ocard-body{padding:12px 18px 18px}
+.ocard-text{font-size:13px;color:#cfcfcf;line-height:1.65}
+.prism-locked{position:relative;overflow:hidden}
+.prism-locked .prism-blur{filter:blur(6px);user-select:none;pointer-events:none;opacity:0.85}
+.prism-lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:5}
+.prism-lock-btn{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#0a0a0a;background:#7DC8F0;border:none;padding:11px 24px;border-radius:6px;cursor:pointer}
+.prism-lock-icon{font-size:20px;color:#7DC8F0}
+.prism-lock-hint{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.55)}
+.prism-unlocked .prism-blur{filter:none;user-select:auto;pointer-events:auto;opacity:1}
+.prism-unlocked .prism-lock-overlay{display:none} 
+.page{padding:22px 32px;background:#141414}
+.section-header{margin-top:0;padding-top:0;border-top:none}
+.story-section-wrap{background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;margin-bottom:22px}
+.section-header-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.section-header:first-child{margin-top:0}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:500;letter-spacing:5px;color:#fff;white-space:nowrap;line-height:1}
+.section-count-box{font-family:'Space Mono',monospace;font-size:9px;font-weight:400;letter-spacing:1px;color:#888;border:1px solid rgba(255,255,255,0.2);padding:2px 7px}
+.section-underline{height:2px;width:48px;background:#fff;margin-bottom:18px}
+.section-line{flex:1;height:2px;background:rgba(255,255,255,0.1);border-radius:1px}
+.section-count{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.4);letter-spacing:1px;background:#1e1e1e;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);white-space:nowrap}
+.stories-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:10px}
+.story{background:#fff;border:1.5px solid #a8c0d8;border-radius:10px;overflow:hidden;transition:border-color 0.2s}
+.story:hover{border-color:#4a9eff}
+.story-crit{border-top:4px solid #cc0000}
+.story-high{border-top:4px solid #c06000}
+.story-med{border-top:4px solid #4a9eff}
+.story-img{width:100%;max-height:280px;min-height:160px;object-fit:contain;object-position:center;display:block;background:#dce8f4;border-bottom:1px solid #a8c0d8}
+.story-pad{padding:16px 18px}
+.story-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.ub{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:3px;font-weight:700}
+.ub-break{background:rgba(200,0,0,0.2);color:#cc0000}
+.ub-urgent{background:rgba(200,120,0,0.2);color:#c06000}
+.ub-normal{background:rgba(74,158,255,0.15);color:#1a5fa0}
+.story-region{font-family:'Space Mono',monospace;font-size:9px;color:#4a6a8a;letter-spacing:1px}
+.story-score{font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:3px;font-weight:700;margin-left:auto}
+.sc-crit{background:rgba(200,0,0,0.2);color:#cc0000}
+.sc-high{background:rgba(200,120,0,0.2);color:#c06000}
+.sc-med{background:rgba(74,158,255,0.15);color:#1a5fa0}
+.story-head{font-size:18px;font-weight:700;color:#0a1628;line-height:1.3;margin-bottom:8px}
+.story-teaser{font-size:14px;color:#2a4a6a;line-height:1.75;margin-bottom:12px}
+.story-divider{height:1px;background:#a8c0d8;margin-bottom:12px}
+.story-impl{font-size:13px;color:#2a3a4a;background:#f0f3f6;border:1px solid #e0e6ec;border-radius:6px;padding:12px 14px;line-height:1.6;margin-bottom:12px}
+.story-impl-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#0a1628;margin-bottom:5px}
+.story-footer{display:flex;align-items:center;justify-content:space-between}
+.story-source{font-family:'Space Mono',monospace;font-size:10px;color:#5a6a7a;text-decoration:none;letter-spacing:1px}
+.story-source:hover{color:#0a1628}
+.story-read{font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;letter-spacing:1px;background:#f0f3f6;padding:5px 12px;border-radius:4px;border:1px solid #d8e0e8;text-decoration:none;transition:all 0.15s}
+.story-read:hover{background:#e4e9ee}
+.outlook-section{background:#141414;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.outlook-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.outlook-title{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#888;white-space:nowrap}
+.outlook-line{flex:1;height:2px;background:rgba(255,255,255,0.08);border-radius:1px}
+.outlook-sub{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;background:#1e1e1e;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);white-space:nowrap}
+.outlook-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.outlook-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px}
+.outlook-domain{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:3px;margin-bottom:10px}
+.outlook-watch{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:10px;padding:5px 10px;border:1px solid;border-radius:3px;display:inline-block}
+.outlook-signal{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:12px;border-left:2px solid #4a9eff;padding-left:10px}
+.pred-dropdown{border:1px solid rgba(255,255,255,0.08);border-radius:6px;overflow:hidden}
+.pred-dd-btn{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#141414;color:#4a9eff;transition:background 0.15s;user-select:none}
+.pred-dd-btn:hover{background:#141414}
+.pred-dd-arrow{font-size:11px;transition:transform 0.25s}
+.pred-dd-content{display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:#06090f}
+.pred-dd-content.open{display:grid;animation:slideDown 0.25s ease}
+.pred-bull{background:rgba(0,140,60,0.07);border:1px solid rgba(0,140,60,0.2);border-radius:4px;padding:10px}
+.pred-bear{background:rgba(200,0,0,0.07);border:1px solid rgba(200,0,0,0.18);border-radius:4px;padding:10px}
+.pred-lbl{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;letter-spacing:2px;margin-bottom:5px}
+.pred-txt{font-size:12px;color:#6a8aaa;line-height:1.5}
+.reg-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.reg-inner{display:grid;grid-template-columns:200px 1fr;gap:16px;margin-top:16px}
+.reg-score-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.reg-score-num{font-family:'Space Mono',monospace;font-size:36px;font-weight:700;line-height:1}
+.reg-score-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;margin-top:2px}
+.reg-bar-wrap{height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden}
+.reg-bar{height:10px;border-radius:5px;background:linear-gradient(90deg,#006830 0%,#ffa000 50%,#cc0000 100%)}
+.reg-bar-labels{display:flex;justify-content:space-between;margin-top:4px}
+.reg-bar-lbl{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px}
+.reg-delta{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px}
+.reg-areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.reg-area{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px}
+.reg-area-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.reg-area-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-green{background:#006830;animation:glowDotGreen 2s infinite}
+.dot-amber{background:#c06000;animation:glowDotAmber 2s infinite}
+.dot-red{background:#cc0000;animation:glowDotRed 2s infinite}
+.reg-area-name{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;flex:1}
+.name-green{color:#00aa40}
+.name-amber{color:#cc8800}
+.name-red{color:#ff4444}
+.reg-area-trend{font-size:13px;font-weight:700}
+.trend-up{color:#ff4444}
+.trend-stable{color:#3a5a7a}
+.trend-down{color:#00aa40}
+.reg-area-pill{font-family:'Space Mono',monospace;font-size:7px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:3px}
+.pill-green{background:rgba(0,180,80,0.1);color:#00aa40;border:1px solid rgba(0,180,80,0.2)}
+.pill-amber{background:rgba(200,130,0,0.1);color:#cc8800;border:1px solid rgba(200,130,0,0.2)}
+.pill-red{background:rgba(200,0,0,0.1);color:#ff4444;border:1px solid rgba(200,0,0,0.2)}
+.reg-area-text{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.55;margin-bottom:6px}
+.reg-area-cd{display:flex;align-items:center;gap:6px}
+.reg-area-cd-lbl{font-family:'Space Mono',monospace;font-size:7px;color:#3a5a7a;letter-spacing:1px}
+.reg-area-cd-val{font-family:'Space Mono',monospace;font-size:8px;font-weight:700;color:#4a9eff;background:rgba(74,158,255,0.08);padding:2px 8px;border-radius:3px;border:1px solid rgba(74,158,255,0.2)}
+.reg-loading-inner{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:20px;font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px}
+.reg-spinner{width:20px;height:20px;border:2px solid rgba(255,255,255,0.08);border-top-color:#4a9eff;border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0}
+.reg-footer-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.reg-footer-text{font-family:'Space Mono',monospace;font-size:7px;color:#3a5a7a;letter-spacing:1px}
+.reg-footer-btn{font-family:'Space Mono',monospace;font-size:7px;color:#4a9eff;letter-spacing:1px;background:rgba(74,158,255,0.08);padding:4px 10px;border-radius:3px;border:1px solid rgba(74,158,255,0.2);text-decoration:none}
+.poly-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.poly-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
+.poly-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;transition:border-color 0.2s;cursor:pointer}
+.poly-card:hover{border-color:#2a4a6a}
+.poly-question{font-size:13px;font-weight:600;color:#c8dff0;line-height:1.5;margin-bottom:10px}
+.poly-bar-wrap{height:5px;background:rgba(255,255,255,0.08);border-radius:3px;margin-bottom:6px;overflow:hidden}
+.poly-bar{height:5px;border-radius:3px}
+.poly-odds{display:flex;justify-content:space-between}
+.poly-yes{font-family:'Space Mono',monospace;font-size:11px;font-weight:700}
+.poly-no{font-family:'Space Mono',monospace;font-size:11px;color:#3a5a7a}
+.poly-vol{font-size:9px;color:#3a5a7a;letter-spacing:1px;margin-top:6px;font-family:'Space Mono',monospace}
+.poly-loading{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;letter-spacing:2px;padding:20px 0}
+.stocks-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.mp-card{background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px}
+.mp-wrap{font-family:'Space Mono',monospace}
+.mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mp-col-adv{background:rgba(0,232,122,0.05);border-radius:10px;border:1px solid rgba(0,232,122,0.15);padding:12px}
+.mp-col-dec{background:rgba(255,68,68,0.05);border-radius:10px;border:1px solid rgba(255,68,68,0.15);padding:12px}
+.mp-col-hdr-adv{font-size:9px;color:#00e87a;letter-spacing:1px;margin-bottom:10px;text-align:center}
+.mp-col-hdr-dec{font-size:9px;color:#ff4444;letter-spacing:1px;margin-bottom:10px;text-align:center}
+.mp-row{display:grid;grid-template-columns:1fr auto 60px;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mp-pct-adv,.mp-pct-dec{text-align:right}
+.mp-all-table{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px}
+.mp-all-table.open{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.mp-all-row2{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:12px;padding:8px 2px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.mp-all-row2:last-child{border-bottom:none}
+.mp-row:last-child{border-bottom:none}
+.mp-ticker{font-size:11px;font-weight:700;color:#c8dff0}
+.mp-name{font-size:10px;color:#888;margin-top:1px}
+.mp-price{font-size:13px;color:#c8dff0;text-align:right}
+.mp-pct-adv{font-size:11px;color:#00e87a;font-weight:700;text-align:right}
+.mp-pct-dec{font-size:11px;color:#ff4444;font-weight:700;text-align:right}
+.mp-empty{display:flex;align-items:center;justify-content:center;min-height:52px;opacity:0.25;font-size:9px;color:#888;text-align:center;line-height:1.4}
+.mp-viewall{text-align:center;font-size:9px;color:#ccc;margin-top:10px;cursor:pointer;letter-spacing:1px;user-select:none}
+.mp-all-grid{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px}
+.mp-all-grid.open{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mp-all-row{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:#1e1e1e;border-radius:6px;border:1px solid rgba(255,255,255,0.05)}
+.sector-note{margin-top:16px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px 18px}
+.sector-note-label{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#888;margin-bottom:10px}
+.sector-note-body{font-size:14px;line-height:1.7;color:#b8c4d0}
+.events-section{background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);padding:22px 32px}
+.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.event-card{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px}
+.event-date{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;letter-spacing:2px;margin-bottom:6px}
+.event-name{font-size:14px;font-weight:700;color:#c8dff0;margin-bottom:4px}
+.event-loc{font-size:12px;color:rgba(255,255,255,0.35)}
+.event-tag{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:1px;padding:3px 10px;border-radius:3px;background:rgba(74,158,255,0.08);color:#4a9eff;border:1px solid rgba(74,158,255,0.2);font-family:'Space Mono',monospace}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.st{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:#888}
+.sl{flex:1;height:2px;background:rgba(255,255,255,0.08);border-radius:1px}
+.footer{padding:14px 32px;display:flex;justify-content:space-between;background:#0a0a0a;flex-wrap:wrap;gap:8px;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-text{font-family:'Space Mono',monospace;font-size:9px;color:rgba(200,220,255,0.12);letter-spacing:3px}
+.scan{height:3px;background:linear-gradient(90deg,#1a1a1a,#4a9eff,#1a1a1a)}
+.chat-bubble{position:fixed;bottom:28px;right:28px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.chat-bubble-btn{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.18),transparent 60%),linear-gradient(180deg,#242424,#0a0a0a);border:1px solid rgba(255,255,255,0.2);border-top:1px solid rgba(255,255,255,0.4);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 32px rgba(0,0,0,0.6);transition:transform 0.2s;position:relative}
+.chat-bubble-btn:hover{transform:scale(1.08);box-shadow:0 12px 38px rgba(0,0,0,0.7)}
+.chat-bubble-btn svg{width:26px;height:26px;fill:#fff}
+.chat-bubble-badge{position:absolute;top:-3px;right:-3px;background:#fff;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 5px;border-radius:10px;border:2px solid #141414;white-space:nowrap}
+.chat-bubble-tooltip{background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;max-width:200px;box-shadow:0 4px 20px rgba(0,0,0,0.4);cursor:pointer;transition:border-color 0.2s;text-decoration:none;display:block;animation:bubbleIn 0.3s ease}
+.chat-bubble-tooltip:hover{border-color:#2a4a6a}
+.chat-tooltip-title{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:4px}
+.chat-tooltip-text{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4}
+.analyst-banner-wrap{background:#141414;padding:22px 32px}
+.analyst-banner{background:radial-gradient(circle at 18% 40%,rgba(255,255,255,0.13),transparent 55%),linear-gradient(180deg,#242424,#0a0a0a);border:1px solid rgba(255,255,255,0.18);border-top:1px solid rgba(255,255,255,0.35);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:30px;box-shadow:0 12px 44px rgba(0,0,0,0.6)}
+.analyst-banner-text{flex:1}
+.analyst-banner-kicker{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:#888;margin-bottom:10px}
+.analyst-banner-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:500;letter-spacing:2px;color:#fff;line-height:1.1;margin-bottom:10px}
+.analyst-banner-sub{font-size:13px;color:#cfcfcf;line-height:1.6;max-width:520px}
+.analyst-banner-cta{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#fff;padding:13px 26px;border-radius:6px;white-space:nowrap;text-decoration:none;flex-shrink:0;transition:opacity 0.2s;box-shadow:0 4px 18px rgba(255,255,255,0.15)}
+.analyst-banner-cta:hover{opacity:0.85}
+.search-bar-wrap{background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:10px 32px;position:relative}
+.search-row{display:flex;align-items:center;gap:12px;width:100%}
+.search-inner{display:flex;align-items:center;gap:8px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:9px 14px;flex:1;transition:border-color 0.2s}
+.search-inner:focus-within{border-color:rgba(255,255,255,0.25);box-shadow:0 0 0 3px rgba(255,255,255,0.04)}
+.search-input{background:none;border:none;outline:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;color:#c8dff0;width:100%}
+.search-input::placeholder{color:rgba(255,255,255,0.25);letter-spacing:0.5px}
+.search-clear{font-family:'Space Mono',monospace;font-size:10px;color:#3a5a7a;cursor:pointer;padding:0 4px;transition:color 0.15s}
+.search-clear:hover{color:#c8dff0}
+.search-count{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;white-space:nowrap}
+.search-nav{display:flex;align-items:center;gap:6px}
+.search-nav-btn{font-family:'Space Mono',monospace;font-size:9px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:5px 10px;border-radius:4px;cursor:pointer;transition:all 0.15s}
+.search-nav-btn:hover{background:rgba(74,158,255,0.15)}
+.search-nav-btn:disabled{color:#3a5a7a;background:transparent;border-color:rgba(255,255,255,0.08);cursor:not-allowed}
+.search-pos{font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:1px;min-width:40px;text-align:center}
+.search-dropdown{position:absolute;top:calc(100% + 2px);left:32px;right:32px;background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.6);z-index:1000;max-height:300px;overflow-y:auto}
+.search-drop-header{padding:8px 14px;background:#141414;border-bottom:1px solid rgba(255,255,255,0.08);font-family:'Space Mono',monospace;font-size:8px;color:#3a5a7a;letter-spacing:2px}
+.search-result-item{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;display:flex;align-items:flex-start;gap:10px}
+.search-result-item:hover{background:rgba(74,158,255,0.08)}
+.search-result-item:last-child{border-bottom:none}
+.sri-cat{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.sri-head{font-size:12px;font-weight:600;color:#c8dff0;line-height:1.4;margin-bottom:3px}
+.sri-excerpt{font-size:11px;color:#3a5a7a;line-height:1.5}
+.sri-head mark,.sri-excerpt mark,.story-head mark,.story-teaser mark{background:rgba(74,158,255,0.25);color:#1a5fa0;border-radius:2px;padding:0 2px;font-style:normal;font-weight:700}
+.story-hidden{display:none!important}
+.story.active-result{border-color:#4a9eff!important;box-shadow:0 0 0 2px rgba(74,158,255,0.2),0 0 20px rgba(74,158,255,0.12)!important}
+.story.dimmed{opacity:0.2}
+@media(max-width:768px){
+  .topbar{padding:6px 12px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .topbar-left{flex-direction:row;align-items:center;gap:6px}
+  .topbar-divider{display:none}
+  .topbar-right{gap:6px;flex-wrap:nowrap}
+  .topbar-left{gap:5px}
+  .live{font-size:7px;letter-spacing:1px;white-space:nowrap}
+  .dot{width:4px;height:4px}
+  #moonphase{display:none}
+  .ts{display:none}
+  .beta-badge{display:inline-flex;align-items:center;font-size:6px;padding:1px 4px;color:rgba(200,220,255,0.3);border-color:rgba(255,255,255,0.1);margin-top:0;align-self:center}
+  .early{display:none}
+  .analyst-pill{font-size:7px;padding:2px 8px;letter-spacing:1px}
+  .launch-pill{font-size:7px!important;padding:2px 8px!important;letter-spacing:1px!important;border-radius:12px!important;gap:4px!important;white-space:nowrap!important}
+  img[alt="PRISM"]{height:36px!important;opacity:0.85}
+  #prism-auth-btn{font-size:7px!important;padding:6px 10px!important;letter-spacing:1px!important;margin-right:5px!important;white-space:nowrap}
+  button[onclick*="sub-modal"]{font-size:7px!important;padding:6px 10px!important;letter-spacing:1px!important;white-space:nowrap}
+  .beta-badge{display:none!important}
+  .section-briefing-map{grid-template-columns:1fr;display:flex;flex-direction:column;background:#141414}
+  .briefing-left{padding:0;border-right:none;border-bottom:none}
+  .briefing-frame{margin:10px;border-radius:8px}
+  .map-right{margin:10px;border-radius:8px}
+  .map-header-inner{flex-direction:column;align-items:flex-start;gap:10px}
+  .map-title-inner{font-size:19px;letter-spacing:1px;white-space:nowrap}
+  .map-count{align-self:flex-start}
+  .briefing-frame-title{font-size:20px;letter-spacing:2px;white-space:normal}
+  .badges{flex-wrap:nowrap;gap:6px;margin-bottom:10px}
+  .badge-bullish,.badge-bearish,.badge-neutral,.badge-geo-low,.badge-geo-medium,.badge-geo-high,.badge-geo-critical{font-size:8px;padding:4px 8px;letter-spacing:1px;white-space:nowrap}
+  .summary{font-size:14px}
+  .map-right{min-height:240px}
+  .section-orr{grid-template-columns:1fr;gap:12px;padding:16px}
+  .page{padding:14px 16px}
+  .stories-grid{grid-template-columns:1fr}
+  .story-section-wrap{background:none;border:none;border-radius:0;padding:0;margin-bottom:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.12)}
+  .section-title{font-size:20px;letter-spacing:2px;white-space:normal}
+  .outlook-section .section-header,.reg-section .section-header{display:flex;flex-direction:column;align-items:flex-start}
+  .outlook-section .section-header-row,.reg-section .section-header-row{display:contents}
+  .outlook-section .section-title,.reg-section .section-title{order:1;font-size:19px;letter-spacing:1px;white-space:nowrap}
+  .outlook-section .section-underline,.reg-section .section-underline{order:2;margin-top:6px;margin-bottom:12px}
+  .outlook-section .section-header-row>:nth-child(2),.reg-section .section-header-row>:nth-child(2){order:3}
+  .stories-grid{grid-template-columns:1fr}
+  .outlook-section{padding:16px}
+  .outlook-grid{grid-template-columns:1fr}
+  .reg-section{padding:16px}
+  .reg-inner{grid-template-columns:1fr;display:flex;flex-direction:column}
+  .reg-areas-grid{grid-template-columns:1fr}
+  .poly-section,.stocks-section,.events-section{padding:16px}
+  .mp-name{display:none}.mp-price{font-size:12px}.mp-ticker{font-size:11px}
+  .stocks-section .section-header{display:flex;flex-direction:column;align-items:flex-start}
+  .stocks-section .section-header-row{display:contents}
+  .stocks-section .section-title{order:1;font-size:19px;letter-spacing:1px;white-space:nowrap}
+  .stocks-section .section-underline{order:2;margin-top:6px;margin-bottom:12px}
+  .stocks-section #stocks-status{order:3;margin-bottom:6px}
+  .event-grid{grid-template-columns:1fr}
+  .footer{padding:12px 16px}
+  .chat-bubble{bottom:16px;right:16px}
+  .search-bar-wrap{padding:8px 12px}
+  .search-row{width:100%}
+  .search-inner{max-width:none;flex:1;width:100%}
+  .search-count{display:none}
+  .search-nav{flex-shrink:0}
+  .chat-bubble-tooltip{display:none}
+  .sector-filter{padding:12px 16px;border-bottom:none;flex-wrap:wrap;justify-content:center;gap:6px;overflow-x:visible}
+  .sector-tab{font-size:8px;letter-spacing:1px;padding:8px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;color:#888;margin-bottom:0;background:#1e1e1e}
+  .sector-tab.active{color:#0a0a0a;background:#fff;border-color:#fff;border-bottom-color:#fff}
+  .analyst-banner-wrap{padding:16px}
+  .analyst-banner{flex-direction:column;align-items:stretch;padding:24px;gap:20px;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,0.15),transparent 55%),linear-gradient(180deg,#242424,#0a0a0a)}
+  .analyst-banner-title{font-size:22px;letter-spacing:1px}
+  .analyst-banner-sub{max-width:none}
+  .analyst-banner-cta{text-align:center;padding:14px}
+}
+@media(max-width:480px){
+  .mp-grid{grid-template-columns:1fr 1fr}
+  .story-head{font-size:16px}
+  .pred-dd-content{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="prism-gate" style="position:fixed;inset:0;z-index:99999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto">
+  <div style="max-width:640px;width:100%;text-align:center;font-family:'Space Grotesk',sans-serif">
+    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:72px;display:block;margin:0 auto 14px" alt="PRISM"/>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;color:rgba(200,220,255,0.35);margin-bottom:44px">SPACE &amp; DEFENCE INTELLIGENCE</div>
+    <div style="height:1px;background:rgba(255,255,255,0.08);margin-bottom:40px"></div>
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:#34E0C4;margin-bottom:18px">◈ LAUNCHING SOON</div>
+    <div style="font-size:28px;font-weight:500;color:#fff;line-height:1.25;margin-bottom:20px">Real-time space &amp;<br/>defence intelligence</div>
+    <div style="font-size:15px;color:rgba(255,255,255,0.5);line-height:1.7;max-width:460px;margin:0 auto 40px">PRISM aggregates global intelligence across space, defence, geopolitics and markets, delivering actionable insight to professionals who cannot afford to miss a signal. Access is currently limited to early members.</div>
+    <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px;max-width:400px;margin:0 auto">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:16px">REQUEST EARLY ACCESS</div>
+      <input id="gate-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#0a0a0a;border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px"/>
+      <input id="gate-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+      <button id="gate-btn" onclick="gateSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer">REQUEST ACCESS</button>
+      <div id="gate-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;min-height:14px"></div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(200,220,255,0.15);margin-top:44px">◈ PRISM </div>
+  </div>
+</div>
+<script>
+(function(){
+  var TOKEN='earlyaccess';
+  var p=new URLSearchParams(window.location.search).get('access');
+  var stored=null;
+  try{stored=localStorage.getItem('prism_access');}catch(e){}
+  if(p===TOKEN){try{localStorage.setItem('prism_access',TOKEN);}catch(e){} stored=TOKEN;}
+  if(stored===TOKEN){
+    var g=document.getElementById('prism-gate');
+    if(g)g.parentNode.removeChild(g);
+  }else{
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+  }
+})();
+window.gateLoadTime=Date.now();
+async function gateSubscribe(){
+  var email=document.getElementById('gate-email').value.trim();
+  var msg=document.getElementById('gate-msg');
+  var btn=document.getElementById('gate-btn');
+  if(document.getElementById('gate-hp').value){msg.textContent='';return;}
+  if(Date.now()-window.gateLoadTime<3000){msg.style.color='#E24B4A';msg.textContent='PLEASE TRY AGAIN';return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  var tz='UTC';
+  try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){}
+  btn.disabled=true;btn.textContent='SENDING...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/subscribers',{
+      method:'POST',
+      headers:{'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:email,timezone:tz})
+    });
+    if(r.status===201){msg.style.color='#7DC8F0';msg.textContent='REQUEST RECEIVED';if(window.gtag)gtag('event','access_request');btn.textContent='DONE';}
+    else if(r.status===409){msg.style.color='#FFC24B';msg.textContent='ALREADY ON THE LIST';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
+    else{msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
+  }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='REQUEST ACCESS';}
+}
+</script>
+<div id="prism-archive-bar" data-built="2026-08-29T12:06:21.184Z" style="display:none;position:fixed;top:0;left:0;right:0;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,0.14);padding:11px 20px;z-index:9500;box-shadow:0 2px 12px rgba(0,0,0,0.5)">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#0a0a0a;background:#FFC24B;padding:4px 9px;border-radius:3px;font-weight:700">ARCHIVED EDITION</span>
+      <span id="prism-archive-time" style="font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:1px"></span>
+    </div>
+    <a href="https://dashboard.prism-osint.com" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#0a0a0a;background:#34E0C4;padding:8px 16px;border-radius:20px;text-decoration:none;font-weight:700;white-space:nowrap">LIVE DASHBOARD →</a>
+  </div>
+</div>
+<script>
+(function(){
+  if(!window.location.pathname.includes('/archive/')) return;
+  var bar=document.getElementById('prism-archive-bar');
+  if(!bar) return;
+  var t=document.getElementById('prism-archive-time');
+  try{
+    var d=new Date(bar.getAttribute('data-built'));
+    var s=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',timeZone:'Asia/Dubai'}).toUpperCase();
+    var h=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Dubai'});
+    if(t)t.textContent=s+' · '+h+' GST';
+  }catch(e){}
+  bar.style.display='block';
+  document.body.style.paddingTop=bar.offsetHeight+'px';
+  window.PRISM_BAR_H=bar.offsetHeight;
+})();
+</script>
+  <div class="scan"></div>
+  <style>
+.pnav-item{position:relative}
+.pnav-link-nav{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(200,220,255,0.4);padding:0 20px;display:flex;align-items:center;cursor:pointer;white-space:nowrap;transition:color 0.2s;height:56px;border-bottom:2px solid transparent;user-select:none;text-decoration:none}
+.pnav-link-nav.active{color:rgba(200,220,255,0.95);border-bottom:2px solid rgba(200,220,255,0.55)}
+.pnav-item:hover>.pnav-link-nav{color:rgba(200,220,255,0.95)}
+.pnav-dropdown-nav{display:none;position:absolute;top:56px;left:0;background:#0a0a0a;border:1px solid rgba(255,255,255,0.1);border-top:2px solid rgba(255,255,255,0.5);min-width:300px;z-index:9999}
+.pnav-item:hover>.pnav-dropdown-nav{display:block}
+@media(max-width:768px){
+  #mob-menu-btn{display:flex!important}
+  #mob-menu.mob-open{display:flex!important}
+  #moonphase{display:none!important}
+  .ts{display:none!important}
+}
+.drop-header-nav{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:#666;padding:12px 18px 8px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between}
+.drop-launch-nav{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.15s;text-decoration:none}
+.drop-launch-nav:hover{background:rgba(255,255,255,0.03)}
+.drop-cd{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#fff;min-width:40px;text-align:center}
+.drop-mission{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#e8e8e8;margin-bottom:3px}
+.drop-meta-nav{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:#666}
+.drop-st{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:1px;padding:2px 7px;border-radius:2px;white-space:nowrap}
+.dst-go{background:rgba(0,180,80,0.12);color:#00cc60;border:1px solid rgba(0,180,80,0.25)}
+.dst-tbd{background:rgba(200,120,0,0.12);color:#cc8800;border:1px solid rgba(200,120,0,0.25)}
+.drop-footer-nav{padding:10px 18px;border-top:1px solid rgba(255,255,255,0.05);text-align:center}
+.drop-footer-nav a{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#888;text-decoration:none;transition:color 0.2s}
+.drop-footer-nav a:hover{color:#fff}
+@media(max-width:768px){
+  .pnav-desktop{display:none!important}
+}
+</style>
+<div style="background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:500">
+  <div style="display:flex;align-items:center;gap:0;height:56px">
+    <a href="https://prism-osint.com" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:36px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+      <span style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:rgba(200,220,255,0.3);border:1px solid rgba(200,220,255,0.12);padding:2px 6px;border-radius:3px;align-self:center">BETA</span>
+    </a>
+    <div class="pnav-desktop" style="display:flex;align-items:stretch;height:56px;margin-left:24px">
+      <div class="pnav-item">
+        <a href="https://dashboard.prism-osint.com" class="pnav-link-nav active">INTELLIGENCE</a>
+      </div>
+      <div class="pnav-item">
+        <div class="pnav-link-nav">UPCOMING LAUNCHES ▾</div>
+        <div class="pnav-dropdown-nav">
+          <div class="drop-header-nav">
+            <span>NEXT 3 LAUNCHES</span>
+            <span id="nav-api-status" style="font-size:7px;color:rgba(200,220,255,0.2)">LOADING...</span>
+          </div>
+          <div id="nav-launch-list">
+            <div style="padding:20px 18px;font-family:'Space Mono',monospace;font-size:8px;color:rgba(200,220,255,0.25);letter-spacing:2px">◈ FETCHING LIVE DATA...</div>
+          </div>
+          <div class="drop-footer-nav">
+            <a href="https://prism-osint.com/launches">VIEW ALL LAUNCHES →</a>
+          </div>
+        </div>
+      </div>
+      <div class="pnav-item">
+        <a href="https://prism-osint.com/events" class="pnav-link-nav">EVENTS</a>
+      </div>
+      <div class="pnav-item">
+        <a href="https://consultant.prism-osint.com" class="pnav-link-nav">PRISM AI</a>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <button onclick="document.getElementById('sub-modal').style.display='flex'" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#0a0a0a;background:#7DC8F0;border:none;padding:9px 18px;border-radius:20px;cursor:pointer;font-weight:700;white-space:nowrap">EMAIL BRIEFING</button>
+    <button id="prism-auth-btn" onclick="openLogin()" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#7DC8F0;background:transparent;border:1px solid #7DC8F0;padding:9px 18px;border-radius:20px;cursor:pointer;font-weight:700;white-space:nowrap;margin-right:10px;display:none;">LOG IN</button>
+    <div id="moonphase" style="font-size:16px;filter:grayscale(1);opacity:0.4"></div>
+    <div style="display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(200,220,255,0.28)"><div class="dot"></div>LIVE</div>
+    <div class="ts" id="datetime"></div>
+    <div id="mob-menu-btn" onclick="document.getElementById('mob-menu').classList.toggle('mob-open')" style="display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px">
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+      <span style="display:block;width:20px;height:1.5px;background:rgba(200,220,255,0.5)"></span>
+    </div>
+  </div>
+</div>
+<div id="mob-menu" style="display:none;position:fixed;inset:0;background:#000000;z-index:9999;flex-direction:column;align-items:center;justify-content:center">
+  <div style="position:absolute;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid rgba(255,255,255,0.06)">
+    <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/refs/heads/main/PRISM-2.png" style="height:64px;width:auto;object-fit:contain;filter:brightness(1.2)" alt="PRISM"/>
+    <div onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:12px;color:rgba(200,220,255,0.5);cursor:pointer;padding:8px;border:1px solid rgba(200,220,255,0.12);border-radius:4px;line-height:1">✕</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;width:100%">
+    <a href="https://dashboard.prism-osint.com" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04)">INTELLIGENCE</a>
+    <a href="https://prism-osint.com/launches" onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04)">UPCOMING LAUNCHES</a>
+    <a href="https://prism-osint.com/events" onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left;border-bottom:1px solid rgba(255,255,255,0.04)">EVENTS</a>
+    <a href="https://consultant.prism-osint.com" onclick="document.getElementById('mob-menu').classList.remove('mob-open')" style="font-family:'Space Mono',monospace;font-size:14px;letter-spacing:4px;color:rgba(200,220,255,0.6);padding:24px 32px;text-decoration:none;width:100%;text-align:left">PRISM AI</a>
+  </div>
+  <div style="position:absolute;bottom:40px;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(200,220,255,0.15)">◈ PRISM · SPACE & DEFENCE</div>
+</div>
+<div class="search-bar-wrap" id="search-wrap">
+  <div class="search-row">
+    <div class="search-inner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" id="prism-search" type="text" placeholder="SEARCH PRISM" onkeydown="if(event.key==='Enter')prismSearch(this.value)"/>
+      <button onclick="prismSearch(document.getElementById('prism-search').value)" style="font-family:'Space Mono',monospace;font-size:8px;color:#ccc;background:#2e2e2e;border:1px solid rgba(255,255,255,0.15);padding:4px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;white-space:nowrap;flex-shrink:0">SEARCH</button>
+      <div class="search-clear" id="search-clear" onclick="clearSearch()" style="display:none">✕</div>
+    </div>
+    <div class="search-count" id="search-count"></div>
+    <div class="search-nav" id="search-nav" style="display:none">
+      <button class="search-nav-btn" id="btn-prev" onclick="navResult(-1)">▲ PREV</button>
+      <div class="search-pos" id="search-pos">1 / 1</div>
+      <button class="search-nav-btn" id="btn-next" onclick="navResult(1)">▼ NEXT</button>
+    </div>
+  </div>
+  <div class="search-dropdown" id="search-dropdown" style="display:none"></div>
+  <div id="search-banner" style="display:none;background:#141414;border-bottom:1px solid rgba(255,255,255,0.12);padding:8px 32px;font-family:'Space Mono',monospace;font-size:9px;color:#ccc;letter-spacing:2px;align-items:center;gap:10px"></div>
+</div>
+<div class="section-briefing-map">
+  <div class="briefing-left">
+    <div class="briefing-frame">
+      <div class="briefing-frame-header">
+        <div class="briefing-frame-title">INTELLIGENCE BRIEFING</div>
+        <div class="badges">
+          <div><div class="brief-field-lbl">SENTIMENT</div><div class="brief-field-val" style="color:#fff">NEUTRAL</div></div><div class="brief-divider"></div><div><div class="brief-field-lbl">GEO RISK</div><div class="brief-field-val" style="color:#ff8c00">HIGH</div></div>
+        </div>
+      </div>
+      <div class="briefing-frame-body">
+        <div class="summary">Directed-energy weapons crossed from test ranges into active border enforcement this week as US forces downed three cartel drones with lasers in Texas, while simultaneously the Air Force locked Boeing into a $131 billion F-15 ceiling contract and the Pentagon lost its Anthropic blacklisting case — together these events signal that the US defence establishment is simultaneously hardening its near-term kinetic posture and losing its bid to gate-keep AI suppliers on ideological grounds. The contradiction lies in scale: the laser intercepts demonstrate that cheap directed-energy can outperform expensive interceptors against low-cost threats, yet the $131 billion F-15 award doubles down on legacy platforms whose unit economics sit at the opposite end of the cost curve, suggesting acquisition inertia is running ahead of the doctrinal shift the laser kills validate. The single indicator to watch within 72 hours is whether SpaceXs Falcon Heavy successfully places the Nancy Grace Roman Space Telescope in orbit on Sunday — a clean deployment would confirm that Americas commercial heavy-lift supply chain is fully mature and shift capital allocation debates toward payload demand rather than launch supply.</div>
+      </div>
+    </div>
+  </div>
+  <div class="map-right">
+    <div class="map-header-inner" style="align-items:flex-start">
+      <div class="map-title-inner">GLOBAL INTELLIGENCE MAP</div>
+      <span id="incident-count" class="map-count">LIVE · 0 INCIDENTS</span>
+    </div>
+    <div class="map-body-inner">
+      <div id="prism-map" style="height:100%;min-height:220px"></div>
+    </div>
+    <div id="incident-list-top" style="display:none"></div>
+  </div>
+</div>
+<div class="section-orr">
+  <div class="ocard-green prism-locked">
+    <div class="ocard-header-green"><div class="ocard-title-green">OPPORTUNITY · TODAY</div></div>
+    <div class="ocard-body prism-blur"><div class="ocard-text">The Pentagon cheaper-interceptor contract award signals structural procurement demand for cost-asymmetric missile solutions, making suppliers in that niche the most actionable long-side position for defence-focused funds this week.</div></div>
+    <div class="prism-lock-overlay"><svg class="prism-lock-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7DC8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><button class="prism-lock-btn" onclick="openPro()">PRO · COMING SOON</button></div>
+  </div>
+  <div class="ocard-red prism-locked">
+    <div class="ocard-header-red"><div class="ocard-title-red">RISK · TODAY</div></div>
+    <div class="ocard-body prism-blur"><div class="ocard-text">A Falcon Heavy anomaly or Roman telescope deployment failure on Sunday would damage commercial launch confidence across the sector and accelerate the share-price deterioration already visible in new-space names at their last close.</div></div>
+    <div class="prism-lock-overlay"><svg class="prism-lock-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7DC8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><button class="prism-lock-btn" onclick="openPro()">PRO · COMING SOON</button></div>
+  </div>
+</div>
+        <div class="stocks-section" id="stocks-section">
+  <div class="mp-card">
+  <div class="section-header" style="margin-top:0;padding-top:0;border-top:none">
+    <div class="section-header-row">
+      <div class="section-title">MARKET PULSE</div>
+      <div id="stocks-status" style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:1px;background:rgba(0,232,122,0.08);padding:3px 9px;border:1px solid rgba(0,232,122,0.3)">LIVE</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+  <div class="mp-wrap" id="mp-wrap">
+    <div class="mp-grid" id="mp-grid">
+      <div style="grid-column:1/-1;font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;letter-spacing:2px;padding:20px 0">◈ LOADING LIVE PRICES...</div>
+    </div>
+    <div class="mp-viewall" id="mp-viewall" style="display:none" onclick="toggleViewAll()">VIEW ALL ↓</div>
+    <div class="mp-all-table" id="mp-all-table"></div>
+  </div>
+  <div class="sector-note" id="stocks-outlook" style="background:#141414">
+    <div class="sector-note-label">◈ SECTOR ANALYSIS</div>
+    <div class="sector-note-body">If the Roman telescope launch succeeds Sunday and the Iran-Hormuz stalemate continues to compress Gulf shipping volumes, defence primes with directed-energy and naval systems portfolios stand to attract the strongest institutional inflows over the coming quarter.</div>
+  </div>
+  </div>
+</div>
+<div class="analyst-banner-wrap"><div class="analyst-banner">
+  <div class="analyst-banner-text">
+    <div class="analyst-banner-kicker">◆ INTELLIGENCE ANALYST</div>
+    <div class="analyst-banner-title">ASK PRISM ANALYST</div>
+    <div class="analyst-banner-sub">Consult the analyst behind the briefing — deep-dive any development, stress-test the data, and surface the second-order implications.</div>
+  </div>
+  <a href="https://consultant.prism-osint.com" target="_blank" class="analyst-banner-cta">▸ LAUNCH ANALYST</a>
+</div></div>
+<!-- SECTOR FILTER BAR -->
+<div class="sector-filter" id="sector-filter-bar">
+  <button class="sector-tab active" onclick="filterSector('all',this)">ALL</button>
+  <button class="sector-tab" data-sector="space" onclick="filterSector('space',this)">SPACE</button>
+  <button class="sector-tab" data-sector="defence" onclick="filterSector('defence',this)">DEFENCE</button>
+  <button class="sector-tab" data-sector="middle_east" onclick="filterSector('middle_east',this)">MIDDLE EAST</button>
+  <button class="sector-tab" data-sector="ai_tech" onclick="filterSector('ai_tech',this)">AI & TECH</button>
+  <button class="sector-tab" data-sector="investment" onclick="filterSector('investment',this)">INVESTMENT</button>
+  <button class="sector-tab" data-sector="ipo_watch" onclick="filterSector('ipo_watch',this)">IPO WATCH</button>
+</div>
+
+<div class="page" id="news">
+  
+        <div class="story-section-wrap" data-sector="space">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">SPACE</div>
+              <div class="section-count-box">06 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-crit" id="story-falcon-heavy-set-to-launch-roman-telesco">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2025/08/Gy7aFPMXMAAkg8X.jpeg" class="story-img" alt="Falcon Heavy set to launch Roman telescope Sunday" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
+            </div>
+            <div class="story-head">Falcon Heavy set to launch Roman telescope Sunday</div>
+            <div class="story-teaser">SpaceX is targeting a Sunday launch window for its Falcon Heavy rocket carrying NASAs Nancy Grace Roman Space Telescope from Kennedy Space Center in Florida, according to NASASpaceFlight and SpaceFlightNow. The mission represents one of the most scientifically significant NASA payloads to fly on a commercial heavy-lift vehicle and has drawn viewing interest across Volusia, Brevard, and Treasure Coast counties.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A successful deployment would validate Falcon Heavy as the backbone of high-value NASA science delivery and strengthen the case for commercial heavy-lift procurement over government-owned alternatives, directly affecting launch contract valuations across the sector.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/08/launch-preview-082426/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Falcon Heavy set to launch Roman telescope Sunday" data-l="https://dashboard.prism-osint.com#story-falcon-heavy-set-to-launch-roman-telesco" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/08/launch-preview-082426/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-esa-awards-first-european-launcher-chall">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-29-11-53-55-612.jpg" class="story-img" alt="ESA awards first European Launcher Challenge contracts" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Europe</span>
+              <span class="story-score sc-crit">CRITICAL · 75</span>
+            </div>
+            <div class="story-head">ESA awards first European Launcher Challenge contracts</div>
+            <div class="story-teaser">The European Space Agency has awarded its first contracts under the European Launcher Challenge, a competitive programme designed to stimulate next-generation sovereign launch capability across the continent, according to NASASpaceFlight. The awards mark a structural shift in ESAs procurement posture away from institutional monopoly toward a US-style competitive commercial model.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>These contracts signal that European launch investment is entering a multi-vendor era, creating near-term revenue visibility for challenger launch firms and putting pressure on incumbent Arianespace to accelerate its cost reduction roadmap.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/08/esa-european-launcher-challenge-contracts/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="ESA awards first European Launcher Challenge contracts" data-l="https://dashboard.prism-osint.com#story-esa-awards-first-european-launcher-chall" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/08/esa-european-launcher-challenge-contracts/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-landspace-zhuque-3-topples-after-milesto">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-23-19-39-25-057.jpg" class="story-img" alt="LandSpace Zhuque-3 topples after milestone booster landing" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Asia-Pacific</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">LandSpace Zhuque-3 topples after milestone booster landing</div>
+            <div class="story-teaser">LandSpaces Zhuque-3 rocket completed its second flight with a successful first-stage booster landing, making LandSpace the first commercial Chinese company to recover an orbital-class booster, before the vehicle toppled post-landing, according to NASASpaceFlight and SpaceFlightNow. The toppling does not negate the landing achievement but raises questions about the recovery infrastructure maturity needed before the booster can be reflown.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Chinas commercial reusability milestone narrows the perceived technology gap with SpaceX and signals to Western defence and intelligence communities that indigenous Chinese launch costs will compress materially within two to three years, with direct implications for commercial satellite economics globally.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/08/landspaces-zhuque-3-topples/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="LandSpace Zhuque-3 topples after milestone booster landing" data-l="https://dashboard.prism-osint.com#story-landspace-zhuque-3-topples-after-milesto" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/08/landspaces-zhuque-3-topples/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-nigeria-selects-thales-and-iai-for-new-c">
+          <img src="https://c76c7bbc41.mjedge.net/wp-content/uploads/tc/2026/08/Copy-of-Tap-to-view-Story-Template-2026-08-28T120316.486.jpg" class="story-img" alt="Nigeria selects Thales and IAI for new comms satellites" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Africa</span>
+              <span class="story-score sc-high">HIGH · 60</span>
+            </div>
+            <div class="story-head">Nigeria selects Thales and IAI for new comms satellites</div>
+            <div class="story-teaser">French aerospace firm Thales Alenia Space and Israel Aerospace Industries have been selected to build Nigerias next communications satellites, according to TechCabal. The award places two allied Western suppliers at the centre of one of Africas largest sovereign space programmes and signals continued preference for proven European and Israeli heritage over emerging Chinese competitors in the Nigerian market.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>The dual-supplier model chosen by Nigeria could serve as a template for other African nations seeking to diversify space dependencies away from single-country vendors, representing a meaningful pipeline expansion opportunity for both Thales and IAI.</div>
+            <div class="story-footer">
+              <a href="https://techcabal.com/2026/08/28/nigeria-picks-french-israeli-firms-for-new-satellites/" target="_blank" class="story-source">▸ techcabal</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Nigeria selects Thales and IAI for new comms satellites" data-l="https://dashboard.prism-osint.com#story-nigeria-selects-thales-and-iai-for-new-c" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://techcabal.com/2026/08/28/nigeria-picks-french-israeli-firms-for-new-satellites/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-stoke-space-completes-nova-first-stage-e">
+          <img src="https://www.nasaspaceflight.com/wp-content/uploads/2026/08/AE14D6E5-F897-4488-A5CC-150A3985FC1C.jpeg" class="story-img" alt="Stoke Space completes Nova first stage engines ahead of debut" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-high">HIGH · 55</span>
+            </div>
+            <div class="story-head">Stoke Space completes Nova first stage engines ahead of debut</div>
+            <div class="story-teaser">Stoke Space has completed first stage engine assembly and conducted second stage fit checks as it advances toward the debut launch of its Nova rocket, according to NASASpaceFlight. Nova is a fully reusable launch vehicle targeting a competitive position in the medium-lift commercial market currently served by Rocket Lab and Firefly.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Stoke Space reaching engine completion ahead of Nova debut adds another credible entrant to the reusable medium-lift segment and increases competitive pressure on existing operators, which is relevant context for investors assessing the long-term pricing power of RKLB at its current valuation.</div>
+            <div class="story-footer">
+              <a href="https://www.nasaspaceflight.com/2026/08/stoke-update-081926/" target="_blank" class="story-source">▸ NASASpaceFlight</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Stoke Space completes Nova first stage engines ahead of debut" data-l="https://dashboard.prism-osint.com#story-stoke-space-completes-nova-first-stage-e" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.nasaspaceflight.com/2026/08/stoke-update-081926/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-spacex-tops-11-000-satellites-in-low-ear">
+          <img src="http://spaceflightnow.com/wp-content/uploads/2026/08/20260819_Starlink_17-50_liftoff.jpeg" class="story-img" alt="SpaceX tops 11,000 satellites in low Earth orbit" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Global</span>
+              <span class="story-score sc-high">HIGH · 50</span>
+            </div>
+            <div class="story-head">SpaceX tops 11,000 satellites in low Earth orbit</div>
+            <div class="story-teaser">SpaceX has surpassed 11,000 operational Starlink satellites in low Earth orbit following its recent Falcon 9 cadence, which included its 100th orbital mission of 2026 in August, according to SpaceFlightNow. The milestone cements Starlinks structural dominance of the LEO broadband market and substantially widens its lead over Amazon LEO and other constellation programmes.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>At 11,000 satellites, Starlink achieves a network density that materially raises the infrastructure cost any competitor must match to offer equivalent coverage, compressing the addressable market window for Amazon LEO and other funded challengers.</div>
+            <div class="story-footer">
+              <a href="https://spaceflightnow.com/2026/08/18/live-coverage-spacex-to-send-starlink-satellites-to-orbit-with-tuesday-night-launch-from-california/" target="_blank" class="story-source">▸ SpaceFlightNow</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="SpaceX tops 11,000 satellites in low Earth orbit" data-l="https://dashboard.prism-osint.com#story-spacex-tops-11-000-satellites-in-low-ear" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://spaceflightnow.com/2026/08/18/live-coverage-spacex-to-send-starlink-satellites-to-orbit-with-tuesday-night-launch-from-california/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+        <div class="story-section-wrap" data-sector="defence">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">DEFENCE</div>
+              <div class="section-count-box">06 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-crit" id="story-boeing-wins-131b-f-15-contract-through-2">
+          <img src="https://www.armytimes.com/resizer/v2/LKL3YP6ABNCWXCYYN5LMDFBXFI.jpg?width=1200&auth=25b0d8a41e448b0c7d10f0d91650574fb4287e88041680af146a874d227220f7" class="story-img" alt="Boeing wins $131B F-15 contract through 2037" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">Boeing wins $131B F-15 contract through 2037</div>
+            <div class="story-teaser">The US Air Force has awarded Boeing a $131 billion ceiling contract for F-15 production and modernisation to sustain the Eagle fleet through 2037, according to Defense News and Shephard Media. The contract is one of the largest single-platform sustainment awards in US Air Force history and locks Boeing into a long-duration revenue stream even as its commercial aviation division continues to face operational headwinds.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A $131 billion ceiling commitment through 2037 provides Boeing Defence with a structural revenue floor that partially de-risks the companys overall investment thesis and may support BA share stabilisation independent of commercial aviation recovery progress.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/news/your-military/2026/08/28/air-force-awards-boeing-131-billion-ceiling-contract-for-f-15-production-modernization/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Boeing wins $131B F-15 contract through 2037" data-l="https://dashboard.prism-osint.com#story-boeing-wins-131b-f-15-contract-through-2" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/news/your-military/2026/08/28/air-force-awards-boeing-131-billion-ceiling-contract-for-f-15-production-modernization/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-us-military-uses-laser-to-down-3-cartel-">
+          <img src="https://kvia.com/wp-content/uploads/2026/08/260826-D-D0945-3729.jpg" class="story-img" alt="US military uses laser to down 3 cartel drones in Texas" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 85</span>
+            </div>
+            <div class="story-head">US military uses laser to down 3 cartel drones in Texas</div>
+            <div class="story-teaser">US service members used a directed-energy laser system to neutralise three suspected drug cartel drones near the Rio Grande Valley in southern Texas, the Department of War confirmed, marking the third laser intercept near the border, according to KVIA and ibtimes. The operation demonstrates that directed-energy weapons have transitioned from development programmes into active operational border defence roles at a cadence sufficient to form a pattern.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Repeated operational laser intercepts at the southern border create a real-world performance dataset that will accelerate Pentagon procurement of directed-energy systems at scale, directly expanding the addressable market for firms in that segment.</div>
+            <div class="story-footer">
+              <a href="https://kvia.com/news/military/2026/08/28/us-military-downs-3-suspected-cartel-drones-with-laser/" target="_blank" class="story-source">▸ kvia</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="US military uses laser to down 3 cartel drones in Texas" data-l="https://dashboard.prism-osint.com#story-us-military-uses-laser-to-down-3-cartel-" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://kvia.com/news/military/2026/08/28/us-military-downs-3-suspected-cartel-drones-with-laser/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-court-blocks-pentagon-blacklisting-of-an">
+          <img src="https://www.armytimes.com/resizer/v2/MANNHDY5GFEKRK66KOSZXBHR6A.jpg?width=1200&auth=c3b41dc6b190f2d1711a2bad0dd4c55a152077e06495371ff4012dad8c4efb0c" class="story-img" alt="Court blocks Pentagon blacklisting of Anthropic as illegal" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">Court blocks Pentagon blacklisting of Anthropic as illegal</div>
+            <div class="story-teaser">A federal judge ruled on Thursday that the Pentagons designation of Anthropic as a national security supply-chain risk was unconstitutional retaliation for the AI companys public criticism of the Trump administration, according to Defense News and The Next Web. The ruling voids the blacklisting and restores Anthropic to the defence AI market, delivering a significant legal precedent on the limits of executive authority over AI supplier access.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>The ruling signals that defence AI procurement cannot be legally weaponised as political punishment, which materially lowers regulatory risk for all commercial AI firms seeking Pentagon contracts and may accelerate competitive AI supply-chain diversification across the defence industrial base.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/opinion/2026/08/28/the-devastation-of-nsa-bahrain-is-a-national-security-warning/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Court blocks Pentagon blacklisting of Anthropic as illegal" data-l="https://dashboard.prism-osint.com#story-court-blocks-pentagon-blacklisting-of-an" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/opinion/2026/08/28/the-devastation-of-nsa-bahrain-is-a-national-security-warning/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-gao-us-subs-lost-15-000-operational-days">
+          <img src="https://www.armytimes.com/resizer/v2/PBWR2AEEDZEKRE3BRQEX32YUGE.jpg?width=1200&auth=7143f3bd3d81a6d468102c76982120565de085eedbed37c14aeab063392eb88f" class="story-img" alt="GAO: US subs lost 15,000 operational days to maintenance delays" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">North America</span>
+              <span class="story-score sc-crit">CRITICAL · 75</span>
+            </div>
+            <div class="story-head">GAO: US subs lost 15,000 operational days to maintenance delays</div>
+            <div class="story-teaser">A Government Accountability Office report found that US submarine forces lost 15,000 operational days over ten years due to maintenance backlogs at naval shipyards, according to Defense News. The finding compounds existing concerns about US undersea warfare readiness at a moment when the Strait of Hormuz stalemate and North Korean troop movements in Ukraine are simultaneously stressing US force posture globally.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>The 15,000-day operational gap validates the strategic case for accelerated investment in naval sustainment infrastructure and positions AUKUS-aligned submarine industrial base contractors as long-duration beneficiaries of the forced modernisation cycle.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/industry/techwatch/2026/08/27/15000-operational-days-lost-in-10-years-due-to-us-submarine-maintenance-delays-gao/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="GAO: US subs lost 15,000 operational days to maintenance delays" data-l="https://dashboard.prism-osint.com#story-gao-us-subs-lost-15-000-operational-days" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/industry/techwatch/2026/08/27/15000-operational-days-lost-in-10-years-due-to-us-submarine-maintenance-delays-gao/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-japan-approves-mass-production-of-3d-pri">
+          <img src="https://www.armytimes.com/resizer/v2/NEW7TEUUBFFM3DSXIJMIKV3HNU.jpg?width=1200&auth=671a1e864822a3623c56b7d70891bae457adb1c55440d89b367664a8a6a2b272" class="story-img" alt="Japan approves mass production of 3D-printed interceptor drones" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Asia-Pacific</span>
+              <span class="story-score sc-high">HIGH · 72</span>
+            </div>
+            <div class="story-head">Japan approves mass production of 3D-printed interceptor drones</div>
+            <div class="story-teaser">Japan has approved mass production of domestically designed 3D-printed interceptor drones, according to Defense News, marking a significant step in Tokyos efforts to build an indigenous counter-drone capability at scale and at low unit cost. The decision follows a pattern of Indo-Pacific nations accelerating uncrewed systems production in response to the operational lessons of the Ukraine conflict and rising regional threat density.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Japans commitment to mass-produced low-cost interceptors signals that allied procurement is moving toward attritable drone-on-drone economics rather than expensive missile intercepts, which will reshape the competitive landscape for traditional air defence suppliers operating in the Indo-Pacific region.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/global/asia-pacific/2026/08/27/japan-approves-mass-production-of-3d-printed-interceptor-drones/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Japan approves mass production of 3D-printed interceptor drones" data-l="https://dashboard.prism-osint.com#story-japan-approves-mass-production-of-3d-pri" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/global/asia-pacific/2026/08/27/japan-approves-mass-production-of-3d-printed-interceptor-drones/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-india-turns-to-private-sector-to-acceler">
+          <img src="https://www.armytimes.com/resizer/v2/IZD5PK3BYJGPTF3Y4BBTCGQHF4.jpg?width=1200&auth=348324affc0adb0d781c8d75380530bff96fe695d75fb152f6147b46a26a94b6" class="story-img" alt="India turns to private sector to accelerate missile output" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Asia-Pacific</span>
+              <span class="story-score sc-high">HIGH · 65</span>
+            </div>
+            <div class="story-head">India turns to private sector to accelerate missile output</div>
+            <div class="story-teaser">India is expanding private sector involvement to ramp up domestic missile production, according to Defense News, as New Delhi seeks to reduce dependency on state-owned defence enterprises and compress procurement timelines in a period of elevated regional tension. The initiative is part of a broader Make in India defence push that Finance Minister Sitharaman has simultaneously been promoting to international investors.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Indias structured opening of missile production to private industry creates a competitive entry point for joint venture partners and technology transfer agreements, representing a material market access opportunity for allied defence firms seeking footholds in one of the worlds fastest-growing defence budgets.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/global/asia-pacific/2026/08/28/india-turns-to-private-sector-to-ramp-up-missile-production/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="India turns to private sector to accelerate missile output" data-l="https://dashboard.prism-osint.com#story-india-turns-to-private-sector-to-acceler" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/global/asia-pacific/2026/08/28/india-turns-to-private-sector-to-ramp-up-missile-production/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+        <div class="story-section-wrap" data-sector="middle_east">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">MIDDLE EAST</div>
+              <div class="section-count-box">02 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-crit" id="story-iran-war-at-six-months-hormuz-stalemate-">
+          <img src="https://sentinelcolorado.com/wp-content/uploads/2026/08/AP26239545717733.jpg" class="story-img" alt="Iran war at six months: Hormuz stalemate holds" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Strait of Hormuz / Iran</span>
+              <span class="story-score sc-crit">CRITICAL · 90</span>
+            </div>
+            <div class="story-head">Iran war at six months: Hormuz stalemate holds</div>
+            <div class="story-teaser">Six months after the US-Israeli campaign against Iran began on 28 February, the Strait of Hormuz remains contested, with only 7 ships transiting per day compared to pre-war averages, 6,000 sailors stranded in the waterway, and the US-Iran war carrying an estimated $37.5 billion cost to Washington. Irans leaders publicly acknowledged the economic toll of the conflict while pledging continued diplomacy and defence, signalling no near-term capitulation but also no escalation path to resolution.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A prolonged Hormuz stalemate compresses global energy supply chains and sustains elevated demand for maritime surveillance, mine countermeasures, and Gulf-theatre air defence systems, directly affecting procurement timelines for operators in the region.</div>
+            <div class="story-footer">
+              <a href="https://sentinelcolorado.com/uncategorized/six-months-on-the-iran-war-has-changed-the-middle-east-but-not-in-the-way-its-architects-had-hoped/" target="_blank" class="story-source">▸ sentinelcolorado</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Iran war at six months: Hormuz stalemate holds" data-l="https://dashboard.prism-osint.com#story-iran-war-at-six-months-hormuz-stalemate-" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://sentinelcolorado.com/uncategorized/six-months-on-the-iran-war-has-changed-the-middle-east-but-not-in-the-way-its-architects-had-hoped/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-crit" id="story-mecca-defence-pact-eyes-iran-egypt-bangl">
+          <img src="https://images.jpost.com/image/upload/f_auto,fl_lossy/q_auto/c_fill,g_faces:center,h_720,w_1280/735627" class="story-img" alt="Mecca defence pact eyes Iran, Egypt, Bangladesh" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">Middle East / South Asia</span>
+              <span class="story-score sc-crit">CRITICAL · 75</span>
+            </div>
+            <div class="story-head">Mecca defence pact eyes Iran, Egypt, Bangladesh</div>
+            <div class="story-teaser">The Saudi-Turkey-Pakistan Mecca Joint Defense Agreement is attracting formal interest from Bangladesh, Egypt, and Iran, a development that analysts say could redraw the security architecture of the broader Islamic world. Expansion of the pact to include Iran would create an unprecedented alignment but would also test the willingness of Gulf states to share threat assessments with a country still in active conflict with the United States.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A wider Mecca pact would shift procurement dependencies and interoperability standards across member states, opening or closing defence market access for Western and non-Western suppliers simultaneously.</div>
+            <div class="story-footer">
+              <a href="https://www.jpost.com/middle-east/article-906924" target="_blank" class="story-source">▸ jpost</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Mecca defence pact eyes Iran, Egypt, Bangladesh" data-l="https://dashboard.prism-osint.com#story-mecca-defence-pact-eyes-iran-egypt-bangl" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.jpost.com/middle-east/article-906924" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+        <div class="story-section-wrap" data-sector="ai_tech">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">AI & TECHNOLOGY</div>
+              <div class="section-count-box">02 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-crit" id="story-pentagon-anthropic-blacklist-voided-by-f">
+          <img src="https://www.staradvertiser.com/wp-content/uploads/2026/08/web1_ANTHROPIC-PENTAGON.jpg" class="story-img" alt="Pentagon Anthropic blacklist voided by federal court" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-urgent">URGENT</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 80</span>
+            </div>
+            <div class="story-head">Pentagon Anthropic blacklist voided by federal court</div>
+            <div class="story-teaser">A US federal judge ruled on Thursday that the Pentagons designation of Anthropic as a national security supply-chain risk was unconstitutional, finding the blacklisting was retaliation for the AI companys public criticism of the Trump administration. The ruling lifts the block on Anthropic holding defence contracts, restoring the company to the competitive field for military AI procurement including the contested battlefield AI safety segment.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>The ruling establishes that executive-branch blacklisting of AI firms on national security grounds is subject to judicial review, a precedent that materially reduces the regulatory risk premium that defence-focused AI investors have been pricing in across the sector.</div>
+            <div class="story-footer">
+              <a href="https://www.staradvertiser.com/2026/08/28/breaking-news/federal-judge-blocks-pentagons-anthropic-blacklisting/" target="_blank" class="story-source">▸ staradvertiser</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pentagon Anthropic blacklist voided by federal court" data-l="https://dashboard.prism-osint.com#story-pentagon-anthropic-blacklist-voided-by-f" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.staradvertiser.com/2026/08/28/breaking-news/federal-judge-blocks-pentagons-anthropic-blacklisting/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-british-army-afv-gaps-persist-after-boxe">
+          <img src="https://www.shephardmedia.com/media/cache/images/images/article/British_Army_FV432/7e28e052e583d747b4f2123a3fb56d20.JPG" class="story-img" alt="British Army AFV gaps persist after Boxer, Ajax deliveries" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United Kingdom</span>
+              <span class="story-score sc-high">HIGH · 55</span>
+            </div>
+            <div class="story-head">British Army AFV gaps persist after Boxer, Ajax deliveries</div>
+            <div class="story-teaser">Despite the ongoing delivery of Boxer and Ajax armoured fighting vehicles, the British Army continues to face significant capability gaps across its armoured vehicle fleet, according to Shephard Media analysis. Legacy platform retirements are outpacing new deliveries, leaving combat units below required readiness levels during a period of heightened NATO threat assessment.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Persistent British Army AFV gaps represent an urgent upgrade and bridging procurement opportunity, with decision-makers under pressure to accept risk-reduction solutions including digitisation and autonomy upgrades to in-service platforms rather than waiting for full new-vehicle deliveries.</div>
+            <div class="story-footer">
+              <a href="https://www.shephardmedia.com/news/landwarfareintl/british-army-faces-afv-capability-gaps-despite-boxer-and-ajax-deliveries/" target="_blank" class="story-source">▸ Shephard Media</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="British Army AFV gaps persist after Boxer, Ajax deliveries" data-l="https://dashboard.prism-osint.com#story-british-army-afv-gaps-persist-after-boxe" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.shephardmedia.com/news/landwarfareintl/british-army-faces-afv-capability-gaps-despite-boxer-and-ajax-deliveries/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+        <div class="story-section-wrap" data-sector="investment">
+          <div class="section-header">
+            <div class="section-header-row">
+              <div class="section-title">INVESTMENT & DEALS</div>
+              <div class="section-count-box">02 STORIES</div>
+            </div>
+            <div class="section-underline"></div>
+          </div>
+          <div class="stories-grid">
+        <div class="story story-crit" id="story-pentagon-races-to-field-cheaper-intercep">
+          <img src="https://www.armytimes.com/resizer/v2/YRULYXIAL5CRDBWZQZFUJNGJFY.jpg?width=1200&auth=0d2b6a08ad0bae08a0a941ebc2698b3dcedc407ed77f96584f07ab31ce0a5bdf" class="story-img" alt="Pentagon races to field cheaper interceptor missiles" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">United States</span>
+              <span class="story-score sc-crit">CRITICAL · 75</span>
+            </div>
+            <div class="story-head">Pentagon races to field cheaper interceptor missiles</div>
+            <div class="story-teaser">The Pentagon has awarded a contract in its programme to develop and field lower-cost interceptor missiles, as the department seeks to rebalance the cost asymmetry between incoming threats and the interceptors used against them. The award accelerates competition in a segment where existing high-cost solutions such as PAC-3 MSE are increasingly seen as unsustainable at scale given the volume of drone and missile threats seen in active theatres.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>A credible low-cost interceptor programme would reshape the air defence procurement landscape, creating new entry points for non-traditional prime contractors and compressing margins on legacy high-cost interceptor lines.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/pentagon/2026/08/27/pentagon-awards-contract-in-race-to-field-cheaper-interceptors-missiles/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Pentagon races to field cheaper interceptor missiles" data-l="https://dashboard.prism-osint.com#story-pentagon-races-to-field-cheaper-intercep" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/pentagon/2026/08/27/pentagon-awards-contract-in-race-to-field-cheaper-interceptors-missiles/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="story story-high" id="story-russia-running-out-of-cash-from-ukraine-">
+          <img src="https://www.armytimes.com/resizer/v2/I6EOQ5CARBCIDOAPLLNSRU5GKQ.jpg?width=1200&auth=677b8d2b20bc334708787086c75f9326e4f6e7aeeb7eeaa7d4ca4bf3e964b01b" class="story-img" alt="Russia running out of cash from Ukraine war: report" onerror="this.style.display='none'">
+          <div class="story-pad">
+            <div class="story-meta">
+              <span class="ub ub-normal">NORMAL</span>
+              <span class="story-region">Russia</span>
+              <span class="story-score sc-high">HIGH · 65</span>
+            </div>
+            <div class="story-head">Russia running out of cash from Ukraine war: report</div>
+            <div class="story-teaser">A new report cited by Defense News finds that Russias war economy is under severe fiscal strain, with military expenditure consuming a historically unprecedented share of GDP and foreign exchange reserves declining sharply. The findings align with separate reporting that Ukraines drone campaign has disrupted Russian energy infrastructure, squeezing the revenue base that funds continued operations.</div>
+            <div class="story-divider"></div>
+            <div class="story-impl"><div class="story-impl-lbl">◆ PRISM ANALYSIS</div>Accelerating Russian fiscal deterioration raises the probability of reduced arms export subsidies and technology transfer to client states, reducing competitive pressure on Western suppliers in key emerging markets.</div>
+            <div class="story-footer">
+              <a href="https://www.defensenews.com/global/europe/2026/08/28/russia-is-running-out-of-cash-due-to-its-war-in-ukraine-report/" target="_blank" class="story-source">▸ Defense News</a>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="var h=this.getAttribute('data-h');var l=this.getAttribute('data-l');shareStory(h,l);" data-h="Russia running out of cash from Ukraine war: report" data-l="https://dashboard.prism-osint.com#story-russia-running-out-of-cash-from-ukraine-" style="font-family:'Space Mono',monospace;font-size:9px;color:#5a6a7a;background:#f0f3f6;border:1px solid #d8e0e8;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:all 0.15s" onmouseover="this.style.background='#e4e9ee'" onmouseout="this.style.background='#f0f3f6'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5a6a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>SHARE</button>
+                <a href="https://www.defensenews.com/global/europe/2026/08/28/russia-is-running-out-of-cash-due-to-its-war-in-ukraine-report/" target="_blank" class="story-read">READ FULL STORY ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      
+</div>
+<div class="outlook-section">
+  <div class="section-header" style="margin-top:0">
+    <div class="section-header-row">
+      <div class="section-title">PREDICTIVE SIGNALS</div>
+      <div class="section-count-box">POWERED BY PRISM ANALYST</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+ <div class="prism-locked" style="position:relative">
+<div class="outlook-grid prism-blur">
+    <div class="outlook-card" style="border-top:3px solid #4a9eff">
+        <div class="outlook-domain" style="color:#4a9eff">🛰 SPACE</div>
+        <div class="outlook-watch" style="color:#4a9eff;border-color:#4a9eff33;background:#4a9eff10">◈ WATCH: Falcon Heavy Roman telescope launch outcome Sunday</div>
+        <div class="outlook-signal">Watch whether the Falcon Heavy successfully delivers the NASA Roman Space Telescope to orbit on its scheduled Sunday launch window, as mission outcome directly reprices SpaceX launch reliability premiums and NASA flagship programme momentum.</div>
+        <div class="pred-dropdown">
+          <div class="pred-dd-btn" onclick="toggleDD('dd-0')" id="btn-dd-0">
+            <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
+            <span class="pred-dd-arrow" id="arr-dd-0">▾</span>
+          </div>
+          <div class="pred-dd-content" id="dd-0">
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A clean insertion confirms Falcon Heavy as the flagship-class workhorse, strengthening SpaceX negotiating leverage on future NASA contracts and lifting sentiment across commercial launch equities heading into Q4 procurement cycles.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">A scrub or anomaly delays Roman observatory operations, triggers a reassessment of NASA schedule confidence, and redirects investor scrutiny toward ESA European Launcher Challenge contract winners as alternative launch supply.</div></div>
+          </div>
+        </div>
+      </div><div class="outlook-card" style="border-top:3px solid #ff4444">
+        <div class="outlook-domain" style="color:#ff4444">🛡 DEFENCE</div>
+        <div class="outlook-watch" style="color:#ff4444;border-color:#ff444433;background:#ff444410">◈ WATCH: Pentagon Anthropic blacklist appeal deadline ruling</div>
+        <div class="outlook-signal">Monitor whether the Pentagon Anthropic blacklist court ruling is enforced without appeal reversal this week, as the outcome sets the legal threshold for how the DoD can restrict AI vendors and reshapes battlefield AI procurement risk across the sector.</div>
+        <div class="pred-dropdown">
+          <div class="pred-dd-btn" onclick="toggleDD('dd-1')" id="btn-dd-1">
+            <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
+            <span class="pred-dd-arrow" id="arr-dd-1">▾</span>
+          </div>
+          <div class="pred-dd-content" id="dd-1">
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A sustained injunction blocking the blacklist signals that punitive vendor designation requires due process, reducing regulatory overhang for AI defence suppliers and accelerating DoD AI contract awards under the $131 billion Boeing F-15 modernisation and adjacent programmes.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">A successful DoD appeal reinstating the blacklist establishes executive authority to exclude AI firms on national security grounds with minimal review, materially increasing contract risk for every non-incumbent AI supplier bidding on Pentagon work.</div></div>
+          </div>
+        </div>
+      </div><div class="outlook-card" style="border-top:3px solid #ff8c00">
+        <div class="outlook-domain" style="color:#ff8c00">🌍 GEOPOLITICS</div>
+        <div class="outlook-watch" style="color:#ff8c00;border-color:#ff8c0033;background:#ff8c0010">◈ WATCH: Iran diplomatic mediation signal via Oman channel</div>
+        <div class="outlook-signal">Track whether Irans leadership diplomatic overtures — acknowledged publicly this week alongside their admission of economic war costs — produce any third-party mediation framework through Oman or another Gulf channel within the next seven days, given the six-month US-Iran conflict stalemate at the Strait of Hormuz.</div>
+        <div class="pred-dropdown">
+          <div class="pred-dd-btn" onclick="toggleDD('dd-2')" id="btn-dd-2">
+            <span>▲ BULL CASE &nbsp;/&nbsp; ▼ BEAR CASE</span>
+            <span class="pred-dd-arrow" id="arr-dd-2">▾</span>
+          </div>
+          <div class="pred-dd-content" id="dd-2">
+            <div class="pred-bull"><div class="pred-lbl" style="color:#00aa40">▲ BULL CASE</div><div class="pred-txt">A verified mediation framework reduces Hormuz interdiction risk, eases the seven-ships-per-day transit constraint, pulls energy prices back from their 22 percent war premium, and restores Gulf operator confidence in regional basing and logistics contracts.</div></div>
+            <div class="pred-bear"><div class="pred-lbl" style="color:#ff4444">▼ BEAR CASE</div><div class="pred-txt">Absence of any credible mediation signal by Friday confirms the stalemate hardens, sustains elevated oil pricing, keeps the 6,000 stranded sailors situation unresolved, and forces Gulf defence operators to accelerate contingency basing expenditure away from Bahrain-centred posture.</div></div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="prism-lock-overlay"><svg class="prism-lock-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7DC8F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><button class="prism-lock-btn" onclick="openPro()">PRO · COMING SOON</button></div>
+</div>
+</div>
+<div class="reg-section">
+  <div class="section-header" style="margin-top:0;padding-top:0;border-top:none">
+    <div class="section-header-row">
+      <div class="section-title">REGULATORY PULSE</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#00e87a;letter-spacing:1px;background:rgba(0,232,122,0.08);padding:3px 9px;border:1px solid rgba(0,232,122,0.3)">● PRISM ANALYST · LIVE</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+  <div class="reg-inner" id="reg-inner">
+    <div class="reg-loading-inner" id="reg-loading">
+      <div class="reg-spinner"></div>◈ ANALYSING REGULATORY ENVIRONMENT...
+    </div>
+  </div>
+  <div class="reg-footer-row">
+    <div class="reg-footer-text" id="reg-footer-time">POWERED BY PRISM AI</div>
+    <a href="https://consultant.prism-osint.com" target="_blank" class="reg-footer-btn">▸ ASK PRISM ANALYST</a>
+  </div>
+</div>
+<div class="poly-section">
+  <div class="section-header" style="margin-top:0;padding-top:0;border-top:none">
+    <div class="section-header-row">
+      <div class="section-title">PREDICTION MARKETS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#888;letter-spacing:1px;background:#1e1e1e;padding:3px 9px;border:1px solid rgba(255,255,255,0.2)">LIVE · POLYMARKET</div>
+    </div>
+    <div class="section-underline"></div>
+  </div>
+  <div id="poly-grid" class="poly-grid"><div class="poly-loading">◈ LOADING PREDICTION MARKETS...</div></div>
+</div>
+<div class="footer">
+  <div class="footer-text">◈ PRISM · SPACE AND DEFENCE INTELLIGENCE · U.A.E.</div>
+  <div class="footer-text">CONFIDENTIAL · 2026</div>
+</div>
+<div class="scan"></div>
+<div class="map-popup-overlay" id="map-popup-overlay" onclick="closeMapPopup(event)">
+  <div class="map-popup-card" id="map-popup-card">
+    <div class="map-popup-top">
+      <div class="map-popup-cat" id="map-popup-cat"></div>
+      <div class="map-popup-close" onclick="document.getElementById('map-popup-overlay').classList.remove('active')">✕ CLOSE</div>
+    </div>
+    <div class="map-popup-body">
+      <img class="map-popup-img" id="map-popup-img" src="" alt="" style="display:none"/>
+      <div class="map-popup-head" id="map-popup-head"></div>
+      <div class="map-popup-context" id="map-popup-context"></div>
+      <div class="map-popup-impl" id="map-popup-impl" style="display:none"></div>
+      <div class="map-popup-footer">
+        <a class="map-popup-src" id="map-popup-src" href="#" target="_blank"></a>
+        <a class="map-popup-read" id="map-popup-read" href="#" target="_blank">READ FULL STORY ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="chat-bubble">
+  <a href="https://consultant.prism-osint.com" target="_blank" class="chat-bubble-tooltip">
+    <div class="chat-tooltip-title">💬 PRISM ANALYST</div>
+    <div class="chat-tooltip-text">Ask me anything about today's intelligence briefing</div>
+  </a>
+  <a href="https://consultant.prism-osint.com" target="_blank">
+    <button class="chat-bubble-btn">
+      <div class="chat-bubble-badge">AI</div>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"/></svg>
+    </button>
+  </a>
+</div>
+<script>
+function filterSector(sector, btn){
+  document.querySelectorAll('.sector-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  document.querySelectorAll('.story-section-wrap').forEach(function(section){
+    if(sector==='all' || section.dataset.sector===sector){
+      section.classList.remove('hidden');
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+}
+  (function(){
+  document.querySelectorAll('.sector-tab[data-sector]').forEach(function(tab){
+    if(!document.querySelector('.story-section-wrap[data-sector="'+tab.dataset.sector+'"]')){
+      tab.style.display='none';
+    }
+  });
+})();
+function toggleDD(id){const c=document.getElementById(id);const a=document.getElementById('arr-'+id);const o=c.classList.contains('open');c.classList.toggle('open');if(a)a.textContent=o?'▾':'▴';}
+function openMapPopup(item,col,catLabel){
+  document.getElementById('map-popup-overlay').classList.add('active');
+  document.getElementById('map-popup-cat').textContent=catLabel;
+  document.getElementById('map-popup-cat').style.color=col;
+  document.getElementById('map-popup-head').textContent=item.headline||'';
+  document.getElementById('map-popup-context').textContent=item.context||'';
+  const impl=document.getElementById('map-popup-impl');
+  if(item.implication){impl.innerHTML='<div class="map-popup-impl-lbl">◆ PRISM ANALYSIS</div>'+item.implication;impl.style.display='block';}else{impl.style.display='none';}
+  const img=document.getElementById('map-popup-img');
+  if(item.image&&item.image!=='none'&&item.image!==''){img.src=item.image;img.style.display='block';img.onerror=()=>img.style.display='none';}else{img.style.display='none';}
+  const src=document.getElementById('map-popup-src');
+  src.textContent='▸ '+(item.source||'Prism Analysis');
+  if(item.link&&item.link!=='none'){src.href=item.link;}else{src.href='#';}
+  const read=document.getElementById('map-popup-read');
+  if(item.link&&item.link!=='none'){read.href=item.link;read.style.display='inline-block';}else{read.style.display='none';}
+}
+function closeMapPopup(e){if(e.target===document.getElementById('map-popup-overlay'))document.getElementById('map-popup-overlay').classList.remove('active');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('map-popup-overlay').classList.remove('active');});
+const REG_DATA={"score":72,"status":"HIGH PRESSURE","delta":"plus 11 pts this week","delta_direction":"up","areas":[{"name":"AI Vendor Access","status":"red","pill":"CRITICAL","trend":"up","text":"Federal court voided the Pentagon blacklisting of Anthropic as illegal retaliation, but DoD retains authority to appeal and reinstate designation. Outcome this week determines whether AI suppliers face arbitrary exclusion risk on all future defence contracts.","countdown":"72 HRS"},{"name":"Launch Licensing","status":"amber","pill":"WATCH","trend":"stable","text":"ESA European Launcher Challenge first contracts awarded this week, introducing new regulatory obligations across multiple member state launch authorities simultaneously. Falcon Heavy Roman telescope launch adds FAA licence execution scrutiny at Cape Canaveral this weekend.","countdown":"24 HRS"},{"name":"Hormuz Transit Law","status":"red","pill":"ACTIVE","trend":"up","text":"Six months of US-Iran conflict has produced a contested legal status over Strait of Hormuz navigation rights, with only seven ships per day transiting and no internationally recognised corridor framework in force. Oman-brokered corridor agreement remains unsigned, leaving maritime operators in legal ambiguity on insurance, flag-state liability, and naval escort entitlement.","countdown":"PENDING"},{"name":"Defence AI Supply Chain","status":"amber","pill":"WATCH","trend":"up","text":"Pentagon cheaper interceptor contract award and the $131 billion F-15 ceiling contract both carry embedded AI and software supply chain clauses now under heightened scrutiny following the Anthropic ruling. Vendors on those programmes face increased compliance documentation requirements pending DoD guidance revision.","countdown":"5 DAYS"}]};
+const REG_BUILT='2026-08-29T12:06:21.197Z';
+function renderRegPulse(data){
+  const inner=document.getElementById('reg-inner');
+  const score=data.score||0;
+  const dir=data.delta_direction||'stable';
+  const scoreColor=score>=75?'#ff4444':score>=50?'#ff8c00':'#00aa40';
+  const dotClass={green:'dot-green',amber:'dot-amber',red:'dot-red'};
+  const nameClass={green:'name-green',amber:'name-amber',red:'name-red'};
+  const pillClass={green:'pill-green',amber:'pill-amber',red:'pill-red'};
+  const trendHtml={up:'<span class="reg-area-trend trend-up">▲</span>',stable:'<span class="reg-area-trend trend-stable">→</span>',down:'<span class="reg-area-trend trend-down">▼</span>'};
+  const areasHtml=(data.areas||[]).map((a,i)=>{
+    const s=a.status||'green';const t=a.trend||'stable';
+    return `<div class="reg-area" style="animation:slideIn 0.3s ease ${i*0.1}s both"><div class="reg-area-hdr"><div class="reg-area-dot ${dotClass[s]||'dot-green'}"></div><div class="reg-area-name ${nameClass[s]||'name-green'}">${a.name||''}</div>${trendHtml[t]||trendHtml.stable}<div class="reg-area-pill ${pillClass[s]||'pill-green'}">${a.pill||'STABLE'}</div></div><div class="reg-area-text">${a.text||''}</div>${a.countdown&&a.countdown!=='none'?`<div class="reg-area-cd"><div class="reg-area-cd-lbl">NEXT DECISION</div><div class="reg-area-cd-val">${a.countdown}</div></div>`:''}</div>`;
+  }).join('');
+  inner.innerHTML=`<div class="reg-score-card"><div><div class="reg-score-num" style="color:${scoreColor}">${score}</div><div class="reg-score-lbl" style="color:${scoreColor}">${data.status||'STABLE'}</div></div><div class="reg-bar-wrap"><div class="reg-bar" style="width:${Math.min(score,100)}%"></div></div><div class="reg-bar-labels"><span class="reg-bar-lbl" style="color:#00aa40">STABLE</span><span class="reg-bar-lbl" style="color:#ff8c00">ELEVATED</span><span class="reg-bar-lbl" style="color:#ff4444">CRITICAL</span></div><div class="reg-delta" style="color:${dir==='up'?'#ff4444':dir==='down'?'#00aa40':'#3a5a7a'}">${dir==='up'?'▲ ':dir==='down'?'▼ ':'→ '}${data.delta||''}</div></div><div class="reg-areas-grid">${areasHtml}</div>`;
+  const n=new Date();
+  document.getElementById('reg-footer-time').textContent='UPDATED BY PRISM AI · '+n.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+}
+if(REG_DATA&&REG_DATA.score!==undefined){
+  renderRegPulse(REG_DATA);
+  try{
+    var rb=new Date(REG_BUILT);
+    document.getElementById('reg-footer-time').textContent='UPDATED BY PRISM AI · '+rb.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+  }catch(e){}
+}else{
+  document.getElementById('reg-inner').innerHTML='<div style="font-family:Space Mono,monospace;font-size:9px;color:#3a5a7a;padding:20px;letter-spacing:2px">◈ REGULATORY DATA UNAVAILABLE</div>';
+}
+function getMoonPhase(){const phases=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];const known=new Date(2000,0,6);const now=new Date();const diff=(now-known)/(1000*60*60*24);const cycle=diff%29.53;return phases[Math.floor(cycle/29.53*8)];}
+document.getElementById('moonphase').textContent=getMoonPhase();
+const now=new Date();
+document.getElementById('datetime').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})+' · '+now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'})+' GST';
+const RELEVANT_KEYWORDS=['nuclear','missile','satellite','space launch','rocket launch','defense','defence','ceasefire','invasion','weapons','cyber attack','drone strike','conflict','Iran','Russia','China','NATO','Taiwan','ballistic','hypersonic','radar','surveillance','SpaceX','Boeing','Lockheed','Raytheon','Northrop','Pentagon','CENTCOM','treaty','sanctions','proliferation','warhead','uranium','plutonium','North Korea','Pakistan','Israel','Gaza','Lebanon','Ukraine','Syria','coup','geopolit','orbit','ISS','Mars mission','asteroid'];
+function isRelevant(q){return RELEVANT_KEYWORDS.some(k=>q.toLowerCase().includes(k.toLowerCase()));}
+function getProbabilityColor(p){return p>=0.7?'#00aa40':p>=0.5?'#806000':p>=0.3?'#ff8c00':'#ff4444';}
+function formatVolume(v){return v>=1000000?'$'+(v/1000000).toFixed(1)+'M':v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v.toFixed(0);}
+async function loadPolymarkets(){
+  const grid=document.getElementById('poly-grid');
+  try{
+    const urls=['https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=geopolitics&order=volume24hr&ascending=false','https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=nuclear-weapons&order=volume24hr&ascending=false','https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=defense&order=volume24hr&ascending=false','https://gamma-api.polymarket.com/markets?active=true&limit=50&tag_slug=space&order=volume24hr&ascending=false'];
+    const results=await Promise.allSettled(urls.map(u=>fetch(u).then(r=>r.json())));
+    let all=[];results.forEach(r=>{if(r.status==='fulfilled'&&Array.isArray(r.value))all=all.concat(r.value);});
+    const seen=new Set();
+    const filtered=all.filter(m=>{if(seen.has(m.id))return false;seen.add(m.id);if(!m.question||!m.active||m.closed)return false;return isRelevant(m.question);}).sort((a,b)=>(b.volume24hr||0)-(a.volume24hr||0)).slice(0,10);
+    if(!filtered.length){grid.innerHTML='<div class="poly-loading">◈ NO RELEVANT MARKETS FOUND</div>';return;}
+    grid.innerHTML=filtered.map(m=>{
+      let prices=[];try{prices=JSON.parse(m.outcomePrices||'[]');}catch(e){}
+      const yp=prices[0]?parseFloat(prices[0]):0.5;const np=prices[1]?parseFloat(prices[1]):0.5;
+      const pct=Math.round(yp*100);const col=getProbabilityColor(yp);
+      return`<a href="https://polymarket.com/event/${m.slug||m.id}" target="_blank" style="text-decoration:none"><div class="poly-card"><div class="poly-question">${m.question}</div><div class="poly-bar-wrap"><div class="poly-bar" style="width:${pct}%;background:${col}"></div></div><div class="poly-odds"><span class="poly-yes" style="color:${col}">YES ${pct}%</span><span class="poly-no">NO ${100-pct}%</span></div><div class="poly-vol">24H VOL ${formatVolume(m.volume24hr||0)}</div></div></a>`;
+    }).join('');
+  }catch(e){grid.innerHTML='<div class="poly-loading">◈ POLYMARKET DATA UNAVAILABLE</div>';}
+}
+loadPolymarkets();
+const map=L.map('prism-map',{center:[20,10],zoom:2,zoomControl:true,attributionControl:false});
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxZoom:16}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,opacity:0.35}).addTo(map);
+const catColors={space:'#4a9eff',defence:'#ff4444',middle_east:'#ff8c00',investment:'#00aa40',ai_tech:'#a060ff',ipo_watch:'#ffcc00'};
+const catLabels={space:'SPACE',defence:'DEFENCE',middle_east:'MID EAST',investment:'INVEST',ai_tech:'AI TECH',ipo_watch:'IPO'};
+const newsData={"space":[{"headline":"Falcon Heavy set to launch Roman telescope Sunday","context":"SpaceX is targeting a Sunday launch window for its Falcon Heavy rocket carrying NASAs Nancy Grace Roman Space Telescope from Kennedy Space Center in Florida, according to NASASpaceFlight and SpaceFlightNow. The mission represents one of the most scientifically significant NASA payloads to fly on a commercial heavy-lift vehicle and has drawn viewing interest across Volusia, Brevard, and Treasure Coast counties.","implication":"A successful deployment would validate Falcon Heavy as the backbone of high-value NASA science delivery and strengthen the case for commercial heavy-lift procurement over government-owned alternatives, directly affecting launch contract valuations across the sector.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2025/08/Gy7aFPMXMAAkg8X.jpeg","region":"North America","urgency":"URGENT","score":85,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/08/launch-preview-082426/","lat":28.5729,"lng":-80.649},{"headline":"ESA awards first European Launcher Challenge contracts","context":"The European Space Agency has awarded its first contracts under the European Launcher Challenge, a competitive programme designed to stimulate next-generation sovereign launch capability across the continent, according to NASASpaceFlight. The awards mark a structural shift in ESAs procurement posture away from institutional monopoly toward a US-style competitive commercial model.","implication":"These contracts signal that European launch investment is entering a multi-vendor era, creating near-term revenue visibility for challenger launch firms and putting pressure on incumbent Arianespace to accelerate its cost reduction roadmap.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-29-11-53-55-612.jpg","region":"Europe","urgency":"NORMAL","score":75,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/08/esa-european-launcher-challenge-contracts/","lat":48.8566,"lng":2.3522},{"headline":"LandSpace Zhuque-3 topples after milestone booster landing","context":"LandSpaces Zhuque-3 rocket completed its second flight with a successful first-stage booster landing, making LandSpace the first commercial Chinese company to recover an orbital-class booster, before the vehicle toppled post-landing, according to NASASpaceFlight and SpaceFlightNow. The toppling does not negate the landing achievement but raises questions about the recovery infrastructure maturity needed before the booster can be reflown.","implication":"Chinas commercial reusability milestone narrows the perceived technology gap with SpaceX and signals to Western defence and intelligence communities that indigenous Chinese launch costs will compress materially within two to three years, with direct implications for commercial satellite economics globally.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/08/NSF-2026-08-23-19-39-25-057.jpg","region":"Asia-Pacific","urgency":"NORMAL","score":72,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/08/landspaces-zhuque-3-topples/","lat":38.6,"lng":103.1},{"headline":"Nigeria selects Thales and IAI for new comms satellites","context":"French aerospace firm Thales Alenia Space and Israel Aerospace Industries have been selected to build Nigerias next communications satellites, according to TechCabal. The award places two allied Western suppliers at the centre of one of Africas largest sovereign space programmes and signals continued preference for proven European and Israeli heritage over emerging Chinese competitors in the Nigerian market.","implication":"The dual-supplier model chosen by Nigeria could serve as a template for other African nations seeking to diversify space dependencies away from single-country vendors, representing a meaningful pipeline expansion opportunity for both Thales and IAI.","image":"https://c76c7bbc41.mjedge.net/wp-content/uploads/tc/2026/08/Copy-of-Tap-to-view-Story-Template-2026-08-28T120316.486.jpg","region":"Africa","urgency":"NORMAL","score":60,"source":"techcabal","link":"https://techcabal.com/2026/08/28/nigeria-picks-french-israeli-firms-for-new-satellites/","lat":9.0579,"lng":7.4951},{"headline":"Stoke Space completes Nova first stage engines ahead of debut","context":"Stoke Space has completed first stage engine assembly and conducted second stage fit checks as it advances toward the debut launch of its Nova rocket, according to NASASpaceFlight. Nova is a fully reusable launch vehicle targeting a competitive position in the medium-lift commercial market currently served by Rocket Lab and Firefly.","implication":"Stoke Space reaching engine completion ahead of Nova debut adds another credible entrant to the reusable medium-lift segment and increases competitive pressure on existing operators, which is relevant context for investors assessing the long-term pricing power of RKLB at its current valuation.","image":"https://www.nasaspaceflight.com/wp-content/uploads/2026/08/AE14D6E5-F897-4488-A5CC-150A3985FC1C.jpeg","region":"North America","urgency":"NORMAL","score":55,"source":"NASASpaceFlight","link":"https://www.nasaspaceflight.com/2026/08/stoke-update-081926/","lat":47.6062,"lng":-122.3321},{"headline":"SpaceX tops 11,000 satellites in low Earth orbit","context":"SpaceX has surpassed 11,000 operational Starlink satellites in low Earth orbit following its recent Falcon 9 cadence, which included its 100th orbital mission of 2026 in August, according to SpaceFlightNow. The milestone cements Starlinks structural dominance of the LEO broadband market and substantially widens its lead over Amazon LEO and other constellation programmes.","implication":"At 11,000 satellites, Starlink achieves a network density that materially raises the infrastructure cost any competitor must match to offer equivalent coverage, compressing the addressable market window for Amazon LEO and other funded challengers.","image":"http://spaceflightnow.com/wp-content/uploads/2026/08/20260819_Starlink_17-50_liftoff.jpeg","region":"Global","urgency":"NORMAL","score":50,"source":"SpaceFlightNow","link":"https://spaceflightnow.com/2026/08/18/live-coverage-spacex-to-send-starlink-satellites-to-orbit-with-tuesday-night-launch-from-california/","lat":0,"lng":0}],"defence":[{"headline":"Boeing wins $131B F-15 contract through 2037","context":"The US Air Force has awarded Boeing a $131 billion ceiling contract for F-15 production and modernisation to sustain the Eagle fleet through 2037, according to Defense News and Shephard Media. The contract is one of the largest single-platform sustainment awards in US Air Force history and locks Boeing into a long-duration revenue stream even as its commercial aviation division continues to face operational headwinds.","implication":"A $131 billion ceiling commitment through 2037 provides Boeing Defence with a structural revenue floor that partially de-risks the companys overall investment thesis and may support BA share stabilisation independent of commercial aviation recovery progress.","image":"https://www.armytimes.com/resizer/v2/LKL3YP6ABNCWXCYYN5LMDFBXFI.jpg?width=1200&auth=25b0d8a41e448b0c7d10f0d91650574fb4287e88041680af146a874d227220f7","region":"North America","urgency":"NORMAL","score":90,"source":"Defense News","link":"https://www.defensenews.com/news/your-military/2026/08/28/air-force-awards-boeing-131-billion-ceiling-contract-for-f-15-production-modernization/","lat":38.9072,"lng":-77.0369},{"headline":"US military uses laser to down 3 cartel drones in Texas","context":"US service members used a directed-energy laser system to neutralise three suspected drug cartel drones near the Rio Grande Valley in southern Texas, the Department of War confirmed, marking the third laser intercept near the border, according to KVIA and ibtimes. The operation demonstrates that directed-energy weapons have transitioned from development programmes into active operational border defence roles at a cadence sufficient to form a pattern.","implication":"Repeated operational laser intercepts at the southern border create a real-world performance dataset that will accelerate Pentagon procurement of directed-energy systems at scale, directly expanding the addressable market for firms in that segment.","image":"https://kvia.com/wp-content/uploads/2026/08/260826-D-D0945-3729.jpg","region":"North America","urgency":"URGENT","score":85,"source":"kvia","link":"https://kvia.com/news/military/2026/08/28/us-military-downs-3-suspected-cartel-drones-with-laser/","lat":26.2034,"lng":-98.23},{"headline":"Court blocks Pentagon blacklisting of Anthropic as illegal","context":"A federal judge ruled on Thursday that the Pentagons designation of Anthropic as a national security supply-chain risk was unconstitutional retaliation for the AI companys public criticism of the Trump administration, according to Defense News and The Next Web. The ruling voids the blacklisting and restores Anthropic to the defence AI market, delivering a significant legal precedent on the limits of executive authority over AI supplier access.","implication":"The ruling signals that defence AI procurement cannot be legally weaponised as political punishment, which materially lowers regulatory risk for all commercial AI firms seeking Pentagon contracts and may accelerate competitive AI supply-chain diversification across the defence industrial base.","image":"https://www.armytimes.com/resizer/v2/MANNHDY5GFEKRK66KOSZXBHR6A.jpg?width=1200&auth=c3b41dc6b190f2d1711a2bad0dd4c55a152077e06495371ff4012dad8c4efb0c","region":"North America","urgency":"URGENT","score":80,"source":"Defense News","link":"https://www.defensenews.com/opinion/2026/08/28/the-devastation-of-nsa-bahrain-is-a-national-security-warning/","lat":38.9072,"lng":-77.0369},{"headline":"GAO: US subs lost 15,000 operational days to maintenance delays","context":"A Government Accountability Office report found that US submarine forces lost 15,000 operational days over ten years due to maintenance backlogs at naval shipyards, according to Defense News. The finding compounds existing concerns about US undersea warfare readiness at a moment when the Strait of Hormuz stalemate and North Korean troop movements in Ukraine are simultaneously stressing US force posture globally.","implication":"The 15,000-day operational gap validates the strategic case for accelerated investment in naval sustainment infrastructure and positions AUKUS-aligned submarine industrial base contractors as long-duration beneficiaries of the forced modernisation cycle.","image":"https://www.armytimes.com/resizer/v2/PBWR2AEEDZEKRE3BRQEX32YUGE.jpg?width=1200&auth=7143f3bd3d81a6d468102c76982120565de085eedbed37c14aeab063392eb88f","region":"North America","urgency":"NORMAL","score":75,"source":"Defense News","link":"https://www.defensenews.com/industry/techwatch/2026/08/27/15000-operational-days-lost-in-10-years-due-to-us-submarine-maintenance-delays-gao/","lat":38.9072,"lng":-77.0369},{"headline":"Japan approves mass production of 3D-printed interceptor drones","context":"Japan has approved mass production of domestically designed 3D-printed interceptor drones, according to Defense News, marking a significant step in Tokyos efforts to build an indigenous counter-drone capability at scale and at low unit cost. The decision follows a pattern of Indo-Pacific nations accelerating uncrewed systems production in response to the operational lessons of the Ukraine conflict and rising regional threat density.","implication":"Japans commitment to mass-produced low-cost interceptors signals that allied procurement is moving toward attritable drone-on-drone economics rather than expensive missile intercepts, which will reshape the competitive landscape for traditional air defence suppliers operating in the Indo-Pacific region.","image":"https://www.armytimes.com/resizer/v2/NEW7TEUUBFFM3DSXIJMIKV3HNU.jpg?width=1200&auth=671a1e864822a3623c56b7d70891bae457adb1c55440d89b367664a8a6a2b272","region":"Asia-Pacific","urgency":"NORMAL","score":72,"source":"Defense News","link":"https://www.defensenews.com/global/asia-pacific/2026/08/27/japan-approves-mass-production-of-3d-printed-interceptor-drones/","lat":35.6762,"lng":139.6503},{"headline":"India turns to private sector to accelerate missile output","context":"India is expanding private sector involvement to ramp up domestic missile production, according to Defense News, as New Delhi seeks to reduce dependency on state-owned defence enterprises and compress procurement timelines in a period of elevated regional tension. The initiative is part of a broader Make in India defence push that Finance Minister Sitharaman has simultaneously been promoting to international investors.","implication":"Indias structured opening of missile production to private industry creates a competitive entry point for joint venture partners and technology transfer agreements, representing a material market access opportunity for allied defence firms seeking footholds in one of the worlds fastest-growing defence budgets.","image":"https://www.armytimes.com/resizer/v2/IZD5PK3BYJGPTF3Y4BBTCGQHF4.jpg?width=1200&auth=348324affc0adb0d781c8d75380530bff96fe695d75fb152f6147b46a26a94b6","region":"Asia-Pacific","urgency":"NORMAL","score":65,"source":"Defense News","link":"https://www.defensenews.com/global/asia-pacific/2026/08/28/india-turns-to-private-sector-to-ramp-up-missile-production/","lat":28.6139,"lng":77.209}],"middle_east":[{"headline":"Iran war at six months: Hormuz stalemate holds","context":"Six months after the US-Israeli campaign against Iran began on 28 February, the Strait of Hormuz remains contested, with only 7 ships transiting per day compared to pre-war averages, 6,000 sailors stranded in the waterway, and the US-Iran war carrying an estimated $37.5 billion cost to Washington. Irans leaders publicly acknowledged the economic toll of the conflict while pledging continued diplomacy and defence, signalling no near-term capitulation but also no escalation path to resolution.","implication":"A prolonged Hormuz stalemate compresses global energy supply chains and sustains elevated demand for maritime surveillance, mine countermeasures, and Gulf-theatre air defence systems, directly affecting procurement timelines for operators in the region.","image":"https://sentinelcolorado.com/wp-content/uploads/2026/08/AP26239545717733.jpg","region":"Strait of Hormuz / Iran","urgency":"URGENT","score":90,"source":"sentinelcolorado","link":"https://sentinelcolorado.com/uncategorized/six-months-on-the-iran-war-has-changed-the-middle-east-but-not-in-the-way-its-architects-had-hoped/","lat":26.6,"lng":56.3},{"headline":"Mecca defence pact eyes Iran, Egypt, Bangladesh","context":"The Saudi-Turkey-Pakistan Mecca Joint Defense Agreement is attracting formal interest from Bangladesh, Egypt, and Iran, a development that analysts say could redraw the security architecture of the broader Islamic world. Expansion of the pact to include Iran would create an unprecedented alignment but would also test the willingness of Gulf states to share threat assessments with a country still in active conflict with the United States.","implication":"A wider Mecca pact would shift procurement dependencies and interoperability standards across member states, opening or closing defence market access for Western and non-Western suppliers simultaneously.","image":"https://images.jpost.com/image/upload/f_auto,fl_lossy/q_auto/c_fill,g_faces:center,h_720,w_1280/735627","region":"Middle East / South Asia","urgency":"URGENT","score":75,"source":"jpost","link":"https://www.jpost.com/middle-east/article-906924","lat":21.4,"lng":39.8}],"investment":[{"headline":"Pentagon races to field cheaper interceptor missiles","context":"The Pentagon has awarded a contract in its programme to develop and field lower-cost interceptor missiles, as the department seeks to rebalance the cost asymmetry between incoming threats and the interceptors used against them. The award accelerates competition in a segment where existing high-cost solutions such as PAC-3 MSE are increasingly seen as unsustainable at scale given the volume of drone and missile threats seen in active theatres.","implication":"A credible low-cost interceptor programme would reshape the air defence procurement landscape, creating new entry points for non-traditional prime contractors and compressing margins on legacy high-cost interceptor lines.","image":"https://www.armytimes.com/resizer/v2/YRULYXIAL5CRDBWZQZFUJNGJFY.jpg?width=1200&auth=0d2b6a08ad0bae08a0a941ebc2698b3dcedc407ed77f96584f07ab31ce0a5bdf","region":"United States","urgency":"NORMAL","score":75,"source":"Defense News","link":"https://www.defensenews.com/pentagon/2026/08/27/pentagon-awards-contract-in-race-to-field-cheaper-interceptors-missiles/","lat":38.9,"lng":-77},{"headline":"Russia running out of cash from Ukraine war: report","context":"A new report cited by Defense News finds that Russias war economy is under severe fiscal strain, with military expenditure consuming a historically unprecedented share of GDP and foreign exchange reserves declining sharply. The findings align with separate reporting that Ukraines drone campaign has disrupted Russian energy infrastructure, squeezing the revenue base that funds continued operations.","implication":"Accelerating Russian fiscal deterioration raises the probability of reduced arms export subsidies and technology transfer to client states, reducing competitive pressure on Western suppliers in key emerging markets.","image":"https://www.armytimes.com/resizer/v2/I6EOQ5CARBCIDOAPLLNSRU5GKQ.jpg?width=1200&auth=677b8d2b20bc334708787086c75f9326e4f6e7aeeb7eeaa7d4ca4bf3e964b01b","region":"Russia","urgency":"NORMAL","score":65,"source":"Defense News","link":"https://www.defensenews.com/global/europe/2026/08/28/russia-is-running-out-of-cash-due-to-its-war-in-ukraine-report/","lat":55.8,"lng":37.6}],"ai_tech":[{"headline":"Pentagon Anthropic blacklist voided by federal court","context":"A US federal judge ruled on Thursday that the Pentagons designation of Anthropic as a national security supply-chain risk was unconstitutional, finding the blacklisting was retaliation for the AI companys public criticism of the Trump administration. The ruling lifts the block on Anthropic holding defence contracts, restoring the company to the competitive field for military AI procurement including the contested battlefield AI safety segment.","implication":"The ruling establishes that executive-branch blacklisting of AI firms on national security grounds is subject to judicial review, a precedent that materially reduces the regulatory risk premium that defence-focused AI investors have been pricing in across the sector.","image":"https://www.staradvertiser.com/wp-content/uploads/2026/08/web1_ANTHROPIC-PENTAGON.jpg","region":"United States","urgency":"URGENT","score":80,"source":"staradvertiser","link":"https://www.staradvertiser.com/2026/08/28/breaking-news/federal-judge-blocks-pentagons-anthropic-blacklisting/","lat":38.9,"lng":-77},{"headline":"British Army AFV gaps persist after Boxer, Ajax deliveries","context":"Despite the ongoing delivery of Boxer and Ajax armoured fighting vehicles, the British Army continues to face significant capability gaps across its armoured vehicle fleet, according to Shephard Media analysis. Legacy platform retirements are outpacing new deliveries, leaving combat units below required readiness levels during a period of heightened NATO threat assessment.","implication":"Persistent British Army AFV gaps represent an urgent upgrade and bridging procurement opportunity, with decision-makers under pressure to accept risk-reduction solutions including digitisation and autonomy upgrades to in-service platforms rather than waiting for full new-vehicle deliveries.","image":"https://www.shephardmedia.com/media/cache/images/images/article/British_Army_FV432/7e28e052e583d747b4f2123a3fb56d20.JPG","region":"United Kingdom","urgency":"NORMAL","score":55,"source":"Shephard Media","link":"https://www.shephardmedia.com/news/landwarfareintl/british-army-faces-afv-capability-gaps-despite-boxer-and-ajax-deliveries/","lat":51.5,"lng":-0.1}],"ipo_watch":[]};
+const incidentListTop=document.getElementById('incident-list-top');
+let incidentCount=0;
+const mapStyle=document.createElement('style');
+mapStyle.textContent=`.leaflet-container{background:#0a0a0a!important;font-family:'Space Grotesk',sans-serif}.leaflet-control-zoom a{background:#141414!important;color:#ccc!important;border-color:rgba(255,255,255,0.08)!important}.leaflet-popup-content-wrapper,.leaflet-popup-tip{display:none!important}`;
+document.head.appendChild(mapStyle);
+Object.keys(newsData).forEach(cat=>{
+  (newsData[cat]||[]).forEach(item=>{
+    if(typeof item.lat==='number'&&typeof item.lng==='number'&&item.headline){
+      incidentCount++;
+      const col=catColors[cat]||'#4a9eff';
+      const hex=col.replace('#','');
+      const r=parseInt(hex.substring(0,2),16);const g=parseInt(hex.substring(2,4),16);const b=parseInt(hex.substring(4,6),16);
+      const icon=L.divIcon({className:'',html:`<div style="position:relative;width:22px;height:22px;cursor:pointer"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:${col};border:2px solid rgba(255,255,255,0.7);z-index:2;box-shadow:0 0 8px ${col}"></div><div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.7);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite;z-index:1"></div><div style="position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(${r},${g},${b},0.3);animation:ping 2s cubic-bezier(0,0,0.2,1) infinite 0.7s;z-index:1"></div></div>`,iconSize:[22,22],iconAnchor:[11,11]});
+      const marker=L.marker([item.lat,item.lng],{icon}).addTo(map);
+      marker.on('click',()=>openMapPopup(item,col,catLabels[cat]||cat));
+    }
+  });
+});
+document.getElementById('incident-count').textContent=`LIVE · ${incidentCount} INCIDENTS`;
+let searchResults=[];let searchCurrent=0;
+function hlText(text,q){if(!q)return text;const re=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');return text.replace(re,'<mark>$1</mark>');}
+function prismSearch(val){
+  const q=val.toLowerCase().trim();
+  const countEl=document.getElementById('search-count');
+  const clearBtn=document.getElementById('search-clear');
+  const nav=document.getElementById('search-nav');
+  const dropdown=document.getElementById('search-dropdown');
+  dropdown.style.display='none';
+  nav.style.display='none';
+  document.querySelectorAll('.story').forEach(s=>{
+    s.classList.remove('active-result','dimmed','story-hidden');
+    const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
+    if(h)h.innerHTML=h.textContent;if(t)t.innerHTML=t.textContent;if(i)i.innerHTML=i.textContent;
+  });
+  document.querySelectorAll('.story-section-wrap').forEach(h=>{h.classList.remove('hidden');h.style.display='';});
+  const banner=document.getElementById('search-banner');
+  if(!q){
+    countEl.textContent='';
+    clearBtn.style.display='none';
+    if(banner)banner.style.display='none';
+    searchResults=[];
+    return;
+  }
+  clearBtn.style.display='block';
+  searchResults=Array.from(document.querySelectorAll('.story')).filter(s=>s.textContent.toLowerCase().includes(q));
+  document.querySelectorAll('.story').forEach(s=>{
+    if(!searchResults.includes(s)){
+      s.classList.add('story-hidden');
+    } else {
+      const h=s.querySelector('.story-head');const t=s.querySelector('.story-teaser');const i=s.querySelector('.story-impl');
+      if(h)h.innerHTML=hlText(h.textContent,q);
+      if(t)t.innerHTML=hlText(t.textContent,q);
+      if(i)i.innerHTML=hlText(i.textContent,q);
+    }
+  });
+  document.querySelectorAll('.story-section-wrap').forEach(h=>{
+    const visible=h.querySelectorAll('.story:not(.story-hidden)').length;
+    h.style.display=visible>0?'':'none';
+  });
+  countEl.textContent=`${searchResults.length} RESULT${searchResults.length!==1?'S':''}`;
+  if(banner){
+    if(searchResults.length>0){
+      banner.innerHTML=`◈ ${searchResults.length} RESULT${searchResults.length!==1?'S':''} FOR "<span style="color:#fff">${val.toUpperCase()}</span>" &nbsp;<span onclick="clearSearch()" style="cursor:pointer;color:#ff4444;border:1px solid rgba(255,68,68,0.3);padding:2px 8px;border-radius:4px;font-size:8px">✕ CLEAR</span>`;
+      banner.style.display='flex';
+    } else {
+      banner.innerHTML=`◈ NO RESULTS FOR "<span style="color:#fff">${val.toUpperCase()}</span>" &nbsp;<span onclick="clearSearch()" style="cursor:pointer;color:#ff4444;border:1px solid rgba(255,68,68,0.3);padding:2px 8px;border-radius:4px;font-size:8px">✕ CLEAR</span>`;
+      banner.style.display='flex';
+    }
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelector('.section-briefing-map').style.display=q?'none':'';
+  document.querySelector('.section-orr').style.display=q?'none':'';
+  document.querySelector('.outlook-section').style.display=q?'none':'';
+  document.querySelector('.reg-section').style.display=q?'none':'';
+  document.querySelector('.poly-section').style.display=q?'none':'';
+  document.querySelector('.stocks-section').style.display=q?'none':'';
+}
+function jumpToResult(idx){searchResults.forEach(s=>s.classList.remove('active-result'));if(!searchResults[idx])return;searchCurrent=idx;searchResults[idx].classList.add('active-result');searchResults[idx].scrollIntoView({behavior:'smooth',block:'center'});updateSearchNav();}
+function navResult(dir){const next=searchCurrent+dir;if(next>=0&&next<searchResults.length)jumpToResult(next);}
+function updateSearchNav(){document.getElementById('search-pos').textContent=`${searchCurrent+1} / ${searchResults.length}`;document.getElementById('btn-prev').disabled=searchCurrent===0;document.getElementById('btn-next').disabled=searchCurrent===searchResults.length-1;}
+function clearSearch(){
+  document.getElementById('prism-search').value='';
+  const banner=document.getElementById('search-banner');
+  if(banner)banner.style.display='none';
+  document.querySelector('.section-briefing-map').style.display='';
+  document.querySelector('.section-orr').style.display='';
+  document.querySelector('.outlook-section').style.display='';
+  document.querySelector('.reg-section').style.display='';
+  document.querySelector('.poly-section').style.display='';
+  document.querySelector('.stocks-section').style.display='';
+  prismSearch('');
+}
+setTimeout(()=>map.invalidateSize(),300);
+function shareStory(headline,link){
+  const dashboardUrl='https://dashboard.prism-osint.com';
+  const shareUrl=link||dashboardUrl;
+  const text='◈ '+headline+'\n\nVia PRISM — Space & Defence Intelligence';
+  if(navigator.share){
+    navigator.share({title:headline,text:text,url:shareUrl});
+  } else {
+    const twitterUrl='https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(shareUrl)+'&via=PRISMIntel';
+    const linkedinUrl='https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(shareUrl);
+    const overlay=document.createElement('div');
+    overlay.id='share-overlay';
+    overlay.style.cssText='position:fixed;inset:0;background:rgba(4,6,15,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)';
+    overlay.onclick=function(e){if(e.target===overlay)overlay.remove();};
+    overlay.innerHTML='<div onclick="event.stopPropagation()" style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">'
+      +'<div style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#4a9eff;margin-bottom:16px">◈ SHARE INTELLIGENCE</div>'
+      +'<div style="font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:20px;line-height:1.5">'+headline+'</div>'
+      +'<div style="display:flex;flex-direction:column;gap:10px">'
+      +'<a href="'+twitterUrl+'" target="_blank" onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#c8dff0;background:#141414;border:1px solid rgba(255,255,255,0.08);padding:12px 16px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:10px" onmouseover="this.style.borderColor=\'#4a9eff\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.08)\'">𝕏 &nbsp;SHARE ON X / TWITTER</a>'
+      +'<a href="'+linkedinUrl+'" target="_blank" onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#c8dff0;background:#141414;border:1px solid rgba(255,255,255,0.08);padding:12px 16px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:10px" onmouseover="this.style.borderColor=\'#4a9eff\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.08)\'">in &nbsp;SHARE ON LINKEDIN</a>'
+      +'<button onclick="navigator.clipboard.writeText(\''+shareUrl+'\').then(function(){this.textContent=\'✓ LINK COPIED\';var self=this;setTimeout(function(){document.getElementById(\'share-overlay\').remove();},1000);}.bind(this))" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#c8dff0;background:#141414;border:1px solid rgba(255,255,255,0.08);padding:12px 16px;border-radius:6px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px" onmouseover="this.style.borderColor=\'#4a9eff\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.08)\'">⬡ &nbsp;COPY LINK</button>'
+      +'<a href="'+dashboardUrl+'" target="_blank" onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:10px;color:#4a9eff;background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.25);padding:12px 16px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:10px" onmouseover="this.style.background=\'rgba(74,158,255,0.15)\'" onmouseout="this.style.background=\'rgba(74,158,255,0.08)\'">◈ &nbsp;VIEW PRISM DASHBOARD</a>'
+      +'</div>'
+      +'<div onclick="document.getElementById(\'share-overlay\').remove()" style="font-family:\'Space Mono\',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:16px;cursor:pointer;letter-spacing:1px">✕ CLOSE</div>'
+      +'</div>';
+    document.body.appendChild(overlay);
+  }
+}
+async function loadNavLaunches(){
+  var list=document.getElementById('nav-launch-list');
+  var apiStatus=document.getElementById('nav-api-status');
+  if(!list) return;
+  try{
+    var r=await fetch('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=3&format=json');
+    var data=await r.json();
+    var launches=data.results||[];
+    if(!launches.length){list.innerHTML='<div style="padding:16px 18px;font-family:Space Mono,monospace;font-size:8px;color:rgba(200,220,255,0.25)">NO DATA</div>';return;}
+    apiStatus.textContent='LIVE';
+    list.innerHTML=launches.map(function(l){
+      var diff=new Date(l.net)-new Date();
+      var cd=diff<0?'LIVE':Math.floor(diff/(1000*60*60*24))===0?Math.floor((diff%(1000*60*60*24))/(1000*60*60))+'H':Math.floor(diff/(1000*60*60*24))+'D';
+      var st=(l.status&&l.status.name&&l.status.name.toLowerCase().includes('go'))?'<div class="drop-st dst-go">GO</div>':'<div class="drop-st dst-tbd">TBD</div>';
+      var rocket=(l.rocket&&l.rocket.configuration&&l.rocket.configuration.name)||'UNKNOWN';
+      var site=(l.pad&&l.pad.location&&l.pad.location.name)||'TBD';
+      return '<a href="https://prism-osint.com/launches" class="drop-launch-nav">'
+        +'<div class="drop-cd">'+cd+'</div>'
+        +'<div style="flex:1">'
+        +'<div class="drop-mission">'+(l.name||'CLASSIFIED')+'</div>'
+        +'<div class="drop-meta-nav">'+rocket.toUpperCase()+' · '+site.toUpperCase().substring(0,22)+'</div>'
+        +'</div>'+st+'</a>';
+    }).join('');
+  }catch(e){
+    apiStatus.textContent='OFFLINE';
+    list.innerHTML='<a href="https://prism-osint.com/launches" class="drop-launch-nav"><div class="drop-cd">3D</div><div style="flex:1"><div class="drop-mission">Starlink Group 15-3</div><div class="drop-meta-nav">FALCON 9 · CAPE CANAVERAL</div></div><div class="drop-st dst-go">GO</div></a>';
+  }
+}
+loadNavLaunches();
+  if (window.location.hash) {
+     setTimeout(function() {
+       const target = document.querySelector(window.location.hash);
+       if (target) {
+         target.scrollIntoView({ behavior: 'auto', block: 'start' });
+         if (window.PRISM_BAR_H) window.scrollBy(0, -(window.PRISM_BAR_H + 12));
+       }
+     }, 1200);
+   }
+  const FINNHUB_KEY='d8868qhr01qq4341phqgd8868qhr01qq4341phr0';
+const STOCK_TICKERS=[
+  {t:'RKLB',n:'Rocket Lab'},
+  {t:'LMT',n:'Lockheed Martin'},
+  {t:'RTX',n:'Raytheon'},
+  {t:'NOC',n:'Northrop Grumman'},
+  {t:'BA',n:'Boeing'},
+  {t:'LHX',n:'L3Harris'},
+  {t:'IRDM',n:'Iridium'},
+  {t:'LUNR',n:'Intuitive Machines'},
+  {t:'ASTS',n:'AST SpaceMobile'},
+  {t:'PL',n:'Planet Labs'},
+  {t:'BKSY',n:'BlackSky'},
+  {t:'SPCX',n:'SpaceX'}
+];
+  function isMarketLive(results){
+  return results.some(s=>{
+    if(!s.ts) return false;
+    return (Date.now()-s.ts*1000)/60000 < 3;
+  });
+}
+
+function toggleViewAll(){
+  const btn=document.getElementById('mp-viewall');
+  const grid=document.getElementById('mp-all-table');
+  const open=grid.classList.toggle('open');
+  btn.textContent=open?'VIEW ALL '+STOCK_TICKERS.length+' ↑':'VIEW ALL '+STOCK_TICKERS.length+' ↓';
+}
+
+async function fetchLiveStocks(){
+  const mpGrid=document.getElementById('mp-grid');
+  const status=document.getElementById('stocks-status');
+  const viewAllBtn=document.getElementById('mp-viewall');
+  const allGrid=document.getElementById('mp-all-table');
+  if(!mpGrid||!status) return;
+  try{
+    const results=await Promise.all(STOCK_TICKERS.map(s=>
+      fetch('https://finnhub.io/api/v1/quote?symbol='+s.t+'&token='+FINNHUB_KEY)
+      .then(r=>r.json())
+      .then(d=>({...s,c:d.c||d.pc||0,dp:d.dp||0,d:d.d||0,pc:d.pc||0,ts:d.t||0,closed:d.c===0}))
+      .catch(()=>({...s,c:0,dp:0,d:0,ts:0,closed:true}))
+    ));
+
+    const adv=results.filter(s=>s.dp>=0).sort((a,b)=>b.dp-a.dp);
+    const dec=results.filter(s=>s.dp<0).sort((a,b)=>a.dp-b.dp);
+    const top3adv=adv.slice(0,3);
+    const top3dec=dec.slice(0,3);
+
+    function rowHtml(s){
+      const up=s.dp>=0;
+      const pctClass=up?'mp-pct-adv':'mp-pct-dec';
+      const arrow=up?'▲':'▼';
+      const price=s.c>0?'$'+s.c.toFixed(2):'—';
+      const pct=s.closed?'<span style="font-size:9px;color:#3a5a7a">CLOSED</span>':'<span class="'+pctClass+'">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
+      return '<div class="mp-row"><div><div class="mp-ticker">'+s.t+'</div><div class="mp-name">'+s.n+'</div></div><span class="mp-price">'+price+'</span>'+pct+'</div>';
+    }
+
+    function fillerHtml(count,side){
+      if(count>=3) return '';
+      const needed=3-count;
+      let html='';
+      const msg=side==='adv'?(count===0?'none advancing today':(count===1?'only one advancing today':'')):(count===0?'none declining today':(count===1?'only one declining today':''));
+      for(let i=0;i<needed;i++){
+        html+='<div class="mp-empty">'+(i===0?msg:'')+'</div>';
+      }
+      return html;
+    }
+
+    mpGrid.innerHTML=
+      '<div class="mp-col-adv">'+
+        '<div class="mp-col-hdr-adv">▲ ADVANCING · '+adv.length+'</div>'+
+        top3adv.map(rowHtml).join('')+
+        fillerHtml(top3adv.length,'adv')+
+      '</div>'+
+      '<div class="mp-col-dec">'+
+        '<div class="mp-col-hdr-dec">▼ DECLINING · '+dec.length+'</div>'+
+        top3dec.map(rowHtml).join('')+
+        fillerHtml(top3dec.length,'dec')+
+      '</div>';
+
+    const allSorted=[...adv,...dec];
+    allGrid.innerHTML=allSorted.map(s=>{
+      const up=s.dp>=0;
+      const arrow=up?'▲':'▼';
+      const price=s.c>0?'$'+s.c.toFixed(2):'—';
+      const pct=s.closed?'<span style="font-size:9px;color:#3a5a7a;text-align:right">CLOSED</span>':'<span class="'+(up?'mp-pct-adv':'mp-pct-dec')+'" style="text-align:right">'+arrow+Math.abs(s.dp).toFixed(2)+'%</span>';
+      return '<div class="mp-all-row2"><span class="mp-ticker">'+s.t+'</span><span class="mp-price" style="text-align:left">'+price+'</span>'+pct+'</div>';
+    }).join('');
+
+    viewAllBtn.style.display='block';
+
+    const now=new Date();
+    const tt=now.toLocaleTimeString('en-GB',{timeZone:'Asia/Dubai',hour:'2-digit',minute:'2-digit'});
+    if(isMarketLive(results)){
+      status.textContent='● MARKET OPEN · '+tt+' GST';
+      status.style.color='#00e87a';
+      status.style.background='rgba(0,232,122,0.08)';
+      status.style.borderColor='rgba(0,232,122,0.2)';
+    }else{
+      status.textContent='● MARKET CLOSED · '+tt+' GST';
+      status.style.color='#ff8c00';
+      status.style.background='rgba(255,140,0,0.08)';
+      status.style.borderColor='rgba(255,140,0,0.2)';
+    }
+  }catch(e){
+    status.textContent='DELAYED';
+    status.style.color='#ff8c00';
+  }
+}
+fetchLiveStocks();
+setInterval(fetchLiveStocks,60*1000);
+</script>
+<style>@keyframes dawnFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}</style>
+                  <div id="prism-sub-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:8500;background:#0a0a0a;border-top:1px solid rgba(125,200,240,0.3);padding:13px 18px;box-shadow:0 -4px 24px rgba(0,0,0,0.6)">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div style="font-size:13px;color:rgba(255,255,255,0.75);flex:1;min-width:200px"><span style="color:#7DC8F0;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px">◈ DAILY BRIEF</span>&nbsp;&nbsp;Tomorrow's edition, every morning.</div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <input id="bar-email" type="email" placeholder="your@email.com" style="background:#141414;border:1px solid rgba(255,255,255,0.14);border-radius:5px;padding:8px 12px;font-family:'Space Mono',monospace;font-size:11px;color:#c8dff0;outline:none;min-width:170px"/>
+      <input id="bar-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+      <button id="bar-btn" onclick="barSubscribe()" style="background:#7DC8F0;border:none;border-radius:5px;padding:9px 18px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;color:#0a0a0a;cursor:pointer;white-space:nowrap">SUBSCRIBE</button>
+      <div onclick="dismissSubBar()" style="font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.25);padding:0 6px;cursor:pointer">✕</div>
+    </div>
+  </div>
+  <div id="bar-msg" style="max-width:1100px;margin:8px auto 0;font-family:'Space Mono',monospace;font-size:10px;text-align:right;min-height:12px"></div>
+</div>
+<style>@media(max-width:768px){#prism-sub-bar>div{flex-direction:column;align-items:stretch}#prism-sub-bar input#bar-email{width:100%}#prism-sub-bar button#bar-btn{width:100%}#bar-msg{text-align:center}#prism-sub-bar{position:fixed}#prism-sub-bar>div>div:last-child>div:last-child{position:absolute;top:10px;right:14px}}</style>
+<div id="sub-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.75);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
+    <div style="text-align:center;margin-bottom:18px">
+      <img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block" alt="PRISM"/>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px">◈ DAILY PRISM BRIEF</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px">Space and defence intelligence in your inbox at 7am, your local time.</div>
+    <input id="sub-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px"/>
+    <input id="sub-hp" type="text" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+    <button id="sub-btn" onclick="prismSubscribe()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer">SUBSCRIBE</button>
+    <div id="sub-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;text-align:center;min-height:14px"></div>
+    <div onclick="document.getElementById('sub-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:10px;cursor:pointer;letter-spacing:1px">✕ CLOSE</div>
+  </div>
+</div>
+<script>
+async function prismSubscribe(){
+  var email=document.getElementById('sub-email').value.trim();
+  var msg=document.getElementById('sub-msg');
+  var btn=document.getElementById('sub-btn');
+  if(document.getElementById('sub-hp').value){msg.textContent='';return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  var tz='UTC';
+  try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){}
+  btn.disabled=true;btn.textContent='SUBSCRIBING...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/subscribers',{
+      method:'POST',
+      headers:{
+        'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf',
+        'Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf',
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({email:email,timezone:tz})
+    });
+    if(r.status===201){
+      msg.style.color='#7DC8F0';msg.textContent='CONFIRMED — SEE YOU AT 7:00 AM';if(window.gtag)gtag('event','subscribe');
+      btn.textContent='DONE';
+      setTimeout(function(){document.getElementById('sub-modal').style.display='none';},2500);
+    }else if(r.status===409){
+      msg.style.color='#FFC24B';msg.textContent='ALREADY SUBSCRIBED';
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }else{
+      msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }
+  }catch(e){
+    msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR — TRY AGAIN';
+    btn.disabled=false;btn.textContent='SUBSCRIBE';
+  }
+}
+</script> 
+<div id="prism-login-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
+    <div style="text-align:center;margin-bottom:18px;"><img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:64px;display:inline-block;" alt="PRISM"/></div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;margin-bottom:8px;">◈ PRO MEMBER LOGIN</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:18px;">Sign in to access your premium intelligence.</div>
+    <button id="plm-google" onclick="prismGoogleLogin()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;color:#0a0a0a;background:#fff;border:none;padding:12px;border-radius:6px;cursor:pointer;margin-bottom:14px;"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>Continue with Google</button>
+    <div style="text-align:center;color:#555;font-family:'Space Mono',monospace;font-size:10px;margin-bottom:14px;">— OR —</div>
+    <input id="plm-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px;"/>
+    <button id="plm-btn" onclick="prismMagicLogin()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:13px;border-radius:6px;cursor:pointer;">EMAIL ME A LOGIN LINK</button>
+    <div id="plm-msg" style="font-family:'Space Mono',monospace;font-size:10px;margin-top:12px;text-align:center;min-height:14px;"></div>
+    <div onclick="document.getElementById('prism-login-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:10px;cursor:pointer;letter-spacing:1px;">✕ CLOSE</div>
+  </div>
+</div>
+<script>
+const PRISM_SB = window.supabase.createClient('https://xzslopptbphrtddzsvdy.supabase.co','sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf');
+let PRISM_TIER = 'free';
+let PRISM_USER = null;
+
+function openLogin(){ document.getElementById('prism-login-modal').style.display='flex'; }
+
+async function prismGoogleLogin(){
+  await PRISM_SB.auth.signInWithOAuth({ provider:'google', options:{ redirectTo:'https://dashboard.prism-osint.com'  } });
+}
+async function prismMagicLogin(){
+  var email=document.getElementById('plm-email').value.trim();
+  var msg=document.getElementById('plm-msg');
+  if(!email||email.indexOf('@')<1){ msg.style.color='#E24B4A'; msg.textContent='ENTER A VALID EMAIL'; return; }
+  var r=await PRISM_SB.auth.signInWithOtp({ email:email, options:{ emailRedirectTo:'https://dashboard.prism-osint.com' } });
+  if(r.error){ msg.style.color='#E24B4A'; msg.textContent='ERROR — TRY AGAIN'; }
+  else{ msg.style.color='#7DC8F0'; msg.textContent='CHECK YOUR EMAIL FOR THE LINK'; }
+}
+async function prismLogout(){
+  await PRISM_SB.auth.signOut();
+  PRISM_TIER='free'; PRISM_USER=null;
+  applyUnlockState(); updateAuthUI();
+}
+
+async function prismCheckSession(){
+  const { data:{ session } } = await PRISM_SB.auth.getSession();
+  if(session && session.user){
+    PRISM_USER = session.user;
+    try{
+      const { data } = await PRISM_SB.from('profiles').select('tier').eq('id', session.user.id).single();
+      PRISM_TIER = (data && data.tier) ? data.tier : 'free';
+    }catch(e){ PRISM_TIER='free'; }
+  } else {
+    PRISM_USER=null; PRISM_TIER='free';
+  }
+  applyUnlockState(); updateAuthUI();
+}
+
+function isUnlocked(){ var pv=false; try{pv=localStorage.getItem('prism_preview')==='pro';}catch(e){} return pv || (PRISM_USER !== null && PRISM_TIER === 'pro'); }
+  function applyUnlockState(){
+  document.querySelectorAll('.prism-locked').forEach(function(el){
+    if(isUnlocked()) el.classList.add('prism-unlocked');
+    else el.classList.remove('prism-unlocked');
+  });
+}
+
+function updateAuthUI(){
+  var btn=document.getElementById('prism-auth-btn');
+  if(!btn) return;
+  if(PRISM_USER){ btn.textContent = PRISM_TIER==='pro' ? 'PRO ✓' : 'ACCOUNT'; btn.onclick=prismLogout; }
+  else { btn.textContent='LOG IN'; btn.onclick=openLogin; }
+}
+
+PRISM_SB.auth.onAuthStateChange(function(_e, _s){ prismCheckSession(); });
+document.addEventListener('DOMContentLoaded', prismCheckSession);
+    function prismOpenSubModal(){
+  if(window.location.hash==='#subscribe'){
+    var m=document.getElementById('sub-modal');
+    if(m)m.style.display='flex';
+  }
+}
+if(window.location.hash==='#subscribe'){setTimeout(prismOpenSubModal,600);}
+window.addEventListener('hashchange',prismOpenSubModal);
+(function(){
+  if(window.location.pathname.includes('/archive/'))return;
+  try{if(localStorage.getItem('prism_bar_done'))return;}catch(e){}
+    var shown=false;
+  function maybeShow(){
+    if(shown)return;
+    var m=document.getElementById('sub-modal');
+    if(m&&m.style.display==='flex'){setTimeout(maybeShow,5000);return;}
+    shown=true;
+    var b=document.getElementById('prism-sub-bar');
+    if(b)b.style.display='block';
+  }
+  setTimeout(maybeShow,15000);
+})();
+function dismissSubBar(){
+  var b=document.getElementById('prism-sub-bar');
+  if(b)b.style.display='none';
+  try{localStorage.setItem('prism_bar_done','1');}catch(e){}
+}
+async function barSubscribe(){
+  var email=document.getElementById('bar-email').value.trim();
+  var msg=document.getElementById('bar-msg');
+  var btn=document.getElementById('bar-btn');
+  if(document.getElementById('bar-hp').value){return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  var tz='UTC';
+  try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';}catch(e){}
+  btn.disabled=true;btn.textContent='...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/subscribers',{
+      method:'POST',
+      headers:{'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:email,timezone:tz})
+    });
+    if(r.status===201){
+      msg.style.color='#7DC8F0';msg.textContent='CONFIRMED — SEE YOU AT 7:00 AM';
+      if(window.gtag)gtag('event','subscribe');
+      try{localStorage.setItem('prism_bar_done','1');}catch(e){}
+      setTimeout(dismissSubBar,2500);
+    }else if(r.status===409){
+      msg.style.color='#FFC24B';msg.textContent='ALREADY SUBSCRIBED';
+      try{localStorage.setItem('prism_bar_done','1');}catch(e){}
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }else{
+      msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';
+      btn.disabled=false;btn.textContent='SUBSCRIBE';
+    }
+  }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='SUBSCRIBE';}
+}
+</script>  
+<div id="prism-pro-modal" style="display:none;position:fixed;inset:0;background:rgba(4,6,15,0.8);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#1e1e1e;border:1.5px solid rgba(125,200,240,0.3);border-radius:12px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6)">
+    <div style="text-align:center;margin-bottom:16px;"><img src="https://raw.githubusercontent.com/f7g7v6kn5r-lab/prism-dashboard/main/PRISM-2.png" style="height:56px;display:inline-block;" alt="PRISM"/></div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#7DC8F0;text-align:center;margin-bottom:6px;">◈ PRISM PRO</div>
+    <div style="text-align:center;margin-bottom:18px;"><span style="font-family:'Space Mono',monospace;font-size:32px;font-weight:700;color:#fff;">$29</span><span style="font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.5);">/month</span></div>
+    <div style="text-align:center;margin-bottom:18px;"><span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#0a0a0a;background:#FFC24B;padding:4px 10px;border-radius:3px;font-weight:700;">LAUNCHING SOON</span></div>
+    <div style="border-top:0.5px solid rgba(255,255,255,0.1);border-bottom:0.5px solid rgba(255,255,255,0.1);padding:16px 0;margin-bottom:18px;">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.4);margin-bottom:12px;">UNLOCKS</div>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> Opportunity of the Day</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> Risk of the Day</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> Predictive Signals</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.85);font-size:13px;"><span style="color:#7DC8F0;">✓</span> PRISM Analyst — unlimited</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:14px;">Pro is not open yet. Leave your email and we will let you know the moment it is.</div>
+    <input id="pro-email" type="email" placeholder="your@email.com" style="width:100%;box-sizing:border-box;background:#141414;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:12px 14px;color:#c8dff0;font-family:'Space Mono',monospace;font-size:12px;outline:none;margin-bottom:12px;"/>
+    <input id="pro-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0"/>
+    <button id="pro-btn" onclick="proNotify()" style="width:100%;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:#0a0a0a;background:#7DC8F0;border:none;padding:14px;border-radius:6px;text-align:center;cursor:pointer;margin-bottom:12px;">NOTIFY ME AT LAUNCH</button>
+    <div id="pro-msg" style="font-family:'Space Mono',monospace;font-size:10px;text-align:center;min-height:14px;"></div>
+    <div onclick="document.getElementById('prism-pro-modal').style.display='none'" style="font-family:'Space Mono',monospace;font-size:9px;color:#3a5a7a;text-align:center;margin-top:14px;cursor:pointer;letter-spacing:1px;">✕ CLOSE</div>
+  </div>
+</div>
+<script>
+function openPro(){ document.getElementById('prism-pro-modal').style.display='flex'; }
+document.addEventListener('click',function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[href*="consultant.prism-osint.com"]'):null;
+  if(!a)return;
+  e.preventDefault();
+  e.stopPropagation();
+  openPro();
+},true);
+(function(){
+  var pv=new URLSearchParams(window.location.search).get('preview');
+  if(pv==='pro'){try{localStorage.setItem('prism_preview','pro');}catch(e){}}
+  if(pv==='off'){try{localStorage.removeItem('prism_preview');}catch(e){}}
+  try{
+    if(localStorage.getItem('prism_preview')==='pro'){
+      document.querySelectorAll('.prism-locked').forEach(function(el){el.classList.add('prism-unlocked');});
+    }
+  }catch(e){}
+})();
+window.proLoadTime=Date.now();
+async function proNotify(){
+  var email=document.getElementById('pro-email').value.trim();
+  var msg=document.getElementById('pro-msg');
+  var btn=document.getElementById('pro-btn');
+  if(document.getElementById('pro-hp').value){msg.textContent='';return;}
+  if(Date.now()-window.proLoadTime<2000){msg.style.color='#E24B4A';msg.textContent='PLEASE TRY AGAIN';return;}
+  if(!email||email.indexOf('@')<1){msg.style.color='#E24B4A';msg.textContent='ENTER A VALID EMAIL';return;}
+  btn.disabled=true;btn.textContent='SENDING...';
+  try{
+    var r=await fetch('https://xzslopptbphrtddzsvdy.supabase.co/rest/v1/pro_waitlist',{
+      method:'POST',
+      headers:{'apikey':'sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Authorization':'Bearer sb_publishable_TsMaORZtXAy8fJO_aKl_7Q_RXHxoLgf','Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:email})
+    });
+    if(r.status===201){msg.style.color='#7DC8F0';msg.textContent='YOU ARE ON THE LIST';if(window.gtag)gtag('event','pro_waitlist');btn.textContent='DONE';}
+    else if(r.status===409){msg.style.color='#FFC24B';msg.textContent='ALREADY ON THE LIST';btn.disabled=false;btn.textContent='NOTIFY ME AT LAUNCH';}
+    else{msg.style.color='#E24B4A';msg.textContent='ERROR — TRY AGAIN';btn.disabled=false;btn.textContent='NOTIFY ME AT LAUNCH';}
+  }catch(e){msg.style.color='#E24B4A';msg.textContent='NETWORK ERROR';btn.disabled=false;btn.textContent='NOTIFY ME AT LAUNCH';}
+}
+</script>      
+</body>
+</html>
