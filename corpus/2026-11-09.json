@@ -1,0 +1,203 @@
+{
+  "date": "2026-11-09",
+  "executive_summary": "CENTCOM Commander Admiral Brad Cooper announced Task Force Iron Gate, based in Tampa, Florida, to block advanced weapons, dual-use technologies and sanctioned materials across Irans land borders and the Caspian Sea, with enforcement actions since July having redirected 147 commercial vessels and disabled five merchant ships; separately the IRGC said three non-compliant tankers exploded and caught fire in the Strait of Hormuz on Sunday. The read is that the pressure campaign on Iran is widening from ports to land routes while shipping losses mount, and I would be proven wrong if the talks Trump described as making a lot of progress produce a deal before another hull burns. Watch the US, Russian and Ukrainian negotiators set to meet in Abu Dhabi on November 10 and 11 under special envoy Steve Witkoff: a durable track would make the KOALICJA 26.2 post-war rebuild rehearsal a procurement pipeline, while collapse leaves 2,800 troops rehearsing a force no one deploys.",
+  "market_sentiment": "NEUTRAL",
+  "geopolitical_risk": "CRITICAL",
+  "opportunity_of_the_day": "Shield AI agreed to acquire Echodyne, holder of a $250 million JIATF-401 counter-drone contract over 36 months, for $5.3 billion, while a drone strike at Khor Mor, responsibility unestablished, cut 2,500 to 2,800 megawatts; what this means is that counter-drone detection is the segment to add, conditional on JIATF-401 demand continuing.",
+  "risk_of_the_day": "The IRGC said three non-compliant tankers exploded and caught fire in the Strait of Hormuz on Sunday and Israeli Defence Minister Israel Katz said the mission against Iran is not complete; the implication is that one more burning hull reprices energy and tanker risk within hours, not weeks.",
+  "outlook": {
+    "space": {
+      "signal": "The UK Ministry of Defence has not specified allocations to Titania or the companion Project Inaros ground-sensor trials within the £3.2 billion listed for space capabilities across 2026-27 through 2029-30, and that disclosure gap is the space trigger, with no date given for it.",
+      "watch": "MoD allocation detail within the £3.2 billion space line",
+      "bull": "Named allocations behind the ISTARI programme would give In-Space Missions Ltd and Optera a sized pipeline and show the £3.2 billion converting into contracts.",
+      "bear": "Continued absence of detail leaves the £3.2 billion a planning line suppliers cannot underwrite, and keeps Titania and the Inaros sensor trials isolated demonstrations."
+    },
+    "defence": {
+      "signal": "Britain and France are jointly leading KOALICJA 26.2 from November 9 to 22, with 2,800 troops from 11 nations across Poland, France and Turkey under the Multinational Force-Ukraine, and American troops not participating.",
+      "watch": "KOALICJA 26.2 exercise, November 9 to 22",
+      "bull": "A clean rehearsal of deploying, protecting and supplying the force points to sustained demand for logistics, force protection and sustainment across the 11 participating nations.",
+      "bear": "Visible shortfalls, with American troops absent, would mark the post-war rebuild force as notional and the budgets behind it as deferrable."
+    },
+    "geo": {
+      "signal": "Opposition leader Gadi Eisenkot has been chosen by President Isaac Herzog to form the next government, with 28 days and a possible 14-day extension, while Katz says the mission against Iran is not complete and it remains unclear whether Trump would back another major Israeli campaign.",
+      "watch": "Eisenkot government formation, 28 days plus 14-day extension",
+      "bull": "A government formed inside the 28 days would argue against an open-ended campaign and ease the risk premium on Gulf shipping and energy assets.",
+      "bear": "Drift into the extension while Katz warns Hezbollah of extremely severe blows keeps a wartime posture live and leaves Hormuz traffic and Gulf facilities exposed."
+    }
+  },
+  "stocks": {
+    "notable_movers": "At their last close, small-cap new-space names dominated the gains — Intuitive Machines surged 21.5 percent and Planet Labs rose 10.4 percent — signalling risk appetite for commercial space even as the broader defence prime complex softened, with Lockheed Martin down 1.6 percent and RTX down 1.2 percent at their last close. The divergence between primes and new-space reflects the market reading a prolonged Iran war as a procurement continuity story for incumbents rather than a growth catalyst, while commercial remote sensing and launch names benefit from sustained government demand for persistent surveillance capacity.",
+    "sector_outlook": "Defence infrastructure and counter-drone suppliers face sustained demand acceleration as the Iran conflict extends across sea, land and air domains, but prime contractors should expect margin pressure if Democratic-led congressional investigations constrain supplemental appropriations in early 2027."
+  },
+  "stories": [
+    {
+      "date": "2026-11-09",
+      "section": "space",
+      "headline": "Russia using Rassvet satellites over Ukraine",
+      "context": "Ukraines Main Intelligence Directorate told Reuters that Russia has launched 32 Rassvet satellites in two batches in March and July and is already using the constellation for military communications over Ukraine, aiming to make strike drones more accurate and harder to jam. The constellation currently provides only intermittent coverage, but Moscow plans additional launches before the end of 2026 to expand geographic coverage. President Volodymyr Zelenskyy has imposed sanctions on 10 companies involved in developing Rassvet, including Bureau 1440, the coordinator of the state-backed project.",
+      "implication": "Rassvet closing even a fraction of the gap with Starshield-class connectivity raises the operational ceiling for Russian drone strikes and directly increases demand for electronic warfare and counter-UAS systems among NATO members.",
+      "region": "Europe",
+      "urgency": "URGENT",
+      "score": 75,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/industry/techwatch/2026/11/06/russia-using-own-version-of-starlink-for-military-comms-over-ukraine-kyiv-says/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/2026-11-06T154510Z_1_LYNXNPEMA51KN_RTROPTP_4_UKRAINE-CRISIS-RASSVET.jpg"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "space",
+      "headline": "UK Titania satellite reaches orbit under ISTARI",
+      "context": "The UK Ministry of Defence confirmed that Titania, a 100-kilogram satellite built under a £9.5 million contract with In-Space Missions Ltd, has reached low Earth orbit and will be operated by UK Space Command through the ISTARI programme to support observation of military activity on Earth. The wider Defence Investment Plan lists £3.2 billion for space capabilities across 2026-27 through 2029-30, within £298 billion in planned defence investment, though the ministry has not specified allocations to Titania or the companion Project Inaros ground-sensor trials. Project Inaros is beginning trials of three ground-based neuromorphic sensors developed by Optera, to be placed in the UK, Australia and British facilities on Cyprus.",
+      "implication": "Titania validates the UK as a credible sovereign military space operator and signals sustained ISTARI programme spending, creating a durable procurement pipeline for BAE Systems and adjacent surveillance-payload suppliers over the four-year funding window.",
+      "region": "Europe",
+      "urgency": "NORMAL",
+      "score": 70,
+      "source": "econotimes",
+      "link": "https://econotimes.com/UK-Says-Titania-Reached-Orbit-as-Space-Plan-Lists-3-2-Billion-1772701",
+      "image": "https://wfuxxvxhdynkhcrlavdu.supabase.co/storage/v1/object/public/article-media/articles/cac32b29eb0660a072921dc203c88ae564ef7bd6bd638b7b03c0efaec816d493.webp"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "space",
+      "headline": "Quantum Space joins $185M NASA moon transport award",
+      "context": "Quantum Space has been selected as a subcontractor to Arrow Science and Technology on a $185 million award under NASAs Moon Base Transportation programme, with Quantum Space receiving approximately 25 percent of the total contract value. Quantum Space will provide its Ranger orbital transfer vehicle to deliver two CAPSTONE-2 spacecraft, with SpaceXs Falcon 9 serving as the launch vehicle, and terms between Quantum Space and Arrow are still being finalised. The mission supports NASAs efforts to establish a sustained presence at the lunar south pole.",
+      "implication": "The award validates Ranger as a commercially competitive cislunar transfer vehicle and positions Quantum Space for follow-on moon-base logistics contracts as NASA expands its sustained lunar south pole presence.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 55,
+      "source": "nynewsly",
+      "link": "https://nynewsly.com/quantum-space-part-of-team-awarded-185-million-nasa-contract-for-moon-base-transportation-program/61455/",
+      "image": null
+    },
+    {
+      "date": "2026-11-09",
+      "section": "space",
+      "headline": "CesiumAstro raises $730M Series D at $4.5B valuation",
+      "context": "CesiumAstro closed a $730 million Series D financing round led by Janus Henderson, valuing the company at more than $4.5 billion, bringing total capital announced in 2026 to more than $1.2 billion. The company simultaneously announced Synchronicity, a planned 737-satellite AI-enabled constellation for commercial, sovereign and defence missions, and committed a $500 million investment over five years to expand its Austin-area headquarters including 270,000 square feet of advanced manufacturing space. The round included participation from Insight Partners, Sands Capital, Sumitomo Corporation of Americas, Woven Capital, Incharge Capital, Magnetar, AV and NewSpace Capital, alongside $100 million in debt financing from the Export-Import Bank of the United States and JPMorgan.",
+      "implication": "The scale of the raise and the manufacturing commitment signal that CesiumAstro is positioning to become a vertically integrated prime for defence communications constellations, compressing the timeline before it competes directly with established satcom primes.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 55,
+      "source": "SpaceAgenda",
+      "link": "https://spacenews.com/cesiumastro-secures-730-million-in-janus-henderson-led-series-d-at-a-valuation-above-4-5-billion-unveils-synchronicity-satellite-constellation-following-fully-successful-element-1-mission/",
+      "image": null
+    },
+    {
+      "date": "2026-11-09",
+      "section": "defence",
+      "headline": "Drone strike cuts power to Iraqi Kurdish region",
+      "context": "A drone attack on the Khor Mor gasfield in Sulaimaniyah governorate ignited a fire and knocked between 2,500 and 2,800 megawatts of electricity generation offline, leaving more than 70 percent of the Kurdish region without power and suspending gas supply to plants in Erbil, Sulaimaniyah, Bazian, Chamchamal and Duhok. Iraqi Prime Minister Ali al-Zaidi reported no casualties based on an initial assessment and directed that a joint investigative committee be formed with relevant Kurdish authorities to investigate the attack. The Kurdistan Regional Government said it would route power to critical facilities via hydroelectric and alternative-fuel plants, and responsibility for the attack has not been established.",
+      "implication": "The strike demonstrates that energy infrastructure across the broader Iran war theatre is now a viable and repeatedly exploited target, raising the insurance and operational risk premium for any firm or government with assets in the Kurdish region.",
+      "region": "Middle East",
+      "urgency": "BREAKING",
+      "score": 90,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/9/drone-attack-suspends-production-at-iraqs-khor-mor-gasfield?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6af0eefb-1794174715.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "defence",
+      "headline": "CENTCOM launches Task Force Iron Gate on Iran land routes",
+      "context": "CENTCOM Commander Admiral Brad Cooper announced the establishment of Task Force Iron Gate, based in Tampa, Florida, to prevent the movement of advanced weapons systems, dual-use technologies, sanctioned materials and illegal revenue streams across Irans land borders and the Caspian Sea. The task force expands the existing naval blockade of Iranian ports and will coordinate with other US government agencies. CENTCOM separately said it had disabled a St Kitts-flagged cargo vessel, M/V Huda, in the Gulf of Oman, with enforcement actions since July resulting in US forces redirecting 147 commercial vessels that complied and disabling five merchant ships that refused to comply.",
+      "implication": "Extending the blockade to land and Caspian routes signals that the US assesses the naval cordon alone is insufficient, raising the probability of further escalatory measures and sustaining demand for logistics-interdiction and intelligence-surveillance capabilities in CENTCOM theatre.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 90,
+      "source": "jamaicainquirer",
+      "link": "https://jamaicainquirer.com/us-launches-task-force-to-disrupt-irans-land-based-supply-routes/",
+      "image": "https://jamaicainquirer.com/app/uploads/2026/11/reuters_6aefb55c-1794094428-T3gLiA.jpg"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "defence",
+      "headline": "Saudi air defences intercept four missiles; Aramco hit",
+      "context": "Saudi Arabias air defences intercepted two ballistic missiles and two cruise missiles targeting Riyadh and other regions on Sunday, with falling debris causing damage to an Aramco building in the King Abdullah Financial District; the energy ministry said the damage was minor and no casualties were reported. The Saudi-led coalition accused the Houthis of launching the ballistic missiles, though the Houthis had not immediately claimed responsibility. The UAE separately said it had rescued 22 crew members, all of Arab nationalities, after a fire broke out aboard a cargo ship in the Sea of Oman.",
+      "implication": "Repeated successful missile penetrations — even when intercepted — that cause physical damage to Aramco facilities in Riyadhs financial district demonstrate that Houthi strike range and volume is outpacing the Saudi intercept capacity margin, a risk that is directly relevant to energy security pricing and regional air-defence procurement.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 85,
+      "source": "nationalheraldindia",
+      "link": "https://www.nationalheraldindia.com/international/saudi-arabia-intercepts-missiles-targeting-riyadh-aramco-building-damaged",
+      "image": "https://cf-images.assettype.com/nationalherald%2F2026-11-08%2Fsjmqeoq6%2FAramco.png?rect=0%2C0%2C880%2C462&w=1200&ar=40%3A21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "defence",
+      "headline": "Jeffries backs Hegseth impeachment as Democrats map probes",
+      "context": "House Minority Leader Hakeem Jeffries publicly declared he is a hard yes on the impeachment resolution targeting Defense Secretary Pete Hegseth, calling the war in Iran reckless and costly, during a Sunday appearance on This Week with George Stephanopoulos. The resolution has been spearheaded by outgoing Republican Representative Thomas Massie of Kentucky, and Jeffries — poised to become the next House Speaker after Democrats won majorities in both chambers on November 3 — said he expects strong support for it. Democrats plan to move aggressively in their first 100 days to address affordability and what Jeffries called unprecedented corruption under Trump.",
+      "implication": "A credible impeachment proceeding against the Defense Secretary would inject acute uncertainty into US war-authorisation continuity and supplemental defence appropriations at a moment when the Iran theatre is actively escalating, representing a material political risk for defence contractors dependent on sustained executive branch commitment to the conflict.",
+      "region": "North America",
+      "urgency": "URGENT",
+      "score": 80,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/9/jeffries-backs-hegseth-impeachment-as-democrats-vow-probes-of-trump-allies?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6af0da4e599b-1794169422.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "defence",
+      "headline": "Shield AI acquires Echodyne in $5.3B counter-drone deal",
+      "context": "Shield AI agreed to acquire Echodyne, maker of Metamaterials Electronically Scanned Array solid-state radar, in a $5.3 billion transaction, expanding Shield AIs portfolio to include counter-drone detection technology alongside its existing X-Bat and V-Bat vertical takeoff and landing systems and Hivemind autonomy software. Echodyne holds a $250 million contract awarded by the Defense Departments counter-drone task force JIATF-401 to provide counter-drone technology to military forces over 36 months. Shield AI CEO Gary Steele said the acquisition supports the companys aim to build three business units: autonomy software, autonomous systems and mission systems.",
+      "implication": "The acquisition creates a vertically integrated counter-UAS prime covering both detection radar and autonomous air vehicles at a moment when drone proliferation across the Iran and Ukraine wars is validating the entire sector thesis and driving government urgency.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 75,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/industry/techwatch/2026/11/05/shield-ai-to-acquire-radar-maker-echodyne-to-bust-drones/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/08/Shield-AI-X-BAT.jpg.jpg"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "defence",
+      "headline": "KOALICJA 26.2 to rehearse Ukraine force deployment",
+      "context": "Britain and France are jointly leading KOALICJA 26.2 from November 9 to 22, assembling 2,800 troops from 11 nations across Poland, France and Turkey under the Multinational Force-Ukraine to rehearse deploying, protecting and supplying a force that would help rebuild Ukraines armed forces after the war ends. Belgium, Estonia, Germany, Lithuania, the Netherlands, Spain, Sweden and Turkey are also taking part, with American troops not participating. The exercise begins one day before US, Russian and Ukrainian negotiators are set to meet in Abu Dhabi on November 10 and 11 under special envoy Steve Witkoff, in talks that revived only in September after stalling when the US and Israel began striking Iran in February.",
+      "implication": "The simultaneity of a live Coalition of the Willing exercise and the Abu Dhabi negotiating round signals that European members are preparing military infrastructure for a postwar presence regardless of diplomatic outcome, compressing the window for defence contractors to position on postwar Ukraine reconstruction and security contracts.",
+      "region": "Europe",
+      "urgency": "URGENT",
+      "score": 75,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/news/2026/11/07/european-troops-set-to-train-in-poland-for-postwar-ukraine-deployment/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/08/GettyImages-2235378977.jpg.jpg"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "middle_east",
+      "headline": "IRGC claims three tankers on fire in Strait of Hormuz",
+      "context": "Irans Islamic Revolutionary Guard Corps said three non-compliant tankers exploded and caught fire in the Strait of Hormuz on Sunday, without identifying the vessels or their nationalities, saying they were sailing in what the Guard called the illegal channel. The UK Maritime Trade Operations agency separately confirmed a tanker had caught fire off Khasab, Oman, with the crew evacuated, and Emirati state media said 22 people had been rescued from a burning vessel in the Gulf of Oman. The IRGC statement came as Israeli Defence Minister Israel Katz warned that Israels mission against Iran was still not complete.",
+      "implication": "Continued attacks on tankers transiting without IRGC authorisation further disrupts a waterway carrying roughly one-fifth of global oil consumption and keeps energy freight costs and maritime insurance premiums elevated across the region.",
+      "region": "Strait of Hormuz",
+      "urgency": "URGENT",
+      "score": 82,
+      "source": "dailysabah",
+      "link": "https://www.dailysabah.com/world/mid-east/iran-reports-3-tanker-fires-as-israel-warns-of-unfinished-mission",
+      "image": "https://idsb.tmgrup.com.tr/ly/uploads/images/2026/11/08/thumbs/1200x675/469563.jpg"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "middle_east",
+      "headline": "Katz warns Iran mission not complete, eyes nuclear threat",
+      "context": "Israeli Defence Minister Israel Katz said on Sunday that the mission against Iran was still not complete, alleging Tehran is trying to renew its efforts to obtain nuclear weapons, which Iran denies, speaking at a memorial ceremony for Israeli soldiers killed during the 1956 Sinai campaign. Katz also warned Hezbollah against joining any fresh Iranian attack on Israel, saying it would suffer extremely severe blows, while it remained unclear whether US President Donald Trump would back another major Israeli military campaign following Republican losses in the November 3 midterm elections. Politically, opposition leader Gadi Eisenkot has been chosen by President Isaac Herzog to form the next government, giving him 28 days with a possible 14-day extension.",
+      "implication": "Continued Israeli signalling of unfinished military objectives against Iran keeps the probability of further escalation elevated and sustains pressure on Gulf defence procurement timelines and energy market risk premiums.",
+      "region": "Israel",
+      "urgency": "URGENT",
+      "score": 78,
+      "source": "timesnownews",
+      "link": "https://www.timesnownews.com/world/middle-east/israel-iran-mission-not-complete-katz-nuclear-weapons-warning-article-156483059",
+      "image": "https://images.timesnownews.com/thumb/msid-156483076,thumbsize-79138,width-1280,height-720,resizemode-75/156483076.jpg"
+    },
+    {
+      "date": "2026-11-09",
+      "section": "middle_east",
+      "headline": "Trump confirms minor US strikes on Qeshm island",
+      "context": "US President Donald Trump confirmed that US forces carried out what he described as minor strikes against Iranian air defence systems on Qeshm island in the Strait of Hormuz, saying the strikes took roughly five to fifteen minutes. Iranian state media reported two missile strikes in the Suza area of Qeshm and an Iranian army statement claiming its air defence forces intercepted and destroyed an American MQ-9 drone over the island, while CENTCOM described the situation as relatively calm. Trump also said his administration had made a lot of progress in talks with Iran and that Tehran wants to make a deal, while Qatar dismissed reports that negotiations had failed.",
+      "implication": "Continued US kinetic action against Iranian air defence nodes on Qeshm, combined with disputed Iranian drone intercept claims, signals the conflict remains active in the Strait of Hormuz corridor and extends risk to maritime and energy operations in the area.",
+      "region": "Iran",
+      "urgency": "URGENT",
+      "score": 75,
+      "source": "newshd24",
+      "link": "https://www.24newshd.tv/08-Nov-2026/trump-confirms-new-us-strikes-iran-s-qeshm-island",
+      "image": "https://www.24newshd.tv/digital_images/large/2026-11-08/trump-confirms-new-us-strikes-iran-s-qeshm-island-1794110551-3131.png"
+    }
+  ]
+}
