@@ -1,0 +1,216 @@
+{
+  "date": "2026-11-10",
+  "executive_summary": "US Central Command announced Task Force Iron Gate, a unit of approximately 20 civilian and military personnel in Tampa, Florida, to disrupt Irans access to advanced weapons, sensitive technologies and financial networks through its land borders and the Caspian Sea; Trump, after meeting the Qatari Prime Minister and Vice President JD Vance, declared that Iran militarily is effectively over while acknowledging the continuing naval blockade and the new task force. The read is that Washington is building long-duration containment rather than winding down, and I would be wrong if the blockade is lifted or Iranian President Masoud Pezeshkian, who said Iran remains open to negotiations but would not be coerced, secures talks that halt interdiction. Watch the Swiss vote on 29 November on whether to block the amendment allowing arms shipments to 36 Western countries involved in active armed conflicts: a vote to block preserves the curbs and the non-re-export declaration, while a vote against it widens Swiss export channels.",
+  "market_sentiment": "BULLISH",
+  "geopolitical_risk": "HIGH",
+  "opportunity_of_the_day": "The Pentagon provided a $450 million conditional loan to Neros Technologies, which commits $165 million more for $615 million total, after an $820 million loan to PDW in July. The implication is that drone component localisation is funded policy; buy that theme while Office of Strategic Capital lending continues.",
+  "risk_of_the_day": "Iranian officials dismissed Trumps remarks that Iran militarily is effectively over as fake news, with Mohsen Rezaei calling them manufactured, while CENTCOM stood up Task Force Iron Gate and the naval blockade continues. The read is that escalation risk now sits with enforcement at sea, and defence names would move within days.",
+  "outlook": {
+    "space": {
+      "signal": "The space names carry no dated near-term catalyst here, so the standing indicators are Taiwans NT$71 billion third-phase programme extended to 2031 and the Computer and Communications Industry Association call for modernised spectrum and licensing rules.",
+      "watch": "Taiwan NT$71 billion programme and spectrum reform push",
+      "bull": "The implication is that if Taiwan carries the Shalun rocket base toward 2030 operations and Jiupeng toward 2032, domestic launch and satellite supply chains gain years of visible demand, giving a policy underpinning to momentum such as RKLB, up 10.9 percent at the last close.",
+      "bear": "What this means is that if spectrum and licensing rules stay unmodernised as the association argues, satellite connectivity revenue cases slip and high-beta names such as PL, up 14.5 percent at the last close, can hand back gains quickly."
+    },
+    "defence": {
+      "signal": "Republican Representative Thomas Massie introduced eight articles of impeachment against Defense Secretary Pete Hegseth at the first House session after the midterm elections, urging him to resign before Democrats take control of Congress in January.",
+      "watch": "House handling of Massie impeachment articles against Hegseth",
+      "bull": "The read is that if the resolution stalls, Pentagon execution continues uninterrupted and Office of Strategic Capital lending of the kind extended to Neros Technologies and PDW keeps flowing into drone and component suppliers.",
+      "bear": "The implication is that if it gains traction, leadership uncertainty at the top of the Pentagon slows signatures on awards, and suppliers such as LHX, up 4.4 percent at the last close, face headline risk rather than order risk."
+    },
+    "geo": {
+      "signal": "Iranian Foreign Ministry Spokesperson Esmaeil Baghaei said on November 9 that IAEA inspectors visited the Bushehr Nuclear Power Plant several days ago but that US and Israeli strikes have created difficulties in fulfilling monitoring obligations, with no further inspection date given.",
+      "watch": "IAEA access to Iranian nuclear sites",
+      "bull": "The read is that routine inspections resuming beyond Bushehr would thin the escalation premium and lend substance to the openness to negotiations stated by President Masoud Pezeshkian.",
+      "bear": "What this means is that continued loss of continuity of knowledge over centrifuge production, cited by the State Department in offering up to $20 million through Rewards for Justice, keeps interdiction expanding across sea, land and Caspian routes and sustains demand for enforcement capability."
+    }
+  },
+  "stocks": {
+    "notable_movers": "At their last close, space and defence equities posted a broad rally, with LHX gaining 4.4 percent, RKLB up 10.9 percent, LUNR up 15.0 percent, ASTS up 14.1 percent and PL up 14.5 percent, suggesting the market read Trumps de-escalation rhetoric as reducing tail risk for the sector. The divergence between BAs marginal decline of 0.6 percent and the strength across primes such as LMT at plus 3.7 percent and RTX at plus 3.6 percent points to platform-mix preferences rather than a uniform defence bid.",
+    "sector_outlook": "Subsea sensing and counter-drone demand will accelerate regardless of whether the US-Iran ceasefire holds, as the 116 confirmed merchant-shipping incidents in the Strait of Hormuz and wider Middle East recorded by the International Maritime Organization embed persistent threat assumptions into allied naval procurement budgets through at least 2027."
+  },
+  "stories": [
+    {
+      "date": "2026-11-10",
+      "section": "space",
+      "headline": "Taiwan lifts space budget to NT$71B through 2031",
+      "context": "President Lai Ching-te announced at TASTI 2026 in Tainan that the government has increased funding for the third phase of its National Space Technology Long-term Development Program to NT$71 billion, extended through 2031, up from an original NT$25.1 billion budget with an end date of 2028. Taiwan is building a rocket research and assembly base in Shalun expected to begin operations in 2030, and a national launch facility at Jiupeng in Pingtung County expected to be operational by 2032, after which the island aims to launch domestically manufactured satellites without relying on foreign providers such as SpaceX.",
+      "implication": "Taiwans commitment to sovereign launch by 2032 creates a decade-long demand signal for domestic and allied suppliers of small-launch infrastructure, ground systems and satellite buses, and reduces its vulnerability to partner-nation export decisions under geopolitical pressure.",
+      "region": "Asia Pacific",
+      "urgency": "NORMAL",
+      "score": 65,
+      "source": "focustaiwan",
+      "link": "https://focustaiwan.tw/sci-tech/202611090012",
+      "image": "https://imgcdn.cna.com.tw/Eng/WebEngPhotos/1024/2026/20261109/1152x768_251222654039.jpg"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "space",
+      "headline": "CCIA urges spectrum reform for satellite access",
+      "context": "The Computer and Communications Industry Association released a report arguing that next-generation satellite networks can close global connectivity gaps across agriculture, transportation and emergency communications. The report recommended that policymakers modernise outdated spectrum and licensing rules, strengthen satellite supply chains and adopt technology-neutral policies to improve connectivity affordability and digital literacy.",
+      "implication": "Regulatory reform advocacy from an industry association with direct access to US policymakers raises the near-term probability of spectrum rule changes that would benefit broadband LEO operators competing against terrestrial incumbents.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 35,
+      "source": "SpaceAgenda",
+      "link": "https://spacenews.com/ccia-report-highlights-satellite-connectivitys-potential-to-expand-internet-access-and-drive-economic-growth/",
+      "image": null
+    },
+    {
+      "date": "2026-11-10",
+      "section": "defence",
+      "headline": "Trump calls Iran war effectively over after Qatar talks",
+      "context": "After a closed-door meeting with Qatari Prime Minister Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani and Vice President JD Vance, Trump declared that Iran militarily is effectively over and that the US is maintaining a status quo at the behest of Gulf neighbours including Qatar, Saudi Arabia, the UAE, Bahrain and Kuwait, while simultaneously acknowledging the continuation of the naval blockade and the newly announced Task Force Iron Gate. Iranian officials dismissed Trumps remarks as fake news, with Irans Supreme National Security Council Secretary Mohsen Rezaei describing them as manufactured, while Irans President Masoud Pezeshkian said the country remains open to negotiations but would not be coerced.",
+      "implication": "The gap between Trumps de-escalation rhetoric and Rubios hardline posture signals an administration managing post-midterm political pressure rather than executing a unified exit strategy, creating acute uncertainty for defence operators dependent on Middle East basing and energy markets exposed to Hormuz disruption.",
+      "region": "Middle East",
+      "urgency": "BREAKING",
+      "score": 95,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/9/trump-calls-iran-war-effectively-over-after-talks-with-qatar-pm?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/afp_6af249716f78-1794263409.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "defence",
+      "headline": "CENTCOM launches Task Force Iron Gate on Iran routes",
+      "context": "US Central Command announced Task Force Iron Gate, a new military coordination unit of approximately 20 civilian and military personnel headquartered in Tampa, Florida, tasked with disrupting Irans access to advanced weapons, sensitive technologies and financial networks through its land borders and the Caspian Sea. CENTCOM Commander Admiral Brad Cooper described the initiative as an extension of the existing maritime pressure campaign, expanding Washingtons blockade strategy beyond traditional shipping routes.",
+      "implication": "The expansion of economic warfare to Irans land and Caspian corridors signals that Washington is tightening the pressure envelope even as it signals diplomatic openness, raising interdiction risk for dual-use technology flows and increasing demand for surveillance and enforcement capabilities in a theatre that now spans sea, land and inland waterways.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 88,
+      "source": "thefinancialdaily",
+      "link": "https://thefinancialdaily.com/task-force-iron-gate-iran-supply-routes/",
+      "image": "https://thefinancialdaily.com/uploads/news/2026/11/us-task-force-to-cut-off-irans-transport-of-advanc-9d1c99.webp"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "defence",
+      "headline": "Massie files articles of impeachment against Hegseth",
+      "context": "Republican Representative Thomas Massie introduced a resolution in the House of Representatives to impeach Defense Secretary Pete Hegseth, reading eight articles of impeachment that accused Hegseth of carrying out unlawful orders and posing a threat to the Constitution, including over the war on Iran and strikes on purported drug boats. Massie, an outgoing Kentucky lawmaker, introduced the articles at the first House session after the midterm elections, urging Hegseth to resign before Democrats take control of Congress in January.",
+      "implication": "An impeachment resolution against the Defense Secretary, tabled immediately after Democrats secured both chambers of Congress, signals that Pentagon leadership continuity is at risk heading into 2027, creating programme management uncertainty for major defence primes dependent on consistent civilian oversight and acquisition decisions.",
+      "region": "North America",
+      "urgency": "URGENT",
+      "score": 82,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/9/us-congressman-files-resolution-to-impeach-defence-secretary-pete-hegseth?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6af22d20-1794256160.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "defence",
+      "headline": "Pentagon loans Neros $450M to scale drone output",
+      "context": "The Pentagon Office of Strategic Capital provided a $450 million conditional loan to California-based drone maker Neros Technologies to expand domestic manufacturing of small drone components, with Neros committing an additional $165 million to bring total investment to $615 million. The loan follows an $820 million loan to drone maker PDW in July, as the Pentagon moves to reduce dependence on Chinese-supplied components, which currently account for the vast majority of small drone components used in US assembly.",
+      "implication": "Back-to-back nine-figure Pentagon loans to domestic small-drone manufacturers confirm that the Office of Strategic Capital is functioning as an industrial policy instrument, and investors in US drone supply-chain companies should expect further tranches as the administration accelerates onshoring ahead of potential Democratic-led budget scrutiny.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 78,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/industry/techwatch/2026/11/09/neros-to-expand-domestic-drone-production-with-450m-pentagon-loan/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/Neros-drones-cover.jpg"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "defence",
+      "headline": "Optics11 raises EUR50M from existing investors",
+      "context": "Dutch startup Optics11 closed a EUR50 million equity round from its four existing investors, SET Ventures, FORWARD.one, Value Creation Capital and JOIN Capital, to fund manufacturing expansion and international growth. The Amsterdam-based company makes fibre optic sensing systems for underwater intelligence and energy grids, and CEO Paul Heiden said total investment has exceeded EUR100 million in 15 months, following a EUR17 million equity raise in May 2025 and a EUR25 million venture debt facility from the European Investment Bank in January 2026.",
+      "implication": "Optics11s rapid client acquisition across German, Swedish, British, Belgian and French navies, combined with its pre-unicorn trajectory, positions it as a consolidation target or strategic investment for prime contractors seeking a differentiating passive sonar capability as allied ASW budgets expand under Russian submarine pressure in the Arctic and North Atlantic.",
+      "region": "Europe",
+      "urgency": "NORMAL",
+      "score": 73,
+      "source": "techfundingnews",
+      "link": "https://techfundingnews.com/optics11-50m-fibre-optic-sensors-seabed-power-grids/",
+      "image": "https://techfundingnews.com/wp-content/uploads/2026/04/Optics11-team.png"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "defence",
+      "headline": "Kongsberg pitches converted trawler for UK Arctic role",
+      "context": "Norways Kongsberg Maritime unveiled the Arctic Hunter concept in a Nov. 9 announcement, proposing a 56-metre converted fishing trawler fitted with Thales UK sonar and autonomy systems capable of unattended operations for approximately 60 days, intended to respond to a UK requirement for unmanned vessels to assist submarine-hunting in the Arctic. The concept of operations envisions a flotilla of ten ships based west of the Bear Gap, the stretch of Arctic Ocean between Svalbard and Norway through which Russian submarines must pass to reach the open Atlantic.",
+      "implication": "A commercially derived, low-cost unmanned ASW concept backed by an established prime targeting a live UK Type 92 requirement validates the direction of allied naval investment away from expensive crewed platforms and toward attritable, high-endurance sensor carriers — a structural tailwind for Kongsberg, Thales UK and their supply chains.",
+      "region": "Europe",
+      "urgency": "NORMAL",
+      "score": 68,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/europe/2026/11/09/firm-bets-on-converted-fishing-trawlers-to-tackle-russian-submarines-in-the-arctic/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/KM.AH_.USV_.media3_.jpg"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "middle_east",
+      "headline": "Iran says US-Israeli strikes hinder IAEA monitoring",
+      "context": "Iranian Foreign Ministry Spokesperson Esmaeil Baghaei confirmed at a press conference in Tehran on November 9 that IAEA inspectors conducted inspections at Irans Bushehr Nuclear Power Plant several days ago, but said US and Israeli strikes on Iranian nuclear facilities have created difficulties in fulfilling monitoring obligations. Baghaei stated that Iran has not suspended its obligations under IAEA regulations and remains a signatory to the Non-Proliferation of Nuclear Weapons treaty, but argued that responsibility for the breakdown in normal IAEA cooperation lies with those who carried out the attacks.",
+      "implication": "Irans framing of monitoring gaps as a consequence of enemy strikes, rather than a policy choice, complicates any verification architecture that would underpin a future nuclear deal.",
+      "region": "Iran",
+      "urgency": "URGENT",
+      "score": 80,
+      "source": "azernews",
+      "link": "https://www.azernews.az/region/267093.html",
+      "image": "https://www.azernews.az/media/2026/09/01/iran_mfa_041124_2.jpg"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "middle_east",
+      "headline": "US offers $20M reward for Iran nuclear intelligence",
+      "context": "The US State Department announced a reward of up to $20 million through its Rewards for Justice programme for information on Irans nuclear scientists, related technologies and associated organisations, citing the IAEAs loss of continuity of knowledge over Irans centrifuge production and inventory. The department confirmed it is willing to relocate individuals who provide actionable intelligence, with tips accepted via Signal or a Tor-based tip line.",
+      "implication": "The bounty programme signals Washington is pursuing covert intelligence collection to fill verification gaps left by the breakdown in IAEA monitoring, raising the risk profile for contractors and personnel operating near Iranian nuclear infrastructure.",
+      "region": "Iran",
+      "urgency": "NORMAL",
+      "score": 75,
+      "source": "ghananewss",
+      "link": "https://ghananewss.com/us-offers-20-million-reward-for-information-on-irans-nuclear-program/",
+      "image": "https://ghananewss.com/wp-content/uploads/2026/02/IMG-20181201-WA0037.jpg"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "middle_east",
+      "headline": "Syria to send 600 special forces fighters to Saudi Arabia",
+      "context": "The Associated Press, citing three officials with knowledge of the plans, reported that Syria is preparing to send an initial force of about 600 special forces fighters to Saudi Arabia, with Syrian military advisers already deployed there. According to AP, the fighters could potentially be deployed to Yemen to assist Saudi Arabia against Houthi forces, though a Syrian official said they have not yet been sent to Yemen.",
+      "implication": "If confirmed, Syrian force deployments to the Arabian Peninsula would mark a significant shift in regional military alignments and could affect the balance of ground capability in the Yemen conflict.",
+      "region": "Saudi Arabia / Syria / Yemen",
+      "urgency": "NORMAL",
+      "score": 70,
+      "source": "jpost",
+      "link": "https://www.jpost.com/middle-east/article-914337",
+      "image": "https://images.jpost.com/image/upload/f_auto,fl_lossy/q_auto/c_fill,g_faces:center,h_720,w_1280/745141"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "ai_tech",
+      "headline": "Optics11 runs 35 paid navy trials in fibre optic sensing",
+      "context": "Dutch startup Optics11 is in talks with dozens of navies about its optical-fibre sensing technology for underwater monitoring and threat detection, with between five and ten navies already signed on as clients, CEO Paul Heiden told Defense News at the Euronaval exhibition outside Paris on Nov. 4. The company has around 35 paid trials underway with navies including Germany, Sweden, the United Kingdom, Belgium and France, and is developing a towed array for the Royal Netherlands Navy for the future Orka-class submarines ordered from Frances Naval Group.",
+      "implication": "Optical-fibre sensing represents a generational shift in passive underwater detection capability, and navies signing paid trial agreements now are establishing early-mover advantage in a technology that could reshape submarine and anti-submarine warfare sensor architectures.",
+      "region": "Netherlands",
+      "urgency": "NORMAL",
+      "score": 75,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/europe/2026/11/09/dutch-firm-optics11-in-talks-with-navies-on-secretive-underwater-listening-tech/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/GettyImages-2254835922.jpg"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "ai_tech",
+      "headline": "Russia shows Mi-28NM launching Dan-T loitering munition",
+      "context": "Russia released footage on 6 November 2026 showing a Mi-28NM attack helicopter launching a Dan-T loitering munition against Ukrainian unmanned aerial vehicle operator positions, with TASS reporting the crew used reconnaissance-derived coordinates before launch. The Dan-T carries an advertised range of 450 kilometres, and the Russian Ministry of Defense reported that reconnaissance personnel confirmed the target had been struck, though this assessment has not been independently verified.",
+      "implication": "The integration of long-range loitering munitions onto rotary-wing platforms extends the stand-off strike envelope for attack helicopters significantly, a capability shift that will accelerate demand for counter-drone and counter-loitering systems among NATO air defence planners.",
+      "region": "Russia / Ukraine",
+      "urgency": "NORMAL",
+      "score": 65,
+      "source": "armyrecognition",
+      "link": "https://www.armyrecognition.com/news/aerospace-news/2026/russia-demonstrates-new-long-range-strike-role-for-mi-28nm-attack-helicopter-using-dan-t-loitering-munition",
+      "image": "https://www.armyrecognition.com/images/stories/news/2026/november/Russia%20Demonstrates%20New%20Long-Range%20Strike%20Role%20for%20Mi-28NM%20Attack%20Helicopter%20Using%20Dan-T%20Loitering%20Munition.jpg"
+    },
+    {
+      "date": "2026-11-10",
+      "section": "investment",
+      "headline": "Switzerland votes Nov 29 on easing arms export curbs",
+      "context": "Swiss voters will decide on 29 November whether to block a parliamentary amendment that would allow arms shipments to 36 Western countries even when they are involved in active armed conflicts, though not for use in those conflicts. The amendment also removes a requirement for buyer countries to sign a non-re-export declaration, and polls suggest the referendum proposed by a coalition including Social Democrats and the Greens could go either way.",
+      "implication": "A yes vote would open a significant new re-export channel for Swiss-sourced defence equipment to allied nations, while a no vote would reinforce neutrality constraints that have limited Swiss arms firms from supplying partners supporting Ukraine.",
+      "region": "Switzerland",
+      "urgency": "NORMAL",
+      "score": 65,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/europe/2026/11/09/swiss-neutrality-proponents-challenge-arms-firms-in-vote-on-easing-of-exports/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/2026-11-09T060200Z_1_LYNXNPEMA80DV_RTROPTP_4_SWISS-VOTE-ARMS.jpg"
+    }
+  ]
+}
