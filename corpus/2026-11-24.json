@@ -1,0 +1,203 @@
+{
+  "date": "2026-11-24",
+  "executive_summary": "Reported attacks on shipping in and around the Strait of Hormuz have climbed to their highest level since the Iran war began, according to CNN citing maritime data, with at least 25 tankers hit in the past seven days, while Allianz Research projects GCC economies will lose $790 billion in output by 2030, a cumulative 5.9 percent of GDP. The read is that the Gulf has shifted from a war-risk premium to measurable capital destruction, so defence and energy-security exposure should be sized for a long blockade rather than a settlement; I am wrong if Iranian foreign ministry spokesman Esmaeil Baqaei is right that security could return to the strait quickly once Washington meets its commitments. Watch the talks the Department of State announced for Monday in Washington between Secretary of State Marco Rubio and Qatars Prime Minister Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani: a de-escalation signal would compress Gulf risk pricing, while reaffirmation of Operation Iron Gate points to continued tanker attrition.",
+  "market_sentiment": "NEUTRAL",
+  "geopolitical_risk": "CRITICAL",
+  "opportunity_of_the_day": "Starks Virtus and Helsings HX-2 one-way attack drones passed live-fire trials in the week of November 9, with Germanys military procurement office describing a step toward initial deliveries and troop training before the end of the year; the implication is that loitering-munition suppliers are the buy on confirmation of those deliveries, not before full qualification.",
+  "risk_of_the_day": "Kpler data show Irans oil on water has fallen to zero under the US blockade while the IRGC claims missile and drone strikes on US positions at the al-Riffa and Awali bases in Bahrain; the implication is that one confirmed hit on a Gulf host base reprices tanker insurance and Gulf equities within days.",
+  "outlook": {
+    "space": {
+      "signal": "There is no scheduled space catalyst here, so the standing indicator is whether a Super Heavy booster achieves a pad return after the booster failed to do so on the flight where the Starship upper stage was caught by the tower arms at Starbase, Texas.",
+      "watch": "Super Heavy booster return to the pad",
+      "bull": "The read is that a booster return would complete the two-stage reusability that this 22.5-hour, 14-orbit mission left unproven, and would pressure the cost assumptions of every operator that has to buy or build lift, with RKLB up 9.3 percent at the last close showing how fast launch-linked names move on sentiment.",
+      "bear": "The implication of repeated booster losses is that the catch of the upper stage, described by SpaceX mission commentator Dan Huot as the missing link, stays a partial win, and deployment economics for payloads such as the 26 Starlink satellites carried on this flight remain unverified."
+    },
+    "defence": {
+      "signal": "Germanys military procurement office has flagged initial deliveries and troop training for the Virtus and HX-2 one-way attack drones before the end of the year, after both passed live-fire trials at the Bundeswehr test centre in Meppen in the week of November 9.",
+      "watch": "Virtus and HX-2 initial deliveries before year end",
+      "bull": "The read is that delivery inside the stated window validates a fast path from trial to fielding for German loitering munitions and supports order expectations ahead of the plan to equip the armoured brigade in Lithuania in 2027.",
+      "bear": "The implication of slippage is that full qualification, which the systems have not yet completed, becomes the binding constraint and the 2027 Lithuania fielding plan carries the schedule risk."
+    },
+    "geo": {
+      "signal": "The Department of State announced talks in Washington on Monday between Secretary of State Marco Rubio and Qatars Prime Minister and Foreign Minister Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani, focused on friction between Washington and Tehran, after Trump said Gulf allies including Qatar, Saudi Arabia, UAE, Bahrain and Kuwait backed the Operation Iron Gate blockade.",
+      "watch": "Rubio talks with Qatars Prime Minister, Monday, Washington",
+      "bull": "The read is that any signal of Gulf mediation would ease the tanker attrition that has seen at least 25 ships hit in seven days and cap the $790 billion output loss Allianz Research projects by 2030.",
+      "bear": "What this means if the meeting hardens Operation Iron Gate is that the blockade, the zero oil-on-water figure from Kpler and the Qatar contraction of 14 percent forecast by Allianz Research all extend, with GCC claims against Iran for over 7,000 missiles and drones making settlement politically harder."
+    }
+  },
+  "stocks": {
+    "notable_movers": "At last close RKLB led the board at 49.63, up 9.3 percent, while LUNR and ASTS also posted strong single-session gains of over 10 percent, signalling continued investor appetite for new-space and commercial satellite names despite elevated geopolitical risk. Legacy primes LMT, RTX, NOC and BA all closed moderately higher, consistent with a market pricing sustained defence demand rather than near-term de-escalation.",
+    "sector_outlook": "Sustained Hormuz disruption and a widening drone-warfare footprint across Libya and the Gulf sustain a constructive outlook for maritime surveillance, naval drone and air defence platform suppliers through at least Q1 2027."
+  },
+  "stories": [
+    {
+      "date": "2026-11-24",
+      "section": "space",
+      "headline": "Starship caught by tower arms after 22-hour flight",
+      "context": "SpaceXs Starship upper stage returned from a 22.5-hour, 14-orbit mission and was caught for the first time by the mechanical arms at Starbase, Texas, with SpaceX mission commentator Dan Huot describing the ship catch as the missing link and holy grail of spaceflight. The Super Heavy booster failed to make a similar return to the pad on this flight, meaning full two-stage reusability was not demonstrated. During the mission Starship deployed 26 Starlink satellites in orbit while cruising at approximately 161 miles altitude.",
+      "implication": "Demonstrating orbital-duration endurance combined with a tower catch removes a key technical barrier to full reusability and accelerates the timeline toward operational Starship missions for both commercial and government customers.",
+      "region": "North America",
+      "urgency": "URGENT",
+      "score": 80,
+      "source": "irishexaminer",
+      "link": "https://www.irishexaminer.com/world/arid-41941272.html",
+      "image": "https://www.irishexaminer.com/cms_media/module_img/10600/5300451_2_org_ed7cfbfcf0944124afa36c5d47f2930e.jpg.jpg"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "space",
+      "headline": "Democrats win 258-seat House majority in midterms",
+      "context": "The Democratic Party secured a 258-seat majority in the 435-member House and a 56-seat Senate majority following the 2026 midterm elections, their largest House margin since 1992. The results delivered wins in traditionally Republican states including Texas, Mississippi and South Carolina, giving Democrats significant legislative leverage over the final two years of Trumps term, though four House seats remain uncalled.",
+      "implication": "A large Democratic congressional majority creates a credible legislative check on executive defence and space budget priorities, introducing new uncertainty for programmes dependent on White House-driven appropriations over the next two years.",
+      "region": "North America",
+      "urgency": "URGENT",
+      "score": 70,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/24/what-could-democrats-do-with-their-expanding-congressional-majority?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6b04df4d-1795481421.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "defence",
+      "headline": "Hormuz shipping attacks at highest level since war began",
+      "context": "Reported attacks on shipping in and around the Strait of Hormuz have climbed to their highest level since the Iran war began, according to CNN citing maritime data. Britains UKMTO confirmed two tankers were attacked and Iranian state TV reported Iran downed a US drone over Qeshm Island, while US Central Command denied carrying out new strikes on the island. Kpler data shows Irans oil on water has fallen to zero under the US blockade, with Iranian foreign ministry spokesman Esmaeil Baqaei saying security could return to the strait quickly if Washington meets its commitments.",
+      "implication": "Attacks at their highest recorded level on a chokepoint carrying a fifth of global oil and gas sustain immediate demand for naval patrol, maritime surveillance and escort capabilities from operators and defence suppliers exposed to the Gulf corridor.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 95,
+      "source": "coinpedia",
+      "link": "https://coinpedia.org/crypto-live-news/iran-war-news-hormuz-shipping-attacks-hit-highest-level-since-war-began/",
+      "image": "https://image.coinpedia.org/wp-content/uploads/2026/03/09145339/Strait-of-Hormuz-Crisis-Sends-Oil-Price-to-110-While-Bitcoin-Price-Holds-Near-67K-1.jpg"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "defence",
+      "headline": "Ukraine confirms drones sank Russian corvette Merkury",
+      "context": "President Volodymyr Zelenskyy said Ukraine was behind the sinking of the Russian corvette Merkury in the Libyan port of Benghazi, with the Security Service of Ukraine saying it carried out the operation jointly with Ukraines Defense Forces using seven Ukrainian-made naval drones that struck the moored ship on November 22. Zelenskyy said a Ka-27 helicopter aboard the corvette was also destroyed, and the dry-cargo ship MV Angara was targeted in the same operation, which the SBU describes as a sanctioned vessel used to move weapons and military equipment on Russian routes to Syria and Libya. Reuters cited local medical sources reporting ten injuries including Russians and Libyans, and Al Jazeera reported one person killed.",
+      "implication": "The first confirmed Ukrainian naval drone strike on a Russian warship outside European waters signals that sea-drone warfare has reached a global operational radius, raising the exposure of Russian maritime logistics to African ports and pressuring NATO partners to reassess naval asset vulnerability in distant anchorages.",
+      "region": "Africa",
+      "urgency": "BREAKING",
+      "score": 93,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/mideast-africa/2026/11/23/ukraine-confirms-it-sank-russian-corvette-in-libyan-port/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/2026-11-23T091240Z_2_LYNXNPEMAM0J3_RTROPTP_4_UKRAINE-CRISIS-SHIPS.jpg?w=1024"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "defence",
+      "headline": "IRGC claims Bahrain base strikes, US rejects F-16 claim",
+      "context": "The Islamic Revolutionary Guard Corps claimed a combined missile and drone operation targeting US military positions at the al-Riffa and Awali bases in Bahrain, asserting it destroyed two US Patriot air defence radars, saying the operation was retaliation for a US strike on a radar installation on Irans Hengam Island. At least 25 tankers have been hit in and around the Strait of Hormuz in the past seven days, causing Gulf oil flow to drop sharply, as Irans President Masoud Pezeshkian described his country as facing a silent economic war amid US sanctions and a naval blockade. US Central Command denied Irans claim that it damaged an American F-16 fighter jet, stating that all US fighter jets in the Middle East are safe and accounted for.",
+      "implication": "Contested claims over Patriot radar destruction at forward US bases, combined with the highest tanker attack rate since the conflict began, force Gulf-based operators and defence planners to reassess forward base survivability and air defence layering requirements immediately.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 90,
+      "source": "aljazeera_us",
+      "link": "https://www.aljazeera.com/news/2026/11/22/whats-behind-irans-escalation-of-attacks-in-the-gulf",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/2026-11-22T054830Z_561340037_RC2TSOAVQ66D_RTRMADP_3_IRAN-CRISIS-BAHRAIN-1-1795348266.jpg?resize=1758%2C1080"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "defence",
+      "headline": "Allianz sees $790B GCC output loss by 2030 from Iran war",
+      "context": "Allianz Research projects GCC economies will lose $790 billion in output by 2030 compared to pre-war trends, representing a cumulative 5.9 percent of GDP, with Qatar forecast to contract by 14 percent, Kuwait by 11 percent and Bahrain by 8 percent. A separate $200 billion figure covers physical damage to energy infrastructure, with over 80 energy and oil production sites including refineries and pipelines hit. GCC states are demanding Iran pay for losses caused by over 7,000 missiles and drones Tehran fired during its war with the United States and Israel.",
+      "implication": "The scale of projected economic damage to GCC states crystallises the strategic case for Gulf sovereigns to accelerate investment in air and missile defence, energy infrastructure hardening and maritime security capabilities regardless of when a ceasefire is reached.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 85,
+      "source": "timesnownews",
+      "link": "https://www.timesnownews.com/world/middle-east/unprecedented-unrivaled-iran-war-to-cost-gulf-usd-790-billion-by-2030-usd-200-billion-in-physical-damage-says-report-article-156553279",
+      "image": "https://images.timesnownews.com/thumb/msid-156553380,thumbsize-395654,width-1280,height-720,resizemode-75/156553380.jpg"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "defence",
+      "headline": "Chinas nuclear Type 004 carrier may launch by 2027",
+      "context": "Chinas fourth aircraft carrier, the Type 004, is under construction at Dalian and analysts say it could launch as early as next year, with its hull measuring approximately 322 metres in length and 46 metres in width as of October, according to the Center for Strategic and International Studies. Analysts say it could accommodate 75 to 90 aircraft and would be nuclear powered, making it capable of launching planes faster than conventional carriers. Senior fellow Collin Koh at Nanyang Technological University estimates deployment would take five to ten years after launch.",
+      "implication": "A nuclear-powered Chinese carrier larger than any in its current fleet adds sustained pressure on Indo-Pacific naval planning horizons and strengthens the investment case for counter-carrier, maritime surveillance and long-range strike capabilities in Japan, the US and their regional partners.",
+      "region": "Asia-Pacific",
+      "urgency": "URGENT",
+      "score": 82,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/asia-pacific/2026/11/23/chinas-fourth-aircraft-carrier-bigger-than-others-and-nuclear-powered-nears-completion/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/GettyImages-2300475929.jpg"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "defence",
+      "headline": "Rubio meets Qatar PM in Washington over Iran tensions",
+      "context": "US Secretary of State Marco Rubio was set to hold talks in Washington on Monday with Qatars Prime Minister and Foreign Minister Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani, according to an announcement by the Department of State, with the bilateral meeting focused on continuing friction between Washington and Tehran. Earlier this month Trump announced that Gulf allies including Qatar, Saudi Arabia, UAE, Bahrain and Kuwait backed Operation Iron Gate, a joint land-and-sea blockade against Iran. Trump stated that preventing Tehran from acquiring nuclear weapons remains non-negotiable.",
+      "implication": "Qatars continued diplomatic engagement as an intermediary between Washington and Tehran keeps alive the possibility of a negotiated framework on Hormuz passage, but any breakdown in these talks would remove the last credible off-ramp before further economic and military escalation.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 78,
+      "source": "aninews",
+      "link": "https://www.aninews.in/news/world/us/marco-rubio-to-hold-talks-with-qatar-pm-sheikh-mohammed-bin-abdulrahman-bin-jassim-al-thani-in-us20261123125403/",
+      "image": null
+    },
+    {
+      "date": "2026-11-24",
+      "section": "middle_east",
+      "headline": "Iran war environmental toll could last decades, expert warns",
+      "context": "Iranian environmentalist Mohammad Darvish told the Tehran Times that fires at oil facilities, damage to protected habitats and lost vessels carrying hazardous materials could carry consequences far beyond Irans borders, with contaminants entering the Persian Gulf threatening marine life and food chains in neighboring countries. Darvish said at least 200 vessels sank, some carrying chemicals and hazardous materials, and that 23 protected areas were damaged by bombings. He warned that a lack of comprehensive scientific investigations has left the scale and duration of the damage unclear and called for greater United Nations involvement in enforcing environmental protection protocols.",
+      "implication": "Long-term environmental degradation in the Persian Gulf could add remediation liabilities and regulatory risk to energy infrastructure investments across the region for years after any ceasefire.",
+      "region": "Iran / Persian Gulf",
+      "urgency": "NORMAL",
+      "score": 55,
+      "source": "tehrantimes",
+      "link": "https://www.tehrantimes.com/news/532456/Prominent-environmentalist-warns-of-long-term-ecological-toll",
+      "image": "https://media.tehrantimes.com/d/t/2026/11/23/4/6274616.jpg?ts=1795439649607"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "ai_tech",
+      "headline": "Trump and Xi agree humans must control military AI use",
+      "context": "Treasury Secretary Scott Bessent said President Trump and Chinese President Xi Jinping agreed at their Shenzhen meeting that humans should always be involved in military decisions using artificial intelligence, and that AI should not be allowed to act autonomously on major military actions. Bessent said the agreement would not be affected by US-China competition for AI supremacy and separately said US AI labs needed to maintain their technological lead as the best defence against what he described as dangerous Chinese AI models being used in cyberattacks. Bessent also said Nvidias H200 remained the most advanced chip China could purchase with licenses after Trump took what Bessent called a very firm line.",
+      "implication": "A US-China bilateral commitment to human-in-the-loop controls for military AI sets a de facto norm that will shape procurement requirements, autonomous systems doctrine and export controls across the defence AI sector.",
+      "region": "United States / China",
+      "urgency": "URGENT",
+      "score": 85,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/asia-pacific/2026/11/20/trump-xi-agreed-that-military-ai-decisions-should-involve-humans-bessent-says/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/2026-11-20T165058Z_2_LYNXNPEMAJ1EE_RTROPTP_4_APEC-SUMMIT-TRUMP.jpg"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "ai_tech",
+      "headline": "Nvidia reinstates Jensen Huang as CEO after spy allegations",
+      "context": "The New York Times reported that Alice Huang, whose affair with then-Nvidia CEO Jensen Huang led to his departure, maintained contact with an officer of Chinas Ministry of State Security from spring 2025 through the fall of that year, according to multiple people with knowledge of US intelligence reports. US intelligence agencies also gathered evidence that her business partner Kang Wei worked with the same Chinese spy agency. Nvidias board subsequently reinstated Jensen Huang as CEO and a director, stating it had received input from senior levels of the United States government and was confident his reinstatement posed no national security risk.",
+      "implication": "Alleged intelligence-service contact at the top of the worlds leading advanced AI chip maker deepens concerns about supply-chain security and export-control enforcement for defence-critical semiconductor technology.",
+      "region": "United States",
+      "urgency": "URGENT",
+      "score": 78,
+      "source": "hotair",
+      "link": "https://hotair.com/ed-morrissey/2026/11/23/ny-times-sure-looks-like-a-honeypot-op-at-nvidia-n3821260",
+      "image": "https://media.townhall.com/cdn/hodl/2026/316/1125c11e-18aa-4f8b-867d-fe611d9f2656-1200x630.jpg"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "ai_tech",
+      "headline": "German loitering munitions pass live-fire trials",
+      "context": "Two German one-way attack drone variants, Starks Virtus and Helsings HX-2, passed live-fire trials during the week of November 9, clearing a step toward initial deliveries and troop training before the end of the year, according to Germanys military procurement office. The trials, held at the Bundeswehr weapons and ammunition test center in Meppen, tested whether the systems could reliably hit designated targets and whether their warheads worked as intended on impact. Though the systems have not yet completed full qualification, the German Army plans to begin equipping its armoured brigade in Lithuania in 2027.",
+      "implication": "Successful live-fire validation of two European loitering munition systems accelerates Germanys autonomous strike capability and signals growing demand from NATO allies for domestically sourced one-way attack drones.",
+      "region": "Germany",
+      "urgency": "NORMAL",
+      "score": 68,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/europe/2026/11/20/german-attack-drones-pass-live-fire-tests-with-first-deliveries-planned-this-year/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/Helsing_HX-2_Anflug.jpg.jpg"
+    },
+    {
+      "date": "2026-11-24",
+      "section": "ipo_watch",
+      "headline": "Anthropic raises $81.3B in Nasdaq debut",
+      "context": "Anthropic, the AI company behind Claude, made its Nasdaq debut on November 19, pricing shares at $83 each and raising approximately $81.3 billion, with trading opening at $111.50, more than 34 percent above the IPO price. The company sold 980 million shares, valuing it at approximately $1.5 trillion at the IPO price, with the opening price briefly pushing its valuation to around $2 trillion before shares retreated. Finance Magnates Intelligence noted that equity CFDs represented on average between 1 percent and 2 percent of brokers total trading activity across the four quarters ending in Q2 2026.",
+      "implication": "Anthropics record listing establishes a new benchmark valuation for frontier AI companies and is likely to accelerate IPO planning at other defence-adjacent AI firms, raising the bar for private-round valuations across the sector.",
+      "region": "United States",
+      "urgency": "URGENT",
+      "score": 75,
+      "source": "financemagnates",
+      "link": "https://www.financemagnates.com/forex/products/anthropic-ipo-and-the-economics-of-equity-cfd-trading/",
+      "image": "https://images.financemagnates.com/images/CFD%20shares_id_cad4e606-8498-411d-8c84-1f1382b75eed_size900.jpeg"
+    }
+  ]
+}
