@@ -1,0 +1,216 @@
+{
+  "date": "2026-11-25",
+  "executive_summary": "German public broadcasters WDR and NDR and the Sueddeutsche Zeitung reported an intelligence assessment from early November stating that a satellite dubbed Sputnik-S, reportedly assembled near Moscow, could be launched within 60 days; Recorded Future reports 4,517 satellites were placed in orbit in 2025, 87 percent of them commercially owned, within a space economy that reached $686 billion. The read is that the exposure sits in that commercial 87 percent, favouring suppliers of hardening, imagery and on-orbit resilience over bandwidth resellers, and I am wrong if the reported window elapses with no launch and no corroboration of the assessment. Watch the reported 60 day window for a Sputnik-S launch, dated from the early November assessment: a launch would breach the 1967 Outer Space Treaty and reprice space-control and resilience suppliers, while quiet expiry would deflate the threat premium and return attention to the $686 billion commercial build-out.",
+  "market_sentiment": "BULLISH",
+  "geopolitical_risk": "HIGH",
+  "opportunity_of_the_day": "Ford confirmed Tuesday it held Pentagon discussions on building advanced satellites with Revolution Space; Japan pairs auto suppliers with arms firms as its draft fiscal 2026 defence budget rises 9.4 percent. The read is that auto component suppliers converting to drone and satellite work are the entry point, conditional on orders following the talks.",
+  "risk_of_the_day": "German public broadcasters WDR and NDR and the Sueddeutsche Zeitung reported an assessment that Sputnik-S could be launched within 60 days, and a detonation in space would incapacitate large numbers of satellites and could collapse communications and power grids through electromagnetic pulse. The implication is that any confirmation reprices satellite operators within hours.",
+  "outlook": {
+    "space": {
+      "signal": "The trigger is the reported 60 day window for a launch of the satellite dubbed Sputnik-S, dated from the early November assessment described by WDR, NDR and the Sueddeutsche Zeitung.",
+      "watch": "Reported Sputnik-S launch window",
+      "bull": "A quiet expiry of the reported window without a launch leaves the $686 billion space economy and its commercial build-out to compound without a new insurance and hardening cost layer.",
+      "bear": "A launch would place a nuclear weapon in orbit in violation of the 1967 Outer Space Treaty and put the 4,517 satellites placed in 2025, 87 percent of them commercially owned, under an explicit threat that raises operator costs."
+    },
+    "defence": {
+      "signal": "The trigger is open-source tanker tracking by the Military Air Tracking Alliance, which recorded 17 KC-135 and KC-46 departures from Europe and CENTCOM against four inbound replacements between 19 and 22 November, leaving the deployed fleet 13 aircraft smaller.",
+      "watch": "Tanker inbound replacements tracked in Europe and CENTCOM",
+      "bull": "A resumption of inbound tanker flows would point to sustained operational tempo in Europe and CENTCOM and keep the sustainment and munitions pull intact for suppliers.",
+      "bear": "A continued net outflow beyond the 13 aircraft reduction from a tracked fleet that recently peaked at just over 200 would point to lower tempo and a thinner near-term demand pull."
+    },
+    "geo": {
+      "signal": "The trigger is whether Gadi Eisenkot converts the 28 combined seats secured with Avigdor Lieberman into the 61 needed to form a government by his December 6 deadline, with the Democrats party suspending talks after his discussions with Likud.",
+      "watch": "Eisenkot coalition deadline, December 6",
+      "bull": "A coalition reaching 61 seats by December 6 ends the caretaker period and gives defence counterparties in Israel a government that can sign and fund.",
+      "bear": "Failure within the 28 day mandate, even with a 14 day extension, hands the attempt to Benjamin Netanyahu or leads to a fresh election, extending procurement and policy paralysis."
+    }
+  },
+  "stocks": {
+    "notable_movers": "At their last close, traditional defence primes LMT, NOC and LHX all gained modestly, rising between 1.3 percent and 2.6 percent, consistent with elevated conflict risk and industrial mobilisation signals; new-space and commercial satellite names moved sharply in the other direction, with LUNR falling 8.4 percent, ASTS falling 8.1 percent, RKLB falling 7.4 percent and BKSY falling 6.8 percent, suggesting the market is rotating out of speculative commercial space and into proven defence primes. The divergence is a classic risk-on-to-risk-off rotation and reflects the same logic visible in todays defence industrial news: capital is moving toward companies with hard government contracts and away from those whose revenue thesis depends on commercial constellation growth.",
+    "sector_outlook": "Legacy manufacturing capacity is becoming a defence asset, and investors positioned in firms that can bridge commercial production lines into military drone and vehicle supply chains will benefit as the Pentagon accelerates its domestic industrial base partnerships."
+  },
+  "stories": [
+    {
+      "date": "2026-11-25",
+      "section": "space",
+      "headline": "Russia may orbit nuclear satellite within 60 days",
+      "context": "German public broadcasters WDR and NDR and the Sueddeutsche Zeitung reported an intelligence assessment from early November stating that a satellite dubbed Sputnik-S, reportedly assembled near Moscow, could be launched within 60 days. Placing a nuclear weapon in orbit violates the 1967 Outer Space Treaty, to which Russia and 117 other states are parties; detonation in space would destroy or incapacitate large numbers of satellites and could collapse communications and power grids on Earth through its electromagnetic pulse. NATO chief Mark Rutte, asked about the reporting during a visit to Berlin, said the alliance would always ensure it defends every inch of NATO territory, including the space element.",
+      "implication": "If the sixty-day assessment is accurate, every commercial and government satellite constellation operator faces an acute survivability risk that no current insurance or continuity framework adequately prices.",
+      "region": "Europe",
+      "urgency": "URGENT",
+      "score": 95,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/europe/2026/11/24/russia-may-launch-nuke-laden-satellite-by-years-end-german-report-warns/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/GettyImages-1747275062-e1795525060897.jpg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "space",
+      "headline": "Cyber threats rise as orbital economy hits $686 billion",
+      "context": "Recorded Future reports that 329 orbital launch attempts were made in 2025, up from 263 the year before, placing a record 4,517 satellites in orbit, 87 percent of them commercially owned, within a space economy that reached $686 billion. The analysis highlights that the February 2022 AcidRain malware attack on the KA-SAT broadband network, launched roughly an hour before Russian forces crossed into Ukraine, knocked out tens of thousands of satellite modems across Europe and caused collateral damage including loss of remote monitoring for around 5,800 wind turbines in Germany. Air Force Secretary Troy Meink confirmed on September 14, 2026 that the United States has on-orbit space-control weapons capable of offensive and defensive use, while the UK stood up No. III Space Effects Squadron nine days later.",
+      "implication": "Operators and investors building dual-use constellation businesses must treat ground-segment cyber hardening as a first-order cost item, not an afterthought, as the attack surface grows proportionally with each new satellite placed in orbit.",
+      "region": "Global",
+      "urgency": "NORMAL",
+      "score": 72,
+      "source": "recordedfuture",
+      "link": "https://www.recordedfuture.com/ko/blog/cyber-threats-space-race",
+      "image": "https://www.recordedfuture.com/ko/blog/media_1895d9ad4975f4b8c55e7d6a1c1cc7bfe897f60ec.jpg?width=1200&format=pjpg&optimize=medium"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "space",
+      "headline": "Four firms sign dual-use imaging mission MOU in Bremen",
+      "context": "Simera Sense, Spacemanic, Zaitra and World from Space signed a Memorandum of Understanding in Bremen on 18 November 2026 to offer an end-to-end dual-use mission solution built around the xScape 200 Dual Use camera, covering image acquisition, satellite integration via Spacemanic's CORVUS platform and in-house SPACECANNON deployer, onboard processing by Zaitra, and imagery analytics by World from Space. The agreement extends an earlier bilateral Memorandum of Understanding signed by Simera Sense and Spacemanic in Prague on 3 November 2026.",
+      "implication": "A vertically integrated dual-use imaging consortium offering a single commercial path from sensor to actionable insight lowers the entry cost for defence and intelligence customers seeking sovereign or allied Earth observation capacity without single-vendor lock-in.",
+      "region": "Europe",
+      "urgency": "NORMAL",
+      "score": 55,
+      "source": "SpaceAgenda",
+      "link": "https://spacenews.com/simera-sense-spacemanic-zaitra-and-world-from-space-join-forces-on-an-end-to-end-dual-use-mission-solution/",
+      "image": "https://spacenews.com/wp-content/uploads/2026/11/ISR-MOU.png"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "defence",
+      "headline": "US tanker fleet in Europe and CENTCOM shrinks by 13",
+      "context": "Open-source tracking by the Military Air Tracking Alliance recorded 17 KC-135 and KC-46 tanker departures from Europe and CENTCOM between 19 and 22 November, against only four inbound replacements, leaving the deployed fleet 13 aircraft smaller; the tracked fleet had recently peaked at just over 200 aircraft. Flight paths show departures originating from the Gulf, the eastern Mediterranean, Romania, Germany and the United Kingdom, all routing back to bases in the United States. The figures are based on open-source tracking of aircraft transponders and filed flights and do not represent an official US order of battle.",
+      "implication": "A net loss of thirteen aerial refuelling aircraft compresses the sustained strike and air-superiority radius available to US commanders in both theatres simultaneously, reducing operational flexibility precisely when Iran policy remains unresolved.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 90,
+      "source": "ukdefencejournal_org_uk",
+      "link": "https://ukdefencejournal.org.uk/us-pulls-more-tankers-out-of-europe-and-the-middle-east/",
+      "image": "https://ukdj.ams3.digitaloceanspaces.com/2021/01/F-15C_Eagle_from_the_67th_Fighter_Squadron_at_Kadena_AB_is_refueled_by_a_KC-135R_Stratotanker_from_the_909th_Air_Refueling_Squadron_-scaled.jpg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "defence",
+      "headline": "Ukraine defends drone strikes on Russian vessels",
+      "context": "Ukrainian Foreign Minister Andrii Sybiha said on Tuesday that drone attacks against a Russian naval corvette and a cargo ship were legitimate acts of self-defense under United Nations charter Article 51, following criticism from Libya's Tripoli-based Government of National Unity over the sinking of the Russian naval corvette Merkury at the port of Benghazi. President Volodymyr Zelenskiy separately confirmed Ukraine was responsible for a drone strike on Saturday on the Russian cargo vessel Sparta II in international waters of the Gulf of Finland, saying it was a legitimate target because it was carrying weapons. Russia's Transport Ministry said the damaged Sparta II was towed back to the Russian port of St Petersburg.",
+      "implication": "Ukraines demonstrated ability to project naval drone power into the central Mediterranean fundamentally widens the operational geography of the war and places Russian logistics vessels at risk in waters far beyond the Black Sea, forcing a reassessment of maritime insurance and route planning for any Russia-linked shipping.",
+      "region": "North Africa",
+      "urgency": "URGENT",
+      "score": 88,
+      "source": "gcaptain",
+      "link": "https://gcaptain.com/ukraine-insists-attack-on-russian-ships-in-libya-was-self-defense/",
+      "image": "https://gcaptain.com/wp-content/uploads/2026/11/2026-11-22T084722Z_1995371311_RC2WSOA5VOIB_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-VESSEL.jpg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "defence",
+      "headline": "Ford in Pentagon talks on military vehicles and satellites",
+      "context": "Ford confirmed Tuesday it has held discussions with the Pentagon focused on supplying highly capable military vehicles and on building advanced satellites in partnership with US-based space systems contractor Revolution Space, in which Ford announced a minority investment on Monday. The Wall Street Journal reported the Pentagon is also in talks with General Motors, Ford and other manufacturers to help mass-produce military drones by supplying components including actuators, engines, sensors and lidar to drone companies. A Pentagon official stated the Department of War is actively partnering with domestic manufacturers and emerging technology firms to build a resilient, high-capacity industrial base.",
+      "implication": "The Pentagons direct engagement with legacy automakers to supply drone components and military satellites signals an intent to replicate the World War II factory-conversion model, which would expand the addressable market for defence subcomponents well beyond traditional prime contractors.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 82,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/pentagon/2026/11/24/ford-in-talks-with-the-pentagon-to-supply-military-vehicles/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/GettyImages-2255983122.jpg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "defence",
+      "headline": "Army sergeant pleads guilty to selling HIMARS secrets to China",
+      "context": "Jian Zhao, 37, an active-duty US Army battery supply sergeant stationed at Joint Base Lewis-McChord in Washington, pleaded guilty Monday to conspiring to sell national defense information to China, including excerpts from technical manuals for the HIMARS multiple-rocket launcher system that Ukraine has deployed against Russia. Zhao, who enlisted in 2017, also provided sensitive information related to US military readiness in a potential armed conflict with China and offered military computers and government hard drives for sale; prosecutors described the material as sensitive, secret or top secret. He faces a maximum sentence of 10 years in prison and a fine of $250,000, and is scheduled to be sentenced March 1.",
+      "implication": "The compromise of HIMARS technical manuals is directly operationally significant given the systems active combat use in Ukraine, and signals that adversary intelligence collection against high-demand US weapons systems is ongoing and successful at the unit level.",
+      "region": "North America",
+      "urgency": "URGENT",
+      "score": 80,
+      "source": "stripes",
+      "link": "https://www.stripes.com/branches/army/2026-11-24/army-sergeant-guilty-secrets-china-23563043.html",
+      "image": "https://www.stripes.com/incoming/xm99k1-joint-base-lewis-mcchord-stripes-file-photo-(1).jpeg/alternates/LANDSCAPE_480/Joint%20Base%20Lewis-McChord%20Stripes%20file%20photo%201.jpeg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "defence",
+      "headline": "Japan steers auto suppliers into defence buildup",
+      "context": "Japanese manufacturer Aster, formerly a Toyota parts supplier, now generates a tenth of its revenue from defence work after pivoting to electric motors that power drones built by US military technology company Anduril, illustrating a broader Tokyo initiative to channel existing auto supply chains into military production as Japan's draft defence budget for fiscal 2026 rises 9.4 percent from 2025. Prime Minister Sanae Takaichi's government views the auto-to-defence conversion as the fastest route to scaling production capacity against threats from nuclear-armed neighbors China, Russia and North Korea, with the Acquisition, Technology and Logistics Agency pairing suppliers with arms firms and offering new funding streams. Japan's big three automakers Toyota, Honda and Nissan have shown little appetite for a defence tilt, with Toyota stating its basic position is that it will not do anything related to defence.",
+      "implication": "Defence investors with exposure to Japans auto supply chain should monitor second-tier parts makers for rapid margin improvement as defence revenue displaces shrinking automotive revenue, creating a structural re-rating opportunity outside traditional prime contractor equities.",
+      "region": "Asia-Pacific",
+      "urgency": "NORMAL",
+      "score": 78,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/asia-pacific/2026/11/24/from-horsepower-to-firepower-japan-draws-auto-suppliers-into-major-arms-buildup/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/2026-11-24T041557Z_3_LYNXNPEMAN09Q_RTROPTP_4_JAPAN-DEFENCE-AUTOS.jpg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "defence",
+      "headline": "Ondas acquires weapons firms worth over $2B after radar pivot",
+      "context": "Ondas, a Nasdaq company that until recently sold radios to freight railroads and reported $7.2 million in revenue for all of 2024, has acquired around twenty weapons firms for more than $2 billion over the past eighteen months, reaching a market value near $4 billion; its latest acquisition was Israeli fuze maker Gate Technologies, purchased alongside its Polish manufacturing partner for up to $390 million. Gate Technologies, founded in 1996, builds electronic fuzes integrated into more than ninety weapon systems including loitering munitions, giving Ondas a position inside a critical component of the drone-to-bomb kill chain.",
+      "implication": "The rapid Ondas roll-up illustrates that defence-critical component makers — particularly those embedded across dozens of weapon platforms — are attracting non-traditional acquirers who can access public capital markets at valuations legacy primes would not pay, compressing the window for traditional defence firms to consolidate the same assets.",
+      "region": "Global",
+      "urgency": "NORMAL",
+      "score": 68,
+      "source": "activistpost",
+      "link": "none",
+      "image": null
+    },
+    {
+      "date": "2026-11-25",
+      "section": "middle_east",
+      "headline": "Poll: Majority of US voters want Iran war ended now",
+      "context": "A University of Maryland and Ipsos Critical Issues Poll of 1,022 US adults found 55 percent want the Iran war ended immediately regardless of terms, with 80 percent of Democrats and 59 percent of independents agreeing; just 21 percent of all respondents favoured continuing on the current path and 18 percent supported escalation. The survey, released Tuesday, also found that a majority of Democratic voters supported Congress withholding funding for military operations and backed an Iran war-funding cutoff even if it risked a government shutdown. Principal investigator Shibley Telhami said he was surprised by the level of support for ending the war regardless of the terms.",
+      "implication": "Sustained majority public opposition to the conflict, cutting across party lines, raises the credibility of a congressional funding fight and directly increases the political risk premium for defence contractors and Gulf-based operators dependent on US military presence continuity.",
+      "region": "United States / Iran",
+      "urgency": "URGENT",
+      "score": 80,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/25/poll-finds-us-voters-want-government-to-end-iran-war-regardless-of-terms?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/04/AP26103713873653-1776138849.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "middle_east",
+      "headline": "Vance and Rubio meet Qatar premier amid Iran uncertainty",
+      "context": "Vice President JD Vance and Secretary of State Marco Rubio met separately on Monday with Qatar's prime minister Sheikh Mohammed bin Abdulrahman bin Jassim Al Thani, as the administration signals uncertainty over pursuing an Iran deal. The meetings follow Trump telling Vance the administration did not need a deal with Iran and instructing him to focus on fraud and crime in Democratic-led cities following the Republican Party's losses in this month's midterm elections, with Vance having blamed voter unhappiness with the Iran war for those losses. Trump said at a Friday news conference that Tehran wants an agreement to end hostilities but not one that is acceptable to him, insisting the US wants to make a real deal, not a fake deal.",
+      "implication": "The continued use of Qatari mediation channels while Trump publicly distances himself from deal-making leaves Gulf allies navigating deep uncertainty about whether a renewed US offensive or a negotiated outcome is more likely, with direct consequences for regional basing and air defence posture.",
+      "region": "Qatar / United States",
+      "urgency": "URGENT",
+      "score": 78,
+      "source": "etvbharat",
+      "link": "https://www.etvbharat.com/en/international/vance-and-rubio-meet-with-qatari-pm-as-uncertainty-mounts-over-trump-intentions-with-iran-enn26112400455",
+      "image": "https://imgs.etvbharat.com/etvbharat/prod-images/24-11-2026/1200-675-28180514-825-28180514-1795485190374.jpg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "middle_east",
+      "headline": "Huckabee: Trump has not ruled out Iran military action",
+      "context": "US Ambassador to Israel Mike Huckabee told an Institute for National Security Studies conference that President Trump has not ruled out further military action against Iran if Tehran refuses to meet three conditions: preventing Iran from acquiring nuclear weapons, barring it from possessing enriched uranium, and preventing it from controlling the Strait of Hormuz. Huckabee said Trump had demonstrated twice in the past year and a half that he is prepared to use military force and is prepared to do so again. The ambassador also said he doubted a move to end US military aid to Israel could take effect before 2028 without congressional intervention, given budgetary commitments already approved.",
+      "implication": "A sitting US ambassador publicly reaffirming the credible threat of renewed strikes sustains elevated risk pricing for Gulf energy infrastructure and keeps defence procurement cycles in the region on an accelerated footing.",
+      "region": "Israel / Iran",
+      "urgency": "URGENT",
+      "score": 75,
+      "source": "israelnationalnews",
+      "link": "https://www.israelnationalnews.com/news/437017",
+      "image": "https://2.a7.org/files/pictures/000/1224190.jpg"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "middle_east",
+      "headline": "Eisenkot secures first coalition partner in Israel",
+      "context": "Gadi Eisenkot's Yashar party announced on Tuesday it had agreed to sign a coalition pact with Avigdor Lieberman's Our Home party, the first alliance of its kind since Israel's October elections, giving Eisenkot a combined 28 seats as he works toward the 61 needed to form a government by his December 6 deadline. Eisenkot holds a 28-day mandate from President Isaac Herzog and could request a 14-day extension; if he fails, Benjamin Netanyahu, who remains caretaker prime minister, would receive an opportunity to try, and if neither succeeds a fresh election would be held. The left-wing Democrats party, which won eight parliament seats, separately said it was suspending talks with Eisenkot after his discussions with Netanyahu's Likud on a possible unity government.",
+      "implication": "The shape of the next Israeli government will determine the trajectory of post-conflict Gaza policy and the terms on which Israel coordinates with US and Gulf partners on Iran, making coalition formation a material variable for regional defence planning.",
+      "region": "Israel",
+      "urgency": "NORMAL",
+      "score": 65,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/25/israels-eisenkot-secures-first-coalition-partner-in-bid-to-form-government?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/getty_6b062d011e-1795566849.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-25",
+      "section": "ai_tech",
+      "headline": "Coast Guard cutter Storis tests drones in Arctic voyage",
+      "context": "The US Coast Guard Cutter Storis, commissioned in August 2025, completed a 133-day voyage around the Arctic Ocean and Alaska, carrying staff from the Coast Guard Research and Development Center and the Pentagon's Defense Innovation Unit to test aerial drones made by Textron and Skyfront in extreme cold conditions. Captain Corey Kerns said the drone trials demonstrated practical uses for the platforms in ice navigation, with the unmanned aerial vehicles helping the ship maintain its intended station by seeing out better and farther than bridge-based piloting alone. Kerns also said the Storis demonstrated a mock refueling capability for a national security cutter, suggesting it could potentially service Navy vessels in the Arctic and save up to a week and a half of transit time off-station.",
+      "implication": "Validated drone performance in high-Arctic conditions aboard a new icebreaker class extends autonomous ISR and navigation capability into a region of rapidly growing strategic competition, with direct implications for allied Arctic surveillance and logistics programmes.",
+      "region": "Arctic / United States",
+      "urgency": "NORMAL",
+      "score": 58,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/naval/2026/11/24/a-new-competition-space-us-coast-guard-takes-icebreaker-on-maiden-voyage-to-the-arctic/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/10086759.jpg"
+    }
+  ]
+}
