@@ -1,0 +1,242 @@
+{
+  "date": "2026-11-27",
+  "executive_summary": "The Federal Communications Commission granted SpaceX conditional authorisation for up to 1 million Starmind satellites designed as orbital data centres, the first US authorisation of its kind, with late 2033 set for the first operational satellite and 2040 for the full constellation; SpaceX separately pledged one newly issued Class A common stock share to every active Trump Account, worth close to $18 billion at the $127.44 Wednesday close. The read is that regulatory headroom, not launch capacity, has been the binding constraint on orbital compute, and holders of listed satellite names should assume a rival with 1 million authorised slots; the American Astronomical Society warning on interference with astronomical research would prove it wrong if it forces conditions that bite before late 2033. The event to watch is the SpaceX corporate share transfer, which SpaceX said would occur next month: completion supports the $127.44 valuation marker, while slippage leaves more of the $18 billion total resting on the Musk contribution after his lockup expires in June 2027.",
+  "market_sentiment": "BULLISH",
+  "geopolitical_risk": "HIGH",
+  "opportunity_of_the_day": "More than 25,000 drone and counter-drone systems were delivered to CENTCOM, and the Pentagon said it will expand fielding pipelines to Pacific Command, European Command and the broader military force; the read is that counter-drone volume, not exquisite systems, is the durable trade, and enactment of the $544 million Senate proposal would confirm it.",
+  "risk_of_the_day": "A strike on a Jazan refinery killed one Nepali worker and triggered a temporary operational shutdown, and Saudi air defences destroyed two ballistic missiles launched by Houthis toward Riyadh; the implication is that energy and airline risk reprices within days, with Etihad flights to Riyadh and Dammam suspended until November 30.",
+  "outlook": {
+    "space": {
+      "signal": "SpaceX said its corporate shares would transfer to every active Trump Account next month, the nearest dated step after the Federal Communications Commission authorisation for up to 1 million Starmind satellites.",
+      "watch": "SpaceX corporate share transfer next month",
+      "bull": "The implication is that a completed transfer at the $127.44 Wednesday close level firms private satellite valuations and strengthens the case that Starmind reaches the 2035 mark of 100,000 satellites.",
+      "bear": "The implication is that slippage past next month, or traction for the American Astronomical Society warning on interference with astronomical research and public access to the night sky, turns the $18 billion figure into a pledge the market cannot underwrite."
+    },
+    "defence": {
+      "signal": "The Senate Appropriations Committee proposal of $544 million for 1,000 additional all-up rounds and 62 launchers under the Low-Cost Containerized Munition, Ground Launch Systems line, released November 16, 2026, has not yet been enacted into law and no date for enactment is given.",
+      "watch": "Senate $544 million containerised munition funding proposal",
+      "bull": "The implication is that enactment creates a funding line from a base that contained no money in the original fiscal year 2027 budget estimate, a clean volume signal for munitions and launcher suppliers.",
+      "bear": "The implication is that if the proposal stays proposed, the only confirmed money in this set remains obligated awards such as the $2.82 billion Boeing contract for 15 KC-46A tankers and the £8.7 billion Babcock Gateway Agreement over five years."
+    },
+    "geo": {
+      "signal": "Etihad Airways extended the suspension of flights to Riyadh and Dammam until November 30 as Houthi attacks against Saudi Arabia and retaliatory strikes in Yemen continued, with the US Mission to the UAE issuing a security alert on threats of further attacks by Iran and Iranian-backed forces.",
+      "watch": "Etihad Saudi flight suspension, November 30",
+      "bull": "The implication is that flights restarting after November 30 would signal a cooling attack tempo and relieve pressure on carriers and Saudi energy operations after the Jazan refinery shutdown.",
+      "bear": "The implication is that a further extension points to sustained airspace disruption and sustained demand for air and missile defence, after Saudi air defences destroyed two ballistic missiles toward Riyadh, a cruise missile and a drone in the Jeddah region."
+    }
+  },
+  "stocks": {
+    "notable_movers": "At its last close ASTS led the session with a gain of approximately 10.3 percent, the strongest single-name move in the brief universe, signalling continued speculative momentum in satellite connectivity names. At their last closes the defence primes LMT, NOC, LHX and RTX all closed modestly higher, consistent with the elevated operational tempo and procurement news across this edition.",
+    "sector_outlook": "Directed-energy, counter-drone and distributed-strike sectors are positioned for continued contract flow as the Middle East operational tempo remains high and NATO members accelerate spending toward and beyond 2 percent of GDP targets."
+  },
+  "stories": [
+    {
+      "date": "2026-11-27",
+      "section": "space",
+      "headline": "FCC grants SpaceX 1M Starmind satellite nod",
+      "context": "The Federal Communications Commission granted SpaceX conditional authorisation to deploy up to 1 million Starmind satellites designed as orbital data centres, the first US authorisation of its kind. FCC Chairman Brendan Carr described the decision as opening a new frontier for computing infrastructure to support US leadership in artificial intelligence, with SpaceX having until late 2033 for its first operational satellite, until 2035 for 100,000 satellites, and until 2040 for the full constellation.",
+      "implication": "Conditional FCC approval for orbital computing infrastructure at this scale repositions SpaceX as a potential dominant provider of space-based AI compute, a market adjacency that no existing defence or commercial satellite operator currently occupies.",
+      "region": "North America",
+      "urgency": "URGENT",
+      "score": 78,
+      "source": "newsbreak",
+      "link": "https://www.newsbreak.com/stocktwits-303303202/5030297562743-spcx-stock-rebounds-from-9-drop-spacex-pledges-shares-to-trump-accounts-and-wins-fcc-starmind-nod",
+      "image": "https://img.particlenews.com/img/id/25UiEg_1HSdxBEQ00"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "space",
+      "headline": "China Shenzhou-24 carries first Pakistani astronaut",
+      "context": "China launched its Shenzhou-24 crewed spacecraft atop a Long March-2F Y24 rocket from Jiuquan Satellite Launch Centre, carrying mission commander Tang Hongbo, flight engineer Wu Yi and Pakistani Air Force pilot Muhammad Zeeshan Ali, the first foreign national in Chinas crewed space programme. Ali, 40, will spend approximately one week aboard the Tiangong space station before returning to Earth on the Shenzhou-23 spacecraft, while his Chinese crewmates remain for a standard six-month rotation.",
+      "implication": "Chinas decision to integrate a Pakistani astronaut into Tiangong operations signals that the station is transitioning from a purely national programme to a soft-power diplomatic instrument, directly competing with ISS partnership models and potentially drawing additional Belt and Road states into Chinese space dependency.",
+      "region": "Asia Pacific",
+      "urgency": "NORMAL",
+      "score": 65,
+      "source": "revoi_in",
+      "link": "https://english.revoi.in/roving-periscope-china-launches-space-mission-with-first-pakistani-astronaut-aboard/",
+      "image": "https://english.revoi.in/wp-content/uploads/2026/11/Screenshot-2026-11-25-175229.png"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "space",
+      "headline": "AFP hit by cyberattack, content platform offline",
+      "context": "Agence France-Presse was struck by a cyberattack beginning at 1:30 am Paris time, forcing the AFP Forum content distribution platform offline; the agency is investigating the perpetrators while offering backup solutions to subscribers. Frances cybersecurity chief Vincent Strubel warned on the same day that France faces an unprecedented level of cybersecurity threats, calling for collective defensive action.",
+      "implication": "A successful intrusion against a Tier 1 global news wire, occurring alongside Frances own cybersecurity chiefs unprecedented threat warning, illustrates the accelerating exposure of critical information infrastructure and raises immediate questions for defence and intelligence customers who rely on AFP feeds for open-source situational awareness.",
+      "region": "Europe",
+      "urgency": "URGENT",
+      "score": 62,
+      "source": "Al Jazeera",
+      "link": "https://www.aljazeera.com/news/2026/11/27/global-news-agency-afp-reports-cyberattack-shuts-down-content-platform?traffic_source=rss",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/11/reuters_6b08c392-1795736466.jpg?resize=1920%2C1440"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "space",
+      "headline": "SpaceX pledges two shares per US child in giveaway",
+      "context": "SpaceX confirmed it would donate one newly issued Class A common stock share to every active Trump Account, while Elon Musk pledged to match that contribution from his personal holdings; SpaceX said its corporate shares would transfer next month while Musks personal contribution would follow after his shareholding lockup expires in June 2027. SpaceX shares closed at $127.44 on Wednesday, placing the total value of the pledged shares close to $18 billion, with the American Astronomical Society warning that the associated satellite constellation could interfere with astronomical research and public access to the night sky.",
+      "implication": "Distributing equity in a privately held launch and infrastructure company to millions of retail-adjacent accounts would create an unprecedented retail stakeholder base in SpaceX, complicating any future IPO pricing and potentially constraining the companys governance flexibility as a capital markets event approaches.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 55,
+      "source": "dailytimes_pk",
+      "link": "https://dailytimes.com.pk/1587414/musk-promises-spacex-shares-to-every-us-child/",
+      "image": "https://dailytimes.com.pk/assets/uploads/2026/11/26/Musk-promises-SpaceX-shares-to-every-US-child.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "defence",
+      "headline": "Pentagon delivers 25,000-plus drone systems to CENTCOM",
+      "context": "The US Department of War announced that more than 25,000 drone and counter-drone systems were delivered to US Central Command by the Direct Reporting Portfolio Manager for Unmanned Systems, with more than 24,000 counter-unmanned aerial systems delivered through Joint Interagency Task Force 401. Owen West, CEO of Project Agincourt and Direct Reporting Portfolio Manager for Unmanned Systems, said the effort moves at the speed of modern combat, and the Pentagon said it will expand fielding pipelines to Pacific Command, European Command, and the broader military force.",
+      "implication": "Delivering 25,000-plus systems to a single combatant command in a compressed timeframe confirms that counter-drone capacity is now a tier-one procurement priority, and suppliers with counter-UAS contracts across multiple military branches are the clearest near-term revenue beneficiaries.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 82,
+      "source": "activistpost",
+      "link": "https://activistpost.com/pentagon-says-over-25000-drone-and-counter-drone-systems-delivered-to-centcom/",
+      "image": "https://activistpost.com/wp-content/uploads/2026/11/counter-drone-systems-unmanned-aerial-systems-centcom-6274-980105ae-original.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "defence",
+      "headline": "Houthi strike kills worker at Jazan refinery",
+      "context": "A strike on a refinery in southern Saudi Arabias Jazan region killed one Nepali worker, injured several others and triggered a temporary operational shutdown, with the Saudi Press Agency citing the energy ministry; the Saudi-led military coalition said it had destroyed a Houthi missile launch platform in Yemens Hodeidah following the attack, saying the platform had been used in the strike on the refinery. Separately, Irans armed forces spokesperson Abolfazl Shekarchi denied Iranian responsibility for a drone attack on a Kuwaiti air defence system that killed two Italian nationals employed by Rheinmetall Italia, stating that no military or offensive operations had been conducted by Iranian forces in the region.",
+      "implication": "Simultaneous strikes on Saudi refinery infrastructure and a Kuwaiti air defence system, regardless of attribution, signal that Gulf energy and military facilities are operating under persistent multi-vector threat conditions that elevate insurance, operational continuity and air defence procurement risk across the entire region.",
+      "region": "Middle East",
+      "urgency": "URGENT",
+      "score": 80,
+      "source": "gulfnews",
+      "link": "https://gulfnews.com/world/mena/middle-east-conflict-saudi-refinery-attack-kills-worker-iran-denies-deadly-kuwait-strike-1.500761343",
+      "image": "https://media.assettype.com/gulfnews%2F2026-11-26%2Fhcnfekgu%2F202611264025437.jpg?w=1200&ar=40%3A21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "defence",
+      "headline": "Meduza estimates 720,000 Russian deaths in Ukraine",
+      "context": "Outlets Mediazona and Meduza, drawing on leaked data from Russias statistical bureau Rosstat, estimate that Russian military fatalities in Ukraine have risen from 490,000 at the end of September to more than 720,000 since the start of the conflict in February 2022, a figure CNN reports equates to roughly one death every four minutes. The Kremlin has not officially updated its death toll since the early start of the war, when then-Defense Minister Sergei Shoigu acknowledged it stood at nearly 6,000.",
+      "implication": "If the Rosstat-derived fatality estimate and the 18.6 trillion ruble weapons expenditure figure are accurate, Russias military-industrial capacity is being consumed faster than its economy can sustainably replace it, which has direct implications for how long Moscow can sustain offensive operations and for the long-term demand signal driving NATO members own rearmament spending.",
+      "region": "Europe",
+      "urgency": "URGENT",
+      "score": 78,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/europe/2026/11/25/estimates-of-russians-killed-in-ukraine-surpass-all-combined-us-war-deaths-since-wwi/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/08/GettyImages-2262811144.jpg.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "defence",
+      "headline": "UK awards Babcock 8B Gateway submarine deal",
+      "context": "The UK Ministry of Defence awarded Babcock a Gateway Agreement to transform submarine maintenance and naval base services at HMNB Clyde and HMNB Devonport, with Babcock describing the agreement as the largest contract in its history, valued at £8.7 billion over five years comprising an £8 billion contract backlog and a £0.7 billion framework. The contract, effective from 1 December, is expected to create around 3,000 new highly skilled roles including 900 jobs and 450 apprentice and graduate opportunities at HMNB Clyde, with around £2.4 billion of spend directed to the wider UK supply chain.",
+      "implication": "A sustained £8 billion commitment to submarine maintenance throughput at Clyde and Devonport directly supports the credibility of the UKs nuclear deterrent cycle and signals that domestic shipyard investment, not just platform procurement, is becoming a primary lever for NATO readiness signalling.",
+      "region": "Europe",
+      "urgency": "NORMAL",
+      "score": 75,
+      "source": "ukdefencejournal_org_uk",
+      "link": "https://ukdefencejournal.org.uk/britain-inks-massive-deal-to-get-submarines-to-sea-faster/",
+      "image": "https://ukdj.ams3.digitaloceanspaces.com/2025/12/astute.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "defence",
+      "headline": "Air Force awards Boeing $2.82B for 15 KC-46A tankers",
+      "context": "The Pentagon awarded Boeing a $2.82 billion contract for 15 additional KC-46A Pegasus tankers, the final production lot under the programmes original 2011 contract, coming in approximately $350 million above the previous 15-aircraft lot which cost $2.47 billion. The Air Force has received 116 KC-46As so far, with 203 on contract or in service, and plans to follow this lot with a Tanker Production Extension programme covering up to 75 additional aircraft, contingent on Boeing resolving known deficiencies.",
+      "implication": "Closing the final lot of the original KC-46 contract while simultaneously planning a Tanker Production Extension of up to 75 aircraft locks Boeing into the US tanker franchise for the next decade, but the per-lot cost trajectory — up $350 million year on year — signals continued margin pressure on a programme that has historically underperformed financially.",
+      "region": "North America",
+      "urgency": "NORMAL",
+      "score": 72,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/industry/techwatch/2026/11/25/us-air-force-buys-final-kc-46-lot-under-boeings-original-tanker-deal/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/210712-F-ZZ000-0009.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "defence",
+      "headline": "UK eyes land role for DragonFire after drone trials",
+      "context": "UK defence minister Luke Pollard confirmed in a written parliamentary answer dated November 23, 2026, that the Ministry of Defence is examining potential land-based applications for the DragonFire high-energy laser weapon, following trials that demonstrated its ability to shoot down high-speed drones at the Hebrides Range. Pollard gave no land trial date, identified no vehicle or mounting platform and announced no purchase decision, with the next disclosed installation milestone remaining the planned fitting to a Royal Navy Type 45 destroyer from 2027.",
+      "implication": "Extending DragonFire from naval to land-based air defence would open a structurally new market for MBDA, Leonardo and QinetiQ as European armies seek low-cost-per-shot alternatives to missile-based counter-drone systems, though the absence of a trial date or platform selection means commercial timelines remain speculative.",
+      "region": "Europe",
+      "urgency": "NORMAL",
+      "score": 60,
+      "source": "armyrecognition",
+      "link": "https://www.armyrecognition.com/news/army-news/2026/uk-eyes-ground-based-role-for-dragonfire-laser-weapon-after-counter-drone-naval-trials",
+      "image": "https://www.armyrecognition.com/images/stories/news/2026/november/UK_Eyes_Ground-Based_Role_for_DragonFire_Laser_Weapon_After_Counter-Drone_Naval_Trials_1920_001.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "middle_east",
+      "headline": "Etihad extends Saudi flight suspension to Nov 30",
+      "context": "Etihad Airways extended the suspension of flights to Riyadh and Dammam until November 30, while multiple Indian and international carriers also prolonged their Saudi flight cancellations as Houthi attacks against Saudi Arabia and retaliatory strikes in Yemen continued. The US Mission to the UAE issued a security alert urging American citizens across the Middle East to exercise heightened vigilance amid threats of further attacks by Iran and Iranian-backed forces, warning that hostilities could escalate rapidly and cause flight cancellations and airspace closures.",
+      "implication": "Prolonged flight disruptions across Gulf airspace reflect the direct commercial and strategic cost of the regional conflict, with implications for defence logistics, troop movements and regional hub airport operations.",
+      "region": "UAE / Saudi Arabia",
+      "urgency": "URGENT",
+      "score": 72,
+      "source": "gulf_insider",
+      "link": "https://www.gulf-insider.com/flying-from-the-uae-fresh-security-warnings/",
+      "image": null
+    },
+    {
+      "date": "2026-11-27",
+      "section": "middle_east",
+      "headline": "Kim urges wider tactical nuclear deployment",
+      "context": "North Korean leader Kim Jong Un, during an inspection of nuclear material production and weapons research facilities, stated that his country should focus on deploying tactical nuclear weapons across multiple domains and that nuclear material production capacity was being systematically expanded, state media KCNA reported. KCNA photographs showed Kim inspecting objects analysts said resembled gas centrifuges used to enrich uranium and miniaturised, standardised tactical nuclear warheads such as the Hwasan-31.",
+      "implication": "Pyongyangs stated push to diversify and deploy tactical nuclear weapons across multiple domains adds pressure on US Indo-Pacific allies and directly complicates any prospects for renewed diplomatic engagement that could affect regional security architecture.",
+      "region": "North Korea",
+      "urgency": "URGENT",
+      "score": 65,
+      "source": "aawsat",
+      "link": "https://english.aawsat.com/node/5345796",
+      "image": "https://static.srpcdigital.com/styles/1200x600/public/2026-11/1892612_0.jpeg.webp?VersionId=JbxrmdBcnqJHPNza5EH4K36paD5cHPyE"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "middle_east",
+      "headline": "CENTCOM praises Syria for drug and arms seizures",
+      "context": "US Central Command head Admiral Brad Cooper praised Syria on November 25 after the Syrian Drug Enforcement Department destroyed 400 million Captagon pills and Syrian Internal Security Forces intercepted weapons sourced from Irans Islamic Revolutionary Guard Corps that were headed for Lebanon. Syrian authorities also separately announced the confiscation of 2.3 million additional Captagon pills in Tartous on November 25, with the progress coming amid reports that the US could begin training Syrian forces in demining operations.",
+      "implication": "Growing US-Syria security cooperation, including weapons interdiction against IRGC supply lines to Lebanon, signals a deepening operational partnership that could open the door to expanded military training and defence cooperation agreements.",
+      "region": "Syria",
+      "urgency": "NORMAL",
+      "score": 60,
+      "source": "longwarjournal",
+      "link": "https://www.longwarjournal.org/archives/2026/11/centcom-praises-syria-for-thwarting-drug-and-weapons-smuggling.php",
+      "image": "https://www.longwarjournal.org/wp-content/uploads/2026/11/captagon-seizure-Nov25-1000.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "ai_tech",
+      "headline": "Sahel insurgents adopt FPV drone tactics from Ukraine",
+      "context": "Tuareg-led militants and an al-Qaeda affiliate in Mali used low-cost first-person-view drones packed with explosives in coordinated attacks in April, with video evidence verified by Reuters showing drones hitting Russian and Malian personnel at Sevare-Mopti airport, among other targets. Previously unpublished Armed Conflict Location and Event Data project figures recorded 187 attacks by JNIM from 2023 through mid-November, with a combined figure of 235 across four West African countries when including operations by the Azawad Liberation Front and its predecessors.",
+      "implication": "The rapid proliferation of FPV drone attack tactics from Ukraine to the Sahel demonstrates that low-cost autonomous strike capability is now accessible to non-state actors globally, expanding the addressable market for counter-drone systems well beyond conventional military theatres.",
+      "region": "Mali / West Africa",
+      "urgency": "NORMAL",
+      "score": 50,
+      "source": "axadletimes",
+      "link": "https://axadletimes.com/ax-world/african-insurgents-take-skies-aerial-threats.html5",
+      "image": "https://axadletimes.com/wp-content/uploads/2026/11/African-Insurgents-Take-to-the-Skies-as-Aerial-Threats-Expand.webp"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "investment",
+      "headline": "Italy claims 2.8 percent of GDP on defence in 2026",
+      "context": "Italian officials told Defense News that Rome reached a combined spending total of 2.8 percent of GDP on defence and domestic security in 2026, fulfilling a commitment made at the July NATO summit, though the figure does not appear explicitly in the late-issued national budget. Core defence spending, extrapolated from budget figures, reached €23.6 billion, up from €22.49 billion the prior year, with procurement spending calculated at €9.33 billion from the defence ministry and a broader NATO-counted total of €48.31 billion equal to 2.1 percent of GDP.",
+      "implication": "Italys claimed milestone on the NATO spending target, if accepted by allies, adds political credibility to the alliances 5 percent by 2035 push and signals continued growth in Italian procurement budgets that defence primes should factor into their European pipeline planning.",
+      "region": "Italy",
+      "urgency": "NORMAL",
+      "score": 70,
+      "source": "Defense News",
+      "link": "https://www.defensenews.com/global/europe/2026/11/25/buried-in-italys-budget-officials-see-rome-meeting-nato-spending-target/",
+      "image": "https://one.sightlinemg.com/wp-content/uploads/2026/11/GettyImages-2278905649.jpg"
+    },
+    {
+      "date": "2026-11-27",
+      "section": "investment",
+      "headline": "Senate proposes $544M for containerised missiles",
+      "context": "The US Senate Appropriations Committee included a proposal in its fiscal year 2027 defence funding bill released November 16, 2026, allocating $544 million for 1,000 additional all-up rounds and 62 launchers under the Low-Cost Containerized Munition, Ground Launch Systems line, with the original fiscal year 2027 budget estimate containing no funding under that line. The proposed increase has not yet been enacted into law and does not constitute a confirmed procurement contract or delivery order.",
+      "implication": "The $544 million containerised munitions proposal reflects a deliberate US strategy to build affordable, scalable strike capacity that could benefit smaller defence primes and non-traditional suppliers competing for disaggregated weapons production contracts.",
+      "region": "United States",
+      "urgency": "NORMAL",
+      "score": 60,
+      "source": "armyrecognition",
+      "link": "https://www.armyrecognition.com/news/army-news/2026/u-s-senate-proposes-544m-for-low-cost-containerized-missiles-and-launchers-to-expand-distributed-strikes",
+      "image": "https://www.armyrecognition.com/images/stories/news/2026/november/U.S.%20Senate%20Proposes%20544M%20for%20Low-Cost%20Containerized%20Missiles%20and%20Launchers%20to%20Expand%20Distributed%20Strikes.jpg"
+    }
+  ]
+}
